@@ -1,0 +1,678 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="Precocity — the ten-year build · uxward">
+  <style>
+    .breadcrumb { padding: var(--space-8) 0 var(--space-7); }
+    .breadcrumb a {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      text-decoration: none;
+    }
+    .breadcrumb a:hover { color: var(--ink); }
+
+    .title-block { padding: var(--space-7) 0 var(--space-10); }
+    .case-num {
+      font-family: var(--font-serif);
+      font-feature-settings: "tnum" 1;
+      font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 1;
+      font-weight: 300;
+      font-size: 132px;
+      line-height: 0.9;
+      letter-spacing: -0.03em;
+      color: var(--signature);
+      margin: 0 0 var(--space-7);
+      display: block;
+    }
+    .case-title {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: clamp(56px, 7.4vw, 104px);
+      line-height: 0.96;
+      letter-spacing: -0.035em;
+      font-variation-settings: 'opsz' 144, 'SOFT' 30;
+      color: var(--ink);
+      margin: 0;
+      max-width: 1080px;
+    }
+    .case-title em {
+      font-style: italic; font-weight: 400;
+      font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
+    }
+    .case-deck {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 300;
+      font-size: 24px;
+      line-height: 1.42;
+      color: var(--body);
+      margin: var(--space-8) 0 0;
+      max-width: 720px;
+      font-variation-settings: 'opsz' 36, 'SOFT' 80, 'WONK' 1;
+    }
+
+    .meta-strip {
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      padding: var(--space-6) 0;
+      margin-top: var(--space-9);
+    }
+    .meta-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: var(--space-7);
+    }
+    .meta-row .cell .label {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-bottom: 6px;
+    }
+    .meta-row .cell .value {
+      font-family: var(--font-serif);
+      font-size: 17px;
+      color: var(--ink);
+      font-variation-settings: 'opsz' 24, 'SOFT' 30;
+    }
+
+    section.cs {
+      padding: var(--space-10) 0 var(--space-9);
+      border-top: 1px solid var(--rule);
+    }
+    section.cs:first-of-type { border-top: 0; }
+    .cs-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--signature);
+      margin-bottom: var(--space-7);
+    }
+    .cs-eyebrow .num {
+      color: var(--ink);
+      margin-right: 10px;
+      letter-spacing: 0.18em;
+    }
+    .cs-head {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: 44px;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin: 0 0 var(--space-8) 0;
+      font-variation-settings: 'opsz' 96, 'SOFT' 30;
+      max-width: 720px;
+    }
+    .cs-head em {
+      font-style: italic; font-weight: 400;
+      font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1;
+    }
+    .cs-prose p {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: 19px;
+      line-height: 1.65;
+      color: var(--body);
+      max-width: 660px;
+      margin: 0 0 var(--space-6);
+    }
+    .cs-prose p strong { font-weight: 500; color: var(--ink); }
+    .cs-prose p em { font-style: italic; }
+
+    .cs-pullquote {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 300;
+      font-size: 28px;
+      line-height: 1.35;
+      color: var(--ink);
+      border-left: 3px solid var(--signature);
+      padding-left: var(--space-7);
+      margin: var(--space-9) 0;
+      max-width: 620px;
+      font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1;
+    }
+
+    .choices {
+      margin: var(--space-8) 0 var(--space-7);
+      border-top: 1px solid var(--rule);
+    }
+    .choice-row {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: var(--space-7);
+      padding: var(--space-5) 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .choice-row .key {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      padding-top: 4px;
+    }
+    .choice-row .val {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      line-height: 1.55;
+      color: var(--body);
+      max-width: 580px;
+    }
+    .choice-row .val strong { font-weight: 500; color: var(--ink); }
+
+    .artifacts {
+      margin-top: var(--space-7);
+      display: grid;
+      gap: var(--space-10);
+    }
+    .artifact .frame {
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      aspect-ratio: 16 / 9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-3);
+      color: var(--tertiary);
+      padding: var(--space-7);
+      text-align: center;
+    }
+    .artifact .frame .placeholder-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+    }
+    .artifact .frame .placeholder-detail {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 17px;
+      color: var(--body);
+      max-width: 480px;
+      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
+    }
+    .artifact .caption-grid {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: var(--space-7);
+      align-items: baseline;
+      margin-top: var(--space-6);
+    }
+    .artifact .caption-grid .num {
+      font-family: var(--font-serif);
+      font-feature-settings: "tnum" 1;
+      font-variation-settings: 'opsz' 96, 'SOFT' 30, 'WONK' 1;
+      font-weight: 300;
+      font-size: 36px;
+      line-height: 1;
+      color: var(--ink);
+    }
+    .artifact .caption-grid h4 {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: 22px;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin: 0 0 8px 0;
+      font-variation-settings: 'opsz' 36, 'SOFT' 50;
+    }
+    .artifact .caption-grid p.cap {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 16.5px;
+      line-height: 1.5;
+      color: var(--body);
+      margin: 0;
+      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
+    }
+
+    .outcomes-bleed {
+      background: var(--signature);
+      color: #FFFFFF;
+      padding: 128px 0 120px;
+    }
+    .outcomes-bleed .cs-eyebrow { color: rgba(255,255,255,0.78); }
+    .outcomes-bleed .cs-eyebrow .num { color: #FFFFFF; }
+    .outcomes-bleed .cs-head {
+      color: #FFFFFF;
+      font-size: clamp(48px, 6vw, 80px);
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+      max-width: 980px;
+    }
+    .outcomes-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-9);
+      margin-top: var(--space-10);
+      border-top: 1px solid rgba(255,255,255,0.28);
+      padding-top: var(--space-8);
+    }
+    .stat .label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.78);
+      margin-bottom: var(--space-4);
+    }
+    .stat .figure {
+      font-family: var(--font-serif);
+      font-feature-settings: "tnum" 1;
+      font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 1;
+      font-weight: 300;
+      font-size: 64px;
+      line-height: 1;
+      letter-spacing: -0.025em;
+      color: #FFFFFF;
+      margin-bottom: var(--space-4);
+    }
+    .stat .desc {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 16.5px;
+      line-height: 1.5;
+      color: #FFFFFF;
+      max-width: 320px;
+      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
+    }
+
+    .prevnext {
+      border-top: 2px solid var(--ink);
+      padding: var(--space-9) 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-9);
+    }
+    .pn-cell .label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-bottom: var(--space-4);
+    }
+    .pn-cell a {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: 32px;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      text-decoration: none;
+      font-variation-settings: 'opsz' 96, 'SOFT' 30;
+      display: block;
+    }
+    .pn-cell a:hover { color: var(--tertiary); }
+    .pn-cell a em { font-style: italic; font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1; }
+    .pn-cell.next { text-align: right; }
+
+    .back-all {
+      padding: var(--space-9) 0 var(--space-10);
+      text-align: center;
+      border-top: 1px solid var(--rule);
+    }
+    .back-all a {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .back-all a:hover { color: var(--tertiary); }
+
+    @media (max-width: 720px) {
+      .meta-row { grid-template-columns: 1fr 1fr; }
+      .outcomes-stats { grid-template-columns: 1fr; }
+      .prevnext { grid-template-columns: 1fr; }
+      .pn-cell.next { text-align: left; }
+      .choice-row { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <div class="container breadcrumb">
+    <div class="grid">
+      <div class="marker">§ ↩</div>
+      <div><a href="/work">— Back to all work</a></div>
+    </div>
+  </div>
+
+  <div class="container title-block">
+    <div class="grid">
+      <div class="marker">§ 00</div>
+      <div>
+        <span class="case-num">01</span>
+        <h1 class="case-title">Precocity — the <em>ten-year</em> build.</h1>
+        <p class="case-deck">
+          Standing up and growing the design practice as a consultant over ten years — from a
+          two-person discipline inside a data-engineering firm to the team that shipped against
+          eight-figure enterprise contracts.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="meta-strip">
+      <div class="grid">
+        <div class="marker">§ ✻</div>
+        <div class="meta-row">
+          <div class="cell">
+            <div class="label">Client</div>
+            <div class="value">Precocity</div>
+          </div>
+          <div class="cell">
+            <div class="label">Role</div>
+            <div class="value">Chief Experience Officer</div>
+          </div>
+          <div class="cell">
+            <div class="label">Timeframe</div>
+            <div class="value">2016 — Present</div>
+          </div>
+          <div class="cell">
+            <div class="label">Capacity</div>
+            <div class="value">Solo, then 6-person team</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="cs">
+    <div class="container">
+      <div class="grid">
+        <div class="marker">§ 01</div>
+        <div>
+          <div class="cs-eyebrow"><span class="num">01</span>— Context —</div>
+          <h2 class="cs-head">A data-engineering firm, no design <em>practice yet.</em></h2>
+          <div class="cs-prose">
+            <p>
+              I joined Precocity in 2016 as the first design hire. The firm had a strong
+              data-engineering reputation and a roster of Fortune 500 clients, but every
+              engagement was bottlenecked at the moment a client asked, <em>what does this
+              actually look like?</em> The answer, until then, was a slide.
+            </p>
+            <p>
+              There was no design system, no research function, no usability practice, and no
+              one with a job title containing the word "design." The closest thing was a
+              senior PM who liked Sketch.
+            </p>
+            <p>
+              The hiring brief was open-ended: <strong>build the design discipline, however that
+              means.</strong> No team to inherit, no tooling, no playbook. The first six months
+              were spent designing the practice itself.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs">
+    <div class="container">
+      <div class="grid">
+        <div class="marker">§ 02</div>
+        <div>
+          <div class="cs-eyebrow"><span class="num">02</span>— The problem, named clearly —</div>
+          <h2 class="cs-head">Precocity could win the data work, then <em>lose the deal</em> at the screen.</h2>
+          <div class="cs-prose">
+            <p>
+              The business problem was specific and measurable. Precocity competed for enterprise
+              data engagements against the big four; technically, it was as strong as any of them.
+              But three out of every four pitches were going to the firm whose deck included
+              <em>credible-looking interfaces</em>, not the firm with the better pipeline.
+            </p>
+            <p>
+              Inside delivery, the same gap showed up downstream. Clients accepted the data
+              architecture and rejected the dashboards built on top of it. Engagements stalled at
+              UAT. Renewal rates trailed the contracts where a designer had been on the bench
+              from week one.
+            </p>
+            <blockquote class="cs-pullquote">
+              The firm wasn't losing on data work. It was losing on the screen the data finally got to.
+            </blockquote>
+            <p>
+              The problem statement, when I finally wrote it down on the back of a deck three
+              months in: <strong>Precocity needs the design practice to be load-bearing in sales
+              and load-bearing in delivery, and it needs both inside a year.</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs">
+    <div class="container">
+      <div class="grid">
+        <div class="marker">§ 03</div>
+        <div>
+          <div class="cs-eyebrow"><span class="num">03</span>— The approach —</div>
+          <h2 class="cs-head">Build the practice the firm could <em>defend</em> — not the one I'd want.</h2>
+          <div class="cs-prose">
+            <p>
+              The instinct was to hire a five-person team and stand up a research function. I
+              didn't. A consultancy bills hours; a design org that can't tie to a billable line
+              dies in the next downturn. The version I built had to survive a bad quarter, not a
+              good one.
+            </p>
+            <p>
+              The first year was three things: a working sales artifact (a 10-day discovery
+              package the firm could sell into any pitch), a delivery template (a repeatable
+              design phase that slotted into every engagement), and a single junior designer
+              I could grow rather than a senior I'd have to defend.
+            </p>
+            <p>
+              The system I built deliberately <em>looked</em> like the firm's existing work — same
+              voice, same materials, same restraint. Designers don't get tenure at consultancies
+              by being precious about their craft.
+            </p>
+          </div>
+
+          <div class="choices">
+            <div class="choice-row">
+              <div class="key">— Chose to —</div>
+              <div class="val">Tie every design hire to a billable engagement. <strong>The practice grew at the rate the book of business grew.</strong></div>
+            </div>
+            <div class="choice-row">
+              <div class="key">— Chose to —</div>
+              <div class="val">Standardize a 10-day discovery package, billable, sold inside every pitch.</div>
+            </div>
+            <div class="choice-row">
+              <div class="key">— Chose to —</div>
+              <div class="val">Run research lean — five-user studies, no panels, no labs.</div>
+            </div>
+            <div class="choice-row">
+              <div class="key">— Chose <strong>not</strong> to —</div>
+              <div class="val">Build a brand-design or marketing-design capability. The firm's growth was on product, not brand.</div>
+            </div>
+            <div class="choice-row">
+              <div class="key">— Chose <strong>not</strong> to —</div>
+              <div class="val">Hire a senior IC to "raise the bar." A senior would have walked in eighteen months. I needed a team that compounded.</div>
+            </div>
+            <div class="choice-row">
+              <div class="key">— Chose <strong>not</strong> to —</div>
+              <div class="val">Build a design system as a first project. Design systems at consultancies are vanity. We made one when a client paid for it, in year four.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs">
+    <div class="container">
+      <div class="grid">
+        <div class="marker">§ 04</div>
+        <div>
+          <div class="cs-eyebrow"><span class="num">04</span>— The work itself —</div>
+          <h2 class="cs-head">Three artifacts, ten years of <em>compounding</em>.</h2>
+          <div class="cs-prose" style="margin-bottom: var(--space-9);">
+            <p>
+              The honest version of "the work" at a consultancy is that no single artifact is the
+              hero. The practice is the artifact. These three are the ones I'd defend in a room.
+            </p>
+          </div>
+
+          <div class="artifacts">
+            <div class="artifact">
+              <div class="frame">
+                <span class="placeholder-label">Artifact 01 / 03</span>
+                <span class="placeholder-detail">
+                  Two-page spread of the discovery template — left page is the problem framing
+                  worksheet, right is the day-by-day cadence, both set in the firm's house style.
+                </span>
+              </div>
+              <div class="caption-grid">
+                <span class="num">01</span>
+                <div class="body">
+                  <h4>The 10-day discovery package</h4>
+                  <p class="cap">
+                    Sold inside 47 pitches by year three. Won 31. Designed to be presented by an
+                    account exec who'd never met a designer — every page a single decision a
+                    client could approve or reject in a meeting.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="artifact">
+              <div class="frame">
+                <span class="placeholder-label">Artifact 02 / 03</span>
+                <span class="placeholder-detail">
+                  Screen of the dashboard pattern library — six chart types, three layout
+                  templates, the one approved table, set against the canvas the firm shipped.
+                </span>
+              </div>
+              <div class="caption-grid">
+                <span class="num">02</span>
+                <div class="body">
+                  <h4>The "house dashboard" pattern library</h4>
+                  <p class="cap">
+                    Built in year four for a financial-services client; reused, with the client's
+                    blessing, on twelve subsequent engagements. The library that finally made the
+                    firm's dashboards stop being lost at UAT.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="artifact">
+              <div class="frame">
+                <span class="placeholder-label">Artifact 03 / 03</span>
+                <span class="placeholder-detail">
+                  Org chart at year-one, year-five, and year-ten — same wall-chart treatment,
+                  showing the practice scaling from one designer to a six-person team without
+                  flattening into a managerial layer.
+                </span>
+              </div>
+              <div class="caption-grid">
+                <span class="num">03</span>
+                <div class="body">
+                  <h4>The team, drawn at three points in time</h4>
+                  <p class="cap">
+                    The artifact I'm proudest of, and the one with the smallest visible footprint.
+                    A team that scaled six-fold with one promotion, no churn through three
+                    recessions, and a senior IC track that didn't end in management.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs outcomes-bleed">
+    <div class="container">
+      <div class="grid">
+        <div class="marker" style="color: rgba(255,255,255,0.78);">§ 05</div>
+        <div>
+          <div class="cs-eyebrow"><span class="num">05</span>— Outcomes —</div>
+          <h2 class="cs-head">
+            Design went from cost center to <em>line item on every engagement</em> the firm signed.
+          </h2>
+          <div class="outcomes-stats">
+            <div class="stat">
+              <div class="label">— Pitches involving design —</div>
+              <div class="figure">3 → 47</div>
+              <div class="desc">Per year, between 2016 and 2023.</div>
+            </div>
+            <div class="stat">
+              <div class="label">— Win rate, design-led pitches —</div>
+              <div class="figure">66%</div>
+              <div class="desc">Versus 31% for engineering-only pitches over the same window.</div>
+            </div>
+            <div class="stat">
+              <div class="label">— Practice headcount —</div>
+              <div class="figure">1 → 6</div>
+              <div class="desc">Zero unplanned departures across ten years.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs">
+    <div class="container">
+      <div class="grid">
+        <div class="marker">§ 06</div>
+        <div>
+          <div class="cs-eyebrow"><span class="num">06</span>— Reflection —</div>
+          <h2 class="cs-head">What I'd do differently. What I <em>carried forward.</em></h2>
+          <div class="cs-prose">
+            <p>
+              The decision I'd reverse, knowing what I know now: I waited too long to formalize a
+              research function. By the time we hired our first dedicated researcher in year six,
+              the design team had absorbed research as a side-of-desk discipline, and the muscle
+              never fully separated. The work was good; it would have been better with someone
+              whose whole job was to ask the inconvenient questions.
+            </p>
+            <p>
+              The thing that surprised me: <em>how much of the practice was operational, not
+              creative.</em> The artifact that moved the firm wasn't a polished UI — it was a
+              billable-discovery template with a defensible day-by-day. The instinct to spend the
+              first six months on a design system would have killed the practice in its first year.
+            </p>
+            <p>
+              What I carried forward, and still operate from: <strong>build the version that can
+              survive a bad quarter, not the version you'd put on Dribbble.</strong> The Speakeazy
+              build is the same instinct applied with different tools. So is FORGE. The medium
+              changed; the discipline didn't.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="prevnext">
+      <div class="pn-cell prev">
+        <div class="label">— Previous case —</div>
+        <a href="/work">— FORGE — <em>context to a complete site build</em></a>
+      </div>
+      <div class="pn-cell next">
+        <div class="label">— Next case —</div>
+        <a href="/work"><em>Speakeazy</em> — dialogue attribution for voice actors —</a>
+      </div>
+    </div>
+
+    <div class="back-all">
+      <a href="/work">— Back to all 7 selected pieces →</a>
+    </div>
+  </div>
+</Base>

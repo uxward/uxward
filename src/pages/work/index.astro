@@ -1,0 +1,499 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="Work · uxward">
+  <style>
+    .top { padding: var(--space-8) 0 var(--space-7); }
+    .top a.back {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      text-decoration: none;
+    }
+    .top a.back:hover { color: var(--ink); }
+
+    .page-title { padding: var(--space-9) 0; }
+    .page-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-bottom: var(--space-7);
+    }
+    .page-h {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: clamp(48px, 6.4vw, 96px);
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      font-variation-settings: 'opsz' 144, 'SOFT' 30;
+      color: var(--ink);
+      margin: 0;
+    }
+    .page-h em {
+      font-style: italic; font-weight: 400;
+      font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
+    }
+    .page-intro {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 300;
+      font-size: 22px;
+      line-height: 1.5;
+      color: var(--body);
+      max-width: 660px;
+      margin: var(--space-7) 0 0;
+      font-variation-settings: 'opsz' 36, 'SOFT' 80, 'WONK' 1;
+    }
+
+    .slate { padding: var(--space-7) 0 var(--space-9); }
+
+    a.hero {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      padding: var(--space-9) 0 var(--space-10);
+      border-top: 2px solid var(--ink);
+      border-bottom: 1px solid var(--rule);
+      transition: opacity var(--t-fast) ease;
+    }
+    a.hero .hero-head {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: var(--space-7);
+      align-items: start;
+    }
+    a.hero .num {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: 96px;
+      line-height: 0.9;
+      letter-spacing: -0.03em;
+      color: var(--signature);
+      font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 1;
+      font-feature-settings: 'tnum' 1;
+    }
+    a.hero .num small {
+      display: block;
+      margin-top: var(--space-4);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--signature);
+      font-feature-settings: normal;
+    }
+    a.hero .hero-body { padding-top: 8px; }
+    a.hero .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--signature);
+      margin-bottom: var(--space-6);
+    }
+    a.hero h2.hero-title {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: clamp(40px, 5.4vw, 72px);
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      font-variation-settings: 'opsz' 144, 'SOFT' 30;
+      margin: 0;
+      max-width: 880px;
+      transition: color var(--t-fast) ease;
+    }
+    a.hero h2.hero-title em {
+      font-style: italic; font-weight: 400;
+      font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
+    }
+    a.hero .hero-deck {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 300;
+      font-size: 22px;
+      line-height: 1.45;
+      color: var(--body);
+      max-width: 660px;
+      margin: var(--space-7) 0 0;
+      font-variation-settings: 'opsz' 36, 'SOFT' 80, 'WONK' 1;
+    }
+    a.hero .hero-pullout {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(24px, 2.8vw, 32px);
+      line-height: 1.25;
+      color: var(--ink);
+      border-left: 3px solid var(--signature);
+      padding: 4px 0 4px var(--space-6);
+      margin: var(--space-9) 0 0;
+      max-width: 720px;
+      font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1;
+    }
+    a.hero .hero-meta {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: baseline;
+      gap: var(--space-7);
+      margin-top: var(--space-9);
+      padding-top: var(--space-6);
+      border-top: 1px solid var(--rule);
+    }
+    a.hero .hero-meta .stamps {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+    }
+    a.hero .hero-meta .stamps span + span::before {
+      content: " · ";
+      color: var(--rule);
+      padding: 0 8px;
+    }
+    a.hero .hero-meta .open {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      color: var(--ink);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-thickness: 1px;
+    }
+    a.hero:hover h2.hero-title { color: var(--signature); }
+    a.hero:hover .open { color: var(--signature); }
+
+    a.case {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      padding: var(--space-8) 0;
+      border-bottom: 1px solid var(--rule);
+      transition: opacity var(--t-fast) ease;
+    }
+    a.case .row {
+      display: grid;
+      grid-template-columns: 200px 1fr 240px;
+      gap: var(--space-7);
+      align-items: start;
+    }
+    a.case .num {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: 56px;
+      line-height: 0.9;
+      letter-spacing: -0.025em;
+      color: var(--tertiary);
+      font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 1;
+      font-feature-settings: 'tnum' 1;
+      padding-top: 6px;
+    }
+    a.case .body { padding-top: 4px; }
+    a.case h3.case-title {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: 34px;
+      line-height: 1.08;
+      letter-spacing: -0.018em;
+      color: var(--ink);
+      font-variation-settings: 'opsz' 96, 'SOFT' 30;
+      margin: 0;
+      max-width: 640px;
+      transition: color var(--t-fast) ease;
+    }
+    a.case h3.case-title em {
+      font-style: italic; font-weight: 400;
+      font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1;
+    }
+    a.case .case-deck {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 18px;
+      line-height: 1.55;
+      color: var(--body);
+      max-width: 580px;
+      margin: var(--space-5) 0 0;
+      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
+    }
+    a.case .meta {
+      padding-top: 22px;
+      text-align: right;
+    }
+    a.case .meta .stamps {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      line-height: 1.7;
+    }
+    a.case .meta .open {
+      margin-top: var(--space-5);
+      font-family: var(--font-serif);
+      font-size: 17px;
+      color: var(--ink);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-thickness: 1px;
+      display: inline-block;
+    }
+    a.case:hover h3.case-title { color: var(--tertiary); }
+    a.case:hover .num { color: var(--ink); }
+    a.case:hover .open { color: var(--tertiary); }
+
+    .pivot {
+      padding: var(--space-10) 0 var(--space-9);
+      border-top: 1px solid var(--rule);
+    }
+    .pivot-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-bottom: var(--space-7);
+    }
+    .pivot-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-9);
+    }
+    .pivot-card {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      padding-top: var(--space-5);
+      border-top: 1px solid var(--rule);
+    }
+    .pivot-card .key {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-bottom: var(--space-5);
+    }
+    .pivot-card .label {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: 32px;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      font-variation-settings: 'opsz' 96, 'SOFT' 30;
+    }
+    .pivot-card .label em {
+      font-style: italic; font-weight: 400;
+      font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1;
+    }
+    .pivot-card .why {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 17px;
+      line-height: 1.5;
+      color: var(--body);
+      margin: var(--space-4) 0 0;
+      max-width: 460px;
+      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
+    }
+    .pivot-card:hover .label { color: var(--tertiary); }
+
+    @media (max-width: 900px) {
+      a.case .row { grid-template-columns: 80px 1fr; }
+      a.case .meta { text-align: left; padding-top: var(--space-5); }
+      a.hero .hero-head { grid-template-columns: 1fr; }
+      .pivot-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <div class="container top">
+    <div class="grid">
+      <div class="marker">§ ↩</div>
+      <div><a class="back" href="/">— Back home</a></div>
+    </div>
+  </div>
+
+  <div class="container page-title">
+    <div class="grid">
+      <div class="marker">§ 00</div>
+      <div>
+        <div class="page-eyebrow">— Work · The selected slate —</div>
+        <h1 class="page-h">The work, <em>arranged by what it proves.</em></h1>
+        <p class="page-intro">
+          The curated set, not a complete archive. Six pieces across twenty-five years —
+          the ones I most stand behind. The Precocity case is the load-bearing one; the
+          others are arranged by what they prove, not when they shipped.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <section class="container slate">
+
+    <a class="hero" href="/work/precocity" aria-label="Open the Precocity case study">
+      <div class="hero-head">
+        <div class="num">
+          01
+          <small>— Hero of the slate —</small>
+        </div>
+        <div class="hero-body">
+          <div class="hero-eyebrow">— 2014 — 2024 · Chief Experience Officer · Ten years —</div>
+          <h2 class="hero-title">Built the design practice at <em>Precocity</em> from one designer to seven.</h2>
+          <p class="hero-deck">
+            Joined a data-and-analytics consultancy as the first design hire. Spent ten years
+            arguing — first for a seat, then for a team, then for the senior judgment to use
+            both well. Left a discipline that closed the firm's enterprise contracts.
+          </p>
+          <blockquote class="hero-pullout">
+            Win rate on pitches with design embedded: <em>three out of forty-seven, to thirty-one out of forty-seven, in eighteen months.</em>
+          </blockquote>
+          <div class="hero-meta">
+            <div class="stamps">
+              <span>— Practice build —</span>
+              <span>— 1 → 7 designers —</span>
+              <span>— $14M ARR pipeline influenced —</span>
+            </div>
+            <span class="open">— Read the full case →</span>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <a class="case" href="#">
+      <div class="row">
+        <div class="num">02</div>
+        <div class="body">
+          <h3 class="case-title">Speakeazy — <em>shipped, alone, to real users.</em></h3>
+          <p class="case-deck">
+            AI-native dialogue attribution and character analysis for voice actors and
+            audiobook narrators. Solo build, real users, real revenue, shipped 2025.
+          </p>
+        </div>
+        <div class="meta">
+          <div class="stamps">
+            <div>— Founder —</div>
+            <div>— 2025 — Present —</div>
+            <div>— Solo builder —</div>
+          </div>
+          <span class="open">— Open →</span>
+        </div>
+      </div>
+    </a>
+
+    <a class="case" href="#">
+      <div class="row">
+        <div class="num">03</div>
+        <div class="body">
+          <h3 class="case-title">FORGE — <em>brief to website, end-to-end.</em></h3>
+          <p class="case-deck">
+            The most ambitious of the AI-era tools. Takes a written brief and produces a
+            complete, deployable site — with the brand decisions, the type system, and the
+            content scaffold all defended in writing. Public alpha, late 2026.
+          </p>
+        </div>
+        <div class="meta">
+          <div class="stamps">
+            <div>— Founder —</div>
+            <div>— 2025 — Present —</div>
+            <div>— Solo builder —</div>
+          </div>
+          <span class="open">— Open →</span>
+        </div>
+      </div>
+    </a>
+
+    <a class="case" href="#">
+      <div class="row">
+        <div class="num">04</div>
+        <div class="body">
+          <h3 class="case-title">Slalom — <em>the same instinct, a different pitch.</em></h3>
+          <p class="case-deck">
+            Senior UX consultant inside an enterprise consultancy. Stood up the design
+            practice for the financial-services vertical: hired the first three designers,
+            wrote the engagement playbook, sold work without slides for the first time.
+          </p>
+        </div>
+        <div class="meta">
+          <div class="stamps">
+            <div>— Senior consultant —</div>
+            <div>— 2010 — 2013 —</div>
+            <div>— Team of 3 —</div>
+          </div>
+          <span class="open">— Open →</span>
+        </div>
+      </div>
+    </a>
+
+    <a class="case" href="#">
+      <div class="row">
+        <div class="num">05</div>
+        <div class="body">
+          <h3 class="case-title">Wirebound — <em>the founding team, the first credential.</em></h3>
+          <p class="case-deck">
+            Designer #2 on the founding team of an e-commerce platform built before
+            "e-commerce" was a category anyone defended. Shipped twice; survived neither
+            winter. The reason every later job started with "build the practice."
+          </p>
+        </div>
+        <div class="meta">
+          <div class="stamps">
+            <div>— Founding designer —</div>
+            <div>— 2001 — 2002 —</div>
+            <div>— Team of 9 —</div>
+          </div>
+          <span class="open">— Open →</span>
+        </div>
+      </div>
+    </a>
+
+    <a class="case" href="#">
+      <div class="row">
+        <div class="num">06</div>
+        <div class="body">
+          <h3 class="case-title">Verity, RAD, &amp; the Markdown plugin — <em>the small charming proofs.</em></h3>
+          <p class="case-deck">
+            Three small artifacts that argue the same thing as the big ones, in a single
+            session of work each. Verity is a research-citation linter. RAD is a rapid
+            artifact descriptor. The Markdown plugin is what Precocity uses internally.
+          </p>
+        </div>
+        <div class="meta">
+          <div class="stamps">
+            <div>— Personal &amp; team —</div>
+            <div>— 2024 — Present —</div>
+            <div>— Solo &amp; small team —</div>
+          </div>
+          <span class="open">— Open →</span>
+        </div>
+      </div>
+    </a>
+
+  </section>
+
+  <section class="container">
+    <div class="pivot">
+      <div class="grid">
+        <div class="marker">§ ↗</div>
+        <div>
+          <div class="pivot-eyebrow">— If the work isn't enough —</div>
+          <div class="pivot-grid">
+            <a class="pivot-card" href="/writing">
+              <div class="key">— Writing —</div>
+              <div class="label">Quarterly essays, <em>no newsletter.</em></div>
+              <div class="why">Long-form notes on design leadership, restraint, and the AI-era discipline. Twelve pieces and counting.</div>
+            </a>
+            <a class="pivot-card" href="/about">
+              <div class="key">— About —</div>
+              <div class="label">The longer <em>recruiter-deep version.</em></div>
+              <div class="why">Twenty-five years told plainly. The bio, the timeline, the things I'm currently considering.</div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

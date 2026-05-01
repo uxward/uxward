@@ -1,0 +1,433 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="The case against the design system you're about to build · uxward">
+  <style>
+    .read-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 2px;
+      width: 0%;
+      background: var(--signature);
+      z-index: 200;
+      transition: width 80ms linear;
+    }
+
+    .reading-column {
+      max-width: 660px;
+      margin: 0 auto;
+      padding: 0 var(--gutter-x);
+    }
+
+    .essay-top { padding: var(--space-8) 0 var(--space-7); }
+    .essay-top .row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--space-7);
+      flex-wrap: wrap;
+    }
+    .essay-top a.back,
+    .essay-top .meta {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      text-decoration: none;
+    }
+    .essay-top a.back:hover { color: var(--ink); }
+    .essay-top .meta .sep { padding: 0 12px; color: var(--rule); }
+
+    .essay-title-block { padding: var(--space-9) 0 var(--space-10); }
+    .essay-title {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: clamp(42px, 5.6vw, 76px);
+      line-height: 1.02;
+      letter-spacing: -0.025em;
+      font-variation-settings: 'opsz' 144, 'SOFT' 30;
+      color: var(--ink);
+      margin: 0;
+      max-width: 820px;
+    }
+    .essay-title em {
+      font-style: italic; font-weight: 400;
+      font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
+    }
+    .essay-deck {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 300;
+      font-size: 22px;
+      line-height: 1.45;
+      color: var(--body);
+      margin: var(--space-7) 0 0;
+      max-width: 660px;
+      font-variation-settings: 'opsz' 36, 'SOFT' 80, 'WONK' 1;
+    }
+    .essay-byline {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-top: var(--space-8);
+    }
+
+    .essay-body { padding: var(--space-9) 0 var(--space-10); }
+    .essay-body p {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 1.65;
+      color: var(--body);
+      max-width: 660px;
+      margin: 0 0 var(--space-6);
+      font-variation-settings: 'opsz' 14;
+      text-wrap: pretty;
+    }
+    .essay-body p strong { font-weight: 500; color: var(--ink); }
+    .essay-body p em { font-style: italic; }
+    .essay-body p:first-of-type::first-letter {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: 5.2em;
+      line-height: 0.88;
+      float: left;
+      padding: 6px 12px 0 0;
+      color: var(--ink);
+      font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 1;
+    }
+    .essay-body h2 {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: 30px;
+      line-height: 1.18;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      margin: var(--space-10) 0 var(--space-7);
+      font-variation-settings: 'opsz' 96, 'SOFT' 50;
+      max-width: 660px;
+    }
+    .essay-body h2 em {
+      font-style: italic; font-weight: 400;
+      font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1;
+    }
+    .essay-body blockquote {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 300;
+      font-size: 26px;
+      line-height: 1.35;
+      color: var(--ink);
+      border-left: 3px solid var(--signature);
+      padding: 4px 0 4px var(--space-7);
+      margin: var(--space-9) 0;
+      max-width: 600px;
+      font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1;
+    }
+    .ornament {
+      text-align: center;
+      margin: var(--space-9) auto;
+      font-family: var(--font-serif);
+      font-size: 20px;
+      color: var(--tertiary);
+      letter-spacing: 0.6em;
+      line-height: 1;
+      user-select: none;
+    }
+    .essay-body p .pull-emphasis {
+      font-style: italic;
+      color: var(--ink);
+    }
+
+    .essay-end {
+      margin-top: var(--space-9);
+      padding-top: var(--space-7);
+      border-top: 1px solid var(--rule);
+    }
+    .essay-end .signoff {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 16.5px;
+      line-height: 1.5;
+      color: var(--tertiary);
+      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
+      max-width: 600px;
+    }
+    .essay-end .author {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-top: var(--space-6);
+    }
+
+    .more {
+      border-top: 1px solid var(--rule);
+      padding: var(--space-10) 0 var(--space-9);
+    }
+    .more .more-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-bottom: var(--space-8);
+    }
+    .more-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: var(--space-9);
+    }
+    .more-grid .essay-card {
+      text-decoration: none; color: inherit; display: block;
+    }
+    .more-grid .essay-card .meta {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-bottom: var(--space-5);
+    }
+    .more-grid .essay-card .title {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: 22px;
+      line-height: 1.22;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      font-variation-settings: 'opsz' 48, 'SOFT' 50;
+      margin: 0 0 var(--space-3);
+    }
+    .more-grid .essay-card .deck {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 16.5px;
+      line-height: 1.5;
+      color: var(--body);
+      margin: 0;
+      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
+    }
+    .more-grid .essay-card:hover .title { color: var(--tertiary); }
+
+    .all-link { margin-top: var(--space-9); }
+    .all-link a {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      color: var(--ink);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-thickness: 1px;
+    }
+
+    @media (max-width: 720px) {
+      .more-grid { grid-template-columns: 1fr; gap: var(--space-8); }
+    }
+  </style>
+
+  <div class="read-bar" id="read-bar" aria-hidden="true"></div>
+
+  <div class="reading-column essay-top">
+    <div class="row">
+      <a class="back" href="/writing">— Back to writing</a>
+      <div class="meta">
+        <span>Q1 2026</span>
+        <span class="sep">·</span>
+        <span>Essay</span>
+        <span class="sep">·</span>
+        <span>9 min read</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="reading-column essay-title-block">
+    <h1 class="essay-title">
+      The case against the design system you're <em>about to build.</em>
+    </h1>
+    <p class="essay-deck">
+      Most teams need a style guide and a few good components. They build a design system and call it strategy.
+    </p>
+    <div class="essay-byline">— By Brandon E. B. Ward —</div>
+  </div>
+
+  <article class="reading-column essay-body">
+
+    <p>
+      The first design system I built was for a financial-services client in 2018, and it took the
+      better part of a year. By the end of that year, the client had a token spec, a component
+      library, a contribution guide, and a Figma file with seventy-two pages. They also had three
+      product teams who had quietly stopped using any of it, because the work they were trying to
+      ship did not fit the patterns we had spent twelve months pre-deciding.
+    </p>
+
+    <p>
+      The lesson I took from that engagement was not that we had built the wrong design system. It
+      was that we had built one at all. The teams hadn't been struggling for lack of a system. They
+      had been struggling because no one had told them which six components they could safely lean
+      on, and which three colors were the actual house colors versus the ones the previous agency
+      had left behind.
+    </p>
+
+    <p>
+      A style guide could have answered that in a week. The system took a year and produced
+      <em>less usable guidance</em>, because it tried to answer questions the teams weren't asking yet.
+    </p>
+
+    <h2>The strategic mistake, named</h2>
+
+    <p>
+      Senior design leaders default to design systems for a reason that has very little to do with
+      design and very much to do with legibility upward. A design system is the most legible thing
+      a design organization can produce. It is the artifact that survives a slide review with a CFO.
+      It has tokens. It has version numbers. It has a Storybook URL. It looks, from a sufficient
+      distance, like infrastructure.
+    </p>
+
+    <p>
+      The trouble is that infrastructure-shaped artifacts are graded on infrastructure-shaped
+      questions. <strong>How many teams adopted it. How many components shipped. How long until 1.0.</strong>
+      None of those questions are about whether the product got better. Many design systems get to
+      1.0 against a backdrop of products that have not measurably improved on any axis a customer
+      can feel.
+    </p>
+
+    <blockquote>
+      A design system is the most legible artifact a design org can ship. That's exactly what makes
+      it dangerous.
+    </blockquote>
+
+    <p>
+      I have, in the last decade, watched four design organizations stake their entire credibility
+      on the rollout of a design system, and I have watched two of them collapse under the weight
+      of the rollout itself. The system arrived. The team that built it was eight people deep. The
+      products were unchanged. The CFO, eventually, asked the question.
+    </p>
+
+    <div class="ornament">·  ·  ·</div>
+
+    <h2>What works instead, mostly</h2>
+
+    <p>
+      The thing most teams need, and the thing they are reaching past when they reach for a system,
+      is closer to a piece of writing than a piece of code. <em>A short, opinionated style guide.</em>
+      One page. Four colors. Three type sizes. Six components, with intent statements next to them
+      explaining when to use them and, more importantly, when not to.
+    </p>
+
+    <p>
+      The intent statements are the load-bearing part. Components don't fail because the spacing
+      tokens are wrong. They fail because nobody was told that this card was for product summaries
+      and that card was for empty states, and a year later the codebase contains eleven cards and
+      none of them are quite either.
+    </p>
+
+    <p>
+      A senior designer's most useful output, in the first ninety days at a company, is almost
+      never a system. It is a one-page document that names the six choices the company has, in
+      fact, already made — and gives every team permission to stop relitigating them. The system,
+      if it ever gets built, gets built later, in response to a problem the document could not
+      solve. <strong>Mostly, the document is enough.</strong>
+    </p>
+
+    <p>
+      I will admit a class of company where the system is the right move from day one. They have
+      twenty-plus product surfaces, three platform clients, and a dedicated platform-design team
+      that exists to serve the product teams the way SREs serve software engineers. The companies
+      I am describing are perhaps fifty in the world. If you work at one of them, you already know.
+      If you are not sure whether you do, you do not.
+    </p>
+
+    <h2>What to do on Monday</h2>
+
+    <p>
+      If you are a director or VP and the design-system project is on your roadmap for the next
+      two quarters, the move I would suggest, in descending order of confidence:
+    </p>
+
+    <p>
+      Take a week and write the style guide your team would actually use. <em>Six components,
+      named with intent.</em> Three type sizes. Four colors. The one rule about spacing. Print it,
+      tape it to a wall, and watch what happens. The teams will tell you, by what they ask for next,
+      whether they need the system at all — and which parts of it they need first. If, after a
+      quarter, they have asked for a token spec and a Storybook URL, build it. If they have asked
+      for a clearer answer about empty states, you have your answer.
+    </p>
+
+    <p>
+      The one-page guide is not a smaller version of the design system. It is a different artifact
+      with a different job. The job of the guide is to <span class="pull-emphasis">stop the
+      relitigation</span> — to take six decisions off every team's plate so they can spend the
+      saved hours on the decisions only they can make. The job of the system is to scale that
+      stopping mechanism across many teams. Most companies need the first job done. Few need the
+      second.
+    </p>
+
+    <p>
+      The senior move, the one that does not always show well in slide reviews, is to ship the
+      thing the teams need next week, not the thing that will look most defensible in eighteen
+      months. The strategy is not the system. <strong>The strategy is the restraint to not build
+      it yet.</strong>
+    </p>
+
+    <div class="essay-end">
+      <p class="signoff">
+        I'll write a follow-up to this in the next quarter on the version of this argument that
+        applies to component libraries inside engineering orgs. The shape is the same. The politics
+        are different.
+      </p>
+      <div class="author">— Brandon E. B. Ward · Dallas, TX —</div>
+    </div>
+
+  </article>
+
+  <section class="container">
+    <div class="more">
+      <div class="grid">
+        <div class="marker">§ ↗</div>
+        <div>
+          <div class="more-eyebrow">— More from the writing —</div>
+          <div class="more-grid">
+            <a class="essay-card" href="/writing">
+              <div class="meta">— Q4 2025 · Essay —</div>
+              <h3 class="title">Staying staff-level without becoming a manager</h3>
+              <p class="deck">A note for senior ICs who keep getting offered the title that ends their craft. The exit is in the work.</p>
+            </a>
+            <a class="essay-card" href="/writing">
+              <div class="meta">— Q3 2025 · Essay —</div>
+              <h3 class="title">AI didn't raise the ceiling. It dropped the floor.</h3>
+              <p class="deck">The tools are not making senior designers better. They are making junior work look senior. That's the problem.</p>
+            </a>
+            <a class="essay-card" href="/writing">
+              <div class="meta">— Q2 2025 · Essay —</div>
+              <h3 class="title">The thing about discovery is that nobody buys it</h3>
+              <p class="deck">Ten years of selling research-shaped engagements at a consulting firm. What I learned about how to name them.</p>
+            </a>
+          </div>
+          <div class="all-link">
+            <a href="/writing">— All writing →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (function () {
+      var bar = document.getElementById('read-bar');
+      if (!bar) return;
+      function update() {
+        var doc = document.documentElement;
+        var max = (doc.scrollHeight - doc.clientHeight);
+        var pct = max > 0 ? Math.min(100, Math.max(0, (doc.scrollTop || window.scrollY) / max * 100)) : 0;
+        bar.style.width = pct + '%';
+      }
+      update();
+      window.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+    })();
+  </script>
+</Base>

@@ -1,0 +1,545 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="uxward — Brandon E. B. Ward">
+  <style>
+    /* ---------- Block 01 — Fold ---------- */
+    .fold {
+      min-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: var(--space-10) 0;
+    }
+    .fold .eyebrow-line {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-bottom: var(--space-9);
+    }
+    .fold h1 {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: clamp(64px, 8.4vw, 116px);
+      line-height: 0.94;
+      letter-spacing: -0.035em;
+      font-variation-settings: 'opsz' 144, 'SOFT' 30;
+      color: var(--ink);
+      margin: 0;
+      max-width: 1080px;
+    }
+    .fold h1 em {
+      font-style: italic;
+      font-weight: 400;
+      font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
+    }
+    .fold .deck {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 300;
+      font-size: 24px;
+      line-height: 1.42;
+      color: var(--body);
+      margin: var(--space-8) 0 0;
+      max-width: 720px;
+      font-variation-settings: 'opsz' 36, 'SOFT' 80, 'WONK' 1;
+    }
+    .fold .meta {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-top: var(--space-9);
+    }
+
+    /* ---------- Section frame ---------- */
+    section.block {
+      padding: var(--space-10) 0;
+      border-top: 1px solid var(--rule);
+    }
+    section.block.on-paper {
+      background: var(--paper);
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+    .eyebrow-section {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-bottom: var(--space-8);
+    }
+    .section-head {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: 40px;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin: 0 0 var(--space-9) 0;
+      font-variation-settings: 'opsz' 96, 'SOFT' 30;
+      max-width: 720px;
+    }
+    .section-head em {
+      font-style: italic;
+      font-weight: 400;
+      font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1;
+    }
+
+    /* ---------- Block 02 — Selected work ---------- */
+    .work {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      gap: var(--space-9);
+      align-items: start;
+    }
+    .case {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .case .num {
+      font-family: var(--font-serif);
+      font-feature-settings: "tnum" 1;
+      font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 1;
+      font-weight: 300;
+      font-size: 64px;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: var(--tertiary);
+      display: block;
+      margin-bottom: var(--space-6);
+    }
+    .case.hero .num { font-size: 84px; color: var(--ink); }
+    .case .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--signature);
+      margin-bottom: var(--space-5);
+    }
+    .case .badge::before {
+      content: "";
+      display: inline-block;
+      width: 8px; height: 8px;
+      background: var(--signature);
+    }
+    .case .title {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: 24px;
+      line-height: 1.18;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      font-variation-settings: 'opsz' 48, 'SOFT' 50;
+      margin: 0 0 var(--space-3) 0;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+      text-decoration-color: var(--rule);
+    }
+    .case.hero .title {
+      font-size: 34px;
+      line-height: 1.08;
+      font-variation-settings: 'opsz' 96, 'SOFT' 50;
+    }
+    .case:hover .title { color: var(--tertiary); text-decoration-color: var(--tertiary); }
+    .case .desc {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 17px;
+      line-height: 1.5;
+      color: var(--body);
+      margin: var(--space-3) 0 var(--space-5);
+      max-width: 38ch;
+      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
+    }
+    .case .meta {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+    }
+    .see-all {
+      margin-top: var(--space-10);
+      display: inline-block;
+      font-family: var(--font-serif);
+      font-size: 18px;
+      color: var(--ink);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+    }
+
+    /* ---------- Block 03 — Currently building ---------- */
+    .tools { border-top: 1px solid var(--rule); }
+    .tool-row {
+      display: grid;
+      grid-template-columns: 220px 1fr 100px;
+      gap: var(--space-7);
+      align-items: baseline;
+      padding: var(--space-6) 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .tool-row .name {
+      font-family: var(--font-serif);
+      font-weight: 500;
+      font-size: 22px;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+      font-variation-settings: 'opsz' 36, 'SOFT' 30;
+    }
+    .tool-row .desc {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 17px;
+      color: var(--body);
+      line-height: 1.5;
+      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
+    }
+    .tool-row .tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      text-align: right;
+      text-decoration: none;
+    }
+    .tool-row a.tag { color: var(--ink); text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+    .tool-row a.tag:hover { color: var(--tertiary); }
+
+    /* ---------- Block 04 — Recent writing ---------- */
+    .essays {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: var(--space-9);
+    }
+    .essay {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .essay .meta {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-bottom: var(--space-5);
+    }
+    .essay .title {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: 23px;
+      line-height: 1.2;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      font-variation-settings: 'opsz' 48, 'SOFT' 50;
+      margin: 0 0 var(--space-3) 0;
+    }
+    .essay .deck {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 16.5px;
+      line-height: 1.5;
+      color: var(--body);
+      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
+    }
+    .essay:hover .title { color: var(--tertiary); }
+
+    /* ---------- Block 05 — Bio ---------- */
+    .bio {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: var(--space-10);
+      align-items: start;
+    }
+    .bio p {
+      font-family: var(--font-serif);
+      font-size: 19px;
+      line-height: 1.65;
+      color: var(--body);
+      max-width: 580px;
+      margin: 0 0 var(--space-7);
+    }
+    .bio .more {
+      font-family: var(--font-serif);
+      font-size: 17px;
+      color: var(--ink);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .portrait {
+      aspect-ratio: 4 / 5;
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--tertiary);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      max-width: 360px;
+    }
+
+    /* ---------- Block 06 — Red bleed ---------- */
+    .red-bleed {
+      background: var(--signature);
+      color: #FFFFFF;
+      padding: 144px 0 132px;
+      margin-top: var(--space-10);
+    }
+    .red-bleed .eyebrow-on-red {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.78);
+      margin-bottom: var(--space-8);
+    }
+    .red-bleed h2 {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: clamp(48px, 6.4vw, 88px);
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+      color: #FFFFFF;
+      font-variation-settings: 'opsz' 144, 'SOFT' 30;
+      margin: 0;
+      max-width: 980px;
+    }
+    .red-bleed h2 em {
+      font-style: italic;
+      font-weight: 400;
+      font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
+    }
+    .red-bleed .reach {
+      margin-top: var(--space-9);
+      display: flex;
+      align-items: baseline;
+      gap: var(--space-7);
+      flex-wrap: wrap;
+    }
+    .red-bleed .reach a {
+      color: #FFFFFF;
+      text-decoration: underline;
+      text-underline-offset: 5px;
+      text-decoration-thickness: 1px;
+      font-family: var(--font-serif);
+      font-size: 22px;
+    }
+    .red-bleed .reach a:hover { color: rgba(255,255,255,0.78); }
+    .red-bleed .reach .kicker {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.78);
+    }
+
+    @media (max-width: 900px) {
+      .work { grid-template-columns: 1fr; }
+      .essays { grid-template-columns: 1fr; gap: var(--space-8); }
+      .bio { grid-template-columns: 1fr; }
+      .tool-row { grid-template-columns: 1fr 1fr; }
+      .tool-row .tag { text-align: left; }
+    }
+    @media (max-width: 600px) {
+      .tool-row { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <!-- BLOCK 01 — Above the fold -->
+  <section class="fold">
+    <div class="container">
+      <div class="grid">
+        <div class="marker">§ 01</div>
+        <div>
+          <div class="eyebrow-line">Brandon E. B. Ward — Senior design leadership</div>
+          <h1>
+            I've spent 25 years standing up design practice from scratch.
+            Now I do it in the <em>AI&nbsp;era.</em>
+          </h1>
+          <p class="deck">
+            Founder/builder at three startups, two agencies, ten years at Precocity, and now my own SaaS.
+          </p>
+          <div class="meta">— Currently considering senior design leadership · Dallas, TX —</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOCK 02 — Selected work -->
+  <section class="block on-paper">
+    <div class="container">
+      <div class="grid">
+        <div class="marker">§ 02</div>
+        <div>
+          <div class="eyebrow-section">— Selected work —</div>
+          <h2 class="section-head">Three pieces that <em>carry the slate.</em></h2>
+
+          <div class="work">
+            <a class="case hero" href="/work/precocity">
+              <span class="badge">Hero of the slate</span>
+              <span class="num">01</span>
+              <h3 class="title">Precocity — the ten-year build</h3>
+              <p class="desc">Standing up and growing design practice as a consultant. The load-bearing case on the site.</p>
+              <span class="meta">2014–2024 · Consulting</span>
+            </a>
+
+            <a class="case" href="/work">
+              <span class="num">02</span>
+              <h3 class="title">Speakeazy</h3>
+              <p class="desc">AI-native dialogue attribution and character analysis for voice actors. Real users, shipping weekly.</p>
+              <span class="meta">2024–Present · Founder</span>
+            </a>
+
+            <a class="case" href="/work">
+              <span class="num">03</span>
+              <h3 class="title">FORGE</h3>
+              <p class="desc">Context-to-complete-site-build via AI. The most ambitious tool of the set; the one closest to a thesis.</p>
+              <span class="meta">2025 · Solo build</span>
+            </a>
+          </div>
+
+          <a class="see-all" href="/work">— See all 7 selected pieces →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOCK 03 — Currently building -->
+  <section class="block">
+    <div class="container">
+      <div class="grid">
+        <div class="marker">§ 03</div>
+        <div>
+          <div class="eyebrow-section">— Currently building —</div>
+          <h2 class="section-head">Five tools, one builder, AI as the <em>medium.</em></h2>
+
+          <div class="tools">
+            <div class="tool-row">
+              <div class="name">Speakeazy</div>
+              <div class="desc">AI-native dialogue attribution and character analysis for voice actors. Real users.</div>
+              <a class="tag" href="https://speakeazy.com" target="_blank" rel="noopener">Live →</a>
+            </div>
+            <div class="tool-row">
+              <div class="name">FORGE</div>
+              <div class="desc">Context-to-complete-site-build via AI. The most ambitious tool of the set.</div>
+              <a class="tag" href="https://github.com/brandonebward" target="_blank" rel="noopener">GitHub →</a>
+            </div>
+            <div class="tool-row">
+              <div class="name">Verity</div>
+              <div class="desc">Foundations of an enterprise UX research and reporting platform.</div>
+              <span class="tag">Private</span>
+            </div>
+            <div class="tool-row">
+              <div class="name">RAD</div>
+              <div class="desc">Usability testing dashboard. Concrete designer-tooling artifact.</div>
+              <a class="tag" href="https://github.com/brandonebward" target="_blank" rel="noopener">GitHub →</a>
+            </div>
+            <div class="tool-row">
+              <div class="name">Markdown plugin</div>
+              <div class="desc">In-house Figma-to-Markdown converter, used at Precocity for AI workflows.</div>
+              <span class="tag">Internal</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOCK 04 — Recent writing -->
+  <section class="block on-paper">
+    <div class="container">
+      <div class="grid">
+        <div class="marker">§ 04</div>
+        <div>
+          <div class="eyebrow-section">— Recent writing —</div>
+          <h2 class="section-head">Quarterly. Long enough to be wrong <em>out loud.</em></h2>
+
+          <div class="essays">
+            <a class="essay" href="/writing/case-against-design-systems">
+              <div class="meta">— Q1 2026 · Essay —</div>
+              <h3 class="title">The case against the design system you're about to build</h3>
+              <p class="deck">Most teams need a style guide and a few good components. They build a design system and call it strategy.</p>
+            </a>
+
+            <a class="essay" href="/writing">
+              <div class="meta">— Q4 2025 · Essay —</div>
+              <h3 class="title">Staying staff-level without becoming a manager</h3>
+              <p class="deck">A note for senior ICs who keep getting offered the title that ends their craft. The exit is in the work.</p>
+            </a>
+
+            <a class="essay" href="/writing">
+              <div class="meta">— Q3 2025 · Essay —</div>
+              <h3 class="title">AI didn't raise the ceiling. It dropped the floor.</h3>
+              <p class="deck">The tools are not making senior designers better. They are making junior work look senior. That's the problem.</p>
+            </a>
+          </div>
+
+          <a class="see-all" href="/writing">— All writing →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOCK 05 — Bio teaser -->
+  <section class="block">
+    <div class="container">
+      <div class="grid">
+        <div class="marker">§ 05</div>
+        <div>
+          <div class="eyebrow-section">— About —</div>
+          <div class="bio">
+            <div>
+              <p>
+                I'm Brandon. I've spent 25 years building and running design practice — at three startups,
+                two agencies, two senior consulting roles, and at Precocity for the last decade. I've
+                shipped Speakeazy, FORGE, and a handful of smaller AI-era tools as their solo builder.
+                I write here quarterly. I'm based in Dallas. I'm currently considering senior design
+                leadership roles at companies that take design seriously.
+              </p>
+              <a class="more" href="/about">— More about me →</a>
+            </div>
+            <div class="portrait" aria-label="Portrait of Brandon E. B. Ward — coming soon">portrait</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOCK 06 — The earned red moment -->
+  <section class="red-bleed">
+    <div class="container">
+      <div class="grid">
+        <div class="marker" style="color: rgba(255,255,255,0.78);">§ 06</div>
+        <div>
+          <div class="eyebrow-on-red">— Currently considering —</div>
+          <h2>
+            Senior design leadership at companies that take design <em>seriously.</em>
+          </h2>
+          <div class="reach">
+            <a href="mailto:brandon@uxward.com">brandon@uxward.com</a>
+            <span class="kicker">— Direct line, read daily —</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

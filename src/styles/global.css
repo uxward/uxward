@@ -1,0 +1,262 @@
+/* ============================================================
+   uxward — global design system
+   Colors, type, tokens. Source of truth.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,30..100,0..1;1,9..144,300..700,30..100,0..1&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+/* ---------- Tokens: Light ---------- */
+:root {
+  --canvas:    #FFFFFF;
+  --ink:       #040404;
+  --body:      #282828;
+  --tertiary:  #6B6B6B;
+  --rule:      #E4E1DC;
+  --paper:     #FAF8F4;
+  --signature: #CC0006;
+
+  --bg:        var(--canvas);
+  --fg:        var(--ink);
+  --fg-body:   var(--body);
+  --fg-mute:   var(--tertiary);
+  --line:      var(--rule);
+  --surface:   var(--paper);
+  --accent:    var(--signature);
+
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-7:  32px;
+  --space-8:  48px;
+  --space-9:  64px;
+  --space-10: 96px;
+  --space-11: 128px;
+
+  --w-prose:    720px;
+  --w-display:  1100px;
+  --w-quote:    600px;
+  --w-caption:  420px;
+
+  --container:    1180px;
+  --gutter-x:     32px;
+  --gutter-x-sm:  20px;
+  --gutter-mark:  100px;
+
+  --font-serif: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-mono:  "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --t-fast: 150ms;
+  --t-mode: 200ms;
+}
+
+/* ---------- Tokens: Dark ---------- */
+:root[data-theme="dark"],
+.theme-dark {
+  --canvas:    #121212;
+  --ink:       #FFFFFF;
+  --body:      #E8E6E1;
+  --tertiary:  #9A958C;
+  --rule:      #2A2A2A;
+  --paper:     #1A1A1A;
+  --signature: #E5263A;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --canvas:    #121212;
+    --ink:       #FFFFFF;
+    --body:      #E8E6E1;
+    --tertiary:  #9A958C;
+    --rule:      #2A2A2A;
+    --paper:     #1A1A1A;
+    --signature: #E5263A;
+  }
+}
+
+/* ============================================================
+   Base
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--canvas);
+  color: var(--body);
+  font-family: var(--font-serif);
+  font-size: 18px;
+  line-height: 1.68;
+  letter-spacing: 0.005em;
+  word-spacing: 0.02em;
+  font-variation-settings: 'opsz' 14;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection { background: var(--signature); color: #fff; }
+
+/* ============================================================
+   Links
+   ============================================================ */
+a, .link {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color var(--t-fast) ease;
+}
+a:hover, .link:hover { color: var(--tertiary); }
+a:focus-visible, .link:focus-visible {
+  outline: 2px solid var(--signature);
+  outline-offset: 3px;
+}
+
+/* ============================================================
+   Focus floor
+   ============================================================ */
+:where(button, [role="button"], input, select, textarea, summary):focus-visible {
+  outline: 2px solid var(--signature);
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   Reduced motion
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ============================================================
+   Shared layout primitives
+   ============================================================ */
+.container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--gutter-x);
+}
+@media (max-width: 720px) {
+  .container { padding: 0 var(--gutter-x-sm); }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: var(--gutter-mark) 1fr;
+  column-gap: var(--space-7);
+}
+.grid > .marker {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--tertiary);
+  padding-top: 10px;
+}
+@media (max-width: 720px) {
+  .grid { grid-template-columns: 1fr; }
+  .grid > .marker { padding-top: 0; }
+}
+
+/* ============================================================
+   Header
+   ============================================================ */
+.hdr { border-bottom: 1px solid var(--rule); }
+.hdr-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 22px 0 20px;
+}
+.wm {
+  font-family: var(--font-serif);
+  font-size: 26px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  font-variation-settings: 'opsz' 24, 'SOFT' 30;
+  color: var(--ink);
+  text-decoration: none;
+}
+.wm .ux { color: var(--signature); }
+nav.hdr-nav { display: flex; gap: 28px; align-items: baseline; }
+.hdr-nav a {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+}
+.hdr-nav a:hover { color: var(--tertiary); }
+.hdr-nav .toggle {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  color: var(--ink);
+  line-height: 1;
+  background: none;
+  border: 0;
+  padding: 4px 6px;
+  cursor: pointer;
+  transition: transform var(--t-mode) ease, color var(--t-fast) ease;
+  display: inline-block;
+}
+.hdr-nav .toggle:hover { color: var(--tertiary); }
+.hdr-nav .toggle.rotating { transform: rotate(90deg); }
+
+/* ============================================================
+   Footer
+   ============================================================ */
+footer.foot {
+  background: var(--canvas);
+  color: var(--body);
+  padding: var(--space-9) 0 var(--space-8);
+  border-top: 1px solid var(--rule);
+}
+.foot-row {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: var(--space-8);
+  align-items: baseline;
+}
+.foot-row .wm { font-size: 22px; }
+.foot-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 22px;
+}
+.foot-nav a, .foot-ext a {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+}
+.foot-nav a:hover, .foot-ext a:hover { color: var(--tertiary); }
+.foot-ext { display: flex; gap: 18px; justify-content: flex-end; }
+.colophon-line {
+  margin-top: var(--space-8);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--tertiary);
+}
+.colophon-line .fleuron {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  color: var(--tertiary);
+  letter-spacing: 0;
+}
+
+@media (max-width: 720px) {
+  .foot-row { grid-template-columns: 1fr; gap: var(--space-6); }
+  .foot-ext { justify-content: flex-start; }
+}

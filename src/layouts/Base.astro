@@ -1,0 +1,95 @@
+---
+import '../styles/global.css';
+export interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description = "Brandon E. B. Ward — senior design leadership. Building design practice from scratch since 2001." } = Astro.props;
+---
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{title}</title>
+  <meta name="description" content={description}>
+  <slot name="head" />
+  <script is:inline>
+    // Apply saved theme before first paint to prevent flash
+    (function () {
+      try {
+        var saved = localStorage.getItem('uxward-theme');
+        if (saved === 'dark' || saved === 'light') {
+          document.documentElement.setAttribute('data-theme', saved);
+        }
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+
+  <header class="hdr">
+    <div class="container hdr-row">
+      <a href="/" class="wm" aria-label="uxward"><span class="ux">ux</span>ward</a>
+      <nav class="hdr-nav" aria-label="Main navigation">
+        <a href="/work">Work</a>
+        <a href="/writing">Writing</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+        <button id="theme-toggle" class="toggle" title="Toggle theme" aria-label="Toggle theme">—</button>
+      </nav>
+    </div>
+  </header>
+
+  <slot />
+
+  <footer class="foot">
+    <div class="container">
+      <div class="foot-row">
+        <a href="/" class="wm" aria-label="uxward"><span class="ux">ux</span>ward</a>
+        <nav class="foot-nav" aria-label="Footer navigation">
+          <a href="/work">Work</a>
+          <a href="/writing">Writing</a>
+          <a href="/about">About</a>
+          <a href="/contact">Contact</a>
+          <a href="/colophon">Colophon</a>
+        </nav>
+        <div class="foot-ext">
+          <a href="https://linkedin.com/in/brandonebward" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://github.com/brandonebward" target="_blank" rel="noopener">GitHub</a>
+          <a href="mailto:brandon@uxward.com">Email</a>
+        </div>
+      </div>
+      <div class="colophon-line">
+        <span>— Set in Fraunces &amp; JetBrains Mono · Built with Astro on Cloudflare —</span>
+        <span class="fleuron" aria-hidden="true">❦</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var btn = document.getElementById('theme-toggle');
+
+      function syncGlyph() {
+        if (!btn) return;
+        var dark = root.getAttribute('data-theme') === 'dark';
+        btn.classList.toggle('rotating', dark);
+        btn.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+      }
+
+      syncGlyph();
+
+      if (btn) {
+        btn.addEventListener('click', function () {
+          var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+          root.setAttribute('data-theme', next);
+          try { localStorage.setItem('uxward-theme', next); } catch (e) {}
+          syncGlyph();
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

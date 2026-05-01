@@ -1,0 +1,852 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="Writing · uxward">
+  <style>
+    .head {
+      padding: var(--space-9) 0 var(--space-8);
+      border-bottom: 1px solid var(--rule);
+    }
+    .head-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: var(--space-9);
+      align-items: end;
+    }
+    .head-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-bottom: var(--space-7);
+    }
+    .head-h {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: clamp(48px, 6.4vw, 84px);
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      font-variation-settings: 'opsz' 144, 'SOFT' 30;
+      color: var(--ink);
+      margin: 0;
+    }
+    .head-h em {
+      font-style: italic; font-weight: 400;
+      font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
+    }
+    .head-intro {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 300;
+      font-size: 21px;
+      line-height: 1.5;
+      color: var(--body);
+      max-width: 560px;
+      margin: var(--space-6) 0 0;
+      font-variation-settings: 'opsz' 36, 'SOFT' 80, 'WONK' 1;
+    }
+
+    .search {
+      justify-self: end;
+      width: 320px;
+      max-width: 100%;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--ink);
+      transition: border-color var(--t-fast) ease;
+    }
+    .search:focus-within { border-bottom-color: var(--signature); }
+    .search-row {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: baseline;
+      gap: 14px;
+    }
+    .search-label {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+    }
+    .search-input {
+      border: 0; outline: 0; background: transparent;
+      font-family: var(--font-serif);
+      font-size: 18px;
+      color: var(--ink);
+      padding: 4px 0;
+      width: 100%;
+      font-variation-settings: 'opsz' 24, 'SOFT' 50;
+    }
+    .search-input::placeholder {
+      font-style: italic;
+      color: var(--tertiary);
+      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
+      opacity: 1;
+    }
+    .search-clear {
+      background: none; border: 0; cursor: pointer;
+      font-family: var(--font-serif);
+      font-size: 18px;
+      color: var(--tertiary);
+      line-height: 1;
+      padding: 0 2px;
+      visibility: hidden;
+    }
+    .search.has-text .search-clear { visibility: visible; }
+    .search-clear:hover { color: var(--ink); }
+    .search-hint {
+      margin-top: 10px;
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      min-height: 14px;
+      text-align: right;
+    }
+    .search-hint .reset {
+      color: var(--ink); cursor: pointer;
+      background: none; border: 0; padding: 0 0 0 8px;
+      font: inherit; letter-spacing: inherit; text-transform: inherit;
+      border-bottom: 1px solid var(--rule);
+    }
+    .search-hint .reset:hover { color: var(--signature); border-bottom-color: var(--signature); }
+
+    .featured {
+      padding: var(--space-10) 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    body.is-filtered .featured { display: none; }
+    .featured-grid {
+      display: grid;
+      grid-template-columns: var(--gutter-mark) 1fr;
+      gap: var(--space-7);
+    }
+    .featured-mark {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--signature);
+      padding-top: 12px;
+      border-left: 3px solid var(--signature);
+      padding-left: var(--space-5);
+    }
+    .featured-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-bottom: var(--space-6);
+    }
+    .featured-eyebrow .dot { color: var(--signature); padding: 0 6px; }
+    a.featured-link {
+      text-decoration: none; color: inherit; display: block;
+    }
+    a.featured-link h2 {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: clamp(40px, 4.8vw, 60px);
+      line-height: 1.04;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+      font-variation-settings: 'opsz' 144, 'SOFT' 30;
+      margin: 0;
+      max-width: 880px;
+      transition: color var(--t-fast) ease;
+    }
+    a.featured-link h2 em {
+      font-style: italic; font-weight: 400;
+      font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
+    }
+    .featured-deck {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 300;
+      font-size: 22px;
+      line-height: 1.5;
+      color: var(--body);
+      max-width: 700px;
+      margin: var(--space-6) 0 0;
+      font-variation-settings: 'opsz' 36, 'SOFT' 80, 'WONK' 1;
+    }
+    .featured-excerpt {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 300;
+      font-size: 18px;
+      line-height: 1.65;
+      color: var(--tertiary);
+      max-width: 640px;
+      margin: var(--space-7) 0 0;
+      padding-left: var(--space-5);
+      border-left: 1px solid var(--rule);
+      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
+    }
+    .featured-cta {
+      display: inline-block;
+      margin-top: var(--space-7);
+      font-family: var(--font-serif);
+      font-size: 18px;
+      color: var(--ink);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-thickness: 1px;
+    }
+    a.featured-link:hover h2 { color: var(--signature); }
+    a.featured-link:hover .featured-cta { color: var(--signature); }
+
+    .sections { padding: var(--space-9) 0 var(--space-10); }
+    .section { padding: var(--space-9) 0 var(--space-8); }
+    .section + .section { border-top: 1px solid var(--rule); }
+    .section-head {
+      display: grid;
+      grid-template-columns: var(--gutter-mark) 1fr;
+      gap: var(--space-7);
+      align-items: baseline;
+      margin-bottom: var(--space-7);
+    }
+    .section-mark {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      padding-top: 14px;
+    }
+    .section-toggle {
+      background: none; border: 0; padding: 0; margin: 0;
+      text-align: left; cursor: pointer;
+      color: inherit; font: inherit;
+      display: block; width: 100%;
+    }
+    .section-title {
+      display: flex;
+      align-items: baseline;
+      gap: var(--space-5);
+    }
+    .section-title h2 {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: 36px;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      font-variation-settings: 'opsz' 96, 'SOFT' 30;
+      margin: 0;
+      transition: color var(--t-fast) ease, font-style var(--t-fast) ease;
+    }
+    .section-title .glyph {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      color: var(--tertiary);
+      transition: transform var(--t-mode) ease, color var(--t-fast) ease;
+      line-height: 1;
+      transform-origin: center;
+    }
+    .section.collapsed .section-title h2 {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--tertiary);
+      font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1;
+    }
+    .section.collapsed .section-title .glyph { transform: rotate(-90deg); color: var(--tertiary); }
+    .section-toggle:hover .section-title h2 { color: var(--signature); }
+    .section-toggle:hover .section-title .glyph { color: var(--signature); }
+
+    .section-descriptor {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.5;
+      color: var(--tertiary);
+      margin: var(--space-3) 0 0;
+      max-width: 580px;
+      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
+    }
+    .section-rule {
+      grid-column: 2;
+      border: 0;
+      border-top: 1px solid var(--rule);
+      margin: var(--space-7) 0 0;
+    }
+    .section-grid-body {
+      display: grid;
+      grid-template-columns: var(--gutter-mark) 1fr;
+      gap: var(--space-7);
+    }
+    .section-collapsed-msg, .section-empty-msg {
+      grid-column: 2;
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 15.5px;
+      color: var(--tertiary);
+      padding: var(--space-5) 0 0;
+      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
+      display: none;
+    }
+    .section.collapsed .section-collapsed-msg { display: block; }
+    .section.collapsed .essays { display: none; }
+    .section.collapsed .section-rule { display: none; }
+    .section.no-matches .essays { display: none; }
+    .section.no-matches .section-empty-msg { display: block; }
+
+    .essays {
+      grid-column: 2;
+      display: grid;
+      gap: var(--space-7);
+      padding-top: var(--space-7);
+    }
+    a.essay {
+      display: grid;
+      grid-template-columns: 1fr 130px;
+      gap: var(--space-7);
+      align-items: baseline;
+      text-decoration: none;
+      color: inherit;
+      padding-bottom: var(--space-6);
+      border-bottom: 1px solid var(--rule);
+    }
+    a.essay:last-child { border-bottom: 0; padding-bottom: 0; }
+    .essay-body { min-width: 0; }
+    .essay-title {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: 24px;
+      line-height: 1.2;
+      letter-spacing: -0.012em;
+      color: var(--ink);
+      font-variation-settings: 'opsz' 96, 'SOFT' 30;
+      margin: 0;
+      transition: color var(--t-fast) ease;
+    }
+    .essay-title em {
+      font-style: italic; font-weight: 400;
+      font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1;
+    }
+    .essay-deck {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 16px;
+      line-height: 1.55;
+      color: var(--body);
+      margin: 8px 0 0;
+      max-width: 620px;
+      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
+    }
+    .essay-meta {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      text-align: right;
+      line-height: 1.7;
+      padding-top: 4px;
+    }
+    a.essay:hover .essay-title { color: var(--signature); }
+    a.essay[hidden] { display: none; }
+
+    .pivot {
+      padding: var(--space-9) 0;
+      border-top: 1px solid var(--rule);
+    }
+    .pivot-grid {
+      display: grid;
+      grid-template-columns: var(--gutter-mark) 1fr;
+      gap: var(--space-7);
+    }
+    .pivot-mark {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      padding-top: 14px;
+    }
+    a.pivot-link {
+      display: block; text-decoration: none; color: inherit;
+    }
+    .pivot-link .label {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: 36px;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      font-variation-settings: 'opsz' 96, 'SOFT' 30;
+    }
+    .pivot-link .label em {
+      font-style: italic; font-weight: 400;
+      font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1;
+    }
+    .pivot-link .why {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 17px;
+      color: var(--body);
+      margin: var(--space-4) 0 0;
+      max-width: 520px;
+      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
+    }
+    .pivot-link:hover .label { color: var(--tertiary); }
+
+    @media (max-width: 880px) {
+      .head-grid { grid-template-columns: 1fr; }
+      .search { justify-self: stretch; width: auto; }
+      .search-hint { text-align: left; }
+      a.essay { grid-template-columns: 1fr; }
+      .essay-meta { text-align: left; }
+    }
+  </style>
+
+  <section class="container head">
+    <div class="head-grid">
+      <div>
+        <div class="head-eyebrow">— Writing · Twenty-eight essays · Quarterly —</div>
+        <h1 class="head-h">Writing, <em>arranged by what it argues.</em></h1>
+        <p class="head-intro">
+          This is where I write about design leadership, the craft itself, the research
+          that shapes both, and where AI is taking us. Quarterly. Long-form. No newsletter
+          to sign up for.
+        </p>
+      </div>
+      <div>
+        <form class="search" role="search" onsubmit="return false;">
+          <div class="search-row">
+            <span class="search-label">— Find —</span>
+            <input id="search-input" class="search-input" type="text" autocomplete="off"
+                   placeholder="— Filter essays —" aria-label="Filter essays">
+            <button type="button" class="search-clear" id="search-clear" aria-label="Clear filter">×</button>
+          </div>
+        </form>
+        <div class="search-hint" id="search-hint" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container featured" id="featured">
+    <div class="featured-grid">
+      <div class="featured-mark">— Featured —</div>
+      <div>
+        <div class="featured-eyebrow">— Featured <span class="dot">·</span> On Leadership <span class="dot">·</span> Mar 2026 —</div>
+        <a class="featured-link" href="/writing/case-against-design-systems">
+          <h2>What I learned in <em>ten years</em> of standing up design at Precocity.</h2>
+          <p class="featured-deck">
+            The long version of the case study — the parts that don't fit a recruiter
+            scan. Hiring, the bar, the politics, and the year I almost left.
+          </p>
+          <p class="featured-excerpt">
+            The first hard thing was not convincing the partners that design mattered.
+            It was convincing the designers that the partners were worth convincing —
+            and that the work would not be done with the door closed.
+          </p>
+          <span class="featured-cta">— Read the essay →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <main class="container sections" id="sections">
+
+    <section class="section" data-section="leadership">
+      <div class="section-head">
+        <div class="section-mark">§ 01</div>
+        <div>
+          <button class="section-toggle" data-toggle="leadership" aria-expanded="true">
+            <div class="section-title">
+              <h2>On Leadership</h2>
+              <span class="glyph" aria-hidden="true">▾</span>
+            </div>
+            <p class="section-descriptor">— Hiring, scaling, holding the bar, telling the truth.</p>
+          </button>
+          <hr class="section-rule">
+        </div>
+      </div>
+      <div class="section-grid-body">
+        <div></div>
+        <div class="section-empty-msg">— No matches in On Leadership. —</div>
+        <div class="section-collapsed-msg">— Hidden. Click the heading to expand. —</div>
+        <div class="essays">
+          <a class="essay" href="/writing/case-against-design-systems"
+             data-title="What I learned in ten years of standing up design at Precocity"
+             data-deck="The long version — hiring, the bar, the politics, the year I almost left">
+            <div class="essay-body">
+              <h3 class="essay-title">What I learned in <em>ten years</em> of standing up design at Precocity.</h3>
+              <p class="essay-deck">The long version — hiring, the bar, the politics, the year I almost left.</p>
+            </div>
+            <div class="essay-meta">— Mar 2026 —</div>
+          </a>
+          <a class="essay" href="#"
+             data-title="On choosing not to ship"
+             data-deck="Restraint as the senior move. Three projects I killed and was right to.">
+            <div class="essay-body">
+              <h3 class="essay-title">On choosing <em>not to ship.</em></h3>
+              <p class="essay-deck">Restraint as the senior move. Three projects I killed, and was right to.</p>
+            </div>
+            <div class="essay-meta">— Dec 2025 —</div>
+          </a>
+          <a class="essay" href="#"
+             data-title="The interview you should be conducting"
+             data-deck="Stop asking about process. Ask about the call they did not return.">
+            <div class="essay-body">
+              <h3 class="essay-title">The interview you <em>should be conducting.</em></h3>
+              <p class="essay-deck">Stop asking about process. Ask about the call they did not return.</p>
+            </div>
+            <div class="essay-meta">— Sep 2025 —</div>
+          </a>
+          <a class="essay" href="#"
+             data-title="When to hire your second designer"
+             data-deck="Almost always sooner than the spreadsheet says. The reasoning, with arithmetic.">
+            <div class="essay-body">
+              <h3 class="essay-title">When to hire your <em>second designer.</em></h3>
+              <p class="essay-deck">Almost always sooner than the spreadsheet says. The reasoning, with arithmetic.</p>
+            </div>
+            <div class="essay-meta">— Jun 2025 —</div>
+          </a>
+          <a class="essay" href="#"
+             data-title="The fluency most senior designers have lost"
+             data-deck="Reading a database schema. Reading a P&L. Reading the room.">
+            <div class="essay-body">
+              <h3 class="essay-title">The fluency most senior designers <em>have lost.</em></h3>
+              <p class="essay-deck">Reading a database schema. Reading a P&amp;L. Reading the room.</p>
+            </div>
+            <div class="essay-meta">— Mar 2025 —</div>
+          </a>
+          <a class="essay" href="#"
+             data-title="How to read a Head of Design candidate in fifteen minutes"
+             data-deck="The four questions that work, and the one that does not.">
+            <div class="essay-body">
+              <h3 class="essay-title">How to read a Head of Design candidate <em>in fifteen minutes.</em></h3>
+              <p class="essay-deck">The four questions that work, and the one I no longer ask.</p>
+            </div>
+            <div class="essay-meta">— Dec 2024 —</div>
+          </a>
+          <a class="essay" href="#"
+             data-title="The case for the difficult conversation"
+             data-deck="A defense of saying the obvious thing out loud, on the record, on Tuesday.">
+            <div class="essay-body">
+              <h3 class="essay-title">The case for <em>the difficult conversation.</em></h3>
+              <p class="essay-deck">A defense of saying the obvious thing out loud, on the record, on Tuesday.</p>
+            </div>
+            <div class="essay-meta">— Sep 2024 —</div>
+          </a>
+          <a class="essay" href="#"
+             data-title="On firing well"
+             data-deck="The moves I learned the hard way. Plain language, no LinkedIn vocabulary.">
+            <div class="essay-body">
+              <h3 class="essay-title">On <em>firing well.</em></h3>
+              <p class="essay-deck">The moves I learned the hard way. Plain language, no LinkedIn vocabulary.</p>
+            </div>
+            <div class="essay-meta">— Jun 2024 —</div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" data-section="craft">
+      <div class="section-head">
+        <div class="section-mark">§ 02</div>
+        <div>
+          <button class="section-toggle" data-toggle="craft" aria-expanded="true">
+            <div class="section-title">
+              <h2>On Experience Design</h2>
+              <span class="glyph" aria-hidden="true">▾</span>
+            </div>
+            <p class="section-descriptor">— The craft itself — IA, interaction, visual, systems.</p>
+          </button>
+          <hr class="section-rule">
+        </div>
+      </div>
+      <div class="section-grid-body">
+        <div></div>
+        <div class="section-empty-msg">— No matches in On Experience Design. —</div>
+        <div class="section-collapsed-msg">— Hidden. Click the heading to expand. —</div>
+        <div class="essays">
+          <a class="essay" href="#"
+             data-title="The case against the design system you're about to build"
+             data-deck="Most teams under-invest in IA and over-invest in tokens. A counter-argument.">
+            <div class="essay-body">
+              <h3 class="essay-title">The case <em>against</em> the design system you're about to build.</h3>
+              <p class="essay-deck">Most teams under-invest in IA and over-invest in tokens. A counter-argument.</p>
+            </div>
+            <div class="essay-meta">— Feb 2026 —</div>
+          </a>
+          <a class="essay" href="#"
+             data-title="Information architecture is the design"
+             data-deck="The unfashionable truth that pre-dates Figma and will outlast it.">
+            <div class="essay-body">
+              <h3 class="essay-title">Information architecture <em>is the design.</em></h3>
+              <p class="essay-deck">The unfashionable truth that pre-dates Figma and will outlast it.</p>
+            </div>
+            <div class="essay-meta">— Nov 2025 —</div>
+          </a>
+          <a class="essay" href="#"
+             data-title="On working at the frame, not the pixel"
+             data-deck="What I do before I open the design tool. Twenty-five years of the same first hour.">
+            <div class="essay-body">
+              <h3 class="essay-title">On working <em>at the frame, not the pixel.</em></h3>
+              <p class="essay-deck">What I do before I open the design tool. Twenty-five years of the same first hour.</p>
+            </div>
+            <div class="essay-meta">— Aug 2025 —</div>
+          </a>
+          <a class="essay" href="#"
+             data-title="When the design system becomes the bottleneck"
+             data-deck="The tell, the cost, and the surgical fix. Mostly the surgical fix.">
+            <div class="essay-body">
+              <h3 class="essay-title">When the design system <em>becomes the bottleneck.</em></h3>
+              <p class="essay-deck">The tell, the cost, and the surgical fix. Mostly the surgical fix.</p>
+            </div>
+            <div class="essay-meta">— May 2025 —</div>
+          </a>
+          <a class="essay" href="#"
+             data-title="Composition is what you cut"
+             data-deck="A short essay on subtraction, with five before-and-after examples from real shipped work.">
+            <div class="essay-body">
+              <h3 class="essay-title">Composition is <em>what you cut.</em></h3>
+              <p class="essay-deck">A short essay on subtraction, with five before-and-after examples from shipped work.</p>
+            </div>
+            <div class="essay-meta">— Feb 2025 —</div>
+          </a>
+          <a class="essay" href="#"
+             data-title="The portfolio is dead. Long live the portfolio."
+             data-deck="A defense of the case study, written for a generation that has stopped writing them.">
+            <div class="essay-body">
+              <h3 class="essay-title">The portfolio is dead. <em>Long live the portfolio.</em></h3>
+              <p class="essay-deck">A defense of the case study, written for a generation that has stopped writing them.</p>
+            </div>
+            <div class="essay-meta">— Nov 2024 —</div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" data-section="research">
+      <div class="section-head">
+        <div class="section-mark">§ 03</div>
+        <div>
+          <button class="section-toggle" data-toggle="research" aria-expanded="true">
+            <div class="section-title">
+              <h2>On Research</h2>
+              <span class="glyph" aria-hidden="true">▾</span>
+            </div>
+            <p class="section-descriptor">— How to know what you don't know.</p>
+          </button>
+          <hr class="section-rule">
+        </div>
+      </div>
+      <div class="section-grid-body">
+        <div></div>
+        <div class="section-empty-msg">— No matches in On Research. —</div>
+        <div class="section-collapsed-msg">— Hidden. Click the heading to expand. —</div>
+        <div class="essays">
+          <a class="essay" href="#"
+             data-title="Just enough research, fifteen years later"
+             data-deck="A revisit of the book's premise after fifteen more years of being wrong on purpose.">
+            <div class="essay-body">
+              <h3 class="essay-title">Just enough research, <em>fifteen years later.</em></h3>
+              <p class="essay-deck">A revisit of the book's premise after fifteen more years of being wrong on purpose.</p>
+            </div>
+            <div class="essay-meta">— Jan 2026 —</div>
+          </a>
+          <a class="essay" href="#"
+             data-title="The discount usability test that still works"
+             data-deck="Five users, ninety minutes, a sharpie. The protocol I have not stopped running since 2003.">
+            <div class="essay-body">
+              <h3 class="essay-title">The discount usability test <em>that still works.</em></h3>
+              <p class="essay-deck">Five users, ninety minutes, a sharpie. The protocol I have not stopped running since 2003.</p>
+            </div>
+            <div class="essay-meta">— Oct 2025 —</div>
+          </a>
+          <a class="essay" href="#"
+             data-title="On asking better questions"
+             data-deck="The five-question taxonomy I teach junior researchers, with the worked counter-examples.">
+            <div class="essay-body">
+              <h3 class="essay-title">On asking <em>better questions.</em></h3>
+              <p class="essay-deck">The five-question taxonomy I teach junior researchers, with the worked counter-examples.</p>
+            </div>
+            <div class="essay-meta">— Jul 2025 —</div>
+          </a>
+          <a class="essay" href="#"
+             data-title="What surveys can't tell you"
+             data-deck="The expensive lessons. The cheaper substitutes. Why I rarely run them anymore.">
+            <div class="essay-body">
+              <h3 class="essay-title">What surveys <em>can't tell you.</em></h3>
+              <p class="essay-deck">The expensive lessons. The cheaper substitutes. Why I rarely run them anymore.</p>
+            </div>
+            <div class="essay-meta">— Apr 2025 —</div>
+          </a>
+          <a class="essay" href="#"
+             data-title="Research as a leadership tool"
+             data-deck="The studies I have run not for the data, but for the room. An honest accounting.">
+            <div class="essay-body">
+              <h3 class="essay-title">Research as <em>a leadership tool.</em></h3>
+              <p class="essay-deck">The studies I have run not for the data, but for the room. An honest accounting.</p>
+            </div>
+            <div class="essay-meta">— Jan 2025 —</div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" data-section="ai">
+      <div class="section-head">
+        <div class="section-mark">§ 04</div>
+        <div>
+          <button class="section-toggle" data-toggle="ai" aria-expanded="true">
+            <div class="section-title">
+              <h2>On AI</h2>
+              <span class="glyph" aria-hidden="true">▾</span>
+            </div>
+            <p class="section-descriptor">— Notes from working at the frontier.</p>
+          </button>
+          <hr class="section-rule">
+        </div>
+      </div>
+      <div class="section-grid-body">
+        <div></div>
+        <div class="section-empty-msg">— No matches in On AI. —</div>
+        <div class="section-collapsed-msg">— Hidden. Click the heading to expand. —</div>
+        <div class="essays">
+          <a class="essay" href="#"
+             data-title="Cursor, Claude, and the new shape of design work"
+             data-deck="The tools, what they actually changed, and what they have not. A field report.">
+            <div class="essay-body">
+              <h3 class="essay-title">Cursor, Claude, and the <em>new shape of design work.</em></h3>
+              <p class="essay-deck">The tools, what they actually changed, and what they have not. A field report.</p>
+            </div>
+            <div class="essay-meta">— Mar 2026 —</div>
+          </a>
+          <a class="essay" href="#"
+             data-title="I built four AI tools this year. Here's what I learned."
+             data-deck="Speakeazy, FORGE, Verity, and one I killed. The pattern across all four.">
+            <div class="essay-body">
+              <h3 class="essay-title">I built <em>four AI tools</em> this year. Here's what I learned.</h3>
+              <p class="essay-deck">Speakeazy, FORGE, Verity, and one I killed. The pattern across all four.</p>
+            </div>
+            <div class="essay-meta">— Dec 2025 —</div>
+          </a>
+          <a class="essay" href="#"
+             data-title="On the AI-fluent senior designer"
+             data-deck="What the role looks like when the model is your most junior, fastest, most over-eager report.">
+            <div class="essay-body">
+              <h3 class="essay-title">On the <em>AI-fluent</em> senior designer.</h3>
+              <p class="essay-deck">What the role looks like when the model is your most junior, fastest, most over-eager report.</p>
+            </div>
+            <div class="essay-meta">— Aug 2025 —</div>
+          </a>
+          <a class="essay" href="#"
+             data-title="Why I stopped sketching first"
+             data-deck="Twenty-four years of the same first move, and the year I changed it. Reluctantly.">
+            <div class="essay-body">
+              <h3 class="essay-title">Why I stopped <em>sketching first.</em></h3>
+              <p class="essay-deck">Twenty-four years of the same first move, and the year I changed it. Reluctantly.</p>
+            </div>
+            <div class="essay-meta">— May 2025 —</div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <section class="container">
+    <div class="pivot">
+      <div class="pivot-grid">
+        <div class="pivot-mark">§ ↗</div>
+        <a class="pivot-link" href="/about">
+          <div class="label">More <em>about me →</em></div>
+          <p class="why">The longer recruiter-deep version. Twenty-five years told plainly, with a timeline.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (function () {
+      var body = document.body;
+      var input = document.getElementById('search-input');
+      var clear = document.getElementById('search-clear');
+      var hint = document.getElementById('search-hint');
+      var searchEl = document.querySelector('.search');
+      var sections = Array.prototype.slice.call(document.querySelectorAll('.section'));
+      var allEssays = Array.prototype.slice.call(document.querySelectorAll('a.essay'));
+
+      var state = { query: '', activeSection: null };
+
+      function applyFilters() {
+        var q = state.query.trim().toLowerCase();
+        var totalShown = 0;
+
+        sections.forEach(function (sec) {
+          var key = sec.getAttribute('data-section');
+          var collapsed = state.activeSection !== null && state.activeSection !== key;
+          sec.classList.toggle('collapsed', collapsed);
+
+          var essays = sec.querySelectorAll('a.essay');
+          var matchCount = 0;
+          essays.forEach(function (es) {
+            var t = (es.getAttribute('data-title') || '').toLowerCase();
+            var d = (es.getAttribute('data-deck') || '').toLowerCase();
+            var match = !q || t.indexOf(q) !== -1 || d.indexOf(q) !== -1;
+            if (collapsed) { es.hidden = true; } else { es.hidden = !match; }
+            if (match && !collapsed) matchCount++;
+          });
+          sec.classList.toggle('no-matches', !collapsed && q && matchCount === 0);
+          if (!collapsed) totalShown += matchCount;
+        });
+
+        var filtering = !!q || state.activeSection !== null;
+        body.classList.toggle('is-filtered', filtering);
+        searchEl.classList.toggle('has-text', !!q);
+
+        var parts = [];
+        if (q) parts.push('Filtering by "' + q + '"');
+        if (state.activeSection !== null) {
+          var labels = { leadership: 'On Leadership', craft: 'On Experience Design', research: 'On Research', ai: 'On AI' };
+          parts.push('Section: ' + labels[state.activeSection]);
+        }
+        if (filtering) {
+          hint.innerHTML = '— ' + parts.join(' · ') + ' · ' + totalShown + ' shown — ' +
+                          '<button type="button" class="reset" id="reset-btn">— Clear all —</button>';
+          var rb = document.getElementById('reset-btn');
+          rb && rb.addEventListener('click', resetAll);
+        } else {
+          hint.textContent = '';
+        }
+      }
+
+      function resetAll() {
+        state.query = '';
+        state.activeSection = null;
+        input.value = '';
+        applyFilters();
+        input.focus();
+      }
+
+      input.addEventListener('input', function (e) {
+        state.query = e.target.value;
+        applyFilters();
+      });
+      clear.addEventListener('click', function () {
+        state.query = '';
+        input.value = '';
+        input.focus();
+        applyFilters();
+      });
+
+      document.querySelectorAll('.section-toggle').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var key = btn.getAttribute('data-toggle');
+          state.activeSection = (state.activeSection === key) ? null : key;
+          applyFilters();
+        });
+      });
+
+      applyFilters();
+    })();
+  </script>
+</Base>

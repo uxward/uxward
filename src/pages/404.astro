@@ -1,0 +1,188 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Not found · uxward">
+  <style>
+    .middle {
+      display: flex;
+      align-items: center;
+      padding: var(--space-10) 0;
+      min-height: calc(100vh - 300px);
+    }
+    .stage {
+      width: 100%;
+      padding: var(--space-10) 0;
+    }
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-bottom: var(--space-8);
+    }
+    h1.title {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: clamp(56px, 8.4vw, 124px);
+      line-height: 0.96;
+      letter-spacing: -0.035em;
+      word-spacing: 0;
+      font-variation-settings: 'opsz' 144, 'SOFT' 30;
+      color: var(--ink);
+      margin: 0;
+      max-width: 1080px;
+    }
+    .subhead {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(28px, 3.4vw, 44px);
+      line-height: 1.18;
+      letter-spacing: -0.018em;
+      color: var(--body);
+      margin: var(--space-7) 0 0;
+      font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1;
+    }
+    .subhead .red {
+      color: var(--signature);
+      font-style: italic;
+      font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1;
+    }
+
+    .meant {
+      margin-top: var(--space-10);
+      padding-top: var(--space-8);
+      border-top: 1px solid var(--rule);
+      max-width: 720px;
+    }
+    .meant-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-bottom: var(--space-7);
+    }
+    .meant-list { border-top: 1px solid var(--rule); }
+    .meant-row {
+      display: grid;
+      grid-template-columns: 80px 1fr auto;
+      column-gap: var(--space-7);
+      align-items: baseline;
+      padding: var(--space-5) 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .meant-row .num {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+    }
+    .meant-row .where {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      line-height: 1.35;
+      color: var(--ink);
+      font-variation-settings: 'opsz' 36, 'SOFT' 30;
+      text-decoration: none;
+    }
+    .meant-row .where em {
+      font-style: italic;
+      color: var(--body);
+      font-variation-settings: 'opsz' 36, 'SOFT' 80, 'WONK' 1;
+    }
+    .meant-row a.go {
+      font-family: var(--font-serif);
+      font-size: 17px;
+      color: var(--ink);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-thickness: 1px;
+      text-align: right;
+    }
+    .meant-row a.go:hover { color: var(--tertiary); }
+    .meant-row:hover .where { color: var(--tertiary); }
+
+    .footnote {
+      padding: var(--space-9) 0 var(--space-8);
+      border-top: 1px solid var(--rule);
+    }
+    .footnote .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-7);
+      flex-wrap: wrap;
+    }
+    .footnote .apology,
+    .footnote .stamp {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+    }
+    .footnote .fleuron {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      color: var(--tertiary);
+      letter-spacing: 0;
+    }
+  </style>
+
+  <main class="middle">
+    <div class="container">
+      <div class="grid">
+        <div class="marker">§ —</div>
+        <div class="stage">
+          <div class="eyebrow">— A small administrative note —</div>
+          <h1 class="title">This page doesn't exist.</h1>
+          <p class="subhead"><span class="red">Most things</span> don't.</p>
+
+          <section class="meant">
+            <div class="meant-eyebrow">— Where you might have meant to go —</div>
+            <div class="meant-list">
+              <div class="meant-row">
+                <span class="num">— 01 —</span>
+                <a class="where" href="/">Home — <em>the front page, lately revised.</em></a>
+                <a class="go" href="/">→</a>
+              </div>
+              <div class="meant-row">
+                <span class="num">— 02 —</span>
+                <a class="where" href="/work">Work — <em>seven selected pieces, ten years apiece.</em></a>
+                <a class="go" href="/work">→</a>
+              </div>
+              <div class="meant-row">
+                <span class="num">— 03 —</span>
+                <a class="where" href="/writing">Writing — <em>quarterly essays, no newsletter.</em></a>
+                <a class="go" href="/writing">→</a>
+              </div>
+              <div class="meant-row">
+                <span class="num">— 04 —</span>
+                <a class="where" href="/about">About — <em>the longer version, recruiter-deep.</em></a>
+                <a class="go" href="/about">→</a>
+              </div>
+              <div class="meant-row">
+                <span class="num">— 05 —</span>
+                <a class="where" href="/contact">Contact — <em>email, read daily, replied to in two days.</em></a>
+                <a class="go" href="/contact">→</a>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="footnote">
+    <div class="container">
+      <div class="row">
+        <span class="apology">— If you typed the URL by hand, my apologies for the labyrinth —</span>
+        <span class="fleuron" aria-hidden="true">❦</span>
+        <span class="stamp">— 404 · uxward.com —</span>
+      </div>
+    </div>
+  </div>
+</Base>

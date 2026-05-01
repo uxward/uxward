@@ -1,0 +1,435 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Colophon · uxward">
+  <style>
+    .top { padding: var(--space-8) 0 var(--space-7); }
+    .top a.back {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      text-decoration: none;
+    }
+    .top a.back:hover { color: var(--ink); }
+
+    .title-block { padding: var(--space-9) 0 var(--space-10); }
+    .title-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-bottom: var(--space-7);
+    }
+    h1.title {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: clamp(48px, 6.4vw, 96px);
+      line-height: 1;
+      letter-spacing: -0.03em;
+      word-spacing: 0;
+      font-variation-settings: 'opsz' 144, 'SOFT' 30;
+      color: var(--ink);
+      margin: 0;
+    }
+    h1.title em {
+      font-style: italic; font-weight: 400;
+      font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
+    }
+    .opening {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 300;
+      font-size: 22px;
+      line-height: 1.5;
+      color: var(--body);
+      max-width: 660px;
+      margin: var(--space-7) 0 0;
+      font-variation-settings: 'opsz' 36, 'SOFT' 80, 'WONK' 1;
+    }
+
+    .section {
+      padding: var(--space-10) 0;
+      border-top: 1px solid var(--rule);
+    }
+    .section-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-bottom: var(--space-8);
+    }
+    .section-head {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: 36px;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin: 0 0 var(--space-9) 0;
+      font-variation-settings: 'opsz' 96, 'SOFT' 30;
+      max-width: 720px;
+    }
+    .section-head em {
+      font-style: italic; font-weight: 400;
+      font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1;
+    }
+
+    .spec { border-top: 1px solid var(--rule); }
+    .spec-row {
+      display: grid;
+      grid-template-columns: 220px 1fr 280px;
+      gap: var(--space-7);
+      padding: var(--space-6) 0;
+      border-bottom: 1px solid var(--rule);
+      align-items: baseline;
+    }
+    .spec-row .key {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+    }
+    .spec-row .name {
+      font-family: var(--font-serif);
+      font-size: 26px;
+      line-height: 1.2;
+      color: var(--ink);
+      letter-spacing: -0.012em;
+      font-variation-settings: 'opsz' 48, 'SOFT' 30;
+    }
+    .spec-row .name.mono {
+      font-family: var(--font-mono);
+      font-size: 22px;
+      letter-spacing: -0.005em;
+    }
+    .spec-row .name .why {
+      display: block;
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 16.5px;
+      line-height: 1.5;
+      color: var(--body);
+      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
+      margin-top: var(--space-3);
+      max-width: 520px;
+    }
+    .spec-row a.src {
+      font-family: var(--font-serif);
+      font-size: 16px;
+      color: var(--ink);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-thickness: 1px;
+      text-align: right;
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+    .spec-row a.src:hover { color: var(--tertiary); }
+
+    .color-list { border-top: 1px solid var(--rule); }
+    .color-row {
+      display: grid;
+      grid-template-columns: 80px 200px 1fr 120px;
+      gap: var(--space-7);
+      padding: var(--space-5) 0;
+      border-bottom: 1px solid var(--rule);
+      align-items: center;
+    }
+    .swatch {
+      width: 56px;
+      height: 56px;
+      border: 1px solid var(--rule);
+    }
+    .color-row .token-name {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      line-height: 1.2;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+      font-variation-settings: 'opsz' 48, 'SOFT' 30;
+    }
+    .color-row .role {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 16.5px;
+      line-height: 1.5;
+      color: var(--body);
+      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
+      max-width: 480px;
+    }
+    .color-row .hex {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      color: var(--tertiary);
+      text-align: right;
+    }
+
+    .build-list { border-top: 1px solid var(--rule); }
+    .build-row {
+      display: grid;
+      grid-template-columns: 220px 1fr 280px;
+      gap: var(--space-7);
+      padding: var(--space-5) 0;
+      border-bottom: 1px solid var(--rule);
+      align-items: baseline;
+    }
+    .build-row .key {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+    }
+    .build-row .what {
+      font-family: var(--font-serif);
+      font-size: 19px;
+      line-height: 1.45;
+      color: var(--ink);
+      font-variation-settings: 'opsz' 24, 'SOFT' 30;
+    }
+    .build-row .what em {
+      font-style: italic;
+      color: var(--body);
+      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
+    }
+    .build-row a.src {
+      font-family: var(--font-serif);
+      font-size: 16px;
+      color: var(--ink);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-thickness: 1px;
+      text-align: right;
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+    .build-row a.src:hover { color: var(--tertiary); }
+
+    .ack-prose p {
+      font-family: var(--font-serif);
+      font-size: 19px;
+      line-height: 1.7;
+      color: var(--body);
+      max-width: 660px;
+      margin: 0 0 var(--space-6);
+    }
+    .ack-prose p strong { font-weight: 500; color: var(--ink); }
+    .ack-prose p em { font-style: italic; }
+
+    .stamp-row {
+      padding: var(--space-9) 0 var(--space-10);
+      border-top: 1px solid var(--rule);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-7);
+      flex-wrap: wrap;
+    }
+    .stamp-row .stamp {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+    }
+    .stamp-row .fleuron {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      color: var(--tertiary);
+      letter-spacing: 0;
+    }
+
+    @media (max-width: 900px) {
+      .spec-row { grid-template-columns: 1fr; }
+      .spec-row a.src { text-align: left; }
+      .color-row { grid-template-columns: 80px 1fr; }
+      .color-row .role { display: none; }
+      .build-row { grid-template-columns: 1fr; }
+      .build-row a.src { text-align: left; }
+    }
+  </style>
+
+  <div class="container top">
+    <div class="grid">
+      <div class="marker">§ ↩</div>
+      <div><a class="back" href="/">— Back home</a></div>
+    </div>
+  </div>
+
+  <div class="container title-block">
+    <div class="grid">
+      <div class="marker">§ 00</div>
+      <div>
+        <div class="title-eyebrow">— Colophon · How this was made —</div>
+        <h1 class="title">A note on the <em>making.</em></h1>
+        <p class="opening">
+          uxward.com is a working journal of Brandon E. B. Ward — designed in light and dark,
+          built with restraint, set in two faces, and revised quarterly. Most visitors will
+          never see this page. If you're reading it, hello. You're the right kind of reader.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="grid">
+        <div class="marker">§ 01</div>
+        <div>
+          <div class="section-eyebrow">— Typography —</div>
+          <h2 class="section-head">Two faces, <em>one in service of the other.</em></h2>
+          <div class="spec">
+            <div class="spec-row">
+              <span class="key">— Display &amp; body —</span>
+              <span class="name">
+                Fraunces
+                <span class="why">A variable serif by Undercase Type. Chosen for its WONK and SOFT axes — a face that can be sober at body size and slightly mischievous in italics, without ever being decorative.</span>
+              </span>
+              <a class="src" href="https://fonts.google.com/specimen/Fraunces" target="_blank" rel="noopener">Undercase Type →</a>
+            </div>
+            <div class="spec-row">
+              <span class="key">— Eyebrows &amp; metadata —</span>
+              <span class="name mono">
+                JetBrains Mono
+                <span class="why">A monospace from JetBrains. Used only for small labels, eyebrows, and stamps — the parts of the page that read as administrative rather than editorial.</span>
+              </span>
+              <a class="src" href="https://www.jetbrains.com/lp/mono/" target="_blank" rel="noopener">JetBrains →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="grid">
+        <div class="marker">§ 02</div>
+        <div>
+          <div class="section-eyebrow">— Color —</div>
+          <h2 class="section-head">Five tokens. <em>One of them is rationed.</em></h2>
+          <div class="color-list">
+            <div class="color-row">
+              <div class="swatch" style="background: #FFFFFF;"></div>
+              <div class="token-name">Canvas</div>
+              <div class="role">The page. The bias toward white over off-white is the bias toward editorial seriousness.</div>
+              <div class="hex">#FFFFFF</div>
+            </div>
+            <div class="color-row">
+              <div class="swatch" style="background: #FAF8F4;"></div>
+              <div class="token-name">Paper</div>
+              <div class="role">The tinted off-white. Used for callout bands and the case-study artifact frames.</div>
+              <div class="hex">#FAF8F4</div>
+            </div>
+            <div class="color-row">
+              <div class="swatch" style="background: #1A1A1A;"></div>
+              <div class="token-name">Ink</div>
+              <div class="role">The headlines, the wordmark, the body. Not pure black; black with the warmth dialed down by one degree.</div>
+              <div class="hex">#1A1A1A</div>
+            </div>
+            <div class="color-row">
+              <div class="swatch" style="background: #6B6660;"></div>
+              <div class="token-name">Tertiary</div>
+              <div class="role">The mono labels, the timestamps, the rules. Quiet by design.</div>
+              <div class="hex">#6B6660</div>
+            </div>
+            <div class="color-row">
+              <div class="swatch" style="background: #CC0006;"></div>
+              <div class="token-name">Signature red</div>
+              <div class="role">Rationed across the site. Five sanctioned places. Never a button color, never a hover state, never a divider. Always a moment.</div>
+              <div class="hex">#CC0006</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="grid">
+        <div class="marker">§ 03</div>
+        <div>
+          <div class="section-eyebrow">— Build —</div>
+          <h2 class="section-head">The stack, <em>told briefly.</em></h2>
+          <div class="build-list">
+            <div class="build-row">
+              <span class="key">— Framework —</span>
+              <span class="what">Astro — <em>static-first, content-shaped, the right tool for a journal.</em></span>
+              <a class="src" href="https://astro.build" target="_blank" rel="noopener">astro.build →</a>
+            </div>
+            <div class="build-row">
+              <span class="key">— Hosting —</span>
+              <span class="what">Cloudflare Pages — <em>fast, cheap, paid for in five-year increments.</em></span>
+              <a class="src" href="https://pages.cloudflare.com" target="_blank" rel="noopener">pages.cloudflare.com →</a>
+            </div>
+            <div class="build-row">
+              <span class="key">— Content —</span>
+              <span class="what">Markdown — <em>essays and case studies authored in the format I'll still be able to read in 2046.</em></span>
+              <a class="src" href="https://commonmark.org" target="_blank" rel="noopener">commonmark.org →</a>
+            </div>
+            <div class="build-row">
+              <span class="key">— Domain —</span>
+              <span class="what">uxward.com — <em>registered 2014, used in earnest 2026.</em></span>
+              <span class="src">— —</span>
+            </div>
+            <div class="build-row">
+              <span class="key">— Source —</span>
+              <span class="what">Public on GitHub. <em>The site itself is part of the work.</em></span>
+              <a class="src" href="https://github.com/brandonebward/uxward" target="_blank" rel="noopener">github.com/brandonebward/uxward →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="grid">
+        <div class="marker">§ 04</div>
+        <div>
+          <div class="section-eyebrow">— Acknowledgments —</div>
+          <h2 class="section-head">Borrowed, <em>with thanks.</em></h2>
+          <div class="ack-prose">
+            <p>
+              The editorial discipline of this site is borrowed from <strong>Khoi Vinh's</strong>
+              twenty years of restraint at Subtraction.com, and from the <strong>New Yorker's</strong>
+              insistence that a serious face does not need to be a quiet one. The decision to
+              keep red rationed across exactly five places came from looking, for a long time,
+              at how Penguin paperback covers earned their one accent in the 1960s.
+            </p>
+            <p>
+              The case for the working journal — over the portfolio, over the case-study deck,
+              over the LinkedIn — comes from <strong>Frank Chimero</strong>, <strong>Robin
+              Sloan</strong>, and the body of long-form writing that quietly insists the personal
+              site is still the right primitive. <em>It is.</em>
+            </p>
+            <p>
+              The <strong>Fraunces</strong> family was developed by Undercase Type and Phaedra
+              Charles. The <strong>JetBrains Mono</strong> family was developed by JetBrains.
+              Both are open-source, and both are responsible for whatever this site reads as.
+            </p>
+            <p>
+              And to the reader who got to the bottom of the colophon: <em>thank you for
+              looking.</em> You are why the site is here.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="stamp-row">
+      <span class="stamp">— Last revised Q2 2026 · Updated quarterly · Brandon E. B. Ward · Dallas —</span>
+      <span class="fleuron" aria-hidden="true">❦</span>
+    </div>
+  </div>
+</Base>
