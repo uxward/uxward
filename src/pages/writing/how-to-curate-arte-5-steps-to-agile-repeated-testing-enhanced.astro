@@ -1,0 +1,377 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="How to CURATE: 5 Steps to Agile Repeated Testing Enhanced · uxward">
+  <style>
+    .read-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 2px;
+      width: 0%;
+      background: var(--signature);
+      z-index: 200;
+      transition: width 80ms linear;
+    }
+
+    .reading-column {
+      max-width: 660px;
+      margin: 0 auto;
+      padding: 0 var(--gutter-x);
+    }
+
+    .essay-top { padding: var(--space-8) 0 var(--space-7); }
+    .essay-top .row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--space-7);
+      flex-wrap: wrap;
+    }
+    .essay-top a.back,
+    .essay-top .meta {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      text-decoration: none;
+    }
+    .essay-top a.back:hover { color: var(--ink); }
+    .essay-top .meta .sep { padding: 0 12px; color: var(--rule); }
+
+    .essay-title-block { padding: var(--space-9) 0 var(--space-10); }
+    .essay-title {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: clamp(42px, 5.6vw, 76px);
+      line-height: 1.02;
+      letter-spacing: -0.025em;
+      font-variation-settings: 'opsz' 144, 'SOFT' 30;
+      color: var(--ink);
+      margin: 0;
+      max-width: 820px;
+    }
+    .essay-title em {
+      font-style: italic; font-weight: 400;
+      font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
+    }
+    .essay-deck {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 300;
+      font-size: 22px;
+      line-height: 1.45;
+      color: var(--body);
+      margin: var(--space-7) 0 0;
+      max-width: 660px;
+      font-variation-settings: 'opsz' 36, 'SOFT' 80, 'WONK' 1;
+    }
+    .essay-byline {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-top: var(--space-8);
+    }
+
+    .essay-body { padding: var(--space-9) 0 var(--space-10); }
+    .essay-body p {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 1.65;
+      color: var(--body);
+      max-width: 660px;
+      margin: 0 0 var(--space-6);
+      font-variation-settings: 'opsz' 14;
+      text-wrap: pretty;
+    }
+    .essay-body p strong { font-weight: 500; color: var(--ink); }
+    .essay-body p em { font-style: italic; }
+    .essay-body p:first-of-type::first-letter {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: 5.2em;
+      line-height: 0.88;
+      float: left;
+      padding: 6px 12px 0 0;
+      color: var(--ink);
+      font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 1;
+    }
+    .essay-body h2 {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: 30px;
+      line-height: 1.18;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      margin: var(--space-10) 0 var(--space-7);
+      font-variation-settings: 'opsz' 96, 'SOFT' 50;
+      max-width: 660px;
+    }
+    .essay-body h2 em {
+      font-style: italic; font-weight: 400;
+      font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1;
+    }
+    .essay-body blockquote {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 300;
+      font-size: 26px;
+      line-height: 1.35;
+      color: var(--ink);
+      border-left: 3px solid var(--signature);
+      padding: 4px 0 4px var(--space-7);
+      margin: var(--space-9) 0;
+      max-width: 600px;
+      font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1;
+    }
+    .essay-body ol, .essay-body ul { margin: 0 0 var(--space-6); padding-left: var(--space-7); }
+    .essay-body ol li, .essay-body ul li {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      line-height: 1.65;
+      color: var(--body);
+      margin-bottom: var(--space-4);
+      font-variation-settings: 'opsz' 14;
+    }
+    .essay-body figure { margin: var(--space-9) 0; }
+    .essay-body figure img { max-width: 100%; height: auto; display: block; }
+    .essay-body figure figcaption {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--tertiary);
+      margin-top: var(--space-4);
+    }
+
+    .essay-end {
+      margin-top: var(--space-9);
+      padding-top: var(--space-7);
+      border-top: 1px solid var(--rule);
+    }
+    .essay-end .author {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-top: var(--space-6);
+    }
+
+    .more {
+      border-top: 1px solid var(--rule);
+      padding: var(--space-10) 0 var(--space-9);
+    }
+    .more .more-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-bottom: var(--space-8);
+    }
+    .more-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: var(--space-9);
+    }
+    .more-grid .essay-card {
+      text-decoration: none; color: inherit; display: block;
+    }
+    .more-grid .essay-card .meta {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-bottom: var(--space-5);
+    }
+    .more-grid .essay-card .title {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: 22px;
+      line-height: 1.22;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      font-variation-settings: 'opsz' 48, 'SOFT' 50;
+      margin: 0 0 var(--space-3);
+    }
+    .more-grid .essay-card .deck {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 16.5px;
+      line-height: 1.5;
+      color: var(--body);
+      margin: 0;
+      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
+    }
+    .more-grid .essay-card:hover .title { color: var(--tertiary); }
+
+    .all-link { margin-top: var(--space-9); }
+    .all-link a {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      color: var(--ink);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-thickness: 1px;
+    }
+
+    @media (max-width: 720px) {
+      .more-grid { grid-template-columns: 1fr; gap: var(--space-8); }
+    }
+  </style>
+
+  <div class="read-bar" id="read-bar" aria-hidden="true"></div>
+
+  <div class="reading-column essay-top">
+    <div class="row">
+      <a class="back" href="/writing">— Back to writing</a>
+      <div class="meta">
+        <span>Q2 2021</span>
+        <span class="sep">·</span>
+        <span>Essay</span>
+        <span class="sep">·</span>
+        <span>7 min read</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="reading-column essay-title-block">
+    <h1 class="essay-title">
+      How to <em>CURATE</em>: 5 Steps to Agile Repeated Testing Enhanced
+    </h1>
+    <p class="essay-deck">
+      ARTE — Agile Repeated Testing for Enhancement — is a lightweight usability testing framework that fits inside sprints. Here is how to run it in five steps.
+    </p>
+    <div class="essay-byline">— By Brandon E. B. Ward —</div>
+  </div>
+
+  <article class="reading-column essay-body">
+
+    <figure>
+      <img src="/images/writing/kyre-song-kEw9MHWuz5Y-unsplash.jpg" alt="Usability testing session — Photo by Kyre Song on Unsplash" />
+      <figcaption>Photo by Kyre Song on Unsplash</figcaption>
+    </figure>
+
+    <p>
+      Most teams treat usability testing as a big-bang event: a formal study, a recruited panel, a moderated session in a purpose-built lab, a thick report delivered six weeks after the questions were first asked. By the time the findings arrive, the product has already shipped. The insights become historical footnotes rather than inputs.
+    </p>
+
+    <p>
+      ARTE — Agile Repeated Testing for Enhancement — is the antidote. It is a lightweight, repeatable framework for continuous usability testing that fits inside sprint cycles. The goal is not a comprehensive research study. The goal is a steady stream of validated learning that informs each sprint before it closes.
+    </p>
+
+    <h2>Step 1: Curate your questions</h2>
+
+    <p>
+      Before you recruit a single participant, write down what you actually need to know. Not what you're curious about. Not what the stakeholders keep asking. What you <em>need to know</em> in order to make a better decision about what to build next.
+    </p>
+
+    <p>
+      Good testing questions are specific and behavioral: "Can users complete the checkout flow without abandoning?" Bad testing questions are vague and attitudinal: "Do users like our new design?" Curate your question list ruthlessly. If you have more than five questions per session, you have too many.
+    </p>
+
+    <h2>Step 2: Recruit lightly</h2>
+
+    <p>
+      Five participants surface approximately 85% of usability issues. You do not need a panel of twenty. You need five people who roughly match your target user profile. Recruit through your existing user base, through screener surveys, through customer success contacts. Aim for a 30-minute session. Compensate appropriately for their time.
+    </p>
+
+    <p>
+      The barrier to recruitment is the most common reason teams skip usability testing. Lower the bar. Five people, thirty minutes, once per sprint. That is the target.
+    </p>
+
+    <h2>Step 3: Run the sessions</h2>
+
+    <p>
+      Use a think-aloud protocol. Ask participants to narrate what they are doing and why as they work through your tasks. Do not help them. Do not explain the interface. Do not answer their questions with answers — answer their questions with questions: "What would you expect to happen?" "What are you looking for?"
+    </p>
+
+    <p>
+      Record the sessions. Take notes in real time. Tag moments where participants hesitate, backtrack, make errors, or express frustration. Those moments are your findings.
+    </p>
+
+    <h2>Step 4: Synthesize quickly</h2>
+
+    <p>
+      Immediately after the sessions — ideally the same day — synthesize your notes into a prioritized list of findings. Group related observations. Identify the issues that appeared in three or more sessions: those are your critical findings. Issues that appeared in one or two sessions: worth noting but not blocking.
+    </p>
+
+    <p>
+      Write your synthesis in plain language. No jargon. No academic framing. Just: what happened, how often, what it means for the design.
+    </p>
+
+    <h2>Step 5: Enhance and repeat</h2>
+
+    <p>
+      Feed your findings directly into the next sprint's backlog. Critical findings become sprint tasks. Minor findings become icebox items. The design changes you make based on evidence replace the changes you would have made based on opinion.
+    </p>
+
+    <p>
+      Then do it again. Same framework, new questions, next sprint. The power of ARTE is not in any single round of testing — it is in the compounding effect of continuous learning. Each sprint you know more than the last. Each release is more validated than the previous.
+    </p>
+
+    <blockquote>
+      The goal is not a comprehensive research study. The goal is a steady stream of validated learning.
+    </blockquote>
+
+    <p>
+      Teams that run ARTE consistently ship fewer critical bugs, receive fewer support tickets about usability, and spend less time in post-launch firefighting. The investment — five participants, thirty minutes each, once per sprint — pays for itself many times over.
+    </p>
+
+    <div class="essay-end">
+      <div class="author">— Brandon E. B. Ward · Dallas, TX —</div>
+    </div>
+
+  </article>
+
+  <section class="container">
+    <div class="more">
+      <div class="grid">
+        <div class="marker">§ ↗</div>
+        <div>
+          <div class="more-eyebrow">— More from the writing —</div>
+          <div class="more-grid">
+            <a class="essay-card" href="/writing">
+              <div class="meta">— Essay —</div>
+              <h3 class="title">More writing</h3>
+              <p class="deck">Thoughts on design, leadership, and the work of making things for people.</p>
+            </a>
+            <a class="essay-card" href="/writing">
+              <div class="meta">— Essay —</div>
+              <h3 class="title">More writing</h3>
+              <p class="deck">Thoughts on design, leadership, and the work of making things for people.</p>
+            </a>
+            <a class="essay-card" href="/writing">
+              <div class="meta">— Essay —</div>
+              <h3 class="title">More writing</h3>
+              <p class="deck">Thoughts on design, leadership, and the work of making things for people.</p>
+            </a>
+          </div>
+          <div class="all-link">
+            <a href="/writing">— All writing →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (function () {
+      var bar = document.getElementById('read-bar');
+      if (!bar) return;
+      function update() {
+        var doc = document.documentElement;
+        var max = (doc.scrollHeight - doc.clientHeight);
+        var pct = max > 0 ? Math.min(100, Math.max(0, (doc.scrollTop || window.scrollY) / max * 100)) : 0;
+        bar.style.width = pct + '%';
+      }
+      update();
+      window.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+    })();
+  </script>
+</Base>

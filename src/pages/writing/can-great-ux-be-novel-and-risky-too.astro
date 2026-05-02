@@ -1,0 +1,183 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="Can Great UX Be Novel and Risky Too? · uxward">
+  <style>
+    .read-bar { position: fixed; top: 0; left: 0; height: 2px; width: 0%; background: var(--signature); z-index: 200; transition: width 80ms linear; }
+    .reading-column { max-width: 660px; margin: 0 auto; padding: 0 var(--gutter-x); }
+    .essay-top { padding: var(--space-8) 0 var(--space-7); }
+    .essay-top .row { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-7); flex-wrap: wrap; }
+    .essay-top a.back, .essay-top .meta { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--tertiary); text-decoration: none; }
+    .essay-top a.back:hover { color: var(--ink); }
+    .essay-top .meta .sep { padding: 0 12px; color: var(--rule); }
+    .essay-title-block { padding: var(--space-9) 0 var(--space-10); }
+    .essay-title { font-family: var(--font-serif); font-weight: 300; font-size: clamp(42px, 5.6vw, 76px); line-height: 1.02; letter-spacing: -0.025em; font-variation-settings: 'opsz' 144, 'SOFT' 30; color: var(--ink); margin: 0; max-width: 820px; }
+    .essay-title em { font-style: italic; font-weight: 400; font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1; }
+    .essay-deck { font-family: var(--font-serif); font-style: italic; font-weight: 300; font-size: 22px; line-height: 1.45; color: var(--body); margin: var(--space-7) 0 0; max-width: 660px; font-variation-settings: 'opsz' 36, 'SOFT' 80, 'WONK' 1; }
+    .essay-byline { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--tertiary); margin-top: var(--space-8); }
+    .essay-body { padding: var(--space-9) 0 var(--space-10); }
+    .essay-body p { font-family: var(--font-serif); font-weight: 400; font-size: 18px; line-height: 1.65; color: var(--body); max-width: 660px; margin: 0 0 var(--space-6); font-variation-settings: 'opsz' 14; text-wrap: pretty; }
+    .essay-body p strong { font-weight: 500; color: var(--ink); }
+    .essay-body p em { font-style: italic; }
+    .essay-body p:first-of-type::first-letter { font-family: var(--font-serif); font-weight: 300; font-size: 5.2em; line-height: 0.88; float: left; padding: 6px 12px 0 0; color: var(--ink); font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 1; }
+    .essay-body h2 { font-family: var(--font-serif); font-weight: 400; font-size: 30px; line-height: 1.18; letter-spacing: -0.015em; color: var(--ink); margin: var(--space-10) 0 var(--space-7); font-variation-settings: 'opsz' 96, 'SOFT' 50; max-width: 660px; }
+    .essay-body blockquote { font-family: var(--font-serif); font-style: italic; font-weight: 300; font-size: 26px; line-height: 1.35; color: var(--ink); border-left: 3px solid var(--signature); padding: 4px 0 4px var(--space-7); margin: var(--space-9) 0; max-width: 600px; font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1; }
+    .essay-body figure { margin: var(--space-9) 0; }
+    .essay-body figure img { max-width: 100%; height: auto; display: block; }
+    .essay-body figure figcaption { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; color: var(--tertiary); margin-top: var(--space-4); }
+    .essay-end { margin-top: var(--space-9); padding-top: var(--space-7); border-top: 1px solid var(--rule); }
+    .essay-end .author { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--tertiary); margin-top: var(--space-6); }
+    .more { border-top: 1px solid var(--rule); padding: var(--space-10) 0 var(--space-9); }
+    .more .more-eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--tertiary); margin-bottom: var(--space-8); }
+    .more-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-9); }
+    .more-grid .essay-card { text-decoration: none; color: inherit; display: block; }
+    .more-grid .essay-card .meta { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--tertiary); margin-bottom: var(--space-5); }
+    .more-grid .essay-card .title { font-family: var(--font-serif); font-weight: 400; font-size: 22px; line-height: 1.22; letter-spacing: -0.015em; color: var(--ink); font-variation-settings: 'opsz' 48, 'SOFT' 50; margin: 0 0 var(--space-3); }
+    .more-grid .essay-card .deck { font-family: var(--font-serif); font-style: italic; font-size: 16.5px; line-height: 1.5; color: var(--body); margin: 0; font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1; }
+    .more-grid .essay-card:hover .title { color: var(--tertiary); }
+    .all-link { margin-top: var(--space-9); }
+    .all-link a { font-family: var(--font-serif); font-size: 18px; color: var(--ink); text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+    @media (max-width: 720px) { .more-grid { grid-template-columns: 1fr; gap: var(--space-8); } }
+  </style>
+
+  <div class="read-bar" id="read-bar" aria-hidden="true"></div>
+
+  <div class="reading-column essay-top">
+    <div class="row">
+      <a class="back" href="/writing">— Back to writing</a>
+      <div class="meta">
+        <span>Q3 2021</span>
+        <span class="sep">·</span>
+        <span>Essay</span>
+        <span class="sep">·</span>
+        <span>5 min read</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="reading-column essay-title-block">
+    <h1 class="essay-title">
+      Can Great UX Be <em>Novel and Risky</em> Too?
+    </h1>
+    <p class="essay-deck">
+      We've been sacrificing experiential pleasure and meaning at the altar of usability and convenience. The web is boring. We did that.
+    </p>
+    <div class="essay-byline">— By Brandon E. B. Ward —</div>
+  </div>
+
+  <article class="reading-column essay-body">
+
+    <figure>
+      <img src="/images/writing/Danger+-+Boring+Website" alt="Danger: boring website" />
+    </figure>
+
+    <p>
+      In a previous post on delivering quality experiences, I argued that introducing novelty and unique behaviors in UX should generally be frowned upon — particularly in enterprise software, web apps, and the like. I still believe that within that context.
+    </p>
+
+    <blockquote>
+      I've come to feel that we, the UX community, have been sacrificing experiential pleasure and meaning at the altar of usability and convenience.
+    </blockquote>
+
+    <p>
+      But when it comes to the web and digital media at large, I've come to feel we've been making that sacrifice more than necessary — to the detriment of our craft and the continued evolution of our collective digital experiences. When did you last land on a page and feel enthralled? Giddy? Surprised?
+    </p>
+
+    <h2>What's to blame?</h2>
+
+    <figure>
+      <img src="/images/writing/web+design+templates" alt="Web design templates — they all look the same" />
+    </figure>
+
+    <p>
+      <strong>Templates.</strong> Design templates and libraries are easy targets. Every time we reuse, repurpose, and revert to existing common patterns, we perpetuate the mundanity.
+    </p>
+
+    <figure>
+      <img src="/images/writing/grids.jpg" alt="Grid systems in web design — Photo: OozleMedia.com" />
+      <figcaption>Photo: OozleMedia.com</figcaption>
+    </figure>
+
+    <p>
+      <strong>Grids</strong> are another culprit, but we've been designing great things on grids for thousands of years (tiles, mosaics, mandalas, buildings), so I say that's a cop-out and not worth further discussion.
+    </p>
+
+    <figure>
+      <img src="/images/writing/different+devices+and+screen+sizes" alt="Multiple device sizes and screen breakpoints" />
+    </figure>
+
+    <p>
+      <strong>Screens.</strong> Mobile and responsive breakpoints are another suspect. But these should be opportunities for surprise and elegant delight. There's no reason my mobile experience has to function similarly to my desktop experience — in fact it really shouldn't. Device accommodation, properly leveraged, should be a motivator for exceptional design, not an excuse for laziness.
+    </p>
+
+    <figure>
+      <img src="/images/writing/men+and+women+surprised+to+be+pointing+at+themselves" alt="People surprised to be pointing at themselves" />
+    </figure>
+
+    <p>
+      <strong>Us.</strong> The real answer is the UX community. Specifically, UX design that ignores the top of the UX Hierarchy of Needs: Pleasure and Meaning. This ignorance relegates most of our output to what Stephen Anderson called the <em>Zone of Mediocrity</em>.
+    </p>
+
+    <h2>Yes. Great UX can also be novel and risky.</h2>
+
+    <p>
+      So next time we run through our processes and procedures, let's inject something new, something risky, something bold and outlandish. It might not work, and that's okay. Fail early, fail often. But dare to fail. Could there be danger in water where we can't see the bottom? Sure — but it's also where the treasure sits awaiting discovery.
+    </p>
+
+    <p>
+      Here's to the designers who go beyond <strong><em>what and why</em></strong>, and start asking <strong><em>what if and why not</em></strong>.
+    </p>
+
+    <div class="essay-end">
+      <div class="author">— Brandon E. B. Ward · Dallas, TX —</div>
+    </div>
+
+  </article>
+
+  <section class="container">
+    <div class="more">
+      <div class="grid">
+        <div class="marker">§ ↗</div>
+        <div>
+          <div class="more-eyebrow">— More from the writing —</div>
+          <div class="more-grid">
+            <a class="essay-card" href="/writing">
+              <div class="meta">— Essay —</div>
+              <h3 class="title">More writing</h3>
+              <p class="deck">Thoughts on design, leadership, and the work of making things for people.</p>
+            </a>
+            <a class="essay-card" href="/writing">
+              <div class="meta">— Essay —</div>
+              <h3 class="title">More writing</h3>
+              <p class="deck">Thoughts on design, leadership, and the work of making things for people.</p>
+            </a>
+            <a class="essay-card" href="/writing">
+              <div class="meta">— Essay —</div>
+              <h3 class="title">More writing</h3>
+              <p class="deck">Thoughts on design, leadership, and the work of making things for people.</p>
+            </a>
+          </div>
+          <div class="all-link">
+            <a href="/writing">— All writing →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (function () {
+      var bar = document.getElementById('read-bar');
+      if (!bar) return;
+      function update() {
+        var doc = document.documentElement;
+        var max = (doc.scrollHeight - doc.clientHeight);
+        var pct = max > 0 ? Math.min(100, Math.max(0, (doc.scrollTop || window.scrollY) / max * 100)) : 0;
+        bar.style.width = pct + '%';
+      }
+      update();
+      window.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+    })();
+  </script>
+</Base>

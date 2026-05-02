@@ -1,0 +1,379 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="Only You Can Prevent Dumpster Fires · uxward">
+  <style>
+    .read-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 2px;
+      width: 0%;
+      background: var(--signature);
+      z-index: 200;
+      transition: width 80ms linear;
+    }
+
+    .reading-column {
+      max-width: 660px;
+      margin: 0 auto;
+      padding: 0 var(--gutter-x);
+    }
+
+    .essay-top { padding: var(--space-8) 0 var(--space-7); }
+    .essay-top .row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--space-7);
+      flex-wrap: wrap;
+    }
+    .essay-top a.back,
+    .essay-top .meta {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      text-decoration: none;
+    }
+    .essay-top a.back:hover { color: var(--ink); }
+    .essay-top .meta .sep { padding: 0 12px; color: var(--rule); }
+
+    .essay-title-block { padding: var(--space-9) 0 var(--space-10); }
+    .essay-title {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: clamp(42px, 5.6vw, 76px);
+      line-height: 1.02;
+      letter-spacing: -0.025em;
+      font-variation-settings: 'opsz' 144, 'SOFT' 30;
+      color: var(--ink);
+      margin: 0;
+      max-width: 820px;
+    }
+    .essay-title em {
+      font-style: italic; font-weight: 400;
+      font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
+    }
+    .essay-deck {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 300;
+      font-size: 22px;
+      line-height: 1.45;
+      color: var(--body);
+      margin: var(--space-7) 0 0;
+      max-width: 660px;
+      font-variation-settings: 'opsz' 36, 'SOFT' 80, 'WONK' 1;
+    }
+    .essay-byline {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-top: var(--space-8);
+    }
+
+    .essay-body { padding: var(--space-9) 0 var(--space-10); }
+    .essay-body p {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 1.65;
+      color: var(--body);
+      max-width: 660px;
+      margin: 0 0 var(--space-6);
+      font-variation-settings: 'opsz' 14;
+      text-wrap: pretty;
+    }
+    .essay-body p strong { font-weight: 500; color: var(--ink); }
+    .essay-body p em { font-style: italic; }
+    .essay-body p:first-of-type::first-letter {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: 5.2em;
+      line-height: 0.88;
+      float: left;
+      padding: 6px 12px 0 0;
+      color: var(--ink);
+      font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 1;
+    }
+    .essay-body h2 {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: 30px;
+      line-height: 1.18;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      margin: var(--space-10) 0 var(--space-7);
+      font-variation-settings: 'opsz' 96, 'SOFT' 50;
+      max-width: 660px;
+    }
+    .essay-body h2 em {
+      font-style: italic; font-weight: 400;
+      font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1;
+    }
+    .essay-body blockquote {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 300;
+      font-size: 26px;
+      line-height: 1.35;
+      color: var(--ink);
+      border-left: 3px solid var(--signature);
+      padding: 4px 0 4px var(--space-7);
+      margin: var(--space-9) 0;
+      max-width: 600px;
+      font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1;
+    }
+    .essay-body figure { margin: var(--space-9) 0; }
+    .essay-body figure img { max-width: 100%; height: auto; display: block; }
+    .essay-body figure figcaption {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--tertiary);
+      margin-top: var(--space-4);
+    }
+
+    .essay-end {
+      margin-top: var(--space-9);
+      padding-top: var(--space-7);
+      border-top: 1px solid var(--rule);
+    }
+    .essay-end .author {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-top: var(--space-6);
+    }
+
+    .more {
+      border-top: 1px solid var(--rule);
+      padding: var(--space-10) 0 var(--space-9);
+    }
+    .more .more-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-bottom: var(--space-8);
+    }
+    .more-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: var(--space-9);
+    }
+    .more-grid .essay-card {
+      text-decoration: none; color: inherit; display: block;
+    }
+    .more-grid .essay-card .meta {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-bottom: var(--space-5);
+    }
+    .more-grid .essay-card .title {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: 22px;
+      line-height: 1.22;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      font-variation-settings: 'opsz' 48, 'SOFT' 50;
+      margin: 0 0 var(--space-3);
+    }
+    .more-grid .essay-card .deck {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 16.5px;
+      line-height: 1.5;
+      color: var(--body);
+      margin: 0;
+      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
+    }
+    .more-grid .essay-card:hover .title { color: var(--tertiary); }
+
+    .all-link { margin-top: var(--space-9); }
+    .all-link a {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      color: var(--ink);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-thickness: 1px;
+    }
+
+    @media (max-width: 720px) {
+      .more-grid { grid-template-columns: 1fr; gap: var(--space-8); }
+    }
+  </style>
+
+  <div class="read-bar" id="read-bar" aria-hidden="true"></div>
+
+  <div class="reading-column essay-top">
+    <div class="row">
+      <a class="back" href="/writing">— Back to writing</a>
+      <div class="meta">
+        <span>Q1 2026</span>
+        <span class="sep">·</span>
+        <span>Essay</span>
+        <span class="sep">·</span>
+        <span>8 min read</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="reading-column essay-title-block">
+    <h1 class="essay-title">
+      Only You Can Prevent <em>Dumpster Fires</em>
+    </h1>
+    <p class="essay-deck">
+      A design ethics manifesto in five parts. The fires are preventable. The choice to prevent them is yours.
+    </p>
+    <div class="essay-byline">— By Brandon E. B. Ward —</div>
+  </div>
+
+  <article class="reading-column essay-body">
+
+    <figure>
+      <img src="/images/writing/dumpster-fires.png" alt="Dumpster on fire — the preventable disasters of bad design" />
+    </figure>
+
+    <p>
+      There is a version of design that treats its job as execution. The stakeholder wants a feature. The designer designs the feature. The engineer builds the feature. The feature ships. Done. No one asks whether the feature should exist, who it might harm, what second-order effects it might produce. That version of design starts dumpster fires.
+    </p>
+
+    <p>
+      There is another version. It starts with the same inputs — a stakeholder request, a business need, a user problem — but it adds a layer of interrogation. Before the first wireframe, it asks: who does this affect? Who might it harm? What would this enable if someone used it badly? That version prevents dumpster fires. Not always. But far more often.
+    </p>
+
+    <h2>Design for the edges</h2>
+
+    <p>
+      Every interface has edge cases. The user who is not the target persona. The person who speaks a different language, uses a screen reader, has a cognitive disability, is in a crisis. Most design processes treat these as afterthoughts — accessibility audits at the end, edge case handling in the backlog.
+    </p>
+
+    <p>
+      Designing for the edges from the start is not just an ethical obligation. It is a quality signal. Systems that handle edge cases gracefully are better systems. The person having a bad day, the user who misunderstands the interface, the person who enters unexpected input — these users stress-test your design in ways the primary persona never will. If you only design for the happy path, you build a product that breaks under pressure.
+    </p>
+
+    <blockquote>
+      Design for the edge cases first. The average user can take care of themselves.
+    </blockquote>
+
+    <h2>Design with restraint</h2>
+
+    <p>
+      Not every design problem requires a novel solution. Not every interface needs to be clever. Not every interaction needs to be delightful. Sometimes the most ethical design decision is to build the obvious thing, clearly, without embellishment.
+    </p>
+
+    <p>
+      Restraint is hard for designers. We are trained to solve problems creatively. We want to make things interesting. But the most harmful design patterns in the industry — dark patterns, addictive loops, manipulation architectures — are often the products of designers who were very creative indeed, in service of goals that were misaligned with users.
+    </p>
+
+    <p>
+      Ask yourself: is this design serving the user's goal, or is it serving the metric? Is it creating genuine value, or is it manufacturing engagement? The answer to those questions should shape every design decision.
+    </p>
+
+    <h2>Don't be Earl Scheib</h2>
+
+    <p>
+      Earl Scheib was a car-painting chain famous for its tagline: "I'll paint any car, any color, for $29.95." They would paint anything. Good car, rusted car, car that needed bodywork before paint. They would paint right over the problems. The result looked fine from a distance. It peeled within months.
+    </p>
+
+    <p>
+      Earl Scheib design is design that covers problems without solving them. A better onboarding flow painted over a product people don't actually need. A more elegant empty state painted over a system that has no data because it isn't working. A smoother checkout painted over a return policy that traps customers.
+    </p>
+
+    <p>
+      The designer who asks "is this the right problem to solve?" before designing is not being obstructionist. They are being professional. Painting over problems is not design — it is cosmetics.
+    </p>
+
+    <h2>Test your stuff</h2>
+
+    <p>
+      You cannot know whether your design works until you watch someone try to use it. This is not an opinion. It is an empirical fact about the limits of human ability to simulate another person's experience of an interface.
+    </p>
+
+    <p>
+      The designers who ship harmful products are overwhelmingly not malicious. They are designers who never watched their users. They built for the mental model they had of the user — which was actually a mental model of themselves. They never ran the sessions that would have shown them the gaps.
+    </p>
+
+    <p>
+      Testing is the mechanism by which design ethics moves from intention to practice. You cannot intend your way to an ethical product. You have to test your way there.
+    </p>
+
+    <h2>Give a damn</h2>
+
+    <p>
+      All of the above requires caring. Caring about the edge case user, not just the primary persona. Caring about the downstream effects of your design, not just the immediate conversion metric. Caring about the person who will use this product in a moment of stress or vulnerability, not just the person who uses it in optimal conditions.
+    </p>
+
+    <p>
+      This is harder than it sounds. Product development creates pressure that narrows focus. The sprint is two weeks. The launch date is fixed. The stakeholder wants the feature. In that environment, giving a damn about things that are not on the critical path is a choice — an active, ongoing, deliberate choice.
+    </p>
+
+    <p>
+      Make that choice. The fires are preventable. Only you can prevent them.
+    </p>
+
+    <div class="essay-end">
+      <div class="author">— Brandon E. B. Ward · Dallas, TX —</div>
+    </div>
+
+  </article>
+
+  <section class="container">
+    <div class="more">
+      <div class="grid">
+        <div class="marker">§ ↗</div>
+        <div>
+          <div class="more-eyebrow">— More from the writing —</div>
+          <div class="more-grid">
+            <a class="essay-card" href="/writing">
+              <div class="meta">— Essay —</div>
+              <h3 class="title">More writing</h3>
+              <p class="deck">Thoughts on design, leadership, and the work of making things for people.</p>
+            </a>
+            <a class="essay-card" href="/writing">
+              <div class="meta">— Essay —</div>
+              <h3 class="title">More writing</h3>
+              <p class="deck">Thoughts on design, leadership, and the work of making things for people.</p>
+            </a>
+            <a class="essay-card" href="/writing">
+              <div class="meta">— Essay —</div>
+              <h3 class="title">More writing</h3>
+              <p class="deck">Thoughts on design, leadership, and the work of making things for people.</p>
+            </a>
+          </div>
+          <div class="all-link">
+            <a href="/writing">— All writing →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (function () {
+      var bar = document.getElementById('read-bar');
+      if (!bar) return;
+      function update() {
+        var doc = document.documentElement;
+        var max = (doc.scrollHeight - doc.clientHeight);
+        var pct = max > 0 ? Math.min(100, Math.max(0, (doc.scrollTop || window.scrollY) / max * 100)) : 0;
+        bar.style.width = pct + '%';
+      }
+      update();
+      window.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+    })();
+  </script>
+</Base>
