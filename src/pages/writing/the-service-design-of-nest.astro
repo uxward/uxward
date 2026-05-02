@@ -1,0 +1,205 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="The Service Design of Nest · uxward">
+  <style>
+    .read-bar { position: fixed; top: 0; left: 0; height: 2px; width: 0%; background: var(--signature); z-index: 200; transition: width 80ms linear; }
+    .reading-column { max-width: 660px; margin: 0 auto; padding: 0 var(--gutter-x); }
+    .essay-top { padding: var(--space-8) 0 var(--space-7); }
+    .essay-top .row { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-7); flex-wrap: wrap; }
+    .essay-top a.back, .essay-top .meta { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--tertiary); text-decoration: none; }
+    .essay-top a.back:hover { color: var(--ink); }
+    .essay-top .meta .sep { padding: 0 12px; color: var(--rule); }
+    .essay-title-block { padding: var(--space-9) 0 var(--space-10); }
+    .essay-title { font-family: var(--font-serif); font-weight: 300; font-size: clamp(42px, 5.6vw, 76px); line-height: 1.02; letter-spacing: -0.025em; font-variation-settings: 'opsz' 144, 'SOFT' 30; color: var(--ink); margin: 0; max-width: 820px; }
+    .essay-title em { font-style: italic; font-weight: 400; font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1; }
+    .essay-deck { font-family: var(--font-serif); font-style: italic; font-weight: 300; font-size: 22px; line-height: 1.45; color: var(--body); margin: var(--space-7) 0 0; max-width: 660px; font-variation-settings: 'opsz' 36, 'SOFT' 80, 'WONK' 1; }
+    .essay-byline { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--tertiary); margin-top: var(--space-8); }
+    .essay-body { padding: var(--space-9) 0 var(--space-10); }
+    .essay-body p { font-family: var(--font-serif); font-weight: 400; font-size: 18px; line-height: 1.65; color: var(--body); max-width: 660px; margin: 0 0 var(--space-6); font-variation-settings: 'opsz' 14; text-wrap: pretty; }
+    .essay-body p strong { font-weight: 500; color: var(--ink); }
+    .essay-body p em { font-style: italic; }
+    .essay-body p:first-of-type::first-letter { font-family: var(--font-serif); font-weight: 300; font-size: 5.2em; line-height: 0.88; float: left; padding: 6px 12px 0 0; color: var(--ink); font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 1; }
+    .essay-body h2 { font-family: var(--font-serif); font-weight: 400; font-size: 30px; line-height: 1.18; letter-spacing: -0.015em; color: var(--ink); margin: var(--space-10) 0 var(--space-7); font-variation-settings: 'opsz' 96, 'SOFT' 50; max-width: 660px; }
+    .essay-body blockquote { font-family: var(--font-serif); font-style: italic; font-weight: 300; font-size: 26px; line-height: 1.35; color: var(--ink); border-left: 3px solid var(--signature); padding: 4px 0 4px var(--space-7); margin: var(--space-9) 0; max-width: 600px; font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1; }
+    .ornament { text-align: center; margin: var(--space-9) auto; font-family: var(--font-serif); font-size: 20px; color: var(--tertiary); letter-spacing: 0.6em; line-height: 1; user-select: none; }
+    .essay-body figure { margin: var(--space-9) 0; }
+    .essay-body figure img { max-width: 100%; height: auto; display: block; }
+    .essay-end { margin-top: var(--space-9); padding-top: var(--space-7); border-top: 1px solid var(--rule); }
+    .essay-end .signoff { font-family: var(--font-serif); font-style: italic; font-size: 16.5px; line-height: 1.5; color: var(--tertiary); font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1; max-width: 600px; }
+    .essay-end .author { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--tertiary); margin-top: var(--space-6); }
+    .more { border-top: 1px solid var(--rule); padding: var(--space-10) 0 var(--space-9); }
+    .more .more-eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--tertiary); margin-bottom: var(--space-8); }
+    .more-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-9); }
+    .more-grid .essay-card { text-decoration: none; color: inherit; display: block; }
+    .more-grid .essay-card .meta { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--tertiary); margin-bottom: var(--space-5); }
+    .more-grid .essay-card .title { font-family: var(--font-serif); font-weight: 400; font-size: 22px; line-height: 1.22; letter-spacing: -0.015em; color: var(--ink); font-variation-settings: 'opsz' 48, 'SOFT' 50; margin: 0 0 var(--space-3); }
+    .more-grid .essay-card .deck { font-family: var(--font-serif); font-style: italic; font-size: 16.5px; line-height: 1.5; color: var(--body); margin: 0; font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1; }
+    .more-grid .essay-card:hover .title { color: var(--tertiary); }
+    .all-link { margin-top: var(--space-9); }
+    .all-link a { font-family: var(--font-serif); font-size: 18px; color: var(--ink); text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+    @media (max-width: 720px) { .more-grid { grid-template-columns: 1fr; gap: var(--space-8); } }
+  </style>
+
+  <div class="read-bar" id="read-bar" aria-hidden="true"></div>
+
+  <div class="reading-column essay-top">
+    <div class="row">
+      <a class="back" href="/writing">— Back to writing</a>
+      <div class="meta">
+        <span>Q4 2014</span>
+        <span class="sep">·</span>
+        <span>Essay</span>
+        <span class="sep">·</span>
+        <span>7 min read</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="reading-column essay-title-block">
+    <h1 class="essay-title">
+      The Service Design of <em>Nest</em>
+    </h1>
+    <p class="essay-deck">
+      A detailed review of buying, unboxing, and installing a Nest thermostat as a case study in service design at every touchpoint.
+    </p>
+    <div class="essay-byline">— By Brandon E. B. Ward —</div>
+  </div>
+
+  <article class="reading-column essay-body">
+
+    <p>
+      <em>Disclaimer: I don't work for Nest. I'm just a person who bought one.</em>
+    </p>
+
+    <figure>
+      <img src="/images/writing/nest-wall.jpeg" alt="Nest thermostat on wall" />
+    </figure>
+
+    <p>
+      Service design is the practice of designing all of the touchpoints of an experience — not just the product itself, but the entire journey from first awareness to long-term use. It's what separates companies that merely sell things from companies that create relationships. Nest does this extraordinarily well.
+    </p>
+
+    <h2>The website: +1 point Nest</h2>
+
+    <p>
+      The Nest website is clean, confident, and persuasive without being pushy. It answers the question I actually have — "will this work with my system?" — before I have to go looking. It shows me the product in context, not just in isolation. It anticipates my uncertainty and resolves it. <em>+1 point Nest.</em>
+    </p>
+
+    <div class="ornament">·  ·  ·</div>
+
+    <h2>The unboxing: +50 points Nest</h2>
+
+    <figure>
+      <img src="/images/writing/nest-box.jpeg" alt="Nest box" />
+    </figure>
+
+    <p>
+      The box is a product. Not packaging — a product. It opens the way a gift opens, not the way a circuit breaker opens. Inside, every component is placed deliberately. The thermostat sits in a tray that doubles as a level for installation. The display pops up when the tray is opened. Even the wire labels — the thin strips you wrap around your existing wires so you remember which goes where — are beautiful. <em>+50 points Nest.</em>
+    </p>
+
+    <figure>
+      <img src="/images/writing/thermo-1.jpeg" alt="Thermostat components" />
+    </figure>
+
+    <h2>Installation: the moment of truth</h2>
+
+    <figure>
+      <img src="/images/writing/thermo-2.jpeg" alt="Installation step" />
+    </figure>
+
+    <p>
+      I am not an electrician. I am a designer. The installation process is where Nest could have lost me entirely. Instead, it held my hand the entire way. The app asks you to photograph your current thermostat wiring. It identifies the wire labels. It generates a custom installation guide for your specific system. The thermostat itself walks you through each step on its display as you go.
+    </p>
+
+    <figure>
+      <img src="/images/writing/thermo-3.jpeg" alt="Installation step 2" />
+    </figure>
+
+    <figure>
+      <img src="/images/writing/thermo-4.jpeg" alt="Installation step 3" />
+    </figure>
+
+    <figure>
+      <img src="/images/writing/thermo-5.jpeg" alt="Installation step 4" />
+    </figure>
+
+    <h2>The error recovery: +100 points Nest</h2>
+
+    <figure>
+      <img src="/images/writing/nest-install-1.jpeg" alt="Nest installation" />
+    </figure>
+
+    <p>
+      Partway through my installation, I got an error. The Nest displayed a message saying it couldn't power on. In a lesser product, this is where the experience dies — a cryptic code, a call to support, a return box. Instead, the Nest error message told me exactly what it thought was wrong, linked me to a help article specific to my error, and walked me through a fix. I followed the steps, and it worked.
+    </p>
+
+    <figure>
+      <img src="/images/writing/nest-error.jpeg" alt="Nest error screen" />
+    </figure>
+
+    <blockquote>
+      Service design is the anticipation of user needs at every touchpoint, including the ones where things go wrong.
+    </blockquote>
+
+    <figure>
+      <img src="/images/writing/nest-thermo.jpeg" alt="Nest thermostat installed" />
+    </figure>
+
+    <p>
+      That's the whole lesson. Service design isn't just making the happy path beautiful. It's designing for what happens when something goes wrong and making that experience good too. Nest earned every point.
+    </p>
+
+    <div class="essay-end">
+      <div class="author">— Brandon E. B. Ward · Dallas, TX —</div>
+    </div>
+
+  </article>
+
+  <section class="container">
+    <div class="more">
+      <div class="grid">
+        <div class="marker">§ ↗</div>
+        <div>
+          <div class="more-eyebrow">— More from the writing —</div>
+          <div class="more-grid">
+            <a class="essay-card" href="/writing">
+              <div class="meta">— Essay —</div>
+              <h3 class="title">More writing</h3>
+              <p class="deck">Thoughts on design, leadership, and the work of making things for people.</p>
+            </a>
+            <a class="essay-card" href="/writing">
+              <div class="meta">— Essay —</div>
+              <h3 class="title">More writing</h3>
+              <p class="deck">Thoughts on design, leadership, and the work of making things for people.</p>
+            </a>
+            <a class="essay-card" href="/writing">
+              <div class="meta">— Essay —</div>
+              <h3 class="title">More writing</h3>
+              <p class="deck">Thoughts on design, leadership, and the work of making things for people.</p>
+            </a>
+          </div>
+          <div class="all-link">
+            <a href="/writing">— All writing →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (function () {
+      var bar = document.getElementById('read-bar');
+      if (!bar) return;
+      function update() {
+        var doc = document.documentElement;
+        var max = (doc.scrollHeight - doc.clientHeight);
+        var pct = max > 0 ? Math.min(100, Math.max(0, (doc.scrollTop || window.scrollY) / max * 100)) : 0;
+        bar.style.width = pct + '%';
+      }
+      update();
+      window.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+    })();
+  </script>
+</Base>

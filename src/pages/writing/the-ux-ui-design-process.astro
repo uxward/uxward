@@ -1,0 +1,196 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="The UX / UI Design Process · uxward">
+  <style>
+    .read-bar { position: fixed; top: 0; left: 0; height: 2px; width: 0%; background: var(--signature); z-index: 200; transition: width 80ms linear; }
+    .reading-column { max-width: 660px; margin: 0 auto; padding: 0 var(--gutter-x); }
+    .essay-top { padding: var(--space-8) 0 var(--space-7); }
+    .essay-top .row { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-7); flex-wrap: wrap; }
+    .essay-top a.back, .essay-top .meta { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--tertiary); text-decoration: none; }
+    .essay-top a.back:hover { color: var(--ink); }
+    .essay-top .meta .sep { padding: 0 12px; color: var(--rule); }
+    .essay-title-block { padding: var(--space-9) 0 var(--space-10); }
+    .essay-title { font-family: var(--font-serif); font-weight: 300; font-size: clamp(42px, 5.6vw, 76px); line-height: 1.02; letter-spacing: -0.025em; font-variation-settings: 'opsz' 144, 'SOFT' 30; color: var(--ink); margin: 0; max-width: 820px; }
+    .essay-title em { font-style: italic; font-weight: 400; font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1; }
+    .essay-deck { font-family: var(--font-serif); font-style: italic; font-weight: 300; font-size: 22px; line-height: 1.45; color: var(--body); margin: var(--space-7) 0 0; max-width: 660px; font-variation-settings: 'opsz' 36, 'SOFT' 80, 'WONK' 1; }
+    .essay-byline { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--tertiary); margin-top: var(--space-8); }
+    .essay-body { padding: var(--space-9) 0 var(--space-10); }
+    .essay-body p { font-family: var(--font-serif); font-weight: 400; font-size: 18px; line-height: 1.65; color: var(--body); max-width: 660px; margin: 0 0 var(--space-6); font-variation-settings: 'opsz' 14; text-wrap: pretty; }
+    .essay-body p strong { font-weight: 500; color: var(--ink); }
+    .essay-body p em { font-style: italic; }
+    .essay-body p:first-of-type::first-letter { font-family: var(--font-serif); font-weight: 300; font-size: 5.2em; line-height: 0.88; float: left; padding: 6px 12px 0 0; color: var(--ink); font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 1; }
+    .essay-body h2 { font-family: var(--font-serif); font-weight: 400; font-size: 30px; line-height: 1.18; letter-spacing: -0.015em; color: var(--ink); margin: var(--space-10) 0 var(--space-7); font-variation-settings: 'opsz' 96, 'SOFT' 50; max-width: 660px; }
+    .essay-body h2 em { font-style: italic; font-weight: 400; font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1; }
+    .essay-body blockquote { font-family: var(--font-serif); font-style: italic; font-weight: 300; font-size: 26px; line-height: 1.35; color: var(--ink); border-left: 3px solid var(--signature); padding: 4px 0 4px var(--space-7); margin: var(--space-9) 0; max-width: 600px; font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1; }
+    .ornament { text-align: center; margin: var(--space-9) auto; font-family: var(--font-serif); font-size: 20px; color: var(--tertiary); letter-spacing: 0.6em; line-height: 1; user-select: none; }
+    .essay-body p .pull-emphasis { font-style: italic; color: var(--ink); }
+    .essay-end { margin-top: var(--space-9); padding-top: var(--space-7); border-top: 1px solid var(--rule); }
+    .essay-end .signoff { font-family: var(--font-serif); font-style: italic; font-size: 16.5px; line-height: 1.5; color: var(--tertiary); font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1; max-width: 600px; }
+    .essay-end .author { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--tertiary); margin-top: var(--space-6); }
+    .more { border-top: 1px solid var(--rule); padding: var(--space-10) 0 var(--space-9); }
+    .more .more-eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--tertiary); margin-bottom: var(--space-8); }
+    .more-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-9); }
+    .more-grid .essay-card { text-decoration: none; color: inherit; display: block; }
+    .more-grid .essay-card .meta { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--tertiary); margin-bottom: var(--space-5); }
+    .more-grid .essay-card .title { font-family: var(--font-serif); font-weight: 400; font-size: 22px; line-height: 1.22; letter-spacing: -0.015em; color: var(--ink); font-variation-settings: 'opsz' 48, 'SOFT' 50; margin: 0 0 var(--space-3); }
+    .more-grid .essay-card .deck { font-family: var(--font-serif); font-style: italic; font-size: 16.5px; line-height: 1.5; color: var(--body); margin: 0; font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1; }
+    .more-grid .essay-card:hover .title { color: var(--tertiary); }
+    .all-link { margin-top: var(--space-9); }
+    .all-link a { font-family: var(--font-serif); font-size: 18px; color: var(--ink); text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+    @media (max-width: 720px) { .more-grid { grid-template-columns: 1fr; gap: var(--space-8); } }
+  </style>
+
+  <div class="read-bar" id="read-bar" aria-hidden="true"></div>
+
+  <div class="reading-column essay-top">
+    <div class="row">
+      <a class="back" href="/writing">— Back to writing</a>
+      <div class="meta">
+        <span>Q4 2014</span>
+        <span class="sep">·</span>
+        <span>Essay</span>
+        <span class="sep">·</span>
+        <span>7 min read</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="reading-column essay-title-block">
+    <h1 class="essay-title">
+      The UX / UI <em>Design Process</em>
+    </h1>
+    <p class="essay-deck">
+      A ground-up walkthrough of the full experience design process, from stakeholder interviews to hi-fidelity comps.
+    </p>
+    <div class="essay-byline">— By Brandon E. B. Ward —</div>
+  </div>
+
+  <article class="reading-column essay-body">
+
+    <p>
+      There are a lot of people who use the terms UX and UI interchangeably. While they are deeply interrelated, they are not the same. UX — User Experience — encompasses the full scope of how a person interacts with a product or service. UI — User Interface — is specifically the visual and interactive layer through which that interaction happens. The process below covers both.
+    </p>
+
+    <h2>Stakeholder Interviews</h2>
+
+    <p>
+      Before any design work begins, we need to understand the business. Stakeholder interviews help us understand the goals, constraints, and assumptions of everyone who has a stake in the product's success. Who are the decision makers? What does success look like to them? What keeps them up at night? These conversations set the stage for everything that follows.
+    </p>
+
+    <h2>User Interviews</h2>
+
+    <p>
+      Stakeholders know the business. Users know the problem. User interviews are open-ended conversations designed to uncover how people actually think, work, and struggle — not how we imagine they do. The goal is to discover their mental models, their pain points, and their workarounds. We listen far more than we talk.
+    </p>
+
+    <h2>Stories</h2>
+
+    <p>
+      User stories translate research into actionable design goals. In the format "As a [user], I want to [do something], so that [I achieve a goal]," they keep the team focused on real human needs rather than feature lists. Stories are the connective tissue between research and design.
+    </p>
+
+    <h2>Personæ</h2>
+
+    <p>
+      A persona is a research-based archetype of a key user type. It's not a demographic profile — it's a portrait of goals, behaviors, motivations, and frustrations. A well-crafted persona gives the entire team a shared vocabulary for talking about the people they're designing for. It also prevents the most common design sin: designing for yourself.
+    </p>
+
+    <h2>Scenarios</h2>
+
+    <p>
+      Scenarios place personas in context. They describe the situations in which a user will encounter the product: what they're trying to accomplish, what environment they're in, what pressures they're under. Scenarios make abstract user needs concrete and testable.
+    </p>
+
+    <h2>Mind Maps</h2>
+
+    <p>
+      Mind mapping is a divergent thinking exercise. We take a central concept — the product, a feature, a user goal — and radiate outward with every association, consideration, and connection we can generate. It's a tool for making sure we haven't missed anything before we start narrowing our focus.
+    </p>
+
+    <h2>Process Flows</h2>
+
+    <p>
+      Process flows diagram how users move through a system to accomplish a goal. They expose gaps, redundancies, and decision points. A good process flow makes visible the assumptions baked into a product's architecture so they can be examined and challenged before any interface is built.
+    </p>
+
+    <h2>Sketches</h2>
+
+    <p>
+      Sketching is fast, cheap, and uncoupled from any particular solution. It's the best tool we have for exploring a wide range of ideas before committing to any of them. The goal at this stage is quantity over quality — generate options, not answers.
+    </p>
+
+    <h2>Interactive Wireframes</h2>
+
+    <p>
+      Wireframes are low-fidelity layouts that define structure, hierarchy, and behavior without committing to visual design. Making them interactive — clickable, navigable — allows us to test the logic of a design with real users before investing in visual execution. This is where most problems get found and fixed cheaply.
+    </p>
+
+    <h2>Style Tiles and Style Guides</h2>
+
+    <p>
+      Style tiles are a bridge between wireframes and high-fidelity design. They establish the visual language — typography, color, texture, tone — without locking in layout decisions. Style guides codify those decisions so they can be applied consistently across the entire product. Both tools exist to create alignment before the expensive work of visual production begins.
+    </p>
+
+    <h2>Hi-Fidelity Comps</h2>
+
+    <p>
+      Hi-fidelity comps are the closest thing to the final product that a designer produces. They incorporate the approved visual language, real content, and production-ready detail. They exist to communicate the intended final state clearly to developers, stakeholders, and anyone else who needs to understand what we're building and why.
+    </p>
+
+    <div class="essay-end">
+      <p class="signoff">
+        This process is not linear and it is never finished. Each phase informs the others, and the best teams revisit earlier stages freely as they learn.
+      </p>
+      <div class="author">— Brandon E. B. Ward · Dallas, TX —</div>
+    </div>
+
+  </article>
+
+  <section class="container">
+    <div class="more">
+      <div class="grid">
+        <div class="marker">§ ↗</div>
+        <div>
+          <div class="more-eyebrow">— More from the writing —</div>
+          <div class="more-grid">
+            <a class="essay-card" href="/writing">
+              <div class="meta">— Essay —</div>
+              <h3 class="title">More writing</h3>
+              <p class="deck">Thoughts on design, leadership, and the work of making things for people.</p>
+            </a>
+            <a class="essay-card" href="/writing">
+              <div class="meta">— Essay —</div>
+              <h3 class="title">More writing</h3>
+              <p class="deck">Thoughts on design, leadership, and the work of making things for people.</p>
+            </a>
+            <a class="essay-card" href="/writing">
+              <div class="meta">— Essay —</div>
+              <h3 class="title">More writing</h3>
+              <p class="deck">Thoughts on design, leadership, and the work of making things for people.</p>
+            </a>
+          </div>
+          <div class="all-link">
+            <a href="/writing">— All writing →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (function () {
+      var bar = document.getElementById('read-bar');
+      if (!bar) return;
+      function update() {
+        var doc = document.documentElement;
+        var max = (doc.scrollHeight - doc.clientHeight);
+        var pct = max > 0 ? Math.min(100, Math.max(0, (doc.scrollTop || window.scrollY) / max * 100)) : 0;
+        bar.style.width = pct + '%';
+      }
+      update();
+      window.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+    })();
+  </script>
+</Base>

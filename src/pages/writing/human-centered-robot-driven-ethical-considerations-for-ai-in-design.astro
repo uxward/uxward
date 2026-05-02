@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 ---
-<Base title="The case against the design system you're about to build · uxward">
+<Base title="Human-Centered, Robot-Driven: Ethical Considerations for AI in Design · uxward">
   <style>
     .read-bar {
       position: fixed;
@@ -127,34 +127,20 @@ import Base from '../../layouts/Base.astro';
       max-width: 600px;
       font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1;
     }
-    .ornament {
-      text-align: center;
-      margin: var(--space-9) auto;
-      font-family: var(--font-serif);
-      font-size: 20px;
+    .essay-body figure { margin: var(--space-9) 0; }
+    .essay-body figure img { max-width: 100%; height: auto; display: block; }
+    .essay-body figure figcaption {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
       color: var(--tertiary);
-      letter-spacing: 0.6em;
-      line-height: 1;
-      user-select: none;
-    }
-    .essay-body p .pull-emphasis {
-      font-style: italic;
-      color: var(--ink);
+      margin-top: var(--space-4);
     }
 
     .essay-end {
       margin-top: var(--space-9);
       padding-top: var(--space-7);
       border-top: 1px solid var(--rule);
-    }
-    .essay-end .signoff {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-size: 16.5px;
-      line-height: 1.5;
-      color: var(--tertiary);
-      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
-      max-width: 600px;
     }
     .essay-end .author {
       font-family: var(--font-mono);
@@ -235,150 +221,134 @@ import Base from '../../layouts/Base.astro';
     <div class="row">
       <a class="back" href="/writing">— Back to writing</a>
       <div class="meta">
-        <span>Q1 2026</span>
+        <span>Q1 2023</span>
         <span class="sep">·</span>
         <span>Essay</span>
         <span class="sep">·</span>
-        <span>9 min read</span>
+        <span>11 min read</span>
       </div>
     </div>
   </div>
 
   <div class="reading-column essay-title-block">
     <h1 class="essay-title">
-      The case against the design system you're <em>about to build.</em>
+      Human-Centered, <em>Robot-Driven:</em> Ethical Considerations for AI in Design
     </h1>
     <p class="essay-deck">
-      Most teams need a style guide and a few good components. They build a design system and call it strategy.
+      Machine learning is reshaping how we build products. The ethical obligations that come with that power belong to designers as much as anyone.
     </p>
     <div class="essay-byline">— By Brandon E. B. Ward —</div>
   </div>
 
   <article class="reading-column essay-body">
 
+    <figure>
+      <img src="/images/writing/ai-ethics-header.jpg" alt="AI ethics concept illustration" />
+    </figure>
+
     <p>
-      The first design system I built was for a financial-services client in 2018, and it took the
-      better part of a year. By the end of that year, the client had a token spec, a component
-      library, a contribution guide, and a Figma file with seventy-two pages. They also had three
-      product teams who had quietly stopped using any of it, because the work they were trying to
-      ship did not fit the patterns we had spent twelve months pre-deciding.
+      Artificial intelligence is no longer a science fiction premise or a research lab curiosity. It is in the products we ship, the interfaces we design, and the decisions we help automate. Which means the ethical weight of machine learning now sits — at least in part — on the shoulders of designers.
     </p>
 
     <p>
-      The lesson I took from that engagement was not that we had built the wrong design system. It
-      was that we had built one at all. The teams hadn't been struggling for lack of a system. They
-      had been struggling because no one had told them which six components they could safely lean
-      on, and which three colors were the actual house colors versus the ones the previous agency
-      had left behind.
+      That is not a comfortable realization. Designers are trained to advocate for users. We are trained to make things usable and useful. We are not trained to audit training datasets or interrogate model architectures. But the products we design are increasingly built on those foundations, and what we put in front of users shapes what they trust, what they fear, and what opportunities they have access to.
+    </p>
+
+    <figure>
+      <img src="/images/writing/thingamabob.jpg" alt="A mysterious machine — the opacity of algorithmic systems" />
+    </figure>
+
+    <h2>The opacity problem</h2>
+
+    <p>
+      One of the defining characteristics of machine learning systems is that they are opaque. A traditional rules-based system is auditable: you can read the code, trace the logic, find the bug. A trained model is a black box. It produces outputs, but the reasoning that produced them is not legible to human inspection in any straightforward way.
     </p>
 
     <p>
-      A style guide could have answered that in a week. The system took a year and produced
-      <em>less usable guidance</em>, because it tried to answer questions the teams weren't asking yet.
-    </p>
-
-    <h2>The strategic mistake, named</h2>
-
-    <p>
-      Senior design leaders default to design systems for a reason that has very little to do with
-      design and very much to do with legibility upward. A design system is the most legible thing
-      a design organization can produce. It is the artifact that survives a slide review with a CFO.
-      It has tokens. It has version numbers. It has a Storybook URL. It looks, from a sufficient
-      distance, like infrastructure.
+      This creates a design problem: how do you design an interface for a system whose outputs you cannot fully explain? When users ask "why did it recommend this?" or "why was my application rejected?" or "why does this content keep appearing?" — what does the interface say?
     </p>
 
     <p>
-      The trouble is that infrastructure-shaped artifacts are graded on infrastructure-shaped
-      questions. <strong>How many teams adopted it. How many components shipped. How long until 1.0.</strong>
-      None of those questions are about whether the product got better. Many design systems get to
-      1.0 against a backdrop of products that have not measurably improved on any axis a customer
-      can feel.
+      Explainability is an ethical obligation. Not just a UX nicety. Users have a right to understand consequential decisions made about them, especially in high-stakes domains like healthcare, finance, employment, and housing.
+    </p>
+
+    <figure>
+      <img src="/images/writing/bad-actor.jpg" alt="Bad actor illustration — AI misuse" />
+    </figure>
+
+    <h2>Bad actors and foreseeable misuse</h2>
+
+    <p>
+      Every powerful tool has foreseeable misuse cases. A hammer can break a skull as easily as drive a nail. The designer of the hammer is not culpable for that misuse — but the designer of an AI system that can generate convincing fake identities, automate targeted harassment, or make discriminatory decisions at scale bears a different kind of responsibility. The misuse was foreseeable. The design choices either mitigated it or enabled it.
+    </p>
+
+    <p>
+      Design teams working on AI products need to run threat modeling as part of their process. Not just: "What do we want users to do?" but "What would a bad actor do with this, and how does our design respond?" Red-teaming is not just for security engineers. It belongs in the design process.
+    </p>
+
+    <figure>
+      <img src="/images/writing/bias-yin-yang.jpg" alt="Bias in AI — the yin and yang of data" />
+    </figure>
+
+    <h2>Bias is a design problem</h2>
+
+    <p>
+      Algorithmic bias is well-documented and well-studied at this point. Facial recognition systems that perform significantly worse on darker skin tones. Hiring algorithms that penalize gaps in employment history disproportionately common among caregivers. Credit models that encode historical redlining into their risk scores.
+    </p>
+
+    <p>
+      These are not just engineering failures. They are design failures. The teams that built these systems made choices — about what data to use, what outcomes to optimize for, what success metrics to measure — and those choices had disparate impacts on different groups of people.
+    </p>
+
+    <figure>
+      <img src="/images/writing/uxward_thief_in_black_stealing_a_painting.png" alt="The theft of consent — data used without permission" />
+    </figure>
+
+    <p>
+      Designers have leverage at several points in this chain. In defining success metrics: are we measuring accuracy for the average user, or are we auditing for differential performance across demographic groups? In user research: are our research participants representative of the full population our system will affect? In the interface: are we surfacing model uncertainty and limitations honestly, or are we presenting outputs as more authoritative than they are?
+    </p>
+
+    <h2>Recommended reading</h2>
+
+    <figure>
+      <img src="/images/writing/weapons-of-math-destruction.jpg" alt="Weapons of Math Destruction by Cathy O'Neil" />
+    </figure>
+
+    <p>
+      Cathy O'Neil's <em>Weapons of Math Destruction</em> is essential reading for anyone building AI-powered products. O'Neil documents how large-scale algorithmic systems — in education, employment, criminal justice, credit — consistently harm the people least equipped to push back. The systems are opaque, they optimize for proxies rather than actual outcomes, and they are self-reinforcing in ways that compound disadvantage over time.
+    </p>
+
+    <figure>
+      <img src="/images/writing/technically-wrong.jpg" alt="Technically Wrong by Sara Wachter-Boettcher" />
+    </figure>
+
+    <p>
+      Sara Wachter-Boettcher's <em>Technically Wrong</em> examines how the demographics of the tech industry — who is in the room, who is not — shape the products that get built and who they serve. The default assumptions baked into product design reflect the experiences of the people who made it. When those people are not representative of users, the products fail in predictable ways.
+    </p>
+
+    <h2>The obligation</h2>
+
+    <figure>
+      <img src="/images/writing/handshake.jpg" alt="A handshake — the designer's obligation to users" />
+    </figure>
+
+    <p>
+      The designer's obligation has always been to advocate for users. In the age of AI, that obligation extends further: to advocate for users who are not in the room, whose experiences are underrepresented in the training data, whose needs were not considered when the success metrics were defined.
     </p>
 
     <blockquote>
-      A design system is the most legible artifact a design org can ship. That's exactly what makes
-      it dangerous.
+      The ethical weight of machine learning belongs to designers as much as to engineers.
     </blockquote>
 
-    <p>
-      I have, in the last decade, watched four design organizations stake their entire credibility
-      on the rollout of a design system, and I have watched two of them collapse under the weight
-      of the rollout itself. The system arrived. The team that built it was eight people deep. The
-      products were unchanged. The CFO, eventually, asked the question.
-    </p>
-
-    <div class="ornament">·  ·  ·</div>
-
-    <h2>What works instead, mostly</h2>
+    <figure>
+      <img src="/images/writing/robots-lift-us-up.jpg" alt="Robots that lift us up — the possibility of beneficial AI" />
+    </figure>
 
     <p>
-      The thing most teams need, and the thing they are reaching past when they reach for a system,
-      is closer to a piece of writing than a piece of code. <em>A short, opinionated style guide.</em>
-      One page. Four colors. Three type sizes. Six components, with intent statements next to them
-      explaining when to use them and, more importantly, when not to.
-    </p>
-
-    <p>
-      The intent statements are the load-bearing part. Components don't fail because the spacing
-      tokens are wrong. They fail because nobody was told that this card was for product summaries
-      and that card was for empty states, and a year later the codebase contains eleven cards and
-      none of them are quite either.
-    </p>
-
-    <p>
-      A senior designer's most useful output, in the first ninety days at a company, is almost
-      never a system. It is a one-page document that names the six choices the company has, in
-      fact, already made — and gives every team permission to stop relitigating them. The system,
-      if it ever gets built, gets built later, in response to a problem the document could not
-      solve. <strong>Mostly, the document is enough.</strong>
-    </p>
-
-    <p>
-      I will admit a class of company where the system is the right move from day one. They have
-      twenty-plus product surfaces, three platform clients, and a dedicated platform-design team
-      that exists to serve the product teams the way SREs serve software engineers. The companies
-      I am describing are perhaps fifty in the world. If you work at one of them, you already know.
-      If you are not sure whether you do, you do not.
-    </p>
-
-    <h2>What to do on Monday</h2>
-
-    <p>
-      If you are a director or VP and the design-system project is on your roadmap for the next
-      two quarters, the move I would suggest, in descending order of confidence:
-    </p>
-
-    <p>
-      Take a week and write the style guide your team would actually use. <em>Six components,
-      named with intent.</em> Three type sizes. Four colors. The one rule about spacing. Print it,
-      tape it to a wall, and watch what happens. The teams will tell you, by what they ask for next,
-      whether they need the system at all — and which parts of it they need first. If, after a
-      quarter, they have asked for a token spec and a Storybook URL, build it. If they have asked
-      for a clearer answer about empty states, you have your answer.
-    </p>
-
-    <p>
-      The one-page guide is not a smaller version of the design system. It is a different artifact
-      with a different job. The job of the guide is to <span class="pull-emphasis">stop the
-      relitigation</span> — to take six decisions off every team's plate so they can spend the
-      saved hours on the decisions only they can make. The job of the system is to scale that
-      stopping mechanism across many teams. Most companies need the first job done. Few need the
-      second.
-    </p>
-
-    <p>
-      The senior move, the one that does not always show well in slide reviews, is to ship the
-      thing the teams need next week, not the thing that will look most defensible in eighteen
-      months. The strategy is not the system. <strong>The strategy is the restraint to not build
-      it yet.</strong>
+      None of this is an argument against AI in design. Machine learning has genuine potential to surface patterns humans miss, to personalize experiences in ways that make products more accessible and useful, to automate the tedious so designers can focus on the meaningful. But realizing that potential requires designers who take the ethical dimension of their work seriously — who ask hard questions before shipping, not after.
     </p>
 
     <div class="essay-end">
-      <p class="signoff">
-        I'll write a follow-up to this in the next quarter on the version of this argument that
-        applies to component libraries inside engineering orgs. The shape is the same. The politics
-        are different.
-      </p>
       <div class="author">— Brandon E. B. Ward · Dallas, TX —</div>
     </div>
 
@@ -392,19 +362,19 @@ import Base from '../../layouts/Base.astro';
           <div class="more-eyebrow">— More from the writing —</div>
           <div class="more-grid">
             <a class="essay-card" href="/writing">
-              <div class="meta">— Q4 2025 · Essay —</div>
-              <h3 class="title">Staying staff-level without becoming a manager</h3>
-              <p class="deck">A note for senior ICs who keep getting offered the title that ends their craft. The exit is in the work.</p>
+              <div class="meta">— Essay —</div>
+              <h3 class="title">More writing</h3>
+              <p class="deck">Thoughts on design, leadership, and the work of making things for people.</p>
             </a>
             <a class="essay-card" href="/writing">
-              <div class="meta">— Q3 2025 · Essay —</div>
-              <h3 class="title">AI didn't raise the ceiling. It dropped the floor.</h3>
-              <p class="deck">The tools are not making senior designers better. They are making junior work look senior. That's the problem.</p>
+              <div class="meta">— Essay —</div>
+              <h3 class="title">More writing</h3>
+              <p class="deck">Thoughts on design, leadership, and the work of making things for people.</p>
             </a>
             <a class="essay-card" href="/writing">
-              <div class="meta">— Q2 2025 · Essay —</div>
-              <h3 class="title">The thing about discovery is that nobody buys it</h3>
-              <p class="deck">Ten years of selling research-shaped engagements at a consulting firm. What I learned about how to name them.</p>
+              <div class="meta">— Essay —</div>
+              <h3 class="title">More writing</h3>
+              <p class="deck">Thoughts on design, leadership, and the work of making things for people.</p>
             </a>
           </div>
           <div class="all-link">

@@ -1,0 +1,373 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="The Truth About Simplicity: Why Clarity Beats the Buzzword · uxward">
+  <style>
+    .read-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 2px;
+      width: 0%;
+      background: var(--signature);
+      z-index: 200;
+      transition: width 80ms linear;
+    }
+
+    .reading-column {
+      max-width: 660px;
+      margin: 0 auto;
+      padding: 0 var(--gutter-x);
+    }
+
+    .essay-top { padding: var(--space-8) 0 var(--space-7); }
+    .essay-top .row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--space-7);
+      flex-wrap: wrap;
+    }
+    .essay-top a.back,
+    .essay-top .meta {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      text-decoration: none;
+    }
+    .essay-top a.back:hover { color: var(--ink); }
+    .essay-top .meta .sep { padding: 0 12px; color: var(--rule); }
+
+    .essay-title-block { padding: var(--space-9) 0 var(--space-10); }
+    .essay-title {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: clamp(42px, 5.6vw, 76px);
+      line-height: 1.02;
+      letter-spacing: -0.025em;
+      font-variation-settings: 'opsz' 144, 'SOFT' 30;
+      color: var(--ink);
+      margin: 0;
+      max-width: 820px;
+    }
+    .essay-title em {
+      font-style: italic; font-weight: 400;
+      font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
+    }
+    .essay-deck {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 300;
+      font-size: 22px;
+      line-height: 1.45;
+      color: var(--body);
+      margin: var(--space-7) 0 0;
+      max-width: 660px;
+      font-variation-settings: 'opsz' 36, 'SOFT' 80, 'WONK' 1;
+    }
+    .essay-byline {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-top: var(--space-8);
+    }
+
+    .essay-body { padding: var(--space-9) 0 var(--space-10); }
+    .essay-body p {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 1.65;
+      color: var(--body);
+      max-width: 660px;
+      margin: 0 0 var(--space-6);
+      font-variation-settings: 'opsz' 14;
+      text-wrap: pretty;
+    }
+    .essay-body p strong { font-weight: 500; color: var(--ink); }
+    .essay-body p em { font-style: italic; }
+    .essay-body p:first-of-type::first-letter {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: 5.2em;
+      line-height: 0.88;
+      float: left;
+      padding: 6px 12px 0 0;
+      color: var(--ink);
+      font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 1;
+    }
+    .essay-body h2 {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: 30px;
+      line-height: 1.18;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      margin: var(--space-10) 0 var(--space-7);
+      font-variation-settings: 'opsz' 96, 'SOFT' 50;
+      max-width: 660px;
+    }
+    .essay-body h2 em {
+      font-style: italic; font-weight: 400;
+      font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1;
+    }
+    .essay-body blockquote {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 300;
+      font-size: 26px;
+      line-height: 1.35;
+      color: var(--ink);
+      border-left: 3px solid var(--signature);
+      padding: 4px 0 4px var(--space-7);
+      margin: var(--space-9) 0;
+      max-width: 600px;
+      font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1;
+    }
+    .essay-body figure { margin: var(--space-9) 0; }
+    .essay-body figure img { max-width: 100%; height: auto; display: block; }
+    .essay-body figure figcaption {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--tertiary);
+      margin-top: var(--space-4);
+    }
+
+    .essay-end {
+      margin-top: var(--space-9);
+      padding-top: var(--space-7);
+      border-top: 1px solid var(--rule);
+    }
+    .essay-end .author {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-top: var(--space-6);
+    }
+
+    .more {
+      border-top: 1px solid var(--rule);
+      padding: var(--space-10) 0 var(--space-9);
+    }
+    .more .more-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-bottom: var(--space-8);
+    }
+    .more-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: var(--space-9);
+    }
+    .more-grid .essay-card {
+      text-decoration: none; color: inherit; display: block;
+    }
+    .more-grid .essay-card .meta {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-bottom: var(--space-5);
+    }
+    .more-grid .essay-card .title {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: 22px;
+      line-height: 1.22;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      font-variation-settings: 'opsz' 48, 'SOFT' 50;
+      margin: 0 0 var(--space-3);
+    }
+    .more-grid .essay-card .deck {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 16.5px;
+      line-height: 1.5;
+      color: var(--body);
+      margin: 0;
+      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
+    }
+    .more-grid .essay-card:hover .title { color: var(--tertiary); }
+
+    .all-link { margin-top: var(--space-9); }
+    .all-link a {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      color: var(--ink);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-thickness: 1px;
+    }
+
+    @media (max-width: 720px) {
+      .more-grid { grid-template-columns: 1fr; gap: var(--space-8); }
+    }
+  </style>
+
+  <div class="read-bar" id="read-bar" aria-hidden="true"></div>
+
+  <div class="reading-column essay-top">
+    <div class="row">
+      <a class="back" href="/writing">— Back to writing</a>
+      <div class="meta">
+        <span>Q1 2026</span>
+        <span class="sep">·</span>
+        <span>Essay</span>
+        <span class="sep">·</span>
+        <span>7 min read</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="reading-column essay-title-block">
+    <h1 class="essay-title">
+      The Truth About Simplicity: Why <em>Clarity</em> Beats the Buzzword
+    </h1>
+    <p class="essay-deck">
+      "Keep it simple" is the most overused and least followed advice in design. Clarity is what you actually want — and clarity is harder than simple.
+    </p>
+    <div class="essay-byline">— By Brandon E. B. Ward —</div>
+  </div>
+
+  <article class="reading-column essay-body">
+
+    <figure>
+      <img src="/images/writing/image3.jpg" alt="Complexity vs clarity in design" />
+    </figure>
+
+    <p>
+      Every design brief contains some version of "keep it simple." Every stakeholder review ends with someone saying "can we simplify this?" Every design principle document lists simplicity in the top three. And yet almost every product that ships is more complicated than it needed to be. Not because designers don't try to simplify — but because simplicity is the wrong goal.
+    </p>
+
+    <p>
+      Simplicity is a surface property. It describes how something looks. Clarity is a functional property. It describes whether someone understands what they're looking at and what to do next. A simple design that users can't navigate is a failure. A complex design that users find immediately comprehensible is a success.
+    </p>
+
+    <h2>The problem with "simple"</h2>
+
+    <figure>
+      <img src="/images/writing/image1.jpg" alt="Simple vs clear — the distinction that matters" />
+    </figure>
+
+    <p>
+      When people say "keep it simple," they usually mean one of a few things. They might mean: remove features. Or: reduce visual complexity. Or: make the interface feel lighter. Or: stop using jargon. These are all reasonable requests — but they are not requests for simplicity. They are requests for specific kinds of clarity.
+    </p>
+
+    <p>
+      The danger of "keep it simple" as a design principle is that it gives you permission to strip things out without asking whether those things were useful. A form with twenty fields might genuinely need twenty fields — because the task is complex and every field captures necessary information. Reducing it to five fields because "it looks simpler" produces an interface that is visually less intimidating and functionally broken.
+    </p>
+
+    <blockquote>
+      Clarity is what you actually want. Clarity requires understanding what the user needs to know, at exactly the moment they need to know it.
+    </blockquote>
+
+    <h2>Context determines clarity</h2>
+
+    <figure>
+      <img src="/images/writing/image2.jpg" alt="Context shapes what clarity means in an interface" />
+    </figure>
+
+    <p>
+      An emergency room dashboard and a meditation app have different clarity requirements. A tax filing interface and a photo editor have different clarity requirements. An enterprise ERP and a recipe site have different clarity requirements. What counts as "clear" is entirely determined by the user, their task, and the context in which they are operating.
+    </p>
+
+    <p>
+      The same information density that overwhelms a casual consumer user is exactly right for a power user who needs to see everything at once to do their job. The same minimalist interface that delights a first-time user creates friction for an expert who knows what they want and needs to get there in two clicks.
+    </p>
+
+    <p>
+      Designing for clarity means designing for the specific user in the specific context — not for some abstract ideal of simplicity that exists independent of use.
+    </p>
+
+    <h2>The mac and cheese test</h2>
+
+    <p>
+      There is a useful heuristic I call the mac and cheese test. Kraft mac and cheese is simple. A bowl of fettuccine carbonara made by a skilled cook is not simple — it requires precise technique, good ingredients, careful timing. But it is unambiguously better. The carbonara is not failing to be simple. It is succeeding at being what it is.
+    </p>
+
+    <p>
+      Most products are not trying to be Kraft mac and cheese. They are trying to do complex things for users with complex needs. Insisting they be "simple" is insisting they be less than what is required. The real question is: is the complexity legible? Does it feel like it makes sense, or does it feel like chaos?
+    </p>
+
+    <h2>How to get there</h2>
+
+    <figure>
+      <img src="/images/writing/image4.jpg" alt="The path to clarity in design practice" />
+    </figure>
+
+    <p>
+      Clarity is achieved through a small set of practices done consistently. First, progressive disclosure: show users what they need to see at the moment they need to see it, not everything at once. Second, consistent vocabulary: use the same words for the same things everywhere, without exception. Third, clear affordances: make interactive elements look interactive and static elements look static. Fourth, honest feedback: tell users what happened after they acted, immediately and unambiguously. Fifth, tested understanding: watch real users navigate your design and correct what they misunderstand.
+    </p>
+
+    <p>
+      None of these practices require the interface to be visually minimal. All of them require the interface to be honest about what it is and what users can do with it.
+    </p>
+
+    <p>
+      Stop chasing simplicity. Chase clarity. They are not the same thing, and confusing them is how you end up with products that look clean and work poorly.
+    </p>
+
+    <div class="essay-end">
+      <div class="author">— Brandon E. B. Ward · Dallas, TX —</div>
+    </div>
+
+  </article>
+
+  <section class="container">
+    <div class="more">
+      <div class="grid">
+        <div class="marker">§ ↗</div>
+        <div>
+          <div class="more-eyebrow">— More from the writing —</div>
+          <div class="more-grid">
+            <a class="essay-card" href="/writing">
+              <div class="meta">— Essay —</div>
+              <h3 class="title">More writing</h3>
+              <p class="deck">Thoughts on design, leadership, and the work of making things for people.</p>
+            </a>
+            <a class="essay-card" href="/writing">
+              <div class="meta">— Essay —</div>
+              <h3 class="title">More writing</h3>
+              <p class="deck">Thoughts on design, leadership, and the work of making things for people.</p>
+            </a>
+            <a class="essay-card" href="/writing">
+              <div class="meta">— Essay —</div>
+              <h3 class="title">More writing</h3>
+              <p class="deck">Thoughts on design, leadership, and the work of making things for people.</p>
+            </a>
+          </div>
+          <div class="all-link">
+            <a href="/writing">— All writing →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (function () {
+      var bar = document.getElementById('read-bar');
+      if (!bar) return;
+      function update() {
+        var doc = document.documentElement;
+        var max = (doc.scrollHeight - doc.clientHeight);
+        var pct = max > 0 ? Math.min(100, Math.max(0, (doc.scrollTop || window.scrollY) / max * 100)) : 0;
+        bar.style.width = pct + '%';
+      }
+      update();
+      window.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+    })();
+  </script>
+</Base>
