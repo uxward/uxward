@@ -31,15 +31,36 @@ const { title, description = "Brandon E. B. Ward — senior design leadership. B
   <header class="hdr">
     <div class="container hdr-row">
       <a href="/" class="wm" aria-label="uxward"><span class="ux">ux</span>ward</a>
-      <nav class="hdr-nav" aria-label="Main navigation">
+      <div class="hdr-controls">
+        <nav class="hdr-nav" aria-label="Main navigation">
+          <a href="/work">Work</a>
+          <a href="/writing">Writing</a>
+          <a href="/about">About</a>
+          <a href="/contact">Contact</a>
+        </nav>
+        <button id="theme-toggle" class="toggle" title="Toggle theme" aria-label="Toggle theme"><span class="toggle-glyph">—</span></button>
+        <button id="menu-toggle" class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div id="nav-overlay" class="nav-overlay" aria-hidden="true">
+    <div class="nav-overlay-inner">
+      <div class="nav-overlay-top">
+        <a href="/" class="wm" aria-label="uxward"><span class="ux">ux</span>ward</a>
+        <button id="menu-close" class="menu-close" aria-label="Close menu">×</button>
+      </div>
+      <nav class="nav-overlay-menu" aria-label="Mobile navigation">
         <a href="/work">Work</a>
         <a href="/writing">Writing</a>
         <a href="/about">About</a>
         <a href="/contact">Contact</a>
-        <button id="theme-toggle" class="toggle" title="Toggle theme" aria-label="Toggle theme">—</button>
+        <button class="toggle nav-overlay-toggle" title="Toggle theme" aria-label="Toggle theme"><span class="toggle-glyph">—</span></button>
       </nav>
     </div>
-  </header>
+  </div>
 
   <slot />
 
@@ -70,23 +91,51 @@ const { title, description = "Brandon E. B. Ward — senior design leadership. B
   <script>
     (function () {
       var root = document.documentElement;
-      var btn = document.getElementById('theme-toggle');
+      var toggles = document.querySelectorAll('.toggle');
 
       function syncGlyph() {
-        if (!btn) return;
         var dark = root.getAttribute('data-theme') === 'dark';
-        btn.classList.toggle('rotating', dark);
-        btn.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+        toggles.forEach(function (t) {
+          t.classList.toggle('rotating', dark);
+          t.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+        });
       }
 
       syncGlyph();
 
-      if (btn) {
-        btn.addEventListener('click', function () {
+      toggles.forEach(function (t) {
+        t.addEventListener('click', function () {
           var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
           root.setAttribute('data-theme', next);
           try { localStorage.setItem('uxward-theme', next); } catch (e) {}
           syncGlyph();
+        });
+      });
+
+      var menuToggle = document.getElementById('menu-toggle');
+      var menuClose = document.getElementById('menu-close');
+      var overlay = document.getElementById('nav-overlay');
+
+      function openMenu() {
+        overlay.classList.add('is-open');
+        overlay.setAttribute('aria-hidden', 'false');
+        menuToggle.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeMenu() {
+        overlay.classList.remove('is-open');
+        overlay.setAttribute('aria-hidden', 'true');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+
+      if (menuToggle) menuToggle.addEventListener('click', openMenu);
+      if (menuClose) menuClose.addEventListener('click', closeMenu);
+
+      if (overlay) {
+        overlay.querySelectorAll('.nav-overlay-menu a').forEach(function (link) {
+          link.addEventListener('click', closeMenu);
         });
       }
     })();
