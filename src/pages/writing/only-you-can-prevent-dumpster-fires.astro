@@ -243,89 +243,13 @@ import Base from '../../layouts/Base.astro';
   <article class="reading-column essay-body">
 
     <figure>
-      <img src="/images/writing/dumpster-fires.png" alt="Dumpster on fire — the preventable disasters of bad design" />
+    <img src="/images/writing/dumpster-fires.png" alt="Dumpster on fire — the preventable disasters of bad design" />
     </figure>
 
-    <p>
-      There is a version of design that treats its job as execution. The stakeholder wants a feature. The designer designs the feature. The engineer builds the feature. The feature ships. Done. No one asks whether the feature should exist, who it might harm, what second-order effects it might produce. That version of design starts dumpster fires.
-    </p>
-
-    <p>
-      There is another version. It starts with the same inputs — a stakeholder request, a business need, a user problem — but it adds a layer of interrogation. Before the first wireframe, it asks: who does this affect? Who might it harm? What would this enable if someone used it badly? That version prevents dumpster fires. Not always. But far more often.
-    </p>
-
-    <h2>Design for the edges</h2>
-
-    <p>
-      Every interface has edge cases. The user who is not the target persona. The person who speaks a different language, uses a screen reader, has a cognitive disability, is in a crisis. Most design processes treat these as afterthoughts — accessibility audits at the end, edge case handling in the backlog.
-    </p>
-
-    <p>
-      Designing for the edges from the start is not just an ethical obligation. It is a quality signal. Systems that handle edge cases gracefully are better systems. The person having a bad day, the user who misunderstands the interface, the person who enters unexpected input — these users stress-test your design in ways the primary persona never will. If you only design for the happy path, you build a product that breaks under pressure.
-    </p>
-
-    <blockquote>
-      Design for the edge cases first. The average user can take care of themselves.
-    </blockquote>
-
-    <h2>Design with restraint</h2>
-
-    <p>
-      Not every design problem requires a novel solution. Not every interface needs to be clever. Not every interaction needs to be delightful. Sometimes the most ethical design decision is to build the obvious thing, clearly, without embellishment.
-    </p>
-
-    <p>
-      Restraint is hard for designers. We are trained to solve problems creatively. We want to make things interesting. But the most harmful design patterns in the industry — dark patterns, addictive loops, manipulation architectures — are often the products of designers who were very creative indeed, in service of goals that were misaligned with users.
-    </p>
-
-    <p>
-      Ask yourself: is this design serving the user's goal, or is it serving the metric? Is it creating genuine value, or is it manufacturing engagement? The answer to those questions should shape every design decision.
-    </p>
-
-    <h2>Don't be Earl Scheib</h2>
-
-    <p>
-      Earl Scheib was a car-painting chain famous for its tagline: "I'll paint any car, any color, for $29.95." They would paint anything. Good car, rusted car, car that needed bodywork before paint. They would paint right over the problems. The result looked fine from a distance. It peeled within months.
-    </p>
-
-    <p>
-      Earl Scheib design is design that covers problems without solving them. A better onboarding flow painted over a product people don't actually need. A more elegant empty state painted over a system that has no data because it isn't working. A smoother checkout painted over a return policy that traps customers.
-    </p>
-
-    <p>
-      The designer who asks "is this the right problem to solve?" before designing is not being obstructionist. They are being professional. Painting over problems is not design — it is cosmetics.
-    </p>
-
-    <h2>Test your stuff</h2>
-
-    <p>
-      You cannot know whether your design works until you watch someone try to use it. This is not an opinion. It is an empirical fact about the limits of human ability to simulate another person's experience of an interface.
-    </p>
-
-    <p>
-      The designers who ship harmful products are overwhelmingly not malicious. They are designers who never watched their users. They built for the mental model they had of the user — which was actually a mental model of themselves. They never ran the sessions that would have shown them the gaps.
-    </p>
-
-    <p>
-      Testing is the mechanism by which design ethics moves from intention to practice. You cannot intend your way to an ethical product. You have to test your way there.
-    </p>
-
-    <h2>Give a damn</h2>
-
-    <p>
-      All of the above requires caring. Caring about the edge case user, not just the primary persona. Caring about the downstream effects of your design, not just the immediate conversion metric. Caring about the person who will use this product in a moment of stress or vulnerability, not just the person who uses it in optimal conditions.
-    </p>
-
-    <p>
-      This is harder than it sounds. Product development creates pressure that narrows focus. The sprint is two weeks. The launch date is fixed. The stakeholder wants the feature. In that environment, giving a damn about things that are not on the critical path is a choice — an active, ongoing, deliberate choice.
-    </p>
-
-    <p>
-      Make that choice. The fires are preventable. Only you can prevent them.
-    </p>
+    <p>We all know there are piles of annoying things in the world. Many people I've encountered across my sojourn on this tiny blue dot have suggested (not without evidence) that I am one of them. Fair cop.</p><p>Even so, I'd argue it's our moral imperative, as people who build and design things, to not make them worse. To not add to the pile. Our job, if we actually care about doing it well, is to wring clarity, joy, and meaning out of chaos rather than stir it up.</p><h2><em>So. How do we actually do this?</em></h2><h2><strong>Design for the edges, not the average.</strong></h2><p>There is no such thing as an average user. The moment you design for some imaginary, able-bodied, native-speaking, high-bandwidth, well-lit, emotionally regulated person in the middle of the bell curve, you've already failed everyone else, which turns out to be most people, most of the time.</p><p>Accessible-first isn't a constraint. It's a forcing function for clarity. When something works for someone navigating with a keyboard, dealing with low vision, using a phone in bright sunlight with one hand, or reading in their second language, it works better for everyone. Full stop.</p><p>Accessibility isn't a feature you add at the end. It's a commitment you make at the beginning and hold throughout. If no one in your organization is owning it, congratulations: that's you now.</p><h2><strong>Have mercy on our weary eyes and brains.</strong></h2><p>The single most underrated act of design generosity is restraint. K.I.S.S. doesn’t have to be a lazy heuristic: it's a discipline. Every option you add is a decision you're forcing on someone who already has too many. Every label you leave out is a small act of cruelty. Every interface that requires a database engineer to interpret is a failure of imagination, not a failure of the user.</p><p>Build information architectures that meet people where they are, not where you are. You will always be the single least-representative person in the room for evaluating your own work. You know too much. You've been too close to it. You're likely to never be the target user for anything you will ever design, and the sooner you make peace with that, the better your work will get.</p><p>Healthcare software. TV remotes. Airline booking flows at 11 PM when you're exhausted. These things didn't get bad because no one cared. They got bad because someone stopped asking <em>"what does this person, in this moment, actually need?"</em></p><h2><strong>Don't be the Earl Scheib of your industry.</strong></h2><p>Deceptive design is a choice. Dark patterns, anti-patterns, whatever you want to call them, it's a choice to treat your users as marks instead of people. And even when it's not intentional, when it's just sloppy defaults or inherited patterns nobody questioned, it's still your problem. Ignorance isn't an excuse; it's an invitation to do better.</p><p>Brand loyalty isn't built through clever manipulation. It's built through trust. It’s built through the accumulating experience of using something that behaves like it's on your side. Every confusing confirmation dialog, every pre-checked opt-in, every deliberately obscured unsubscribe link is a small withdrawal from that account. Eventually, the balance hits zero.</p><p>Protect people's privacy. Be honest about how their data is used. Own your mistakes publicly and with specificity, integrity, and humility. Then fix them.</p><h2><strong>Test your stuff. For real.</strong></h2><p>Something that seems perfect to you is probably a raging annoyance to everyone else. This isn't an insult, it's physics. You have context your users don't have. You have assumptions baked in so deep you've forgotten they're assumptions.</p><p>Do the research. Talk to actual humans. Watch them use the thing you made. Sit on your hands and don't explain it to them. The silence when they're confused? That's data. The sigh? Also data. The moment they give up? That's the most important data of all.</p><p>If you can't be bothered to empathize, test, or think critically about the people you're designing for, do everyone a favor and don't design anything. Perhaps consider a walkabout.</p><h2><strong>Give a damn.</strong></h2><p>Ultimately, reducing annoyance comes down to one thing: caring. Not performatively, not in a mission-statement way. Actually caring about the cumulative impact of your choices on a stranger's day.</p><p>If you wouldn't want to use the thing you're making, that shows. If you're more interested in what's flashy than what's useful, that shows too. The people on the other side of your interfaces aren't metrics. They're people with limited time, divided attention, and finite patience. They deserve better than thoughtlessness.</p><p>So do the right thing. Make the extra effort. Build something that feels like a small act of grace in someone's day.</p><p>You'll sleep better. And somewhere out there, a person you'll never meet will silently bless your kind, unannoying soul.</p><h2><strong><em>Only you can prevent dumpster fires.</em></strong></h2>
 
     <div class="essay-end">
-      <div class="author">— Brandon E. B. Ward · Dallas, TX —</div>
+    <div class="author">— Brandon E. B. Ward · Dallas, TX —</div>
     </div>
 
   </article>

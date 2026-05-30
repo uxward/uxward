@@ -252,78 +252,14 @@ import Base from '../../layouts/Base.astro';
   <article class="reading-column essay-body">
 
     <figure>
-      <img src="/images/writing/kyre-song-kEw9MHWuz5Y-unsplash.jpg" alt="Usability testing session — Photo by Kyre Song on Unsplash" />
-      <figcaption>Photo by Kyre Song on Unsplash</figcaption>
+    <img src="/images/writing/kyre-song-kEw9MHWuz5Y-unsplash.jpg" alt="Usability testing session — Photo by Kyre Song on Unsplash" />
+    <figcaption>Photo by Kyre Song on Unsplash</figcaption>
     </figure>
 
-    <p>
-      Most teams treat usability testing as a big-bang event: a formal study, a recruited panel, a moderated session in a purpose-built lab, a thick report delivered six weeks after the questions were first asked. By the time the findings arrive, the product has already shipped. The insights become historical footnotes rather than inputs.
-    </p>
-
-    <p>
-      ARTE — Agile Repeated Testing for Enhancement — is the antidote. It is a lightweight, repeatable framework for continuous usability testing that fits inside sprint cycles. The goal is not a comprehensive research study. The goal is a steady stream of validated learning that informs each sprint before it closes.
-    </p>
-
-    <h2>Step 1: Curate your questions</h2>
-
-    <p>
-      Before you recruit a single participant, write down what you actually need to know. Not what you're curious about. Not what the stakeholders keep asking. What you <em>need to know</em> in order to make a better decision about what to build next.
-    </p>
-
-    <p>
-      Good testing questions are specific and behavioral: "Can users complete the checkout flow without abandoning?" Bad testing questions are vague and attitudinal: "Do users like our new design?" Curate your question list ruthlessly. If you have more than five questions per session, you have too many.
-    </p>
-
-    <h2>Step 2: Recruit lightly</h2>
-
-    <p>
-      Five participants surface approximately 85% of usability issues. You do not need a panel of twenty. You need five people who roughly match your target user profile. Recruit through your existing user base, through screener surveys, through customer success contacts. Aim for a 30-minute session. Compensate appropriately for their time.
-    </p>
-
-    <p>
-      The barrier to recruitment is the most common reason teams skip usability testing. Lower the bar. Five people, thirty minutes, once per sprint. That is the target.
-    </p>
-
-    <h2>Step 3: Run the sessions</h2>
-
-    <p>
-      Use a think-aloud protocol. Ask participants to narrate what they are doing and why as they work through your tasks. Do not help them. Do not explain the interface. Do not answer their questions with answers — answer their questions with questions: "What would you expect to happen?" "What are you looking for?"
-    </p>
-
-    <p>
-      Record the sessions. Take notes in real time. Tag moments where participants hesitate, backtrack, make errors, or express frustration. Those moments are your findings.
-    </p>
-
-    <h2>Step 4: Synthesize quickly</h2>
-
-    <p>
-      Immediately after the sessions — ideally the same day — synthesize your notes into a prioritized list of findings. Group related observations. Identify the issues that appeared in three or more sessions: those are your critical findings. Issues that appeared in one or two sessions: worth noting but not blocking.
-    </p>
-
-    <p>
-      Write your synthesis in plain language. No jargon. No academic framing. Just: what happened, how often, what it means for the design.
-    </p>
-
-    <h2>Step 5: Enhance and repeat</h2>
-
-    <p>
-      Feed your findings directly into the next sprint's backlog. Critical findings become sprint tasks. Minor findings become icebox items. The design changes you make based on evidence replace the changes you would have made based on opinion.
-    </p>
-
-    <p>
-      Then do it again. Same framework, new questions, next sprint. The power of ARTE is not in any single round of testing — it is in the compounding effect of continuous learning. Each sprint you know more than the last. Each release is more validated than the previous.
-    </p>
-
-    <blockquote>
-      The goal is not a comprehensive research study. The goal is a steady stream of validated learning.
-    </blockquote>
-
-    <p>
-      Teams that run ARTE consistently ship fewer critical bugs, receive fewer support tickets about usability, and spend less time in post-launch firefighting. The investment — five participants, thirty minutes each, once per sprint — pays for itself many times over.
-    </p>
+    <p>Your boss walks in and says your software/web project needs to be tested with real users, and he wants the results yesterday. Suddenly, you’re faced with a new problem outside your comfort zone: You need to validate your project with a lot of people, do it quickly, and the results could affect the entire direction of the project. So what do you do?</p><p><strong>Agile Repeated Testing for Enhancement</strong> is a quick way to get the answers you need to ensure your project lands well with your customers. Here is a 5 step guide to help you through the process.&nbsp;</p><p><strong>What is ARTE?</strong></p><p><strong>A: Agile.</strong> You’ve got to do this quick, but clean. Cut through the red-tape, and get things done.</p><p><strong>R: Repeated.</strong> You’re not going to just talk to 1 person. You’ve got to make this iterative so you can get as much data possible in your limited timeframe.</p><p><strong>T: Testing.</strong> Design like you know you’re right. Test like you know you’re wrong.</p><p><strong>E: Enhancement.</strong> Tune everything until it’s optimal. Don’t cut corners, but streamline what should be done, and reduce or remove things less critical.</p><h2>Step 1: Kickoff &amp; Knowledge Gathering</h2><p>Whether this is your project, or you’ve been brought in as an outside consultant, you need to have all the right information to get started. Try answering these questions to curate your ARTE:</p><ul><li>What is the business application you’ll be testing? Be specific here.</li><li>Is it an entire package, or just a few features?</li><li>If it’s available on multiple platforms, will you be differentiating between the types of platforms available?</li><li>What kind of data do you need to tell the final story, and what type of data do the executives <em>think</em> they need? (More on helping people understand what kind of data they need to answer their business questions later).&nbsp;</li></ul><h2>Step 2: Participants—Who, Where, How Many</h2><p>This is critical. You must identify your target population well to get the right data. If you're testing an in-dash navigation system, you probably don’t want a user who bikes to work every day with no intention of ever buying a car. If you're optimizing an app for iOS, you may or may not want android users. It all depends on the goal of the test. Clearly think through who the users will be, where you will recruit them from, and how many participants you need to achieve reliable data. We won’t discuss sample size here, but it’s something you may need to take into consideration. There are times when the sample size is determined more by how long you have to conduct your test, and less by achieving a statistically significant sample size. See the diagram below to better understand how to determine a testing schedule. Ultimately, some are better than none. Generally.</p><h2>The Math:</h2><ol><li>40 participants</li><li>2 days of testing</li><li>480 minutes (8 hours) per day</li><li>15-minute gaps between participants</li></ol><p>((Num_Minutes * Num_Days / Num_Participants) - Gap = <strong>How much time you have to work with each participant</strong></p><p>or</p><p>((480 * 2) / 40) - 15 = <strong>~ 9 minutes per test</strong> (per test participant)</p><h2>Step 3: Script Writing</h2><p>It’s great that you know who you're going to talk to now, but what are you going to say? “Hey do you like this feature?” is probably not going to be sufficient. Well-crafted questions are both art and science. There are times when a yes/no response is appropriate, but there are often times where you want to include open-ended questions. Open-ended questions are questions specifically designed for an explanation instead of a yes/no response. They allow you to dig a little deeper into how the participant feels about a feature and give you greater insight into the product you're testing. These are great for your qualitative report. For the quantitative aspect of your report, you will need a categorical variable. A preferred scale to use is a 5 point Likert scale. The participant can rank a very large range of things such as sentiment, emotion, agreement, frequency, importance, likelihood and more on a simple Likert scale.&nbsp;</p><p>The script is more than just the testing questions though. It also includes an introduction, scenarios, and any important disclosures. Are you recording the session? You can include the consent process in the script, or simply a question to confirm the consent is on hand.</p><h2>Step 4: Logistics</h2><p>There are a few additional details that you must work out before you start testing. Where will the testing be conducted? Is it a space you own, or a public space? Do you need permission to test there? You need a location that has good wayfinding so your participants don’t get frustrated trying to find the correct location. You will likely need a waiting area, a room for testing with minimal distractions, and appropriate staffing to keep the flow going. The same goes for virtual tests hosted on platforms like Zoom. Getting people to the right room, properly set up, prepared to share screens or devices is no easy task with many participants, and may require additional coaching and written instructions before and/or during the meeting. You need to account for those tech hurdles in your schedule.</p><p>You also need to consider what software and equipment you’ll use. Will you be recording audio and video? If so, how? Will others need to be observing remotely? Do you have backup equipment if something doesn’t work properly? Yes, equipment failure and computer crashes can happen in the middle of a testing session. Be over-prepared.&nbsp;</p><h2>Step 5: Practice &amp; Revisions</h2><p>So now you’re all ready to go, right? Wrong. Now you need to do a few dry runs. First with your team, and then with someone outside your team. Test the questions. Are they leading? Are they repetitive? How is your timing? If you have participants coming every 30 minutes and your script is taking 40-45 minutes, you still have a lot of work to do. Get the script right. It is well worth it.</p><p>Finally, be prepared for it all to go wrong. We’ve seen people show up late. Show up 2 hours early, even show up 24 hours early! We’ve seen outdoor tests get rained on. We’ve seen on-location tests where no customers showed up. We’ve seen intercept interviews where nobody would talk to us. You never know what’s going to happen, so over-prepare, then be ready to pivot. When the timeline is tight, fortune will favor the prepared</p><p>Great, now you know the steps to curate your ARTE session. If you need help with any of your usability testing and design needs, please reach out to us at <a href="https://precocityllc.com" target="_blank">Precocity</a>. Our team of usability researchers have a passion for improving the customer experience on a variety of platforms.&nbsp;</p>
 
     <div class="essay-end">
-      <div class="author">— Brandon E. B. Ward · Dallas, TX —</div>
+    <div class="author">— Brandon E. B. Ward · Dallas, TX —</div>
     </div>
 
   </article>
