@@ -1,0 +1,713 @@
+---
+import Base from '../../layouts/Base.astro';
+import { slate } from '../../data/slate.js';
+
+// Case number, prev/next, and counts derive from slate order — see src/data/slate.js.
+const idx = slate.findIndex((c) => c.slug === 'autoco');
+const self = slate[idx];
+const num = String(idx + 1).padStart(2, '0');
+const prev = slate[(idx + slate.length - 1) % slate.length];
+const next = slate[(idx + 1) % slate.length];
+---
+<!--
+  ============================================================================
+  Remaining (deferred per your call):
+  - Image frames (3) — drop in screenshots when ready.
+  Resolved: client = a global automaker · Role = Director of UX · Timeframe 2017–2022 ·
+            reflection + third "Chose not to" written from your notes.
+  Optional: anonymize "Rally" → "the design vendor" if you'd rather not name a partner.
+  ============================================================================
+-->
+<Base title="a global automaker — usability testing at scale · uxward">
+  <style>
+    .breadcrumb { padding-top: var(--space-8); padding-bottom: var(--space-7); }
+    .breadcrumb a {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      text-decoration: none;
+    }
+    .breadcrumb a:hover { color: var(--ink); }
+
+    .title-block { padding-top: var(--space-7); padding-bottom: var(--space-10); }
+    .case-num {
+      font-family: var(--font-serif);
+      font-feature-settings: "tnum" 1;
+      font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 1;
+      font-weight: 300;
+      font-size: 132px;
+      line-height: 0.9;
+      letter-spacing: -0.03em;
+      color: var(--signature);
+      margin: 0 0 var(--space-7);
+      display: block;
+    }
+    .case-title {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: clamp(56px, 7.4vw, 104px);
+      line-height: 0.96;
+      letter-spacing: -0.035em;
+      font-variation-settings: 'opsz' 144, 'SOFT' 30;
+      color: var(--ink);
+      margin: 0;
+      max-width: 1080px;
+    }
+    .case-title em {
+      font-style: italic; font-weight: 400;
+      font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
+    }
+    .case-deck {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 300;
+      font-size: 24px;
+      line-height: 1.42;
+      color: var(--body);
+      margin: var(--space-8) 0 0;
+      max-width: 720px;
+      font-variation-settings: 'opsz' 36, 'SOFT' 80, 'WONK' 1;
+    }
+
+    .meta-strip {
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      padding: var(--space-6) 0;
+      margin-top: var(--space-9);
+    }
+    .meta-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: var(--space-7);
+    }
+    .meta-row .cell .label {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-bottom: 6px;
+    }
+    .meta-row .cell .value {
+      font-family: var(--font-serif);
+      font-size: 17px;
+      color: var(--ink);
+      font-variation-settings: 'opsz' 24, 'SOFT' 30;
+    }
+
+    section.cs {
+      padding: var(--space-10) 0 var(--space-9);
+      border-top: 1px solid var(--rule);
+    }
+    section.cs:first-of-type { border-top: 0; }
+    .cs-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--signature);
+      margin-bottom: var(--space-7);
+    }
+    .cs-eyebrow .num {
+      color: var(--ink);
+      margin-right: 10px;
+      letter-spacing: 0.18em;
+    }
+    .cs-head {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: 44px;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin: 0 0 var(--space-8) 0;
+      font-variation-settings: 'opsz' 96, 'SOFT' 30;
+      max-width: 720px;
+    }
+    .cs-head em {
+      font-style: italic; font-weight: 400;
+      font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1;
+    }
+    .cs-prose p {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: 19px;
+      line-height: 1.65;
+      color: var(--body);
+      max-width: 660px;
+      margin: 0 0 var(--space-6);
+    }
+    .cs-prose p strong { font-weight: 500; color: var(--ink); }
+    .cs-prose p em { font-style: italic; }
+
+    .cs-pullquote {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 300;
+      font-size: 28px;
+      line-height: 1.35;
+      color: var(--ink);
+      border-left: 3px solid var(--signature);
+      padding-left: var(--space-7);
+      margin: var(--space-9) 0;
+      max-width: 620px;
+      font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1;
+    }
+
+    .choices {
+      margin: var(--space-8) 0 var(--space-7);
+      border-top: 1px solid var(--rule);
+    }
+    .choice-row {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: var(--space-7);
+      padding: var(--space-5) 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .choice-row .key {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      padding-top: 4px;
+    }
+    .choice-row .val {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      line-height: 1.55;
+      color: var(--body);
+      max-width: 580px;
+    }
+    .choice-row .val strong { font-weight: 500; color: var(--ink); }
+
+    .artifacts {
+      margin-top: var(--space-7);
+      display: grid;
+      gap: var(--space-10);
+    }
+    .artifact .frame {
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      aspect-ratio: 16 / 9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-3);
+      color: var(--tertiary);
+      padding: var(--space-7);
+      text-align: center;
+    }
+    .artifact .frame .placeholder-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+    }
+    .artifact .frame .placeholder-detail {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 17px;
+      color: var(--body);
+      max-width: 480px;
+      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
+    }
+    .artifact .caption-grid {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: var(--space-7);
+      align-items: baseline;
+      margin-top: var(--space-6);
+    }
+    .artifact .caption-grid .num {
+      font-family: var(--font-serif);
+      font-feature-settings: "tnum" 1;
+      font-variation-settings: 'opsz' 96, 'SOFT' 30, 'WONK' 1;
+      font-weight: 300;
+      font-size: 36px;
+      line-height: 1;
+      color: var(--ink);
+    }
+    .artifact .caption-grid h4 {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: 22px;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin: 0 0 8px 0;
+      font-variation-settings: 'opsz' 36, 'SOFT' 50;
+    }
+    .artifact .caption-grid p.cap {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 16.5px;
+      line-height: 1.5;
+      color: var(--body);
+      margin: 0;
+      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
+    }
+
+    .outcomes-bleed {
+      background: var(--signature);
+      color: #FFFFFF;
+      padding: 128px 0 120px;
+    }
+    .outcomes-bleed .cs-eyebrow { color: rgba(255,255,255,0.78); }
+    .outcomes-bleed .cs-eyebrow .num { color: #FFFFFF; }
+    .outcomes-bleed .cs-head {
+      color: #FFFFFF;
+      font-size: clamp(48px, 6vw, 80px);
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+      max-width: 980px;
+    }
+    .outcomes-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-9);
+      margin-top: var(--space-10);
+      border-top: 1px solid rgba(255,255,255,0.28);
+      padding-top: var(--space-8);
+    }
+    .stat .label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.78);
+      margin-bottom: var(--space-4);
+    }
+    .stat .figure {
+      font-family: var(--font-serif);
+      font-feature-settings: "tnum" 1;
+      font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 1;
+      font-weight: 300;
+      font-size: 64px;
+      line-height: 1;
+      letter-spacing: -0.025em;
+      color: #FFFFFF;
+      margin-bottom: var(--space-4);
+    }
+    .stat .desc {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 16.5px;
+      line-height: 1.5;
+      color: #FFFFFF;
+      max-width: 320px;
+      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
+    }
+
+    .prevnext {
+      border-top: 2px solid var(--ink);
+      padding: var(--space-9) 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-9);
+    }
+    .pn-cell .label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-bottom: var(--space-4);
+    }
+    .pn-cell a {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: 32px;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      text-decoration: none;
+      font-variation-settings: 'opsz' 96, 'SOFT' 30;
+      display: block;
+    }
+    .pn-cell a:hover { color: var(--tertiary); }
+    .pn-cell a em { font-style: italic; font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1; }
+    .pn-cell.next { text-align: right; }
+
+    .back-all {
+      padding: var(--space-9) 0 var(--space-10);
+      text-align: center;
+      border-top: 1px solid var(--rule);
+    }
+    .back-all a {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .back-all a:hover { color: var(--tertiary); }
+
+    @media (max-width: 720px) {
+      .meta-row { grid-template-columns: 1fr 1fr; }
+      .outcomes-stats { grid-template-columns: 1fr; }
+      .prevnext { grid-template-columns: 1fr; }
+      .pn-cell.next { text-align: left; }
+      .choice-row { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <div class="container breadcrumb">
+    <div class="grid">
+      <div class="marker">§ ↩</div>
+      <div><a href="/work">— Back to all work</a></div>
+    </div>
+  </div>
+
+  <div class="container title-block">
+    <div class="grid">
+      <div class="marker">§ 00</div>
+      <div>
+        <span class="case-num">{num}</span>
+        <h1 class="case-title" set:html={self.title} />
+        <p class="case-deck">
+          A carmaker celebrated for consumer research realized it was being out-designed by the tech
+          industry. Across 17 studies and 3,500 hours of testing, I built and led the independent,
+          bias-free usability practice that turned guesswork into a closed-loop design process —
+          and that a global automaker eventually brought in-house.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="meta-strip">
+      <div class="grid">
+        <div class="marker">§ ✻</div>
+        <div class="meta-row">
+          <div class="cell">
+            <div class="label">Client</div>
+            <div class="value">a global automaker</div>
+          </div>
+          <div class="cell">
+            <div class="label">Role</div>
+            <div class="value">Director of UX</div>
+          </div>
+          <div class="cell">
+            <div class="label">Timeframe</div>
+            <div class="value">2017 — 2022</div>
+          </div>
+          <div class="cell">
+            <div class="label">Capacity</div>
+            <div class="value">Built &amp; led rotating 3–5 person teams</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="cs">
+    <div class="container">
+      <div class="grid">
+        <div class="marker">§ 01</div>
+        <div>
+          <div class="cs-eyebrow"><span class="num">01</span>— Context —</div>
+          <h2 class="cs-head">A carmaker that researched <em>everything</em> — and still couldn't see itself.</h2>
+          <div class="cs-prose">
+            <p>
+              a global automaker is famous for the volume of its consumer research — market testing, quality
+              assurance, constant customer feedback. By any automotive standard, they knew their
+              customer cold.
+            </p>
+            <p>
+              But the standard had moved. The company recognized that its real competition was no
+              longer other carmakers; it was the tech industry, where the pace of innovation and the
+              quality of the experience set a bar the automotive playbook wasn't built to clear. The
+              research machine was world-class at confirming what the company already believed — and
+              that was exactly the problem.
+            </p>
+            <p>
+              The brief: bring independent testing, free of internal confirmation bias, plus design
+              and UX alternatives for the experience inside and outside the vehicle. Working across
+              three internal divisions and with Aperio Insights, I helped build and run the company's
+              first-ever usability tests for its in-car systems.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs">
+    <div class="container">
+      <div class="grid">
+        <div class="marker">§ 02</div>
+        <div>
+          <div class="cs-eyebrow"><span class="num">02</span>— The problem, named clearly —</div>
+          <h2 class="cs-head">The competition changed industries — and the <em>testing didn't.</em></h2>
+          <div class="cs-prose">
+            <p>
+              Cars are now judged against phones. A head unit, a voice assistant, a companion app —
+              customers measure them against the best software they use every day, not against last
+              year's dashboard. Automotive QA was built to catch defects, not to judge an experience
+              against the tech industry's bar.
+            </p>
+            <p>
+              And the gap was invisible from the inside. The teams building the systems were the same
+              teams evaluating them, so the research kept confirming the company's own assumptions
+              instead of surfacing where real users actually struggled.
+            </p>
+            <blockquote class="cs-pullquote">
+              Their competition was no longer other carmakers — it was the tech industry's pace and polish.
+            </blockquote>
+            <p>
+              <strong>The problem: a company famous for research could no longer trust its own
+              research to keep pace with tech-industry UX — and needed independent, tech-speed testing
+              to close the gap before launch, not after.</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs">
+    <div class="container">
+      <div class="grid">
+        <div class="marker">§ 03</div>
+        <div>
+          <div class="cs-eyebrow"><span class="num">03</span>— The approach —</div>
+          <h2 class="cs-head">Independent eyes, at <em>tech-industry speed.</em></h2>
+          <div class="cs-prose">
+            <p>
+              The obvious move was to lean harder on the existing research apparatus — more studies,
+              same machine. I didn't. Its scale was real, but so was its blind spot: it was structured
+              to validate, not to challenge. The only way to get honest answers was to put the testing
+              in independent hands.
+            </p>
+            <p>
+              So we stood up a dedicated, outside testing practice. Over the program, that meant more
+              than 500 moderated, in-person usability tests and 3,500-plus hours of live-streamed,
+              recorded, logged, and reported research — rotating teams of three to five researchers,
+              testing ten to twelve hours a day, up to three days a week, across 17 separate studies:
+              head units, dashboards, at-speed voice UI, mobile apps, and more.
+            </p>
+            <p>
+              New thinking needed new tools, so we built them — our own logging, study-tracking, and
+              rapid-analysis tooling, and even our own way to structure simulated driving. We were, by
+              a global automaker's own account, the first team to run usability studies on their software. And the
+              point was never to run tests; it was to wire results straight back to the design teams
+              fast enough to iterate inside the same engagement. A closed loop, not a report.
+            </p>
+          </div>
+
+          <div class="choices">
+            <div class="choice-row">
+              <div class="key">— Chose to —</div>
+              <div class="val"><strong>Test independently of the people who built the systems.</strong> The only way past confirmation bias was to take evaluation out of the builders' hands.</div>
+            </div>
+            <div class="choice-row">
+              <div class="key">— Chose to —</div>
+              <div class="val"><strong>Test in real context</strong> — real vehicles, real conditions, including at speed — instead of clean-room scenarios that flatter the design.</div>
+            </div>
+            <div class="choice-row">
+              <div class="key">— Chose to —</div>
+              <div class="val"><strong>Build a closed loop, not a deliverable.</strong> Results fed back to design teams fast enough to validate and iterate within the engagement.</div>
+            </div>
+            <div class="choice-row">
+              <div class="key">— Chose <strong>not</strong> to —</div>
+              <div class="val">Lean on the client's celebrated research machine. Its strength — scale — was also its blind spot, so we built outside it.</div>
+            </div>
+            <div class="choice-row">
+              <div class="key">— Chose <strong>not</strong> to —</div>
+              <div class="val">Port legacy automotive QA methods onto a tech-paced UX problem. New thinking needed new tools and a new process.</div>
+            </div>
+            <div class="choice-row">
+              <div class="key">— Chose <strong>not</strong> to —</div>
+              <div class="val">Hire senior researchers to de-risk it. I staffed the program with sharp people breaking into UX, gave them their first studies and a marquee logo, and grew them — <strong>all now senior in their own right.</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs">
+    <div class="container">
+      <div class="grid">
+        <div class="marker">§ 04</div>
+        <div>
+          <div class="cs-eyebrow"><span class="num">04</span>— The work itself —</div>
+          <h2 class="cs-head">A research <em>operation</em>, not a deliverable.</h2>
+          <div class="cs-prose" style="margin-bottom: var(--space-9);">
+            <p>
+              The work here isn't a screen — it's the machine that produced the answers. Three parts
+              of it carried the program.
+            </p>
+          </div>
+
+          <div class="artifacts">
+            <div class="artifact">
+              <div class="frame">
+                <span class="placeholder-label">Artifact 01 / 03</span>
+                <span class="placeholder-detail">
+                  The in-vehicle testing rig — participant in a real a global automaker, multi-camera capture
+                  (face + hands), feeds live-streamed to remote observers.
+                </span>
+              </div>
+              <div class="caption-grid">
+                <span class="num">01</span>
+                <div class="body">
+                  <h4>The live-streamed testing rig</h4>
+                  <p class="cap">
+                    More than 500 moderated tests and 3,500 hours, run in real vehicles and conditions,
+                    streamed and logged so stakeholders anywhere could watch the customer struggle in
+                    real time.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="artifact">
+              <div class="frame">
+                <span class="placeholder-label">Artifact 02 / 03</span>
+                <span class="placeholder-detail">
+                  A spread of the issue-and-recommendation reports — findings tagged by platform and
+                  severity, with the recommended design fix beside each one.
+                </span>
+              </div>
+              <div class="caption-grid">
+                <span class="num">02</span>
+                <div class="body">
+                  <h4>The findings, made actionable</h4>
+                  <p class="cap">
+                    Over 300 issues surfaced across multiple platforms, each paired with a
+                    recommendation — not a list of problems, but a queue of fixes design teams could
+                    pick up immediately.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="artifact">
+              <div class="frame">
+                <span class="placeholder-label">Artifact 03 / 03</span>
+                <span class="placeholder-detail">
+                  A simple diagram of the closed-loop process — test → result → design iteration →
+                  retest — with the rotating-team cadence (3–5 researchers, 10–12 hrs/day) noted.
+                </span>
+              </div>
+              <div class="caption-grid">
+                <span class="num">03</span>
+                <div class="body">
+                  <h4>The closed-loop process</h4>
+                  <p class="cap">
+                    17 studies wired into one cadence that fed results back fast enough to iterate
+                    inside the engagement — the thing that turned testing from an audit into a design
+                    engine.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cs-prose" style="margin-top: var(--space-9);">
+            <p>
+              It ran visibly well enough that the CEO stopped by to watch a session, and a global automaker teams
+              from around the world asked to adopt the practice. Once the model proved out, the same
+              approach went on to test power wheelchairs, at-speed voice UI, mobile apps, head units,
+              and dashboards.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs outcomes-bleed">
+    <div class="container">
+      <div class="grid">
+        <div class="marker" style="color: rgba(255,255,255,0.78);">§ 05</div>
+        <div>
+          <div class="cs-eyebrow"><span class="num">05</span>— Outcomes —</div>
+          <h2 class="cs-head">
+            Stakeholders stopped guessing the customer's mind — and a global automaker brought usability testing in-house for good.
+          </h2>
+          <div class="outcomes-stats">
+            <div class="stat">
+              <div class="label">— Research run —</div>
+              <div class="figure">3,500 hrs</div>
+              <div class="desc">500+ moderated, in-person tests in real conditions.</div>
+            </div>
+            <div class="stat">
+              <div class="label">— Breadth —</div>
+              <div class="figure">17</div>
+              <div class="desc">Separate studies across head units, voice, apps, and more.</div>
+            </div>
+            <div class="stat">
+              <div class="label">— Issues surfaced &amp; fixed —</div>
+              <div class="figure">300+</div>
+              <div class="desc">Each paired with a recommendation, across multiple platforms.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs">
+    <div class="container">
+      <div class="grid">
+        <div class="marker">§ 06</div>
+        <div>
+          <div class="cs-eyebrow"><span class="num">06</span>— Reflection —</div>
+          <h2 class="cs-head">What I'd reverse. What I <em>carried forward.</em></h2>
+          <div class="cs-prose">
+            <p>
+              <strong>The decision I'd reverse:</strong> I built our relationship with a global automaker and let
+              the relationship with Rally — the design vendor whose work we were testing — fend for
+              itself. With a global automaker sitting between us as the middleman, the structure quietly pitted two
+              vendors against each other. We were there to validate and elevate Rally's work; too often
+              it must have felt like we were there to break it. I should have fought for a direct,
+              close partnership with Rally from day one — because research is only as useful as the
+              design team's willingness to act on it, and I left that to chance.
+            </p>
+            <p>
+              <strong>The surprise:</strong> how readily drivers pull their attention off the road. It
+              reads as obvious, but it was visceral in testing — people lifting their hands off the
+              simulated wheel to lean in and squint at a font, or getting lost three menus deep just to
+              do something simple. A big touchscreen that makes you look away to operate it is a
+              genuinely bad idea. Simple, high-level, glanceable interaction you can use without looking
+              went from "nice" to mission-critical.
+            </p>
+            <p>
+              <strong>What I carried forward:</strong> never be afraid to step into the dark and build
+              the thing that doesn't exist yet. We had to invent most of our apparatus — the logging,
+              the study-tracking, the rapid analysis, even how to structure simulated driving — to run
+              studies no one at a global automaker had run before. If the tool you need doesn't exist, you build
+              it. It's the same instinct behind <em>Speakeazy</em>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="prevnext">
+      <div class="pn-cell prev">
+        <div class="label">— Previous case —</div>
+        <a href={`/work/${prev.slug}`} set:html={`— ${prev.title}`} />
+      </div>
+      <div class="pn-cell next">
+        <div class="label">— Next case —</div>
+        <a href={`/work/${next.slug}`} set:html={`${next.title} —`} />
+      </div>
+    </div>
+
+    <div class="back-all">
+      <a href="/work">— Back to all {slate.length} selected pieces →</a>
+    </div>
+  </div>
+</Base>

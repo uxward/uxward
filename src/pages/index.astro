@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import { slate } from '../data/slate.js';
 ---
 <Base title="uxward — Brandon E. B. Ward">
   <style>
@@ -394,30 +395,30 @@ import Base from '../layouts/Base.astro';
           <h2 class="section-head">Three pieces that <em>carry the slate.</em></h2>
 
           <div class="work">
-            <a class="case hero" href="/work/precocity">
+            <a class="case hero" href="/work/speakeazy">
               <span class="badge">Hero of the slate</span>
               <span class="num">01</span>
-              <h3 class="title">Precocity — the ten-year build</h3>
-              <p class="desc">Standing up and growing design practice as a consultant. The load-bearing case on the site.</p>
-              <span class="meta">2014–2024 · Consulting</span>
+              <h3 class="title">Speakeazy — the tool that should have existed</h3>
+              <p class="desc">AI-native dialogue attribution and character analysis for audiobook narrators. Built solo; live to real users since January 2026. The load-bearing case on the site.</p>
+              <span class="meta">2025–Present · Founder</span>
             </a>
 
-            <a class="case" href="/work">
+            <a class="case" href="/work/autoco">
               <span class="num">02</span>
-              <h3 class="title">Speakeazy</h3>
-              <p class="desc">AI-native dialogue attribution and character analysis for voice actors. Real users, shipping weekly.</p>
-              <span class="meta">2024–Present · Founder</span>
+              <h3 class="title">a global automaker — testing like an outsider</h3>
+              <p class="desc">Built and led the independent, bias-free usability practice — 17 studies, 3,500 hours of testing — that a global automaker eventually brought in-house.</p>
+              <span class="meta">2017–2022 · Director of UX</span>
             </a>
 
-            <a class="case" href="/work">
+            <a class="case" href="/work/porte">
               <span class="num">03</span>
-              <h3 class="title">FORGE</h3>
-              <p class="desc">Context-to-complete-site-build via AI. The most ambitious tool of the set; the one closest to a thesis.</p>
-              <span class="meta">2025 · Solo build</span>
+              <h3 class="title">Porte — tested before a line of code</h3>
+              <p class="desc">Populous's first mobile-only bank, researched and tested at every layer before a line of code was written. Shipped a 1.0 that earned 4.8 stars.</p>
+              <span class="meta">2019 · Director of UX</span>
             </a>
           </div>
 
-          <a class="see-all" href="/work">— See all 7 selected pieces →</a>
+          <a class="see-all" href="/work">— See all {slate.length} selected pieces →</a>
         </div>
       </div>
     </div>

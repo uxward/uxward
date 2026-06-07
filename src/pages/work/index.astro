@@ -1,5 +1,46 @@
 ---
 import Base from '../../layouts/Base.astro';
+import { slate } from '../../data/slate.js';
+
+// — The selected slate — rendered from src/data/slate.js (single source of
+// truth for order, numbering, and counts across the site).
+const [hero, ...cases] = slate;
+
+// — The wider archive — short cards for the fuller body of work.
+// Heroes (Speakeazy, a global automaker, Porte, a major insurance broker, + Party City & Telescope to come)
+// live in the slate above; Deloitte Intela is intentionally held out.
+// Edit / reorder a card by editing one entry; the count below auto-updates.
+const archive = [
+  { tag: "Data & viz",          client: "Neiman Marcus",            hook: "Flashboard, real-time sales analytics",   out: "Consolidated siloed enterprise data into a responsive tool — drill-down to a single SKU at a single store." },
+  { tag: "Product redesign",    client: "ServiceKing",              hook: "halving CSR call time",                   out: "The Overdrive redesign cut call time 50% — doubling call-center capacity — and ended mis-assigned vehicles." },
+  { tag: "Platform overhaul",   client: "WorldatWork",              hook: "a membership portal that finally loads",  out: "Re-architected portal cut page loads 50%+ and let marketing manage content without developers." },
+  { tag: "Design system",       client: "Deloitte",                 hook: "a dashboard platform in two weeks",       out: "Hi-fi prototype and a reusable style guide in 14 days — then the baseline for other Deloitte platforms." },
+  { tag: "UX / UI",             client: "Deloitte",                 hook: "an acquired app, brought up to standard", out: "A ~4-week uplift aligned a newly-acquired product to brand and fixed its weakest flows." },
+  { tag: "AR",                  client: "NOKIA",                    hook: "troubleshooting hardware through a HUD",  out: "An AR proof of concept identified faulty hardware in unfamiliar rooms and guided just-in-time repairs." },
+  { tag: "AR",                  client: "NOKIA",                    hook: "just-in-time training for field techs",   out: "Mobile AR tutorials cut training and install time for contractors with little prior experience." },
+  { tag: "VR",                  client: "RetailGIS",                hook: "walking a store before it's built",       out: "Turned existing 2D store schematics into multi-user VR walkthroughs in the Meta Quest." },
+  { tag: "AR / sales",          client: "Welborn Garage Doors",     hook: "seeing the door on your house",           out: "An AR app composites a custom garage door onto a customer's home in real time, with live pricing." },
+  { tag: "Usability research",  client: "a global automaker",                   hook: "an accident app for people in distress",  out: "A usability study surfaced dealbreaker limitations and the fixes to make it usable under stress." },
+  { tag: "Usability research",  client: "Automaker Connected",         hook: "catching the flaw that left cars unlocked", out: "Real-world testing caught a return-flow defect that would've left every car unlocked after use." },
+  { tag: "Usability research",  client: "a global automaker",                   hook: "programming a mirror, in a real car",     out: "In-vehicle testing of the full-display rearview mirror produced clearer controls, icons, and sunlight visibility." },
+  { tag: "Adoption study",      client: "a global automaker",                   hook: "why a companion app wasn't catching on",  out: "A usability study pinpointed the onboarding and IA fixes to lift the companion app adoption." },
+  { tag: "Accessibility",       client: "Automaker Mobility",          hook: "touchscreen controls for power wheelchairs", out: "Live-intercept surveys and two usability rounds (21 users) at the Dallas & LA Abilities Expos validated a touchscreen for Group 2–3 users." },
+  { tag: "Enterprise UX",       client: "HKS",                      hook: "finding people across 24 offices",        out: "A PoC freed resourcing from a finance-only ERP, letting PMs find and plan talent worldwide." },
+  { tag: "Enterprise platform", client: "Milestone",               hook: "paper onboarding, digitized",             out: "A bespoke portal automated onboarding and gave HR and execs real-time performance dashboards." },
+  { tag: "Product strategy",    client: "Generational",             hook: "DealForce, the next-gen M&A platform",    out: "Business-model-canvas work defined the MVP and a roadmap for a best-in-class deal platform." },
+  { tag: "Platform strategy",   client: "Success Group Int'l",      hook: "consolidating a fractured platform",      out: "A 6-week MVP definition and phased roadmap cut IT complexity and support costs." },
+  { tag: "UX redesign",         client: "Success Group Int'l",      hook: "a sales scoreboard worth trusting",       out: "Redesign cut data-entry errors and maintenance costs, raising admin and subscriber satisfaction." },
+  { tag: "Navigation UX",       client: "Solovis",                  hook: "fixing the nav users got lost in",        out: "Tree-tested IA and usability-validated navigation lifted adoption and engagement." },
+  { tag: "Product design",      client: "Solovis",                  hook: "'what-if' modeling for asset managers",   out: "An app to stack unlimited scenarios with live-redrawing charts and a client presentation mode." },
+  { tag: "Strategy",            client: "CollateralEdge",           hook: "research when they asked for a website",  out: "Insights and a journey map became the brand and site that pre-empted buyers' questions and doubts." },
+  { tag: "Web & UX",            client: "CDC Small Business Finance", hook: "a mission lender's site that converts", out: "A research-led, CTA-driven redesign lifted traffic, engagement, and conversions for an SMB lender." },
+  { tag: "Brand & 0→1",         client: "REdibs (now SellWhenever)", hook: "launching a novel real-estate model",    out: "Full brand, site, and portals plus a marketing strategy that improved agent conversion." },
+  { tag: "Product design",      client: "FanPlan",                  hook: "a marketing concept made real",           out: "A 3-week discovery sprint defined personas, IA, and full customer + admin prototypes." },
+  { tag: "CX / conversion",     client: "YPO",                      hook: "smoothing the path to membership",        out: "Hotjar and 1:1 research drove content and funnel fixes that sustained higher application rates." },
+  { tag: "UX / engagement",     client: "YPO",                      hook: "a member portal worth returning to",      out: "Continuous-improvement UX work lifted engagement across a global member portal." },
+  { tag: "Mobile",              client: "YPO",                      hook: "standardizing how leaders run forums",    out: "A native iOS/Android app for forum moderators, launched at the 2018 Global Leadership Conference." },
+  { tag: "Creative / games",    client: "American Heart Association", hook: "gamifying stroke awareness",            out: "Nog, an animated-brain game suite for F.A.S.T. — built in ~8 months, then extended to a Spanish R.A.P.I.D.O. edition." },
+];
 ---
 <Base title="Work · uxward">
   <style>
@@ -310,6 +351,78 @@ import Base from '../../layouts/Base.astro';
       a.hero .hero-meta .stamps span { display: block; }
       a.hero .hero-meta .stamps span + span::before { display: none; }
       .pivot-grid { grid-template-columns: 1fr; }
+      .arch-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* — The wider archive — */
+    .archive {
+      padding: var(--space-10) 0 var(--space-10);
+      border-top: 2px solid var(--ink);
+    }
+    .arch-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-bottom: var(--space-7);
+    }
+    .arch-h {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: clamp(36px, 4.4vw, 56px);
+      line-height: 1.02;
+      letter-spacing: -0.025em;
+      font-variation-settings: 'opsz' 144, 'SOFT' 30;
+      color: var(--ink);
+      margin: 0 0 var(--space-9);
+    }
+    .arch-h em {
+      font-style: italic; font-weight: 400;
+      font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
+    }
+    .arch-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-8) var(--space-7);
+    }
+    .arch-card {
+      border-top: 1px solid var(--rule);
+      padding-top: var(--space-5);
+    }
+    .arch-card .tag {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--signature);
+      margin-bottom: var(--space-4);
+    }
+    .arch-card .arch-title {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: 21px;
+      line-height: 1.2;
+      letter-spacing: -0.012em;
+      color: var(--ink);
+      font-variation-settings: 'opsz' 36, 'SOFT' 30;
+      margin: 0;
+    }
+    .arch-card .arch-title em {
+      font-style: italic;
+      font-variation-settings: 'opsz' 36, 'SOFT' 100, 'WONK' 1;
+    }
+    .arch-card .arch-out {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 15.5px;
+      line-height: 1.5;
+      color: var(--body);
+      margin: var(--space-4) 0 0;
+      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
+    }
+    @media (max-width: 600px) {
+      .arch-grid { grid-template-columns: 1fr; }
     }
   </style>
 
@@ -327,9 +440,9 @@ import Base from '../../layouts/Base.astro';
         <div class="page-eyebrow">— Work · The selected slate —</div>
         <h1 class="page-h">The work, <em>arranged by what it proves.</em></h1>
         <p class="page-intro">
-          The curated set, not a complete archive. Six pieces across twenty-five years —
-          the ones I most stand behind. The Precocity case is the load-bearing one; the
-          others are arranged by what they prove, not when they shipped.
+          The curated set up top — the ones I most stand behind, arranged by what they
+          prove, not when they shipped. The Speakeazy build is the load-bearing one.
+          Below it, the wider archive: the fuller body of work, in brief.
         </p>
       </div>
     </div>
@@ -337,28 +450,20 @@ import Base from '../../layouts/Base.astro';
 
   <section class="container slate">
 
-    <a class="hero" href="/work/precocity" aria-label="Open the Precocity case study">
+    <a class="hero" href={`/work/${hero.slug}`} aria-label={`Open the ${hero.client} case study`}>
       <div class="hero-head">
         <div class="num">
           01
           <small>— Hero of the slate —</small>
         </div>
         <div class="hero-body">
-          <div class="hero-eyebrow">— 2014 — 2024 · Chief Experience Officer · Ten years —</div>
-          <h2 class="hero-title">Built the design practice at <em>Precocity</em> from one designer to seven.</h2>
-          <p class="hero-deck">
-            Joined a data-and-analytics consultancy as the first design hire. Spent ten years
-            arguing — first for a seat, then for a team, then for the senior judgment to use
-            both well. Left a discipline that closed the firm's enterprise contracts.
-          </p>
-          <blockquote class="hero-pullout">
-            Win rate on pitches with design embedded: <em>three out of forty-seven, to thirty-one out of forty-seven, in eighteen months.</em>
-          </blockquote>
+          <div class="hero-eyebrow">— {hero.eyebrow} —</div>
+          <h2 class="hero-title" set:html={hero.title} />
+          <p class="hero-deck">{hero.deck}</p>
+          <blockquote class="hero-pullout" set:html={hero.pullout} />
           <div class="hero-meta">
             <div class="stamps">
-              <span>— Practice build —</span>
-              <span>— 1 → 7 designers —</span>
-              <span>— $14M ARR pipeline influenced —</span>
+              {hero.stamps.map((s) => <span>— {s} —</span>)}
             </div>
             <span class="open">— Read the full case →</span>
           </div>
@@ -366,115 +471,43 @@ import Base from '../../layouts/Base.astro';
       </div>
     </a>
 
-    <a class="case" href="#">
-      <div class="row">
-        <div class="num">02</div>
-        <div class="body">
-          <h3 class="case-title">Speakeazy — <em>shipped, alone, to real users.</em></h3>
-          <p class="case-deck">
-            AI-native dialogue attribution and character analysis for voice actors and
-            audiobook narrators. Solo build, real users, real revenue, shipped 2025.
-          </p>
-        </div>
-        <div class="meta">
-          <div class="stamps">
-            <div>— Founder —</div>
-            <div>— 2025 — Present —</div>
-            <div>— Solo builder —</div>
+    {cases.map((c, i) => (
+      <a class="case" href={`/work/${c.slug}`}>
+        <div class="row">
+          <div class="num">{String(i + 2).padStart(2, '0')}</div>
+          <div class="body">
+            <h3 class="case-title" set:html={c.title} />
+            <p class="case-deck">{c.deck}</p>
           </div>
-          <span class="open">— Open →</span>
+          <div class="meta">
+            <div class="stamps">
+              {c.stamps.map((s) => <div>— {s} —</div>)}
+            </div>
+            <span class="open">— Open →</span>
+          </div>
+        </div>
+      </a>
+    ))}
+
+  </section>
+
+  <section class="container archive">
+    <div class="grid">
+      <div class="marker">§ ✦</div>
+      <div>
+        <div class="arch-eyebrow">— The wider archive · {archive.length} pieces —</div>
+        <h2 class="arch-h">Twenty-five years, <em>in brief.</em></h2>
+        <div class="arch-grid">
+          {archive.map((c) => (
+            <div class="arch-card">
+              <div class="tag">— {c.tag} —</div>
+              <h3 class="arch-title">{c.client} — <em>{c.hook}</em></h3>
+              <p class="arch-out">{c.out}</p>
+            </div>
+          ))}
         </div>
       </div>
-    </a>
-
-    <a class="case" href="#">
-      <div class="row">
-        <div class="num">03</div>
-        <div class="body">
-          <h3 class="case-title">FORGE — <em>brief to website, end-to-end.</em></h3>
-          <p class="case-deck">
-            The most ambitious of the AI-era tools. Takes a written brief and produces a
-            complete, deployable site — with the brand decisions, the type system, and the
-            content scaffold all defended in writing. Public alpha, late 2026.
-          </p>
-        </div>
-        <div class="meta">
-          <div class="stamps">
-            <div>— Founder —</div>
-            <div>— 2025 — Present —</div>
-            <div>— Solo builder —</div>
-          </div>
-          <span class="open">— Open →</span>
-        </div>
-      </div>
-    </a>
-
-    <a class="case" href="#">
-      <div class="row">
-        <div class="num">04</div>
-        <div class="body">
-          <h3 class="case-title">Slalom — <em>the same instinct, a different pitch.</em></h3>
-          <p class="case-deck">
-            Senior UX consultant inside an enterprise consultancy. Stood up the design
-            practice for the financial-services vertical: hired the first three designers,
-            wrote the engagement playbook, sold work without slides for the first time.
-          </p>
-        </div>
-        <div class="meta">
-          <div class="stamps">
-            <div>— Senior consultant —</div>
-            <div>— 2010 — 2013 —</div>
-            <div>— Team of 3 —</div>
-          </div>
-          <span class="open">— Open →</span>
-        </div>
-      </div>
-    </a>
-
-    <a class="case" href="#">
-      <div class="row">
-        <div class="num">05</div>
-        <div class="body">
-          <h3 class="case-title">Wirebound — <em>the founding team, the first credential.</em></h3>
-          <p class="case-deck">
-            Designer #2 on the founding team of an e-commerce platform built before
-            "e-commerce" was a category anyone defended. Shipped twice; survived neither
-            winter. The reason every later job started with "build the practice."
-          </p>
-        </div>
-        <div class="meta">
-          <div class="stamps">
-            <div>— Founding designer —</div>
-            <div>— 2001 — 2002 —</div>
-            <div>— Team of 9 —</div>
-          </div>
-          <span class="open">— Open →</span>
-        </div>
-      </div>
-    </a>
-
-    <a class="case" href="#">
-      <div class="row">
-        <div class="num">06</div>
-        <div class="body">
-          <h3 class="case-title">Verity, RAD, &amp; the Markdown plugin — <em>the small charming proofs.</em></h3>
-          <p class="case-deck">
-            Three small artifacts that argue the same thing as the big ones, in a single
-            session of work each. Verity is a research-citation linter. RAD is a rapid
-            artifact descriptor. The Markdown plugin is what Precocity uses internally.
-          </p>
-        </div>
-        <div class="meta">
-          <div class="stamps">
-            <div>— Personal &amp; team —</div>
-            <div>— 2024 — Present —</div>
-            <div>— Solo &amp; small team —</div>
-          </div>
-          <span class="open">— Open →</span>
-        </div>
-      </div>
-    </a>
-
+    </div>
   </section>
 
   <section class="container">

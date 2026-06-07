@@ -1,0 +1,721 @@
+---
+import Base from '../../layouts/Base.astro';
+import { slate } from '../../data/slate.js';
+
+// Case number, prev/next, and counts derive from slate order — see src/data/slate.js.
+const idx = slate.findIndex((c) => c.slug === 'insurco');
+const self = slate[idx];
+const num = String(idx + 1).padStart(2, '0');
+const prev = slate[(idx + slate.length - 1) % slate.length];
+const next = slate[(idx + 1) % slate.length];
+---
+<!--
+  ============================================================================
+  Remaining (deferred): 3 image frames.
+  Note: this file adds .cs-pullquote .attribution beyond the precocity baseline —
+        carry it along if shared case styles ever move into Base.astro.
+  Resolved: Client = a major insurance broker · Role = Chief Experience Officer · 2024 ·
+            Capacity = engagement lead, cross-functional team ·
+            names used (Leigh Parker; data team Tim Starling / David Gillen /
+            David Schoel; CSO a Service executive) · 46% framed as validated-not-caused ·
+            full CSO endorsement kept · reflection x3 from your notes.
+  ============================================================================
+-->
+<Base title="a major insurance broker — service design at scale · uxward">
+  <style>
+    .breadcrumb { padding-top: var(--space-8); padding-bottom: var(--space-7); }
+    .breadcrumb a {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      text-decoration: none;
+    }
+    .breadcrumb a:hover { color: var(--ink); }
+
+    .title-block { padding-top: var(--space-7); padding-bottom: var(--space-10); }
+    .case-num {
+      font-family: var(--font-serif);
+      font-feature-settings: "tnum" 1;
+      font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 1;
+      font-weight: 300;
+      font-size: 132px;
+      line-height: 0.9;
+      letter-spacing: -0.03em;
+      color: var(--signature);
+      margin: 0 0 var(--space-7);
+      display: block;
+    }
+    .case-title {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: clamp(56px, 7.4vw, 104px);
+      line-height: 0.96;
+      letter-spacing: -0.035em;
+      font-variation-settings: 'opsz' 144, 'SOFT' 30;
+      color: var(--ink);
+      margin: 0;
+      max-width: 1080px;
+    }
+    .case-title em {
+      font-style: italic; font-weight: 400;
+      font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
+    }
+    .case-deck {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 300;
+      font-size: 24px;
+      line-height: 1.42;
+      color: var(--body);
+      margin: var(--space-8) 0 0;
+      max-width: 720px;
+      font-variation-settings: 'opsz' 36, 'SOFT' 80, 'WONK' 1;
+    }
+
+    .meta-strip {
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      padding: var(--space-6) 0;
+      margin-top: var(--space-9);
+    }
+    .meta-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: var(--space-7);
+    }
+    .meta-row .cell .label {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-bottom: 6px;
+    }
+    .meta-row .cell .value {
+      font-family: var(--font-serif);
+      font-size: 17px;
+      color: var(--ink);
+      font-variation-settings: 'opsz' 24, 'SOFT' 30;
+    }
+
+    section.cs {
+      padding: var(--space-10) 0 var(--space-9);
+      border-top: 1px solid var(--rule);
+    }
+    section.cs:first-of-type { border-top: 0; }
+    .cs-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--signature);
+      margin-bottom: var(--space-7);
+    }
+    .cs-eyebrow .num {
+      color: var(--ink);
+      margin-right: 10px;
+      letter-spacing: 0.18em;
+    }
+    .cs-head {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: 44px;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin: 0 0 var(--space-8) 0;
+      font-variation-settings: 'opsz' 96, 'SOFT' 30;
+      max-width: 720px;
+    }
+    .cs-head em {
+      font-style: italic; font-weight: 400;
+      font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1;
+    }
+    .cs-prose p {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: 19px;
+      line-height: 1.65;
+      color: var(--body);
+      max-width: 660px;
+      margin: 0 0 var(--space-6);
+    }
+    .cs-prose p strong { font-weight: 500; color: var(--ink); }
+    .cs-prose p em { font-style: italic; }
+
+    .cs-pullquote {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 300;
+      font-size: 28px;
+      line-height: 1.35;
+      color: var(--ink);
+      border-left: 3px solid var(--signature);
+      padding-left: var(--space-7);
+      margin: var(--space-9) 0;
+      max-width: 620px;
+      font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1;
+    }
+    .cs-pullquote .attribution {
+      display: block;
+      font-style: normal;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-top: var(--space-5);
+      font-variation-settings: normal;
+    }
+
+    .choices {
+      margin: var(--space-8) 0 var(--space-7);
+      border-top: 1px solid var(--rule);
+    }
+    .choice-row {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: var(--space-7);
+      padding: var(--space-5) 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .choice-row .key {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      padding-top: 4px;
+    }
+    .choice-row .val {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      line-height: 1.55;
+      color: var(--body);
+      max-width: 580px;
+    }
+    .choice-row .val strong { font-weight: 500; color: var(--ink); }
+
+    .artifacts {
+      margin-top: var(--space-7);
+      display: grid;
+      gap: var(--space-10);
+    }
+    .artifact .frame {
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      aspect-ratio: 16 / 9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-3);
+      color: var(--tertiary);
+      padding: var(--space-7);
+      text-align: center;
+    }
+    .artifact .frame .placeholder-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+    }
+    .artifact .frame .placeholder-detail {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 17px;
+      color: var(--body);
+      max-width: 480px;
+      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
+    }
+    .artifact .caption-grid {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: var(--space-7);
+      align-items: baseline;
+      margin-top: var(--space-6);
+    }
+    .artifact .caption-grid .num {
+      font-family: var(--font-serif);
+      font-feature-settings: "tnum" 1;
+      font-variation-settings: 'opsz' 96, 'SOFT' 30, 'WONK' 1;
+      font-weight: 300;
+      font-size: 36px;
+      line-height: 1;
+      color: var(--ink);
+    }
+    .artifact .caption-grid h4 {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: 22px;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin: 0 0 8px 0;
+      font-variation-settings: 'opsz' 36, 'SOFT' 50;
+    }
+    .artifact .caption-grid p.cap {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 16.5px;
+      line-height: 1.5;
+      color: var(--body);
+      margin: 0;
+      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
+    }
+
+    .outcomes-bleed {
+      background: var(--signature);
+      color: #FFFFFF;
+      padding: 128px 0 120px;
+    }
+    .outcomes-bleed .cs-eyebrow { color: rgba(255,255,255,0.78); }
+    .outcomes-bleed .cs-eyebrow .num { color: #FFFFFF; }
+    .outcomes-bleed .cs-head {
+      color: #FFFFFF;
+      font-size: clamp(48px, 6vw, 80px);
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+      max-width: 980px;
+    }
+    .outcomes-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-9);
+      margin-top: var(--space-10);
+      border-top: 1px solid rgba(255,255,255,0.28);
+      padding-top: var(--space-8);
+    }
+    .stat .label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.78);
+      margin-bottom: var(--space-4);
+    }
+    .stat .figure {
+      font-family: var(--font-serif);
+      font-feature-settings: "tnum" 1;
+      font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 1;
+      font-weight: 300;
+      font-size: 64px;
+      line-height: 1;
+      letter-spacing: -0.025em;
+      color: #FFFFFF;
+      margin-bottom: var(--space-4);
+    }
+    .stat .desc {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 16.5px;
+      line-height: 1.5;
+      color: #FFFFFF;
+      max-width: 320px;
+      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
+    }
+
+    .prevnext {
+      border-top: 2px solid var(--ink);
+      padding: var(--space-9) 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-9);
+    }
+    .pn-cell .label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-bottom: var(--space-4);
+    }
+    .pn-cell a {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: 32px;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      text-decoration: none;
+      font-variation-settings: 'opsz' 96, 'SOFT' 30;
+      display: block;
+    }
+    .pn-cell a:hover { color: var(--tertiary); }
+    .pn-cell a em { font-style: italic; font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1; }
+    .pn-cell.next { text-align: right; }
+
+    .back-all {
+      padding: var(--space-9) 0 var(--space-10);
+      text-align: center;
+      border-top: 1px solid var(--rule);
+    }
+    .back-all a {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .back-all a:hover { color: var(--tertiary); }
+
+    @media (max-width: 720px) {
+      .meta-row { grid-template-columns: 1fr 1fr; }
+      .outcomes-stats { grid-template-columns: 1fr; }
+      .prevnext { grid-template-columns: 1fr; }
+      .pn-cell.next { text-align: left; }
+      .choice-row { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <div class="container breadcrumb">
+    <div class="grid">
+      <div class="marker">§ ↩</div>
+      <div><a href="/work">— Back to all work</a></div>
+    </div>
+  </div>
+
+  <div class="container title-block">
+    <div class="grid">
+      <div class="marker">§ 00</div>
+      <div>
+        <span class="case-num">{num}</span>
+        <h1 class="case-title" set:html={self.title} />
+        <p class="case-deck">
+          a major insurance broker's white-glove service was cracking under its own growth, and the data that could
+          explain why was locked inside Salesforce. I led the service-design engagement that diagnosed
+          the breakdown, freed the data, and handed leadership a KPI-tied roadmap they backed in full.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="meta-strip">
+      <div class="grid">
+        <div class="marker">§ ✻</div>
+        <div class="meta-row">
+          <div class="cell">
+            <div class="label">Client</div>
+            <div class="value">Major insurance broker</div>
+          </div>
+          <div class="cell">
+            <div class="label">Role</div>
+            <div class="value">Chief Experience Officer</div>
+          </div>
+          <div class="cell">
+            <div class="label">Timeframe</div>
+            <div class="value">2024</div>
+          </div>
+          <div class="cell">
+            <div class="label">Capacity</div>
+            <div class="value">Engagement lead, cross-functional team</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="cs">
+    <div class="container">
+      <div class="grid">
+        <div class="marker">§ 01</div>
+        <div>
+          <div class="cs-eyebrow"><span class="num">01</span>— Context —</div>
+          <h2 class="cs-head">The service was the <em>brand</em> — and the brand was straining.</h2>
+          <div class="cs-prose">
+            <p>
+              Major insurance broker built its name on white-glove service — connecting clients with the
+              best coverage at the best price across more than 250 carriers. That high-touch experience
+              wasn't a feature; it was the brand.
+            </p>
+            <p>
+              Then the company grew, fast. As the client base expanded, the cracks in the service model
+              began to show — the very thing a major insurance broker was known for was getting harder to deliver at
+              scale.
+            </p>
+            <p>
+              They brought us in to diagnose the root causes, recommend process and technology fixes,
+              ship as many quick wins as possible, and — bigger than any single fix — make continuous
+              improvement a permanent discipline inside the Service organization.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs">
+    <div class="container">
+      <div class="grid">
+        <div class="marker">§ 02</div>
+        <div>
+          <div class="cs-eyebrow"><span class="num">02</span>— The problem, named clearly —</div>
+          <h2 class="cs-head">A good problem turned dangerous: <em>success.</em></h2>
+          <div class="cs-prose">
+            <p>
+              Exponential growth was outrunning the service model. A high-touch experience that worked
+              at one scale was breaking at the next, and the cost landed exactly where a major insurance broker could
+              least afford it — on the client relationship that was its whole reputation.
+            </p>
+            <p>
+              Worse, the organization couldn't see its own situation clearly. The data that could
+              explain where and why service was failing existed — most of it in Salesforce — but it was
+              effectively inaccessible, so leadership was managing by instinct instead of evidence.
+            </p>
+            <blockquote class="cs-pullquote">
+              I knew there were issues, but I had no idea they were this bad.
+              <span class="attribution">— A a major insurance broker executive, on our first findings readout</span>
+            </blockquote>
+            <p>
+              <strong>The problem: the white-glove service that was a major insurance broker's entire brand couldn't
+              scale with the company's growth — and the data that could prove why was locked away,
+              leaving leadership to manage on instinct.</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs">
+    <div class="container">
+      <div class="grid">
+        <div class="marker">§ 03</div>
+        <div>
+          <div class="cs-eyebrow"><span class="num">03</span>— The approach —</div>
+          <h2 class="cs-head">Diagnose with people. Prove with <em>data.</em></h2>
+          <div class="cs-prose">
+            <p>
+              The instinct in a situation like this is to reach for technology — buy a tool, automate a
+              queue, call it fixed. We didn't start there. We started by understanding the work as it
+              actually happened: discovery interviews with stakeholders across Service and Technology,
+              and direct observation of agents doing their jobs.
+            </p>
+            <p>
+              From that, Leigh Parker — our service designer — and I built the diagnostic: SIPOCs,
+              service blueprints, Voice-of-the-Customer and gap analyses, impact-versus-effort matrices,
+              and more than twenty current-state process maps that surfaced still more opportunities for
+              redesign and deeper integration.
+            </p>
+            <p>
+              Then we made the data speak. a major insurance broker had an abundance of Service data, most of it
+              trapped in Salesforce. Our data team — Tim Starling, David Gillen, and David Schoel —
+              pushed it into Snowflake, giving everyone fast access to numbers and reporting that had
+              been impossible weeks before. We used it to answer business questions with evidence,
+              including validating a recent process change that had cut client case-aging by 46% in
+              certain instances. Two workshops — one with business stakeholders, one with technology —
+              turned the findings into a prioritized plan everyone had a hand in.
+            </p>
+          </div>
+
+          <div class="choices">
+            <div class="choice-row">
+              <div class="key">— Chose to —</div>
+              <div class="val"><strong>Diagnose before prescribing.</strong> We interviewed stakeholders and watched agents work before recommending a single fix.</div>
+            </div>
+            <div class="choice-row">
+              <div class="key">— Chose to —</div>
+              <div class="val"><strong>Pair service design with hard data.</strong> We mapped the experience qualitatively and unlocked the Salesforce data to prove it quantitatively.</div>
+            </div>
+            <div class="choice-row">
+              <div class="key">— Chose to —</div>
+              <div class="val"><strong>Ship quick wins along the way</strong> — resolve what we could as we went, not just hand over a report at the end.</div>
+            </div>
+            <div class="choice-row">
+              <div class="key">— Chose <strong>not</strong> to —</div>
+              <div class="val">Reach for a technology fix first. The pull was to buy a tool; we found the root causes before recommending anything.</div>
+            </div>
+            <div class="choice-row">
+              <div class="key">— Chose <strong>not</strong> to —</div>
+              <div class="val">Manage by anecdote. The loudest complaint isn't the biggest problem — we let the data, not volume, point to what mattered.</div>
+            </div>
+            <div class="choice-row">
+              <div class="key">— Chose <strong>not</strong> to —</div>
+              <div class="val">Prioritize by gut. Every recommendation was ranked by impact versus effort and tied to a Service KPI.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs">
+    <div class="container">
+      <div class="grid">
+        <div class="marker">§ 04</div>
+        <div>
+          <div class="cs-eyebrow"><span class="num">04</span>— The work itself —</div>
+          <h2 class="cs-head">Three deliverables that did the <em>heavy lifting.</em></h2>
+          <div class="cs-prose" style="margin-bottom: var(--space-9);">
+            <p>
+              The engagement produced a lot of artifacts. Three of them carried the weight.
+            </p>
+          </div>
+
+          <div class="artifacts">
+            <div class="artifact">
+              <div class="frame">
+                <span class="placeholder-label">Artifact 01 / 03</span>
+                <span class="placeholder-detail">
+                  A wall of current-state process maps and service blueprints — 20+ flows annotated with
+                  gaps and redesign opportunities.
+                </span>
+              </div>
+              <div class="caption-grid">
+                <span class="num">01</span>
+                <div class="body">
+                  <h4>The service-design diagnostic</h4>
+                  <p class="cap">
+                    SIPOCs, service blueprints, VoC and gap analyses, and 20+ current-state process maps
+                    — the qualitative picture of exactly where, and why, the service model was breaking.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="artifact">
+              <div class="frame">
+                <span class="placeholder-label">Artifact 02 / 03</span>
+                <span class="placeholder-detail">
+                  The Salesforce → Snowflake → Tableau pipeline and a KPI dashboard — case-aging and
+                  service trends visualized.
+                </span>
+              </div>
+              <div class="caption-grid">
+                <span class="num">02</span>
+                <div class="body">
+                  <h4>The data, finally usable</h4>
+                  <p class="cap">
+                    With Service data moved from Salesforce into Snowflake, the team built Tableau
+                    dashboards that became the standard for every Service report — including the analysis
+                    that validated a 46% drop in case-aging.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="artifact">
+              <div class="frame">
+                <span class="placeholder-label">Artifact 03 / 03</span>
+                <span class="placeholder-detail">
+                  The Q4 / FY25 / FY26 roadmap — each project tied to a Service KPI, with
+                  cross-department dependencies mapped.
+                </span>
+              </div>
+              <div class="caption-grid">
+                <span class="num">03</span>
+                <div class="body">
+                  <h4>A roadmap leadership could back</h4>
+                  <p class="cap">
+                    A multi-quarter plan that tied every project to a Service KPI and required
+                    cross-department collaboration — presented to executive leadership and met with
+                    overwhelming support.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <blockquote class="cs-pullquote" style="margin-top: var(--space-10);">
+            "It was a well-structured approach, with broad skill sets to meet the need… [Precocity]
+            quickly integrated to learn the various facets of the Service organization and highlighted
+            key gaps within the Discovery phase… An extremely professional engagement, with individuals
+            versed in multiple disciplines that helped scope and frame a complex problem."
+            <span class="attribution">— Chief Service Officer, a major insurance broker</span>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs outcomes-bleed">
+    <div class="container">
+      <div class="grid">
+        <div class="marker" style="color: rgba(255,255,255,0.78);">§ 05</div>
+        <div>
+          <div class="cs-eyebrow"><span class="num">05</span>— Outcomes —</div>
+          <h2 class="cs-head">
+            Leadership went from managing by instinct to managing by KPI — on dashboards the whole org now runs on.
+          </h2>
+          <div class="outcomes-stats">
+            <div class="stat">
+              <div class="label">— Case-aging —</div>
+              <div class="figure">46%</div>
+              <div class="desc">Reduction our data work surfaced and validated.</div>
+            </div>
+            <div class="stat">
+              <div class="label">— Process mapped —</div>
+              <div class="figure">20+</div>
+              <div class="desc">Current-state maps from discovery, each a redesign opportunity.</div>
+            </div>
+            <div class="stat">
+              <div class="label">— Reporting —</div>
+              <div class="figure">Org-wide</div>
+              <div class="desc">Tableau KPI dashboards became the standard for every Service report.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs">
+    <div class="container">
+      <div class="grid">
+        <div class="marker">§ 06</div>
+        <div>
+          <div class="cs-eyebrow"><span class="num">06</span>— Reflection —</div>
+          <h2 class="cs-head">What I'd reverse. What I <em>carried forward.</em></h2>
+          <div class="cs-prose">
+            <p>
+              <strong>The decision I'd reverse:</strong> we should have gotten into the data far sooner.
+              We explored — qualitatively, thoroughly — for most of the engagement, when we should have
+              closed our exploration earlier and gone deep on surfacing the quantitative answers to the
+              business's human-centered questions. The qualitative work was right; we just let it run too
+              long before letting the numbers do the persuading, and our most convincing findings arrived
+              later than they needed to.
+            </p>
+            <p>
+              <strong>The surprise:</strong> how much technical and process debt a company can pile up
+              simply because the money keeps rolling in. With no external pressure forcing better internal
+              decisions, an organization can skip best practices during the good times and scale itself
+              straight into pain — pain that, when the lean times come, can grow bad enough to threaten the
+              whole org. Success hides the rot.
+            </p>
+            <p>
+              <strong>What I carried forward:</strong> listen to the client's own people about their own
+              leaders. a major insurance broker's team warned me that my usual presentation style was anathema to their
+              CEO, and coached me on how to scope and deliver — not just the decks, but the modality — to
+              earn his trust fast. I took the advice and won over a tough executive, instead of getting our
+              recommendations dismissed over a personality mismatch. The work is only as valuable as the
+              room's willingness to hear it — the same relationship lesson <em>a global automaker</em> taught me the
+              hard way.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="prevnext">
+      <div class="pn-cell prev">
+        <div class="label">— Previous case —</div>
+        <a href={`/work/${prev.slug}`} set:html={`— ${prev.title}`} />
+      </div>
+      <div class="pn-cell next">
+        <div class="label">— Next case —</div>
+        <a href={`/work/${next.slug}`} set:html={`${next.title} —`} />
+      </div>
+    </div>
+
+    <div class="back-all">
+      <a href="/work">— Back to all {slate.length} selected pieces →</a>
+    </div>
+  </div>
+</Base>

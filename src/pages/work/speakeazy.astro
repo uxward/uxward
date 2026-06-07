@@ -1,0 +1,694 @@
+---
+import Base from '../../layouts/Base.astro';
+import { slate } from '../../data/slate.js';
+
+// Case number, prev/next, and counts derive from slate order — see src/data/slate.js.
+const idx = slate.findIndex((c) => c.slug === 'speakeazy');
+const self = slate[idx];
+const num = String(idx + 1).padStart(2, '0');
+const prev = slate[(idx + slate.length - 1) % slate.length];
+const next = slate[(idx + 1) % slate.length];
+---
+<Base title="Speakeazy — the tool that should have existed · uxward">
+  <style>
+    .breadcrumb { padding-top: var(--space-8); padding-bottom: var(--space-7); }
+    .breadcrumb a {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      text-decoration: none;
+    }
+    .breadcrumb a:hover { color: var(--ink); }
+
+    .title-block { padding-top: var(--space-7); padding-bottom: var(--space-10); }
+    .case-num {
+      font-family: var(--font-serif);
+      font-feature-settings: "tnum" 1;
+      font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 1;
+      font-weight: 300;
+      font-size: 132px;
+      line-height: 0.9;
+      letter-spacing: -0.03em;
+      color: var(--signature);
+      margin: 0 0 var(--space-7);
+      display: block;
+    }
+    .case-title {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: clamp(56px, 7.4vw, 104px);
+      line-height: 0.96;
+      letter-spacing: -0.035em;
+      font-variation-settings: 'opsz' 144, 'SOFT' 30;
+      color: var(--ink);
+      margin: 0;
+      max-width: 1080px;
+    }
+    .case-title em {
+      font-style: italic; font-weight: 400;
+      font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
+    }
+    .case-deck {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 300;
+      font-size: 24px;
+      line-height: 1.42;
+      color: var(--body);
+      margin: var(--space-8) 0 0;
+      max-width: 720px;
+      font-variation-settings: 'opsz' 36, 'SOFT' 80, 'WONK' 1;
+    }
+
+    .meta-strip {
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      padding: var(--space-6) 0;
+      margin-top: var(--space-9);
+    }
+    .meta-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: var(--space-7);
+    }
+    .meta-row .cell .label {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-bottom: 6px;
+    }
+    .meta-row .cell .value {
+      font-family: var(--font-serif);
+      font-size: 17px;
+      color: var(--ink);
+      font-variation-settings: 'opsz' 24, 'SOFT' 30;
+    }
+
+    section.cs {
+      padding: var(--space-10) 0 var(--space-9);
+      border-top: 1px solid var(--rule);
+    }
+    section.cs:first-of-type { border-top: 0; }
+    .cs-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--signature);
+      margin-bottom: var(--space-7);
+    }
+    .cs-eyebrow .num {
+      color: var(--ink);
+      margin-right: 10px;
+      letter-spacing: 0.18em;
+    }
+    .cs-head {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: 44px;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin: 0 0 var(--space-8) 0;
+      font-variation-settings: 'opsz' 96, 'SOFT' 30;
+      max-width: 720px;
+    }
+    .cs-head em {
+      font-style: italic; font-weight: 400;
+      font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1;
+    }
+    .cs-prose p {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: 19px;
+      line-height: 1.65;
+      color: var(--body);
+      max-width: 660px;
+      margin: 0 0 var(--space-6);
+    }
+    .cs-prose p strong { font-weight: 500; color: var(--ink); }
+    .cs-prose p em { font-style: italic; }
+
+    .cs-pullquote {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 300;
+      font-size: 28px;
+      line-height: 1.35;
+      color: var(--ink);
+      border-left: 3px solid var(--signature);
+      padding-left: var(--space-7);
+      margin: var(--space-9) 0;
+      max-width: 620px;
+      font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1;
+    }
+
+    .choices {
+      margin: var(--space-8) 0 var(--space-7);
+      border-top: 1px solid var(--rule);
+    }
+    .choice-row {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: var(--space-7);
+      padding: var(--space-5) 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .choice-row .key {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      padding-top: 4px;
+    }
+    .choice-row .val {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      line-height: 1.55;
+      color: var(--body);
+      max-width: 580px;
+    }
+    .choice-row .val strong { font-weight: 500; color: var(--ink); }
+
+    .artifacts {
+      margin-top: var(--space-7);
+      display: grid;
+      gap: var(--space-10);
+    }
+    .artifact .frame {
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      aspect-ratio: 16 / 9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-3);
+      color: var(--tertiary);
+      padding: var(--space-7);
+      text-align: center;
+    }
+    .artifact .frame .placeholder-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+    }
+    .artifact .frame .placeholder-detail {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 17px;
+      color: var(--body);
+      max-width: 480px;
+      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
+    }
+    .artifact .caption-grid {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: var(--space-7);
+      align-items: baseline;
+      margin-top: var(--space-6);
+    }
+    .artifact .caption-grid .num {
+      font-family: var(--font-serif);
+      font-feature-settings: "tnum" 1;
+      font-variation-settings: 'opsz' 96, 'SOFT' 30, 'WONK' 1;
+      font-weight: 300;
+      font-size: 36px;
+      line-height: 1;
+      color: var(--ink);
+    }
+    .artifact .caption-grid h4 {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: 22px;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin: 0 0 8px 0;
+      font-variation-settings: 'opsz' 36, 'SOFT' 50;
+    }
+    .artifact .caption-grid p.cap {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 16.5px;
+      line-height: 1.5;
+      color: var(--body);
+      margin: 0;
+      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
+    }
+
+    .outcomes-bleed {
+      background: var(--signature);
+      color: #FFFFFF;
+      padding: 128px 0 120px;
+    }
+    .outcomes-bleed .cs-eyebrow { color: rgba(255,255,255,0.78); }
+    .outcomes-bleed .cs-eyebrow .num { color: #FFFFFF; }
+    .outcomes-bleed .cs-head {
+      color: #FFFFFF;
+      font-size: clamp(48px, 6vw, 80px);
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+      max-width: 980px;
+    }
+    .outcomes-bleed .cs-prose p { color: rgba(255,255,255,0.92); }
+    .outcomes-bleed .cs-prose { margin-top: var(--space-9); }
+    .outcomes-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-9);
+      margin-top: var(--space-10);
+      border-top: 1px solid rgba(255,255,255,0.28);
+      padding-top: var(--space-8);
+    }
+    .stat .label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.78);
+      margin-bottom: var(--space-4);
+    }
+    .stat .figure {
+      font-family: var(--font-serif);
+      font-feature-settings: "tnum" 1;
+      font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 1;
+      font-weight: 300;
+      font-size: 64px;
+      line-height: 1;
+      letter-spacing: -0.025em;
+      color: #FFFFFF;
+      margin-bottom: var(--space-4);
+    }
+    .stat .desc {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 16.5px;
+      line-height: 1.5;
+      color: #FFFFFF;
+      max-width: 320px;
+      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
+    }
+
+    .prevnext {
+      border-top: 2px solid var(--ink);
+      padding: var(--space-9) 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-9);
+    }
+    .pn-cell .label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-bottom: var(--space-4);
+    }
+    .pn-cell a {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: 32px;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      text-decoration: none;
+      font-variation-settings: 'opsz' 96, 'SOFT' 30;
+      display: block;
+    }
+    .pn-cell a:hover { color: var(--tertiary); }
+    .pn-cell a em { font-style: italic; font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1; }
+    .pn-cell.next { text-align: right; }
+
+    .back-all {
+      padding: var(--space-9) 0 var(--space-10);
+      text-align: center;
+      border-top: 1px solid var(--rule);
+    }
+    .back-all a {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .back-all a:hover { color: var(--tertiary); }
+
+    @media (max-width: 720px) {
+      .meta-row { grid-template-columns: 1fr 1fr; }
+      .outcomes-stats { grid-template-columns: 1fr; }
+      .prevnext { grid-template-columns: 1fr; }
+      .pn-cell.next { text-align: left; }
+      .choice-row { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <div class="container breadcrumb">
+    <div class="grid">
+      <div class="marker">§ ↩</div>
+      <div><a href="/work">— Back to all work</a></div>
+    </div>
+  </div>
+
+  <div class="container title-block">
+    <div class="grid">
+      <div class="marker">§ 00</div>
+      <div>
+        <span class="case-num">{num}</span>
+        <h1 class="case-title" set:html={self.title} />
+        <p class="case-deck">
+          I narrate audiobooks and hated the hours of character prep before every recording —
+          so I went looking for a tool to do it, found that none existed, and built one myself:
+          through three abandoned prototypes and a two-week ground-up rewrite, launched to real
+          users in January 2026.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="meta-strip">
+      <div class="grid">
+        <div class="marker">§ ✻</div>
+        <div class="meta-row">
+          <div class="cell">
+            <div class="label">Client</div>
+            <div class="value">Self-initiated (Speakeazy.pro)</div>
+          </div>
+          <div class="cell">
+            <div class="label">Role</div>
+            <div class="value">Designer &amp; developer</div>
+          </div>
+          <div class="cell">
+            <div class="label">Timeframe</div>
+            <div class="value">2025 — Present</div>
+          </div>
+          <div class="cell">
+            <div class="label">Capacity</div>
+            <div class="value">Solo</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="cs">
+    <div class="container">
+      <div class="grid">
+        <div class="marker">§ 01</div>
+        <div>
+          <div class="cs-eyebrow"><span class="num">01</span>— Context —</div>
+          <h2 class="cs-head">A narrator's <em>unpaid</em> first act.</h2>
+          <div class="cs-prose">
+            <p>
+              I record and audition for audiobooks. Every project begins the same way — long
+              before the microphone — with prereading: working through the whole manuscript,
+              sometimes more than once, to learn every character, how they relate, and how each
+              one changes across the book. I need all of it to make voice decisions as an actor.
+            </p>
+            <p>
+              That work is heavier for narrators than for any other kind of performer. In film
+              or television you play one character and go deep on that one. An audiobook
+              narrator plays <em>everyone</em> — every character, every background, every
+              relationship — and has to hold them consistent for hundreds of pages.
+            </p>
+            <p>
+              The brief was as open-ended as it gets: I was the client, the user, and the
+              engineer. <strong>I wanted the prep done for me so I could get to the part I
+              actually do this for — the performance.</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs">
+    <div class="container">
+      <div class="grid">
+        <div class="marker">§ 02</div>
+        <div>
+          <div class="cs-eyebrow"><span class="num">02</span>— The problem, named clearly —</div>
+          <h2 class="cs-head">Prep is the work you <em>don't get paid for.</em></h2>
+          <div class="cs-prose">
+            <p>
+              Audiobook narrators are paid by the finished hour, not the hours worked.
+              Prereading is critical — especially in fiction — and it is entirely unbilled.
+              Every hour spent mapping characters is an hour of margin gone before a single
+              line is recorded.
+            </p>
+            <p>
+              It's also unforgiving. Get a character wrong early and the cost compounds the
+              deeper you go.
+            </p>
+            <blockquote class="cs-pullquote">
+              You can't learn on page 200 that the character you've voiced as a man for 199 pages is a woman.
+            </blockquote>
+            <p>
+              I went looking for something to carry the load. It was 2025 — surely a tool
+              existed. It didn't. Not one product did what I needed, and nothing came close.
+            </p>
+            <p>
+              <strong>The problem: the most critical prep in audiobook narration is also the
+              most tedious and the least paid — and in 2025 no tool existed to do it.</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs">
+    <div class="container">
+      <div class="grid">
+        <div class="marker">§ 03</div>
+        <div>
+          <div class="cs-eyebrow"><span class="num">03</span>— The approach —</div>
+          <h2 class="cs-head">Prove it cheap, then build it <em>tight.</em></h2>
+          <div class="cs-prose">
+            <p>
+              The instinctive move was to build the app first. I didn't — I had no proof AI
+              could actually attribute dialogue and track characters across a full book. So I
+              tested the idea before committing to it.
+            </p>
+            <p>
+              I built a proof of concept in ChatGPT and confirmed the core was possible. I made
+              two or three more versions on Hugging Face using Llama models, then a full app in
+              React on an early AI-assisted build stack. It ran — until I tried to deploy.
+              Vercel fought me at every turn.
+            </p>
+            <p>
+              A developer friend reviewed it and was blunt: the thing was badly
+              over-architected, and the deployment pain was a symptom of that complexity. His
+              counsel was to stop patching and rewrite from scratch on a tighter stack in
+              Next.js.
+            </p>
+          </div>
+
+          <div class="choices">
+            <div class="choice-row">
+              <div class="key">— Chose to —</div>
+              <div class="val"><strong>Build it for myself first.</strong> The only user I had to satisfy at the start was me — a real narrator with a specific problem.</div>
+            </div>
+            <div class="choice-row">
+              <div class="key">— Chose to —</div>
+              <div class="val">Validate with a throwaway PoC in ChatGPT before writing an app — prove AI could do the job before betting weeks on it.</div>
+            </div>
+            <div class="choice-row">
+              <div class="key">— Chose to —</div>
+              <div class="val">Design to the value lever, not the pain. Because narrators earn by finished hour, the job wasn't "organize a script" — it was <strong>"give billable time back."</strong></div>
+            </div>
+            <div class="choice-row">
+              <div class="key">— Chose <strong>not</strong> to —</div>
+              <div class="val">Salvage the over-architected build. After months in it, I threw it away rather than keep patching a foundation that was the problem.</div>
+            </div>
+            <div class="choice-row">
+              <div class="key">— Chose <strong>not</strong> to —</div>
+              <div class="val">Defend my own code. When a dev I trusted said it was too complex, I rewrote instead of arguing.</div>
+            </div>
+            <div class="choice-row">
+              <div class="key">— Chose <strong>not</strong> to —</div>
+              <div class="val">Chase features before a narrator asked. Every post-launch feature came from talking to real narrators, not from guessing.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs">
+    <div class="container">
+      <div class="grid">
+        <div class="marker">§ 04</div>
+        <div>
+          <div class="cs-eyebrow"><span class="num">04</span>— How I built it —</div>
+          <h2 class="cs-head">Three versions to get to <em>one.</em></h2>
+          <div class="cs-prose" style="margin-bottom: var(--space-9);">
+            <p>
+              No single screen is the hero here. The build itself is the story — three
+              prototypes and a rewrite, each one teaching what the next had to be.
+            </p>
+          </div>
+
+          <div class="artifacts">
+            <div class="artifact">
+              <div class="frame">
+                <span class="placeholder-label">Artifact 01 / 03</span>
+                <span class="placeholder-detail">
+                  A plain ChatGPT session attributing dialogue and listing characters from a
+                  pasted manuscript excerpt — raw, unstyled, clearly a test.
+                </span>
+              </div>
+              <div class="caption-grid">
+                <span class="num">01</span>
+                <div class="body">
+                  <h4>The ChatGPT proof of concept</h4>
+                  <p class="cap">
+                    The cheapest possible test of the riskiest assumption. It proved AI could
+                    identify characters and attribute dialogue reliably enough to build on —
+                    before I wrote a line of product code.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="artifact">
+              <div class="frame">
+                <span class="placeholder-label">Artifact 02 / 03</span>
+                <span class="placeholder-detail">
+                  The original React build's file structure or a Vercel deploy-error screen —
+                  visual evidence of complexity that wouldn't ship.
+                </span>
+              </div>
+              <div class="caption-grid">
+                <span class="num">02</span>
+                <div class="body">
+                  <h4>The over-architected first app</h4>
+                  <p class="cap">
+                    A working-on-my-machine app that couldn't be deployed. It cost months and
+                    never launched — but it defined exactly what "too clever" looked like,
+                    which made the rewrite fast.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="artifact">
+              <div class="frame">
+                <span class="placeholder-label">Artifact 03 / 03</span>
+                <span class="placeholder-detail">
+                  The live Speakeazy app — upload screen and color-coded chapter view side by side.
+                </span>
+              </div>
+              <div class="caption-grid">
+                <span class="num">03</span>
+                <div class="body">
+                  <h4>The shipped Next.js rebuild</h4>
+                  <p class="cap">
+                    Rebuilt from zero over a two-week holiday on a tighter stack. It deployed,
+                    worked for real users, and went live in January 2026.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs outcomes-bleed">
+    <div class="container">
+      <div class="grid">
+        <div class="marker" style="color: rgba(255,255,255,0.78);">§ 05</div>
+        <div>
+          <div class="cs-eyebrow"><span class="num">05</span>— Outcomes —</div>
+          <h2 class="cs-head">
+            From <em>nothing</em> to live, solo.
+          </h2>
+          <div class="outcomes-stats">
+            <div class="stat">
+              <div class="label">— Prototypes to product —</div>
+              <div class="figure">3 → 1</div>
+              <div class="desc">Three throwaway versions before one shipped rebuild.</div>
+            </div>
+            <div class="stat">
+              <div class="label">— Broken build to live app —</div>
+              <div class="figure">2 weeks</div>
+              <div class="desc">A ground-up Next.js rewrite over one holiday break.</div>
+            </div>
+            <div class="stat">
+              <div class="label">— First user —</div>
+              <div class="figure">Days</div>
+              <div class="desc">After launch — found Speakeazy by asking ChatGPT whether such a tool existed.</div>
+            </div>
+          </div>
+          <div class="cs-prose">
+            <p>
+              Since launch I've been adding what narrators actually ask for: character arcs
+              that track across an entire series, and persistent color codes so the villain
+              and the hero keep their colors across every project. On performance: a short
+              story analyzes in minutes, a novel like <em>The Great Gatsby</em> in about
+              20–25, and even the longest books finish in a few hours — set-and-forget.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs">
+    <div class="container">
+      <div class="grid">
+        <div class="marker">§ 06</div>
+        <div>
+          <div class="cs-eyebrow"><span class="num">06</span>— Reflection —</div>
+          <h2 class="cs-head">What I'd reverse. What I <em>carried forward.</em></h2>
+          <div class="cs-prose">
+            <p>
+              <strong>The decision I'd reverse:</strong> the over-architecture. I let an early
+              build get far more complex than the problem deserved, and it cost me months and
+              a deployment I could never make work. The tell was there early — I just didn't
+              have the discipline yet to keep it simple.
+            </p>
+            <p>
+              <strong>The surprise:</strong> that the gap was total. I assumed that in 2025
+              someone had built this; the real surprise was that no one had — and that the
+              first person to find my version was sent there by an AI.
+            </p>
+            <p>
+              <strong>What I carried forward:</strong> <em>aim AI at the tedious middle so the
+              human gets to the craft.</em> It's the whole thesis of Speakeazy, and it's the
+              lens I now bring to every tool I build.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="prevnext">
+      <div class="pn-cell prev">
+        <div class="label">— Previous case —</div>
+        <a href={`/work/${prev.slug}`} set:html={`— ${prev.title}`} />
+      </div>
+      <div class="pn-cell next">
+        <div class="label">— Next case —</div>
+        <a href={`/work/${next.slug}`} set:html={`${next.title} —`} />
+      </div>
+    </div>
+
+    <div class="back-all">
+      <a href="/work">— Back to all {slate.length} selected pieces →</a>
+    </div>
+  </div>
+</Base>
