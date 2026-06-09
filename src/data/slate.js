@@ -19,6 +19,13 @@ export const slate = [
     stamps: ['Solo build', '3 prototypes → 1 product', 'Live January 2026'],
   },
   {
+    slug: 'precocity',
+    client: 'Precocity',
+    title: 'Precocity — the <em>ten-year</em> build.',
+    deck: 'Standing up and growing the design practice as a consultant over ten years — from a two-person discipline inside a data-engineering firm to the team that shipped against eight-figure enterprise contracts.',
+    stamps: ['Chief Experience Officer', '2016 — Present', 'Solo → 6-person team'],
+  },
+  {
     slug: 'autoco',
     client: 'a global automaker',
     title: 'a global automaker — testing like an <em>outsider.</em>',

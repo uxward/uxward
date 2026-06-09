@@ -1,5 +1,13 @@
 ---
 import Base from '../../layouts/Base.astro';
+import { slate } from '../../data/slate.js';
+
+// Case number, prev/next, and counts derive from slate order — see src/data/slate.js.
+const idx = slate.findIndex((c) => c.slug === 'precocity');
+const self = slate[idx];
+const num = String(idx + 1).padStart(2, '0');
+const prev = slate[(idx + slate.length - 1) % slate.length];
+const next = slate[(idx + 1) % slate.length];
 ---
 <Base title="Precocity — the ten-year build · uxward">
   <style>
@@ -352,8 +360,8 @@ import Base from '../../layouts/Base.astro';
     <div class="grid">
       <div class="marker">§ 00</div>
       <div>
-        <span class="case-num">01</span>
-        <h1 class="case-title">Precocity — the <em>ten-year</em> build.</h1>
+        <span class="case-num">{num}</span>
+        <h1 class="case-title" set:html={self.title} />
         <p class="case-deck">
           Standing up and growing the design practice as a consultant over ten years — from a
           two-person discipline inside a data-engineering firm to the team that shipped against
@@ -663,16 +671,16 @@ import Base from '../../layouts/Base.astro';
     <div class="prevnext">
       <div class="pn-cell prev">
         <div class="label">— Previous case —</div>
-        <a href="/work">— FORGE — <em>context to a complete site build</em></a>
+        <a href={`/work/${prev.slug}`} set:html={`— ${prev.title}`} />
       </div>
       <div class="pn-cell next">
         <div class="label">— Next case —</div>
-        <a href="/work"><em>Speakeazy</em> — dialogue attribution for voice actors —</a>
+        <a href={`/work/${next.slug}`} set:html={`${next.title} —`} />
       </div>
     </div>
 
     <div class="back-all">
-      <a href="/work">— Back to all 7 selected pieces →</a>
+      <a href="/work">— Back to all {slate.length} selected pieces →</a>
     </div>
   </div>
 </Base>
