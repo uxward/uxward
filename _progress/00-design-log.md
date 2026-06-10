@@ -8,12 +8,35 @@ WDS strategic process log. Most recent at top.
 |---|---|
 | A — Product Brief | ✓ complete (2026-06-08) |
 | B — Trigger Map | ✓ complete (2026-06-08) |
+| C — UX Scenarios | ✓ complete (2026-06-09) |
+| D — UX Design | ⏳ in-progress (Freya — Home fold) |
 
 ## Current
 
-_(empty — Trigger Map complete; ready for Freya / UX Scenarios when desired)_
+**Freya — UX Design (Design Loop).** Home page, the fold (audit finding #1, proof-below-fold).
+
+Design Loop Status:
+| Page | Status |
+|---|---|
+| Home (fold) | S — spec written (`D-UX-Design/home.md`), awaiting review → next: wireframe |
+
+Direction chosen: **A + C** — proof-forward deck (lead with Speakeazy, "live to real users since Jan 2026") + reduce fold height so Block 02 crests into view. Inline "Speakeazy" link to the case included (open question).
+
+**Open for Mimir:** `E-Development/WO-001-credibility-quick-wins.md` — now covers findings #2 (live link), #4 (home dead writing links), #5 (counts) + two home bugs (E: speakeazy.com→.pro, F: dead recent-writing). #3 portrait + #2 artifacts blocked on assets from Brandon. Coordinate WO-001 `index.astro` edits with the fold spec build. Wake with `/mimir`.
 
 ## Log
+
+### 2026-06-09 — UX Scenarios suite (retroactive / Option A) — Freya
+Brownfield: site fully built before any UX layer existed, so scenarios document the as-built sunshine paths and audit build-vs-strategy as a byproduct. Three scenarios, one per archetype, all linear happy paths through existing pages.
+
+Deliverables:
+- `C-UX-Scenarios/00-ux-scenarios.md` (index, 8 unique pages inventoried)
+- `01-vivian-the-vp.md` — Home → Speakeazy → About → Contact
+- `02-tessa-the-talent-partner.md` — Home → Work → Contact → forward
+- `03-pierce-the-peer.md` — Essay → Writing → About/Colophon → vouch
+- `audit-notes.md` — 5 findings, kept separate so scenarios stay pure sunshine-path
+
+Audit findings (for Freya/UX Design or a Mimir WO): (1) proof-below-fold — Vivian's shipped-proof payoff sits below the fold and her doubts clear only on About; (2) Speakeazy claims "live" but has placeholder artifacts and no link to Speakeazy.pro; (3) portrait still a placeholder — no headshot asset for Tessa to forward; (4) verification gap hurts Tessa most (reputation risk) + home "recent writing" dead links; (5) count inflation — "Thirty essays" vs 23 actual vs "Twelve pieces," hardcoded counts.
 
 ### 2026-06-08 — Product Brief suite (brownfield extraction) — Saga
 Brownfield entry: existing Astro site, no prior strategic foundation. Ran condensed discovery (Option A) — extracted the brief from the live site plus the user-supplied `uxward-design-strategy-brief.md`.
