@@ -297,6 +297,22 @@ const next = slate[(idx + 1) % slate.length];
       font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
     }
 
+    .outcomes-bleed .live-cta {
+      display: inline-block;
+      margin-top: var(--space-9);
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: clamp(22px, 2.6vw, 32px);
+      line-height: 1.1;
+      letter-spacing: -0.015em;
+      color: #FFFFFF;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 6px;
+      font-variation-settings: 'opsz' 96, 'SOFT' 30;
+    }
+    .outcomes-bleed .live-cta:hover { color: rgba(255,255,255,0.82); }
+
     .prevnext {
       border-top: 2px solid var(--ink);
       padding: var(--space-9) 0;
@@ -381,7 +397,7 @@ const next = slate[(idx + 1) % slate.length];
         <div class="meta-row">
           <div class="cell">
             <div class="label">Client</div>
-            <div class="value">Self-initiated (Speakeazy.pro)</div>
+            <div class="value">Self-initiated (<a href="https://speakeazy.pro" target="_blank" rel="noopener">Speakeazy.pro</a>)</div>
           </div>
           <div class="cell">
             <div class="label">Role</div>
@@ -640,6 +656,7 @@ const next = slate[(idx + 1) % slate.length];
               20–25, and even the longest books finish in a few hours — set-and-forget.
             </p>
           </div>
+          <a class="live-cta" href="https://speakeazy.pro" target="_blank" rel="noopener">— See it live · speakeazy.pro →</a>
         </div>
       </div>
     </div>
