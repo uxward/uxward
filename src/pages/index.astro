@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import { slate } from '../data/slate.js';
+import { essaysNewestFirst } from '../data/essays.js';
 ---
 <Base title="uxward — Brandon E. B. Ward">
   <style>
@@ -475,23 +476,13 @@ import { slate } from '../data/slate.js';
           <h2 class="section-head">Quarterly. Long enough to be wrong <em>out loud.</em></h2>
 
           <div class="essays">
-            <a class="essay" href="/writing/case-against-design-systems">
-              <div class="meta">— Q1 2026 · Essay —</div>
-              <h3 class="title">The case against the design system you're about to build</h3>
-              <p class="deck">Most teams need a style guide and a few good components. They build a design system and call it strategy.</p>
-            </a>
-
-            <a class="essay" href="/writing">
-              <div class="meta">— Q4 2025 · Essay —</div>
-              <h3 class="title">Staying staff-level without becoming a manager</h3>
-              <p class="deck">A note for senior ICs who keep getting offered the title that ends their craft. The exit is in the work.</p>
-            </a>
-
-            <a class="essay" href="/writing">
-              <div class="meta">— Q3 2025 · Essay —</div>
-              <h3 class="title">AI didn't raise the ceiling. It dropped the floor.</h3>
-              <p class="deck">The tools are not making senior designers better. They are making junior work look senior. That's the problem.</p>
-            </a>
+            {essaysNewestFirst.slice(0, 3).map((e) => (
+              <a class="essay" href={`/writing/${e.slug}`}>
+                <div class="meta">— {e.quarter} · Essay —</div>
+                <h3 class="title" set:html={e.title} />
+                <p class="deck">{e.deck}</p>
+              </a>
+            ))}
           </div>
 
           <a class="see-all" href="/writing">— All writing →</a>
