@@ -6,6 +6,8 @@
 
 > **Scope of this loop:** Block 01 (the fold) only, plus the seam to Block 02. Blocks 02–06 are as-built and documented in the scenario; they are out of scope here. Build coordination with WO-001 (items A, E, F also edit `index.astro`).
 
+**Approved wireframe:** `D-UX-Design/wireframes/home.excalidraw` (approved 2026-06-09).
+
 ---
 
 ## User Context
@@ -64,10 +66,11 @@ Vivian reads one concrete, dated, shipped-solo proof point *in the fold itself*,
 
 ---
 
-## Open Questions
-1. **Inline link in the deck** — confirmed wanted, or keep the deck link-free and let the cresting Block 02 carry the click? (Spec currently includes the link.)
-2. **Deck length** — the new deck is ~2 lines longer than the original. Acceptable, or trim the credential list further (e.g. drop "three startups, two agencies" to just "a decade at Precocity")?
-3. **SEO/meta** — H1 stays the single H1 (keyword: "design practice / AI era"). No change proposed to `<title>`/meta description; confirm.
+## Resolved Decisions (approved 2026-06-09)
+1. **Inline "Speakeazy" link in the deck** — KEEP (links to `/work/speakeazy`).
+2. **Deck length** — the longer 3-line deck is fine; no trim.
+3. **SEO/meta** — no change to `<title>`/meta description; H1 remains the single H1.
+4. **Fold height (Direction C)** — target ~78vh; exact value validated at browser review so the Block 02 crest lands correctly across laptop viewport heights.
 
 ---
 

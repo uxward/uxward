@@ -1,0 +1,160 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "wds-freya",
+  "appState": {
+    "viewBackgroundColor": "#ffffff",
+    "gridSize": null
+  },
+  "files": {},
+  "elements": [
+    {
+      "id": "vp-frame", "type": "rectangle", "x": 120, "y": 120, "width": 920, "height": 640,
+      "angle": 0, "strokeColor": "#1e1e1e", "backgroundColor": "transparent", "fillStyle": "solid",
+      "strokeWidth": 2, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "groupIds": [],
+      "frameId": null, "roundness": null, "seed": 1001, "version": 1, "versionNonce": 11, "isDeleted": false,
+      "boundElements": [], "updated": 1, "link": null, "locked": false
+    },
+    {
+      "id": "vp-label", "type": "text", "x": 120, "y": 92, "width": 520, "height": 20,
+      "angle": 0, "strokeColor": "#6b6b6b", "backgroundColor": "transparent", "fillStyle": "solid",
+      "strokeWidth": 1, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "groupIds": [],
+      "frameId": null, "roundness": null, "seed": 1002, "version": 1, "versionNonce": 12, "isDeleted": false,
+      "boundElements": [], "updated": 1, "link": null, "locked": false,
+      "text": "FIRST SCREEN  ·  ~800–900px viewport height", "fontSize": 14, "fontFamily": 3,
+      "textAlign": "left", "verticalAlign": "top", "baseline": 14,
+      "containerId": null, "originalText": "FIRST SCREEN  ·  ~800–900px viewport height", "lineHeight": 1.25
+    },
+    {
+      "id": "marker-01", "type": "text", "x": 150, "y": 330, "width": 60, "height": 20,
+      "angle": 0, "strokeColor": "#6b6b6b", "backgroundColor": "transparent", "fillStyle": "solid",
+      "strokeWidth": 1, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "groupIds": [],
+      "frameId": null, "roundness": null, "seed": 1003, "version": 1, "versionNonce": 13, "isDeleted": false,
+      "boundElements": [], "updated": 1, "link": null, "locked": false,
+      "text": "§ 01", "fontSize": 16, "fontFamily": 3, "textAlign": "left", "verticalAlign": "top",
+      "baseline": 16, "containerId": null, "originalText": "§ 01", "lineHeight": 1.25
+    },
+    {
+      "id": "eyebrow", "type": "text", "x": 300, "y": 250, "width": 560, "height": 18,
+      "angle": 0, "strokeColor": "#6b6b6b", "backgroundColor": "transparent", "fillStyle": "solid",
+      "strokeWidth": 1, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "groupIds": [],
+      "frameId": null, "roundness": null, "seed": 1004, "version": 1, "versionNonce": 14, "isDeleted": false,
+      "boundElements": [], "updated": 1, "link": null, "locked": false,
+      "text": "BRANDON E. B. WARD — SENIOR DESIGN LEADERSHIP  [mono eyebrow]", "fontSize": 12, "fontFamily": 3,
+      "textAlign": "left", "verticalAlign": "top", "baseline": 12,
+      "containerId": null, "originalText": "BRANDON E. B. WARD — SENIOR DESIGN LEADERSHIP  [mono eyebrow]", "lineHeight": 1.25
+    },
+    {
+      "id": "h1", "type": "text", "x": 300, "y": 290, "width": 660, "height": 90,
+      "angle": 0, "strokeColor": "#1e1e1e", "backgroundColor": "transparent", "fillStyle": "solid",
+      "strokeWidth": 1, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "groupIds": [],
+      "frameId": null, "roundness": null, "seed": 1005, "version": 1, "versionNonce": 15, "isDeleted": false,
+      "boundElements": [], "updated": 1, "link": null, "locked": false,
+      "text": "I've spent 25 years standing up design\npractice from scratch. Now I do it in the AI era.", "fontSize": 34,
+      "fontFamily": 1, "textAlign": "left", "verticalAlign": "top", "baseline": 34,
+      "containerId": null, "originalText": "I've spent 25 years standing up design\npractice from scratch. Now I do it in the AI era.", "lineHeight": 1.25
+    },
+    {
+      "id": "deck", "type": "text", "x": 300, "y": 410, "width": 640, "height": 70,
+      "angle": 0, "strokeColor": "#282828", "backgroundColor": "transparent", "fillStyle": "solid",
+      "strokeWidth": 1, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "groupIds": [],
+      "frameId": null, "roundness": null, "seed": 1006, "version": 1, "versionNonce": 16, "isDeleted": false,
+      "boundElements": [], "updated": 1, "link": null, "locked": false,
+      "text": "I shipped Speakeazy solo — live to real users since\nJanuary 2026. Before that: 25 years standing up design\npractice at three startups, two agencies, a decade at Precocity.", "fontSize": 20,
+      "fontFamily": 1, "textAlign": "left", "verticalAlign": "top", "baseline": 20,
+      "containerId": null, "originalText": "I shipped Speakeazy solo — live to real users since\nJanuary 2026. Before that: 25 years standing up design\npractice at three startups, two agencies, a decade at Precocity.", "lineHeight": 1.25
+    },
+    {
+      "id": "link-underline", "type": "line", "x": 388, "y": 432, "width": 96, "height": 0,
+      "angle": 0, "strokeColor": "#cc0006", "backgroundColor": "transparent", "fillStyle": "solid",
+      "strokeWidth": 1, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "groupIds": [],
+      "frameId": null, "roundness": null, "seed": 1007, "version": 1, "versionNonce": 17, "isDeleted": false,
+      "boundElements": [], "updated": 1, "link": null, "locked": false,
+      "points": [[0, 0], [96, 0]], "lastCommittedPoint": null, "startBinding": null, "endBinding": null,
+      "startArrowhead": null, "endArrowhead": null
+    },
+    {
+      "id": "link-note", "type": "text", "x": 300, "y": 488, "width": 520, "height": 16,
+      "angle": 0, "strokeColor": "#6b6b6b", "backgroundColor": "transparent", "fillStyle": "solid",
+      "strokeWidth": 1, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "groupIds": [],
+      "frameId": null, "roundness": null, "seed": 1008, "version": 1, "versionNonce": 18, "isDeleted": false,
+      "boundElements": [], "updated": 1, "link": null, "locked": false,
+      "text": "(\"Speakeazy\" is an inline link → /work/speakeazy)", "fontSize": 12, "fontFamily": 3,
+      "textAlign": "left", "verticalAlign": "top", "baseline": 12,
+      "containerId": null, "originalText": "(\"Speakeazy\" is an inline link → /work/speakeazy)", "lineHeight": 1.25
+    },
+    {
+      "id": "meta", "type": "text", "x": 300, "y": 540, "width": 620, "height": 16,
+      "angle": 0, "strokeColor": "#6b6b6b", "backgroundColor": "transparent", "fillStyle": "solid",
+      "strokeWidth": 1, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "groupIds": [],
+      "frameId": null, "roundness": null, "seed": 1009, "version": 1, "versionNonce": 19, "isDeleted": false,
+      "boundElements": [], "updated": 1, "link": null, "locked": false,
+      "text": "— CURRENTLY CONSIDERING SENIOR DESIGN LEADERSHIP · DALLAS, TX —", "fontSize": 12, "fontFamily": 3,
+      "textAlign": "left", "verticalAlign": "top", "baseline": 12,
+      "containerId": null, "originalText": "— CURRENTLY CONSIDERING SENIOR DESIGN LEADERSHIP · DALLAS, TX —", "lineHeight": 1.25
+    },
+    {
+      "id": "fold-edge", "type": "line", "x": 120, "y": 640, "width": 920, "height": 0,
+      "angle": 0, "strokeColor": "#cc0006", "backgroundColor": "transparent", "fillStyle": "solid",
+      "strokeWidth": 1, "strokeStyle": "dashed", "roughness": 0, "opacity": 100, "groupIds": [],
+      "frameId": null, "roundness": null, "seed": 1010, "version": 1, "versionNonce": 20, "isDeleted": false,
+      "boundElements": [], "updated": 1, "link": null, "locked": false,
+      "points": [[0, 0], [920, 0]], "lastCommittedPoint": null, "startBinding": null, "endBinding": null,
+      "startArrowhead": null, "endArrowhead": null
+    },
+    {
+      "id": "fold-edge-label", "type": "text", "x": 860, "y": 616, "width": 180, "height": 16,
+      "angle": 0, "strokeColor": "#cc0006", "backgroundColor": "transparent", "fillStyle": "solid",
+      "strokeWidth": 1, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "groupIds": [],
+      "frameId": null, "roundness": null, "seed": 1011, "version": 1, "versionNonce": 21, "isDeleted": false,
+      "boundElements": [], "updated": 1, "link": null, "locked": false,
+      "text": "fold height ~78vh", "fontSize": 12, "fontFamily": 3, "textAlign": "right", "verticalAlign": "top",
+      "baseline": 12, "containerId": null, "originalText": "fold height ~78vh", "lineHeight": 1.25
+    },
+    {
+      "id": "marker-02", "type": "text", "x": 150, "y": 668, "width": 60, "height": 20,
+      "angle": 0, "strokeColor": "#6b6b6b", "backgroundColor": "transparent", "fillStyle": "solid",
+      "strokeWidth": 1, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "groupIds": [],
+      "frameId": null, "roundness": null, "seed": 1012, "version": 1, "versionNonce": 22, "isDeleted": false,
+      "boundElements": [], "updated": 1, "link": null, "locked": false,
+      "text": "§ 02", "fontSize": 16, "fontFamily": 3, "textAlign": "left", "verticalAlign": "top",
+      "baseline": 16, "containerId": null, "originalText": "§ 02", "lineHeight": 1.25
+    },
+    {
+      "id": "block02-eyebrow", "type": "text", "x": 300, "y": 668, "width": 220, "height": 16,
+      "angle": 0, "strokeColor": "#cc0006", "backgroundColor": "transparent", "fillStyle": "solid",
+      "strokeWidth": 1, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "groupIds": [],
+      "frameId": null, "roundness": null, "seed": 1013, "version": 1, "versionNonce": 23, "isDeleted": false,
+      "boundElements": [], "updated": 1, "link": null, "locked": false,
+      "text": "— SELECTED WORK —", "fontSize": 12, "fontFamily": 3, "textAlign": "left", "verticalAlign": "top",
+      "baseline": 12, "containerId": null, "originalText": "— SELECTED WORK —", "lineHeight": 1.25
+    },
+    {
+      "id": "hero-card", "type": "rectangle", "x": 300, "y": 696, "width": 460, "height": 70,
+      "angle": 0, "strokeColor": "#1e1e1e", "backgroundColor": "#faf8f4", "fillStyle": "solid",
+      "strokeWidth": 1, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "groupIds": [],
+      "frameId": null, "roundness": null, "seed": 1014, "version": 1, "versionNonce": 24, "isDeleted": false,
+      "boundElements": [], "updated": 1, "link": null, "locked": false
+    },
+    {
+      "id": "hero-card-text", "type": "text", "x": 316, "y": 706, "width": 430, "height": 50,
+      "angle": 0, "strokeColor": "#1e1e1e", "backgroundColor": "transparent", "fillStyle": "solid",
+      "strokeWidth": 1, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "groupIds": [],
+      "frameId": null, "roundness": null, "seed": 1015, "version": 1, "versionNonce": 25, "isDeleted": false,
+      "boundElements": [], "updated": 1, "link": null, "locked": false,
+      "text": "[HERO OF THE SLATE] 01\nSpeakeazy — live to real users since Jan 2026", "fontSize": 14, "fontFamily": 1,
+      "textAlign": "left", "verticalAlign": "top", "baseline": 14,
+      "containerId": null, "originalText": "[HERO OF THE SLATE] 01\nSpeakeazy — live to real users since Jan 2026", "lineHeight": 1.25
+    },
+    {
+      "id": "crest-note", "type": "text", "x": 790, "y": 712, "width": 250, "height": 40,
+      "angle": 0, "strokeColor": "#6b6b6b", "backgroundColor": "transparent", "fillStyle": "solid",
+      "strokeWidth": 1, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "groupIds": [],
+      "frameId": null, "roundness": null, "seed": 1016, "version": 1, "versionNonce": 26, "isDeleted": false,
+      "boundElements": [], "updated": 1, "link": null, "locked": false,
+      "text": "← Block 02 crests above\nthe fold (Direction C)", "fontSize": 13, "fontFamily": 3,
+      "textAlign": "left", "verticalAlign": "top", "baseline": 13,
+      "containerId": null, "originalText": "← Block 02 crests above\nthe fold (Direction C)", "lineHeight": 1.25
+    }
+  ]
+}
