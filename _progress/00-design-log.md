@@ -9,8 +9,8 @@ WDS strategic process log. Most recent at top.
 | A — Product Brief | ✓ complete (2026-06-08) |
 | B — Trigger Map | ✓ complete (2026-06-08) |
 | C — UX Scenarios | ✓ complete (2026-06-09) |
-| D — UX Design | ⏳ in-progress (Freya — Home fold, handed off) |
-| E — Development | ⏳ in-progress (Mimir — PRD 001 built; awaiting Freya review + merge) |
+| D — UX Design | ⏳ Home fold ✓ complete (reviewed + tokens); other scenario pages remain as-built |
+| E — Development | ✓ PRD 001 built, reviewed, merged to master (REQ-009/010 await assets) |
 
 ## Current
 
@@ -19,13 +19,15 @@ WDS strategic process log. Most recent at top.
 Design Loop Status:
 | Page | Status |
 |---|---|
-| Home (fold) | ✓S → B — spec + wireframe approved, synced; handed off via WO-002. Awaiting build (Mimir), then browser review (step 7) + token extraction (step 8). |
+| Home (fold) | ✓ T — complete. Built (REQ-007), browser-reviewed, tokens extracted. Direction C (REQ-008) descoped; finding #1 delivered by the proof-forward deck. |
 
-Direction: **A + C** — proof-forward deck (lead with Speakeazy, "live to real users since Jan 2026", inline link to the case) + reduce fold height (~78vh) so Block 02 crests. All open questions resolved & locked in spec.
+Direction shipped: **A** — proof-forward deck (leads with Speakeazy "live to real users since Jan 2026", inline link to the case). **C descoped** (H1 drives fold height; not worth altering the signature H1).
 
-Deliverables: `D-UX-Design/home.md` (spec), `D-UX-Design/wireframes/home.excalidraw` (wireframe), `E-Development/WO-002-home-fold.md` (handoff — batch with WO-001 E/F, same file).
+Step-7 review: deck/link/H1/voice all match spec; inline link is ink (not red), navigates to /work/speakeazy; mobile wraps clean. `/writing` refactor (REQ-002) spot-checked — renders identically, count fixed, search/collapse work.
 
-**Open for Mimir:** `E-Development/WO-001-credibility-quick-wins.md` — now covers findings #2 (live link), #4 (home dead writing links), #5 (counts) + two home bugs (E: speakeazy.com→.pro, F: dead recent-writing). #3 portrait + #2 artifacts blocked on assets from Brandon. Coordinate WO-001 `index.astro` edits with the fold spec build. Wake with `/mimir`.
+Deliverables: `D-UX-Design/home.md` (spec), `wireframes/home.excalidraw` + `home.png`, `design-tokens.md` (registry seeded from global.css — 0 new tokens from the fold).
+
+**Still open (assets from Brandon):** About portrait + 3 Speakeazy artifact images → Mimir REQ-009/010.
 
 ## Log
 
