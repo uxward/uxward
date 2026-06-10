@@ -9,7 +9,8 @@ WDS strategic process log. Most recent at top.
 | A — Product Brief | ✓ complete (2026-06-08) |
 | B — Trigger Map | ✓ complete (2026-06-08) |
 | C — UX Scenarios | ✓ complete (2026-06-09) |
-| D — UX Design | ⏳ in-progress (Freya — Home fold) |
+| D — UX Design | ⏳ in-progress (Freya — Home fold, handed off) |
+| E — Development | ⏳ in-progress (Mimir — PRD 001 built; awaiting Freya review + merge) |
 
 ## Current
 
@@ -18,13 +19,24 @@ WDS strategic process log. Most recent at top.
 Design Loop Status:
 | Page | Status |
 |---|---|
-| Home (fold) | S — spec written (`D-UX-Design/home.md`), awaiting review → next: wireframe |
+| Home (fold) | ✓S → B — spec + wireframe approved, synced; handed off via WO-002. Awaiting build (Mimir), then browser review (step 7) + token extraction (step 8). |
 
-Direction chosen: **A + C** — proof-forward deck (lead with Speakeazy, "live to real users since Jan 2026") + reduce fold height so Block 02 crests into view. Inline "Speakeazy" link to the case included (open question).
+Direction: **A + C** — proof-forward deck (lead with Speakeazy, "live to real users since Jan 2026", inline link to the case) + reduce fold height (~78vh) so Block 02 crests. All open questions resolved & locked in spec.
+
+Deliverables: `D-UX-Design/home.md` (spec), `D-UX-Design/wireframes/home.excalidraw` (wireframe), `E-Development/WO-002-home-fold.md` (handoff — batch with WO-001 E/F, same file).
 
 **Open for Mimir:** `E-Development/WO-001-credibility-quick-wins.md` — now covers findings #2 (live link), #4 (home dead writing links), #5 (counts) + two home bugs (E: speakeazy.com→.pro, F: dead recent-writing). #3 portrait + #2 artifacts blocked on assets from Brandon. Coordinate WO-001 `index.astro` edits with the fold spec build. Wake with `/mimir`.
 
 ## Log
+
+### 2026-06-09 — Build: PRD 001 (credibility quick wins + home fold) — Mimir
+Tech audit → master PRD → feature PRD 001 → build loop on branch `build/credibility-and-fold` (7 commits, one per requirement, browser/build-verified).
+
+Implemented & verified: REQ-001 essays.js data file (new single source of truth, mirrors slate.js) · REQ-002 writing index renders list+count from it ("23 essays", was "Thirty") · REQ-003 work pivot count ("23 pieces", was "Twelve") · REQ-004 home recent-writing now 3 newest real essays (was 3 dead links) · REQ-005 speakeazy.com→.pro · REQ-006 Speakeazy case live links (meta strip + outcomes) · REQ-007 proof-forward fold deck with inline Speakeazy link.
+
+REQ-008 (fold-height crest, Direction C) DESCOPED by owner: Playwright measurement showed the H1 drives the fold height (767–879px across widths), so cresting Block 02 would require altering the signature H1 — and REQ-007 already puts shipped proof in the fold (finding #1's core). Asset-blocked, not built: REQ-009 portrait, REQ-010 Speakeazy artifact images (await images from Brandon).
+
+Awaiting: Freya step-7 browser review, then merge `build/credibility-and-fold` → master.
 
 ### 2026-06-09 — UX Scenarios suite (retroactive / Option A) — Freya
 Brownfield: site fully built before any UX layer existed, so scenarios document the as-built sunshine paths and audit build-vs-strategy as a byproduct. Three scenarios, one per archetype, all linear happy paths through existing pages.
