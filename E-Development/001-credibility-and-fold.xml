@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prd id="001" title="Credibility quick wins + home fold" project="uxward" created="2026-06-09" status="implemented">
+
+  <overview>
+    Covers two Freya Work Orders. WO-001 (credibility quick wins) fixes places where the
+    as-built site leaks credibility against the Trigger Map: an unverifiable "live" claim on
+    the Speakeazy case, inflated/inconsistent essay counts, and two home-page bugs (wrong
+    Speakeazy domain, dead "recent writing" links). WO-002 (home fold) is a design change for
+    the highest-impact audit finding: the fold is 100% assertion, so a skeptical VP must scroll
+    past her first impression to reach proof — the deck is rewritten proof-forward and the fold
+    is shortened so the proof below it crests into view.
+
+    The unifying technical move is a new essays data file (src/data/essays.js), mirroring the
+    existing slate.js, that ends essay-count drift at the source. Two items are asset-blocked
+    (portrait, Speakeazy artifact images) and tracked here as blocked, not built.
+  </overview>
+
+  <scope>
+    <scenarios>01-vivian-the-vp, 02-tessa-the-talent-partner, 03-pierce-the-peer</scenarios>
+    <views>Home (/), Work index (/work), Writing index (/writing), Speakeazy case (/work/speakeazy)</views>
+    <platform>New static data file src/data/essays.js. No server/API/DB work — static site.</platform>
+  </scope>
+
+  <requirements>
+
+    <requirement id="001-REQ-001" type="platform" status="planned">
+      <title>Essays data file (single source of truth)</title>
+      <description>
+        Create src/data/essays.js exporting an array of all published essays, mirroring the
+        slate.js pattern. One entry per existing /writing/*.astro page. Fields per entry:
+        slug, title, deck, quarter (e.g. "Q1 2026"), section ("leadership" | "craft" | "ai").
+        Source the values from the existing markup in src/pages/writing/index.astro
+        (data-title, data-deck, href, the §-meta quarter, and the section grouping) so nothing
+        changes visually. Order newest-first; document the ordering used for "recent".
+      </description>
+      <acceptance>
+        <criterion>src/data/essays.js exists and exports an array.</criterion>
+        <criterion>The array has exactly one entry per essay page under src/pages/writing/ (currently 23; excludes index.astro).</criterion>
+        <criterion>Every entry's slug resolves to an existing /writing/&lt;slug&gt; route (no 404s).</criterion>
+        <criterion>Each entry has slug, title, deck, quarter, and section populated.</criterion>
+      </acceptance>
+      <refs>
+        <spec>C-UX-Scenarios/audit-notes.md (finding #5)</spec>
+        <wireframe></wireframe>
+      </refs>
+    </requirement>
+
+    <requirement id="001-REQ-002" type="interface" status="planned">
+      <title>Writing index renders list + count from essays.js</title>
+      <description>
+        Refactor src/pages/writing/index.astro so the three section lists and the header count
+        derive from essays.js instead of hardcoded markup. Replace the header eyebrow literal
+        "Thirty essays" with the real count (essays.length). Render each section's rows by
+        filtering essays.js on section, preserving the exact existing markup each row needs
+        (data-title, data-deck, href, quarter) so the search/collapse JS keeps working unchanged.
+      </description>
+      <acceptance>
+        <criterion>The writing header shows the real essay count (currently 23), not "Thirty".</criterion>
+        <criterion>All essay rows render with the same titles, decks, links, and quarters as before this change (no visible diff to the list).</criterion>
+        <criterion>The filter/search box and section collapse still work (filtering narrows rows; section headings collapse/expand).</criterion>
+        <criterion>No essay count or row text is hardcoded in index.astro; all derive from essays.js.</criterion>
+      </acceptance>
+      <refs>
+        <spec>C-UX-Scenarios/audit-notes.md (finding #5)</spec>
+        <wireframe></wireframe>
+      </refs>
+    </requirement>
+
+    <requirement id="001-REQ-003" type="interface" status="planned">
+      <title>Work index pivot count derives from essays.js</title>
+      <description>
+        In src/pages/work/index.astro, the "Writing" pivot card reads "Twelve pieces and
+        counting." Replace the hardcoded number with the essays.js count so it matches /writing.
+      </description>
+      <acceptance>
+        <criterion>The Work index Writing pivot card shows the same essay count as /writing (derived from essays.js).</criterion>
+        <criterion>No hardcoded essay number remains in work/index.astro.</criterion>
+      </acceptance>
+      <refs>
+        <spec>C-UX-Scenarios/audit-notes.md (finding #5)</spec>
+        <wireframe></wireframe>
+      </refs>
+    </requirement>
+
+    <requirement id="001-REQ-004" type="interface" status="planned">
+      <title>Home "recent writing" cards from essays.js (real links)</title>
+      <description>
+        In src/pages/index.astro Block 04, replace the three hardcoded "recent writing" cards
+        (which link to non-existent or placeholder pages) with the three newest essays from
+        essays.js — real slug, title, deck, quarter.
+      </description>
+      <acceptance>
+        <criterion>All three Block 04 cards link to existing /writing/&lt;slug&gt; pages (no 404s).</criterion>
+        <criterion>Each card's title, deck, and quarter match its essays.js entry.</criterion>
+        <criterion>The three cards are the newest three by the ordering defined in REQ-001.</criterion>
+      </acceptance>
+      <refs>
+        <spec>C-UX-Scenarios/audit-notes.md (finding #4); E-Development/WO-001 item F</spec>
+        <wireframe></wireframe>
+      </refs>
+    </requirement>
+
+    <requirement id="001-REQ-005" type="interface" status="planned">
+      <title>Standardize Speakeazy domain to speakeazy.pro</title>
+      <description>
+        The home Block 03 "Live →" link points to https://speakeazy.com; the live product is
+        speakeazy.pro. Change it, and ensure no other speakeazy.com reference remains anywhere
+        in the codebase.
+      </description>
+      <acceptance>
+        <criterion>The home Block 03 Speakeazy "Live →" link points to https://speakeazy.pro.</criterion>
+        <criterion>A repo-wide search for "speakeazy.com" returns no matches.</criterion>
+      </acceptance>
+      <refs>
+        <spec>E-Development/WO-001 item E</spec>
+        <wireframe></wireframe>
+      </refs>
+    </requirement>
+
+    <requirement id="001-REQ-006" type="interface" status="planned">
+      <title>Speakeazy case: make "live" verifiable</title>
+      <description>
+        In src/pages/work/speakeazy.astro, add links to https://speakeazy.pro in two places:
+        (1) the §00 meta strip "Client" cell — make "Speakeazy.pro" an anchor
+        (target=_blank, rel=noopener); (2) the §05 Outcomes block — a visible CTA link legible
+        on the signature-red background (e.g. "See it live · speakeazy.pro").
+      </description>
+      <acceptance>
+        <criterion>"Speakeazy.pro" in the meta strip Client cell is a working anchor to https://speakeazy.pro (new tab, rel=noopener).</criterion>
+        <criterion>The §05 Outcomes block contains a visible link to https://speakeazy.pro, legible against the red background.</criterion>
+        <criterion>No layout regression in the meta strip or outcomes section at desktop and ≤720px.</criterion>
+      </acceptance>
+      <refs>
+        <spec>E-Development/WO-001 item A; C-UX-Scenarios/audit-notes.md (finding #2)</spec>
+        <wireframe></wireframe>
+      </refs>
+    </requirement>
+
+    <requirement id="001-REQ-007" type="interface" status="planned">
+      <title>Home fold: proof-forward deck + inline Speakeazy link</title>
+      <description>
+        In src/pages/index.astro Block 01, replace the deck text per the approved fold spec.
+        New deck: "I shipped &lt;a href='/work/speakeazy'&gt;Speakeazy&lt;/a&gt; solo — live to
+        real users since January 2026. Before that: 25 years standing up design practice at
+        three startups, two agencies, and a decade at Precocity." The "Speakeazy" word links to
+        /work/speakeazy (aria-label "Read the Speakeazy case study"), styled as a quiet serif
+        inline link (underline) — not a button, not red. H1, eyebrow, and meta line unchanged.
+      </description>
+      <acceptance>
+        <criterion>The fold deck reads the new proof-forward copy verbatim.</criterion>
+        <criterion>"Speakeazy" in the deck links to /work/speakeazy with aria-label "Read the Speakeazy case study", styled as a quiet inline link (not a button, not red).</criterion>
+        <criterion>H1, eyebrow, and meta line are unchanged.</criterion>
+        <criterion>At ≤900px the longer deck wraps cleanly (≤ ~4 lines at 375px wide).</criterion>
+      </acceptance>
+      <refs>
+        <spec>D-UX-Design/home.md</spec>
+        <wireframe>D-UX-Design/wireframes/home.excalidraw</wireframe>
+      </refs>
+    </requirement>
+
+    <requirement id="001-REQ-008" type="interface" status="descoped">
+      <title>Home fold: reduce height so Block 02 crests</title>
+      <resolution>
+        DESCOPED 2026-06-09 by owner decision: "Drop Direction C, accept as-is." The H1 drives
+        the fold height, so cresting Block 02 would require altering the signature H1 — not worth
+        it, since REQ-007 already places shipped proof inside the fold (finding #1's core). Closed
+        without implementation.
+      </resolution>
+      <blocker>
+        Measured at build (Playwright, 2026-06-09): the fold's rendered height is set by the H1
+        itself (879px @1440, 847px @1280, 767px @1024) — taller than 78vh at every desktop width,
+        so reducing .fold min-height has no effect at desktop. Block 02 cannot crest without
+        changing the H1 (size/line-height) or trimming the deck — both outside this requirement's
+        "H1 unchanged" constraint. Reverted the inert min-height change. Needs a Freya design
+        decision. NOTE: REQ-007 already places shipped proof inside the fold, so finding #1's core
+        is addressed without Direction C.
+      </blocker>
+      <description>
+        Reduce the fold's vertical footprint (currently .fold { min-height: 88vh; }) so the top
+        of Block 02 (— Selected work — eyebrow + the Speakeazy "Hero of the slate" card) is at
+        least partially visible at initial load on a common laptop viewport. Start at 78vh and
+        trim centered bottom padding as needed; the target is the crest being visible, verified
+        in-browser — not a fixed number. No animation added.
+      </description>
+      <acceptance>
+        <criterion>On a ~800–900px-tall viewport, the "— Selected work —" eyebrow and the Speakeazy "Hero of the slate" card are at least partially visible without scrolling.</criterion>
+        <criterion>The fold still reads as deliberately composed (no cramped overlap of meta line and Block 02).</criterion>
+        <criterion>No scroll/reveal animation was introduced.</criterion>
+      </acceptance>
+      <refs>
+        <spec>D-UX-Design/home.md</spec>
+        <wireframe>D-UX-Design/wireframes/home.excalidraw</wireframe>
+      </refs>
+    </requirement>
+
+    <requirement id="001-REQ-009" type="interface" status="blocked">
+      <title>About portrait (ASSET-BLOCKED — not built)</title>
+      <description>
+        Replace the About §01 placeholder frame with the commissioned portrait. Blocked: no
+        source image exists. Do not generate or fake an image. Implement when Brandon supplies it.
+      </description>
+      <acceptance>
+        <criterion>BLOCKED — pending portrait image from Brandon.</criterion>
+      </acceptance>
+      <refs>
+        <spec>E-Development/WO-001 item C; C-UX-Scenarios/audit-notes.md (finding #3)</spec>
+        <wireframe></wireframe>
+      </refs>
+    </requirement>
+
+    <requirement id="001-REQ-010" type="interface" status="blocked">
+      <title>Speakeazy case artifact images (ASSET-BLOCKED — not built)</title>
+      <description>
+        Replace the three §04 placeholder artifact frames with real screenshots (ChatGPT PoC,
+        over-architected React build / Vercel error, live Next.js app). Blocked: no source
+        images exist. The REQ-006 live link is the interim substitute. Do not fake images.
+      </description>
+      <acceptance>
+        <criterion>BLOCKED — pending screenshots from Brandon.</criterion>
+      </acceptance>
+      <refs>
+        <spec>E-Development/WO-001 item D; C-UX-Scenarios/audit-notes.md (finding #2)</spec>
+        <wireframe></wireframe>
+      </refs>
+    </requirement>
+
+  </requirements>
+
+  <test-protocol>
+    <!-- Added at build time (Mode D), before browser verification. -->
+  </test-protocol>
+
+</prd>
