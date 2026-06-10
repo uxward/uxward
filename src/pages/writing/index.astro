@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import { essays, essaySections, plainTitle } from '../../data/essays.js';
 ---
 <Base title="Writing · uxward">
   <style>
@@ -407,7 +408,7 @@ import Base from '../../layouts/Base.astro';
   <section class="container head">
     <div class="head-grid">
       <div>
-        <div class="head-eyebrow">— Writing · Thirty essays · Quarterly —</div>
+        <div class="head-eyebrow">— Writing · {essays.length} essays · Quarterly —</div>
         <h1 class="head-h">Writing, <em>arranged by what it argues.</em></h1>
         <p class="head-intro">
           This is where I write about design leadership, the craft itself, the research
@@ -451,283 +452,41 @@ import Base from '../../layouts/Base.astro';
   </section>
 
   <main class="container sections" id="sections">
-
-    <section class="section" data-section="leadership">
-      <div class="section-head">
-        <div class="section-mark">§ 01</div>
-        <div>
-          <button class="section-toggle" data-toggle="leadership" aria-expanded="true">
-            <div class="section-title">
-              <h2>On Leadership</h2>
-              <span class="glyph" aria-hidden="true">▾</span>
-            </div>
-            <p class="section-descriptor">— Hiring, scaling, holding the bar, telling the truth.</p>
-          </button>
-          <hr class="section-rule">
+    {essaySections.map((s, i) => (
+      <section class="section" data-section={s.key}>
+        <div class="section-head">
+          <div class="section-mark">§ {String(i + 1).padStart(2, '0')}</div>
+          <div>
+            <button class="section-toggle" data-toggle={s.key} aria-expanded="true">
+              <div class="section-title">
+                <h2>{s.title}</h2>
+                <span class="glyph" aria-hidden="true">▾</span>
+              </div>
+              <p class="section-descriptor">{s.descriptor}</p>
+            </button>
+            <hr class="section-rule" />
+          </div>
         </div>
-      </div>
-      <div class="section-grid-body">
-        <div></div>
-        <div class="section-empty-msg">— No matches in On Leadership. —</div>
-        <div class="section-collapsed-msg">— Hidden. Click the heading to expand. —</div>
-        <div class="essays">
-          <a class="essay" href="/writing/the-race"
-             data-title="The Race"
-             data-deck="A poem by Dr. D.H. Groberg, shared here because it matters.">
-            <div class="essay-body">
-              <h3 class="essay-title">The <em>Race.</em></h3>
-              <p class="essay-deck">A poem by Dr. D.H. Groberg, shared here because it matters.</p>
-            </div>
-            <div class="essay-meta">— Q2 2021 —</div>
-          </a>
-          <a class="essay" href="/writing/i-failed-but-im-getting-better"
-             data-title="I Failed. But I'm Getting Better."
-             data-deck="On being the villain in a story you thought you were the hero of.">
-            <div class="essay-body">
-              <h3 class="essay-title">I Failed. But <em>I'm Getting Better.</em></h3>
-              <p class="essay-deck">On being the villain in a story you thought you were the hero of.</p>
-            </div>
-            <div class="essay-meta">— Q2 2018 —</div>
-          </a>
-          <a class="essay" href="/writing/the-triforce-of-ux-part-iii-humility"
-             data-title="The Triforce of UX Part III — Humility"
-             data-deck="The third essential quality in a UX designer: knowing what you don't know.">
-            <div class="essay-body">
-              <h3 class="essay-title">The Triforce of UX: Part III — <em>Humility.</em></h3>
-              <p class="essay-deck">The third essential quality: knowing what you don't know, and being open to learning it from the user.</p>
-            </div>
-            <div class="essay-meta">— Q1 2016 —</div>
-          </a>
-          <a class="essay" href="/writing/the-triforce-of-ux-part-ii-curiosity"
-             data-title="The Triforce of UX Part II — Curiosity"
-             data-deck="The second essential quality: the relentless drive to understand what you don't yet know.">
-            <div class="essay-body">
-              <h3 class="essay-title">The Triforce of UX: Part II — <em>Curiosity.</em></h3>
-              <p class="essay-deck">The second essential quality: the relentless drive to understand what you don't yet know.</p>
-            </div>
-            <div class="essay-meta">— Q1 2016 —</div>
-          </a>
-          <a class="essay" href="/writing/the-triforce-of-ux-part-i-empathy"
-             data-title="The Triforce of UX Part I — Empathy"
-             data-deck="The first of three essential qualities: the ability to get into the heads and hearts of users.">
-            <div class="essay-body">
-              <h3 class="essay-title">The Triforce of UX: Part I — <em>Empathy.</em></h3>
-              <p class="essay-deck">The first of three essential qualities: the ability to get into the heads and hearts of users.</p>
-            </div>
-            <div class="essay-meta">— Q1 2016 —</div>
-          </a>
-          <a class="essay" href="/writing/great-power"
-             data-title="Great Power"
-             data-deck="With great power comes great responsibility — applied to the stewardship of design.">
-            <div class="essay-body">
-              <h3 class="essay-title">Great <em>Power.</em></h3>
-              <p class="essay-deck">With great power comes great responsibility — applied to the stewardship of design.</p>
-            </div>
-            <div class="essay-meta">— Q4 2014 —</div>
-          </a>
-          <a class="essay" href="/writing/how-to-succeed-towards-failure"
-             data-title="How to Succeed Towards Failure"
-             data-deck="What makes you successful will ultimately be your doom — and knowing this ahead of time is the advantage.">
-            <div class="essay-body">
-              <h3 class="essay-title">How to Succeed <em>Towards Failure.</em></h3>
-              <p class="essay-deck">What makes you successful will ultimately be your doom — knowing this ahead of time is the advantage.</p>
-            </div>
-            <div class="essay-meta">— Q4 2014 —</div>
-          </a>
-          <a class="essay" href="/writing/who-are-you"
-             data-title="Who Are You?"
-             data-deck="We are not merely the sum of our experiences and expertise. Tell people who you actually are.">
-            <div class="essay-body">
-              <h3 class="essay-title">Who Are <em>You?</em></h3>
-              <p class="essay-deck">We are not merely the sum of our experiences and expertise. Tell people who you actually are.</p>
-            </div>
-            <div class="essay-meta">— Q4 2014 —</div>
-          </a>
-          <a class="essay" href="/writing/dont-die-with-your-music-still-in-you"
-             data-title="Don't die with your music still in you"
-             data-deck="Don't leave your ideas, designs, and passions unexpressed.">
-            <div class="essay-body">
-              <h3 class="essay-title">Don't die with your <em>music still in you.</em></h3>
-              <p class="essay-deck">Don't leave your ideas, designs, and passions unexpressed.</p>
-            </div>
-            <div class="essay-meta">— Q4 2014 —</div>
-          </a>
-          <a class="essay" href="/writing/flight-of-the-buffalo"
-             data-title="Flight of the Buffalo"
-             data-deck="When things go wrong with your team, the first question should be: what am I doing wrong?">
-            <div class="essay-body">
-              <h3 class="essay-title">Flight of <em>the Buffalo.</em></h3>
-              <p class="essay-deck">When things go wrong with your team, the first question should be: what am I doing wrong?</p>
-            </div>
-            <div class="essay-meta">— Q4 2014 —</div>
-          </a>
+        <div class="section-grid-body">
+          <div></div>
+          <div class="section-empty-msg">— No matches in {s.title}. —</div>
+          <div class="section-collapsed-msg">— Hidden. Click the heading to expand. —</div>
+          <div class="essays">
+            {essays.filter((e) => e.section === s.key).map((e) => (
+              <a class="essay" href={`/writing/${e.slug}`}
+                 data-title={plainTitle(e.title)}
+                 data-deck={e.deck}>
+                <div class="essay-body">
+                  <h3 class="essay-title" set:html={e.title} />
+                  <p class="essay-deck">{e.deck}</p>
+                </div>
+                <div class="essay-meta">— {e.quarter} —</div>
+              </a>
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
-
-    <section class="section" data-section="craft">
-      <div class="section-head">
-        <div class="section-mark">§ 02</div>
-        <div>
-          <button class="section-toggle" data-toggle="craft" aria-expanded="true">
-            <div class="section-title">
-              <h2>On Experience Design</h2>
-              <span class="glyph" aria-hidden="true">▾</span>
-            </div>
-            <p class="section-descriptor">— The craft itself — IA, interaction, visual, systems.</p>
-          </button>
-          <hr class="section-rule">
-        </div>
-      </div>
-      <div class="section-grid-body">
-        <div></div>
-        <div class="section-empty-msg">— No matches in On Experience Design. —</div>
-        <div class="section-collapsed-msg">— Hidden. Click the heading to expand. —</div>
-        <div class="essays">
-          <a class="essay" href="/writing/the-truth-about-simplicity-why-clarity-beats-the-buzzword"
-             data-title="The Truth About Simplicity: Why Clarity Beats the Buzzword"
-             data-deck="'Keep it simple' is the most overused advice in design. Clarity is what you actually want — and it's harder.">
-            <div class="essay-body">
-              <h3 class="essay-title">The Truth About Simplicity: <em>Why Clarity Beats the Buzzword.</em></h3>
-              <p class="essay-deck">"Keep it simple" is the most overused advice in design. Clarity is what you actually want — and it's harder.</p>
-            </div>
-            <div class="essay-meta">— Q1 2026 —</div>
-          </a>
-          <a class="essay" href="/writing/only-you-can-prevent-dumpster-fires"
-             data-title="Only You Can Prevent Dumpster Fires"
-             data-deck="A design ethics manifesto in five parts. The fires are preventable. The choice to prevent them is yours.">
-            <div class="essay-body">
-              <h3 class="essay-title">Only You Can Prevent <em>Dumpster Fires.</em></h3>
-              <p class="essay-deck">A design ethics manifesto in five parts. The fires are preventable. The choice to prevent them is yours.</p>
-            </div>
-            <div class="essay-meta">— Q1 2026 —</div>
-          </a>
-          <a class="essay" href="/writing/can-great-ux-be-novel-and-risky-too"
-             data-title="Can Great UX Be Novel and Risky Too?"
-             data-deck="We've been sacrificing experiential pleasure at the altar of usability. The web is boring. We did that.">
-            <div class="essay-body">
-              <h3 class="essay-title">Can Great UX Be <em>Novel and Risky Too?</em></h3>
-              <p class="essay-deck">We've been sacrificing experiential pleasure at the altar of usability. The web is boring. We did that.</p>
-            </div>
-            <div class="essay-meta">— Q3 2021 —</div>
-          </a>
-          <a class="essay" href="/writing/define-success-to-achieve-it"
-             data-title="Define Success to Achieve It"
-             data-deck="Failing to define success is planning to fail — and this is the story of both.">
-            <div class="essay-body">
-              <h3 class="essay-title">Define Success <em>to Achieve It.</em></h3>
-              <p class="essay-deck">Failing to define success is planning to fail — and this is the story of both.</p>
-            </div>
-            <div class="essay-meta">— Q2 2021 —</div>
-          </a>
-          <a class="essay" href="/writing/delivering-quality-experiences"
-             data-title="Delivering Quality Experiences"
-             data-deck="Most design processes look good on paper. The road to destruction is paved with good intentions — and HiPPO feedback.">
-            <div class="essay-body">
-              <h3 class="essay-title">Delivering <em>Quality Experiences.</em></h3>
-              <p class="essay-deck">Most design processes look good on paper. The road to destruction is paved with good intentions — and HiPPO feedback.</p>
-            </div>
-            <div class="essay-meta">— Q2 2021 —</div>
-          </a>
-          <a class="essay" href="/writing/how-to-curate-arte-5-steps-to-agile-repeated-testing-enhanced"
-             data-title="Creating ARTE: 5 Steps to Agile Repeated Testing for Enhancement"
-             data-deck="A lightweight usability testing framework that fits inside sprints. Five steps to running it.">
-            <div class="essay-body">
-              <h3 class="essay-title">Creating ARTE: <em>5 Steps to Agile Repeated Testing for Enhancement.</em></h3>
-              <p class="essay-deck">A lightweight usability testing framework that fits inside sprints. Five steps to running it.</p>
-            </div>
-            <div class="essay-meta">— Q2 2021 —</div>
-          </a>
-          <a class="essay" href="/writing/the-service-design-of-nest"
-             data-title="The Service Design of Nest"
-             data-deck="How Nest surprised and delighted at every touchpoint — from the website to the first error message.">
-            <div class="essay-body">
-              <h3 class="essay-title">The Service Design <em>of Nest.</em></h3>
-              <p class="essay-deck">How Nest surprised and delighted at every touchpoint — from the website to the first error message.</p>
-            </div>
-            <div class="essay-meta">— Q4 2014 —</div>
-          </a>
-          <a class="essay" href="/writing/empathy-in-your-interface"
-             data-title="Empathy In Your (inter)Face"
-             data-deck="People respond emotionally to interfaces the same way they respond to people. Design accordingly.">
-            <div class="essay-body">
-              <h3 class="essay-title">Empathy In Your <em>(inter)Face.</em></h3>
-              <p class="essay-deck">People respond emotionally to interfaces the same way they respond to people. Design accordingly.</p>
-            </div>
-            <div class="essay-meta">— Q4 2014 —</div>
-          </a>
-          <a class="essay" href="/writing/hey-ui-say-what-you-mean"
-             data-title="Hey UI: Say what you mean, and mean what you said"
-             data-deck="A UX critique of Redbox Instant: what happens when labels don't describe what they control.">
-            <div class="essay-body">
-              <h3 class="essay-title">Hey UI: Say what you mean, and <em>mean what you said.</em></h3>
-              <p class="essay-deck">A UX critique of Redbox Instant: what happens when labels don't describe what they control.</p>
-            </div>
-            <div class="essay-meta">— Q4 2014 —</div>
-          </a>
-          <a class="essay" href="/writing/arrr-know-yer-personae"
-             data-title="Arrr, Know Yer Personæ"
-             data-deck="If you don't know your users better than they know themselves, your designs will miss the mark.">
-            <div class="essay-body">
-              <h3 class="essay-title">Arrr, Know Yer <em>Personæ.</em></h3>
-              <p class="essay-deck">If you don't know your users better than they know themselves, your designs will miss the mark.</p>
-            </div>
-            <div class="essay-meta">— Q4 2014 —</div>
-          </a>
-          <a class="essay" href="/writing/the-ux-ui-design-process"
-             data-title="The UX / UI Design Process"
-             data-deck="A systematic walkthrough of the full UX process, from stakeholder interviews to hi-fi comps.">
-            <div class="essay-body">
-              <h3 class="essay-title">The UX / UI <em>Design Process.</em></h3>
-              <p class="essay-deck">A systematic walkthrough of the full UX process, from stakeholder interviews to hi-fi comps.</p>
-            </div>
-            <div class="essay-meta">— Q4 2014 —</div>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" data-section="ai">
-      <div class="section-head">
-        <div class="section-mark">§ 03</div>
-        <div>
-          <button class="section-toggle" data-toggle="ai" aria-expanded="true">
-            <div class="section-title">
-              <h2>On AI</h2>
-              <span class="glyph" aria-hidden="true">▾</span>
-            </div>
-            <p class="section-descriptor">— Notes from working at the frontier.</p>
-          </button>
-          <hr class="section-rule">
-        </div>
-      </div>
-      <div class="section-grid-body">
-        <div></div>
-        <div class="section-empty-msg">— No matches in On AI. —</div>
-        <div class="section-collapsed-msg">— Hidden. Click the heading to expand. —</div>
-        <div class="essays">
-          <a class="essay" href="/writing/human-centered-robot-driven-ethical-considerations-for-ai-in-design"
-             data-title="Human-Centered, Robot-Driven: Ethical Considerations for ML in Design"
-             data-deck="Bias, transparency, accountability — and why ethical AI in design is your problem, not someone else's.">
-            <div class="essay-body">
-              <h3 class="essay-title">Human-Centered, Robot-Driven: <em>Ethical Considerations for ML in Design.</em></h3>
-              <p class="essay-deck">Bias, transparency, accountability — and why ethical AI in design is your problem, not someone else's.</p>
-            </div>
-            <div class="essay-meta">— Q1 2023 —</div>
-          </a>
-          <a class="essay" href="/writing/the-designers-secret-weapon-how-ai-is-revolutionizing-web-design"
-             data-title="The Designer's Secret Weapon: How AI is Revolutionizing Web Design"
-             data-deck="How AI tools are reshaping design workflows — and what the shift actually means for designers.">
-            <div class="essay-body">
-              <h3 class="essay-title">The Designer's Secret Weapon: <em>How AI is Revolutionizing Web Design.</em></h3>
-              <p class="essay-deck">How AI tools are reshaping design workflows — and what the shift actually means for designers.</p>
-            </div>
-            <div class="essay-meta">— Q1 2023 —</div>
-          </a>
-        </div>
-      </div>
-    </section>
-
+      </section>
+    ))}
   </main>
 
   <section class="container">

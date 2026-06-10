@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { slate } from '../../data/slate.js';
+import { essays } from '../../data/essays.js';
 
 // — The selected slate — rendered from src/data/slate.js (single source of
 // truth for order, numbering, and counts across the site).
@@ -520,7 +521,7 @@ const archive = [
             <a class="pivot-card" href="/writing">
               <div class="key">— Writing —</div>
               <div class="label">Quarterly essays, <em>no newsletter.</em></div>
-              <div class="why">Long-form notes on design leadership, restraint, and the AI-era discipline. Twelve pieces and counting.</div>
+              <div class="why">Long-form notes on design leadership, restraint, and the AI-era discipline. {essays.length} pieces and counting.</div>
             </a>
             <a class="pivot-card" href="/about">
               <div class="key">— About —</div>
