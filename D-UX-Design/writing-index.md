@@ -34,9 +34,9 @@ The masthead. Eyebrow + H1 + intro + the filter control.
 - **Eyebrow** (`--font-mono`, ~11px, 0.22em tracking, uppercase, `--tertiary`): "— Writing · 23 essays · Quarterly —". The count derives from `essays.length`; it doubles as honest scale (a real archive, not three posts).
 - **H1** (`--font-serif`, weight 300, display `opsz 144 / SOFT 30`, the `<em>` clause in italic `SOFT 100 / WONK 1`): **"Writing, *arranged by what it argues.*"** — UNCHANGED. The WONK italic on "arranged by what it argues" is sanctioned display-italic use.
 - **Intro** (`--font-serif`, italic, `--body`, `opsz 36 / SOFT 80 / WONK 1`, measure ≤560px): preserved, ending on **"Quarterly. Long-form. No newsletter to sign up for."** See User Context — this is the line that disarms Pierce.
-- **The controls** — a **view toggle** (`writing-index-view-toggle`) and the **filter** (`writing-index-filter`) — live at the right/end of the head, stacked and quiet: tools, not heroes. The toggle sits above the filter.
+- **No controls in the head.** The view toggle and filter have moved **out of the masthead** into a dedicated controls band that sits **below the featured pull, just above the list** (see `writing-index-controls`). The head is just eyebrow + H1 + intro.
 
-### `writing-index-filter` (within the head)
+### `writing-index-filter` (in the controls band)
 A minimal type-to-filter, deliberately under-designed.
 
 - A single text input under a hairline `--ink` rule, with a mono "— Find —" label and a "×" clear control (`--tertiary`, → `--ink` on hover). Placeholder in quiet italic `--tertiary`.
@@ -44,7 +44,7 @@ A minimal type-to-filter, deliberately under-designed.
 - A small mono result line (`aria-live="polite"`) shows the count of matching essays and a clear control — e.g. "— 4 essays · Clear —". No "X shown / Y hidden", no "Section:" focus state, no multi-part status string. Count + clear, nothing more.
 - When the filter is active, the featured pull (`writing-index-featured`) hides — the user is now in "scan the archive" mode, and a single highlighted essay would be noise.
 
-### `writing-index-view-toggle` (within the head, above the filter)
+### `writing-index-view-toggle` (in the controls band)
 A quiet two-state control that re-arranges the list — **Topic** (default) or **Date**.
 
 - Form: a mono `— Arrange —` label, then two options **`Topic`** and **`Date`** separated by a thin `|` divider (the em-dash → vertical-bar motif). Active option in `--ink`; inactive in `--tertiary`; the active one carries a 1px underline. `--font-mono`, ~11px, 0.22em tracking, uppercase — the same administrative voice as the eyebrow.
@@ -61,6 +61,14 @@ When Date is active, the three `writing-index-section` groups are replaced by **
 
 ### `writing-index-featured` — UNCHANGED, out of scope (owner decision, 2026-06-10)
 The featured-essay pull stays **exactly as currently built** in `src/pages/writing/index.astro`. The redesign does **not** touch it — keep its markup, layout (gutter "— Featured —" stamp with 3px `--signature` left border, red eyebrow, `<h2>` title link, deck, pulled excerpt with `--rule` left border, "— Read the essay → —" affordance), and its existing behavior (hides when the filter is active). It remains the page's one persistent **event-red** placement; that is incidental to leaving it alone, not a new instruction. Do not restyle, relayout, or "bring it in line" — it is correct as is.
+
+### `writing-index-controls` (band between featured and the list)
+A full-width control band positioned **directly below the featured pull and directly above the first section/row** — the threshold between the one highlighted pick and the full archive.
+
+- It holds the two tools, baseline-aligned on one row: the **view toggle** (`writing-index-view-toggle`) on the **left** (`— Arrange — Topic | Date`), the **filter** (`writing-index-filter`) on the **right** (`— Find —` input + clear). `justify-content: space-between`, within the container; quiet mono throughout — a toolbar, not a hero.
+- The filter's result line (`— N essays · Clear —`) sits just under the band, right-aligned beneath the filter.
+- A hairline `--rule` separates the band from the list below; the featured already carries a rule above it.
+- **Responsive ≤880px:** the band stacks — view toggle on its own row, filter full-width beneath it, result line left-aligned.
 
 ### `writing-index-section` ×3
 The three topic groups, rendered as **always-open** sections. Never collapsible. Order and contents come straight from `essaySections` + `essays` (already grouped, already newest-first within each group):
@@ -169,7 +177,7 @@ Pierce, arriving from a single trusted essay, scans `/writing` and reads it as *
 4. **Minimal inline filter kept, stripped down.** Type-to-filter across title + deck; hides non-matching rows; per-section empty message on zero matches; a simple result count + clear. No section-focus, no collapse states, no multi-part status string.
 5. **Featured-essay pull — UNCHANGED, out of scope (owner decision, 2026-06-10).** Leave the current built featured block exactly as is — markup, red mark, layout, and hide-on-filter behavior. The redesign does not touch it.
 7. **Decks → hover/focus-reveal (Option A, approved 2026-06-10).** Wireframed against Option B (always-visible) and chosen: titles stay a calm scannable column; decks reveal on hover/focus with reserved space (no reflow). Option B rejected as reverting to a card-list.
-8. **View toggle — Topic / Date (added 2026-06-10, owner request).** A quiet mono toggle in the head re-arranges the list: **Topic** (default — the three argued § sections, matching the H1) or **Date** (one flat newest→oldest list, each row tagged with its topic since the grouping is gone). Toggle is ink/underline chrome, no red. Recommended build: render both arrangements, swap visibility. H1 stays static across modes. Tag labels derived from `essaySections` (drop "On "). Persistence optional.
+8. **View toggle — Topic / Date (added 2026-06-10, owner request).** A quiet mono toggle in a controls band **below the featured pull, above the list** (with the filter), re-arranges the list: **Topic** (default — the three argued § sections, matching the H1) or **Date** (one flat newest→oldest list, each row tagged with its topic since the grouping is gone). Toggle is ink/underline chrome, no red. Recommended build: render both arrangements, swap visibility. H1 stays static across modes. Tag labels derived from `essaySections` (drop "On "). Persistence optional.
 6. **RED ON HOVER — now the site-wide convention (owner decision, 2026-06-10).** An earlier draft removed the per-row red hover as a ration violation; the owner has instead **promoted red-on-hover to an official system rule.** Row titles — and all links/titles site-wide — shift `--ink` → `--signature` on hover/focus, color only (no WONK lean). Red now works in two registers: **event red** (the rationed, full-volume, persistent placements — the featured mark here, the home closing block, case bands) and **interaction red** (this transient hover/focus splash). `visual-direction.md` is updated to match — "never a hover state" is replaced by interaction-red as the standard accent. The featured pull keeps its one persistent earned-editorial mark. **Follow-up (outside this loop):** the home page currently hovers to `--tertiary` and should be switched to red to comply — a small `index.astro` edit, tracked in the design log.
 
 ---
