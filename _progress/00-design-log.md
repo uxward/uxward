@@ -21,7 +21,7 @@ WDS strategic process log. Most recent at top.
 Design Loop Status:
 | Page | Status |
 |---|---|
-| Writing Index | ⏳ B+review — built & browser-verified (PRD 002, branch `build/writing-index`); in step-7 review. Step-7 batch (all built + verified): row dividers removed · leader dots → radial 8px gap · **Topic/Date view toggle (REQ-006, persisted)** · controls moved to a band below featured · **featured stays visible while filtering** · count-only result line (× only) · placeholder "Filter essays" 50%/focus-fade · **filter fade+reflow + view cross-fade motion (REQ-007)**. 21/21 final-suite checks pass. |
+| Writing Index | ✓ complete (R+T) — built, browser-reviewed (step-7, 21/21), tokens extracted (step-8). PRD 002 REQ-001..007 implemented. Step-7 batch: leader-dots TOC, Topic/Date toggle (persisted), controls band below featured, featured stays visible while filtering, count-only filter (× only), placeholder fade, filter+view motion. Ready to merge `build/writing-index` → master. |
 | Home (fold) | ✓ complete. Built (REQ-007), browser-reviewed, tokens extracted. Direction C (REQ-008) descoped; finding #1 delivered by the proof-forward deck. |
 | About · Colophon · Contact · Work (index + 6 cases) | ✓ designed-in-build — live and accepted as-built; no separate spec file. |
 
