@@ -196,8 +196,10 @@ a:focus-visible, .link:focus-visible {
   font-variation-settings: 'opsz' 24, 'SOFT' 30;
   color: var(--ink);
   text-decoration: none;
+  white-space: nowrap;
 }
-.wm .ux { color: var(--signature); }
+.wm .wm-given { color: var(--signature); }   /* "Brandon" — always red */
+.wm:hover { color: var(--signature); }        /* hover highlights "E.B. Ward" red (Brandon already is) */
 .hdr-controls { display: flex; align-items: center; gap: 20px; }
 nav.hdr-nav { display: flex; gap: 28px; align-items: baseline; }
 .hdr-nav a {
