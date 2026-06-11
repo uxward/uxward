@@ -6,6 +6,17 @@ const tagLabel = Object.fromEntries(essaySections.map((s) => [s.key, s.title.rep
 ---
 <Base title="Writing · uxward">
   <style>
+    .writing-top { padding-top: var(--space-8); padding-bottom: var(--space-7); }
+    .writing-top a.back {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      text-decoration: none;
+    }
+    .writing-top a.back:hover { color: var(--signature); }
+
     .head {
       padding-top: var(--space-9);
       padding-bottom: var(--space-8);
@@ -462,6 +473,13 @@ const tagLabel = Object.fromEntries(essaySections.map((s) => [s.key, s.title.rep
       .essay-quarter { flex-basis: 100%; margin-top: 6px; }
     }
   </style>
+
+  <div class="container writing-top">
+    <div class="grid">
+      <div class="marker">§ ↩</div>
+      <div><a class="back" href="/">— Back home</a></div>
+    </div>
+  </div>
 
   <section class="container head">
     <div class="head-eyebrow">— Writing · {essays.length} essays · Quarterly —</div>
