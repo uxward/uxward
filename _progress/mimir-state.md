@@ -3,15 +3,11 @@
 _Most recent at top. Updated after each task._
 
 ## Current
-- **Phase:** PRD 002 written (`002-writing-index.xml`), status=planned. Ready to build. PRD 001 implemented + merged to master (`6a30c19`).
-- **Active PRD:** 002 — Writing index editorial redesign (WO-003). 5 interface requirements:
-  - REQ-001 editorial index structure (leader-dots rows + always-open sections; remove accordion)
-  - REQ-002 row hover/focus (red title + deck reveal, no reflow, keyboard, reduced-motion)
-  - REQ-003 simplified filter (count + clear, per-section empty)
-  - REQ-004 responsive ≤880px
-  - REQ-005 site-wide hover convention (home page titles → red)
-- **Next task:** Start build loop on a new branch `build/writing-index`. One commit per REQ, browser-verify each before moving on.
-- **Hard do-not-touch (WO-003):** the featured pull on /writing (leave exactly as built); `src/data/essays.js`; the masthead voice ("No newsletter to sign up for.").
+- **Phase:** PRD 002 BUILT + browser-verified on branch `build/writing-index` (6 commits: REQ-001..005 + PRD docs). status=implemented. Awaiting Freya step-7 review, then owner-approved merge to master.
+- **Verification:** 26/26 Playwright assertions PASS — desktop 1440 / mobile 375 / light + dark / keyboard. No reflow on hover (scrollHeight stable). Screenshots: /tmp/wi-desktop.png, wi-mobile.png, wi-dark-hover.png, home-hover.png.
+- **Flag for owner/Freya:** REQ-005 promoted the *title* hovers (home + writing) to red, per PRD scope. The GLOBAL `a:hover` in global.css is still `--tertiary` — so nav/footer/body inline links do NOT hover red. Going fully literal-"site-wide" would mean changing the global rule (affects all links). Left out of scope deliberately; surface for a decision.
+- **Next task:** Freya runs step-7 (`/freya`) browser review + step-8 token extraction; on owner approval, merge `build/writing-index` → master.
+- **Hard do-not-touch (honored):** featured pull on /writing untouched (verified byte-identical markup); `src/data/essays.js` unchanged; masthead voice intact.
 - **Carried-over blockers (PRD 001):** REQ-009 (portrait) + REQ-010 (Speakeazy artifacts) — asset-blocked until Brandon supplies images. Unrelated to PRD 002.
 
 ## Key decisions (from audit review, 2026-06-09)

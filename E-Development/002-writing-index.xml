@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<prd id="002" title="Writing index — typographic editorial redesign" project="uxward" created="2026-06-10" status="planned">
+<prd id="002" title="Writing index — typographic editorial redesign" project="uxward" created="2026-06-10" status="implemented">
 
   <overview>
     Covers Freya Work Order WO-003. A full redesign of the Writing index (/writing) from a
@@ -29,7 +29,7 @@
 
   <requirements>
 
-    <requirement id="002-REQ-001" type="interface" status="planned">
+    <requirement id="002-REQ-001" type="interface" status="implemented">
       <title>Editorial index structure — leader-dots rows + always-open sections</title>
       <description>
         Rewrite the body of src/pages/writing/index.astro so each essay renders as a single
@@ -61,7 +61,7 @@
       </refs>
     </requirement>
 
-    <requirement id="002-REQ-002" type="interface" status="planned">
+    <requirement id="002-REQ-002" type="interface" status="implemented">
       <title>Row hover/focus — red title + deck reveal (no reflow)</title>
       <description>
         On hover AND :focus-visible of a row, shift the title colour --ink → --signature (colour
@@ -86,7 +86,7 @@
       </refs>
     </requirement>
 
-    <requirement id="002-REQ-003" type="interface" status="planned">
+    <requirement id="002-REQ-003" type="interface" status="implemented">
       <title>Simplified filter — count + clear, per-section empty states</title>
       <description>
         Keep a quiet type-to-filter; strip the section-focus machinery. Match the trimmed,
@@ -112,7 +112,7 @@
       </refs>
     </requirement>
 
-    <requirement id="002-REQ-004" type="interface" status="planned">
+    <requirement id="002-REQ-004" type="interface" status="implemented">
       <title>Responsive ≤880px — rows stack, leader dots drop</title>
       <description>
         At ≤880px: collapse the --gutter-mark column and move § numerals inline above each section
@@ -133,7 +133,7 @@
       </refs>
     </requirement>
 
-    <requirement id="002-REQ-005" type="interface" status="planned">
+    <requirement id="002-REQ-005" type="interface" status="implemented">
       <title>Site-wide hover convention — home page titles hover red</title>
       <description>
         Apply the new site-wide interaction-red convention to src/pages/index.astro: the home
@@ -157,7 +157,28 @@
   </requirements>
 
   <test-protocol>
-    <!-- Added at build time (Mode D), before browser verification. -->
+    <!-- Verified 2026-06-10 via Playwright/Chromium against `npm run preview` (localhost:4322).
+         26 automated assertions, all PASS — desktop 1440px, mobile 375px, light + dark, keyboard. -->
+    <test ref="002-REQ-001">
+      <steps>Load /writing. Count a.essay rows; count .section; read .essay-lead border-style + aria-hidden; grep DOM for section-toggle/aria-expanded/glyph on the sections; confirm featured markup + masthead lines present.</steps>
+      <expected>23 rows; 3 sections; leader border-bottom-style=dotted, aria-hidden=true; 0 accordion elements on sections (the aria-expanded/glyph in DOM belong to the site header, identical on /); featured pull + "arranged by what it argues" + "No newsletter to sign up for" present. PASS.</expected>
+    </test>
+    <test ref="002-REQ-002">
+      <steps>Read first deck opacity at rest. Hover row 1: read title color + deck opacity; compare document.scrollHeight before/after. Tab to first a.essay; after settle, read :focus-visible, title color, deck opacity, outline color. Repeat hover in dark mode (data-theme=dark).</steps>
+      <expected>Rest deck opacity=0. Hover: title rgb(204,0,6), deck opacity=1, scrollHeight 5164→5164 (no reflow). Keyboard focus: matches :focus-visible, title rgb(204,0,6), deck opacity=1, outline rgb(204,0,6). Dark: canvas rgb(18,18,18), hover title rgb(229,38,58), deck revealed. PASS.</expected>
+    </test>
+    <test ref="002-REQ-003">
+      <steps>Type "buffalo" → count visible rows, read #search-hint, read #featured display, check On AI section .no-matches + empty msg. Type "zzzqqq" → count visible + hint. Click #search-clear → count visible + featured display.</steps>
+      <expected>"buffalo": 1 visible, hint "— 1 essay · Clear —" (no Section/shown), featured display:none, On AI shows empty message. "zzzqqq": 0 visible, hint "— 0 essays · Clear —". Clear: 23 visible, featured display:block. PASS.</expected>
+    </test>
+    <test ref="002-REQ-004">
+      <steps>At 375px load /writing. Read .essay-lead display; compare quarter.top vs title.bottom within a row; check document.scrollingElement.scrollWidth ≤ innerWidth.</steps>
+      <expected>Leader display:none; quarter sits below title; no horizontal overflow at 375px. PASS.</expected>
+    </test>
+    <test ref="002-REQ-005">
+      <steps>Load /. Hover .case .title and .essay .title; read computed color.</steps>
+      <expected>Both hover to rgb(204,0,6) signature (light); resolves to the dark signature in dark mode via the token. PASS. (Global a:hover remains tertiary by design — only title hovers were promoted, per PRD scope.)</expected>
+    </test>
   </test-protocol>
 
 </prd>
