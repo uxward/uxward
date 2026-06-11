@@ -294,7 +294,13 @@ import { essays, essaySections, plainTitle } from '../../data/essays.js';
       align-self: baseline;
       margin: 0 var(--space-5);
       min-width: 24px;
-      border-bottom: 1px dotted var(--rule);
+      height: 1px;
+      /* radial-gradient leader — gives precise control over dot gap (a CSS
+         `dotted` border does not). ~1px dot on an 8px period — wide, airy gap. */
+      background-image: radial-gradient(circle, var(--rule) 0.6px, transparent 0.7px);
+      background-size: 8px 1px;
+      background-repeat: repeat-x;
+      background-position: 0 center;
       position: relative;
       top: -0.22em;
     }

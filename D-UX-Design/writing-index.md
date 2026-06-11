@@ -147,7 +147,7 @@ Pierce, arriving from a single trusted essay, scans `/writing` and reads it as *
 
 ## Open Questions
 
-1. **Leader-dot technique** (border-bottom dotted vs repeating-gradient dots) and its baseline alignment when titles wrap — a build-time visual detail to resolve against real Fraunces metrics; the wireframe approves the *pattern*, not the exact dot rendering.
+1. **Leader-dot technique** — RESOLVED (2026-06-10): `radial-gradient` dots (not a `dotted` border, which can't control gap), ~1px dot on an **8px period** (owner-tuned, wide/airy gap), baseline-aligned via `top: -0.22em`. Attaches to the last line when a title wraps.
 2. **"On AI" depth is a content gap, not a layout gap** — owner action item. The format treats a 2-row section as legitimate; growing it is the owner's to do.
 
 ---
