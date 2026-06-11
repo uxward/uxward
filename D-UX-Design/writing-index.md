@@ -4,7 +4,7 @@
 **Scenario:** Find an Idea Worth Sharing — Pierce the Peer (tertiary archetype)
 **Purpose:** Make `/writing` read as a *body of work* — a serious archive's table of contents, not a content-marketing funnel — so a guarded, self-promotion-allergic peer registers real depth and feels safe sharing the idea (and eventually vouching for the person).
 
-> **Scope of this loop:** A full redesign of `src/pages/writing/index.astro`. Replaces the collapsible-accordion + section-focus machinery with a typographic editorial index. Keeps the featured-essay pull (**left exactly as built — out of scope**), the inline filter (simplified), the three topic groups, the per-row quarter date, and the `/about` pivot. Out of scope: the individual essay pages, the `essays.js` data shape, and the home page's "recent writing" cards (which read the same data via `essaysNewestFirst`). Content growth of the thin "On AI" section is an owner content task, not a layout task — flagged below, not solved here.
+> **Scope of this loop:** A full redesign of `src/pages/writing/index.astro`. Replaces the collapsible-accordion + section-focus machinery with a typographic editorial index. Keeps the featured-essay pull (**left exactly as built — out of scope**), the inline filter (simplified), the three topic groups, the per-row quarter date, and the `/about` pivot. **Adds a view toggle — Topic / Date — that re-arranges the list** (added 2026-06-10, owner request). Out of scope: the individual essay pages, the `essays.js` data shape, and the home page's "recent writing" cards (which read the same data via `essaysNewestFirst`). Content growth of the thin "On AI" section is an owner content task, not a layout task — flagged below, not solved here.
 
 ---
 
@@ -24,24 +24,51 @@ What he should feel leaving: registered depth, respect for the thinking, and eno
 
 The page is one column with the standard `--gutter-mark` (100px) editorial gutter on the left carrying the § markers. Reading measure stays within the container. The core move is the **row as a line in a table of contents**: serif title left, hairline dotted leader across, mono quarter right.
 
+The list has **two arrangements**, switched by the view toggle (default **Topic**):
+- **Topic** (`writing-index-section` ×3) — the three argued groups with § numerals. The default; matches the H1's "arranged by what it argues."
+- **Date** (`writing-index-date-list`) — one flat list, newest → oldest, no sections; each row carries a **topic tag** so the argument is still legible without the grouping.
+
 ### `writing-index-head`
 The masthead. Eyebrow + H1 + intro + the filter control.
 
 - **Eyebrow** (`--font-mono`, ~11px, 0.22em tracking, uppercase, `--tertiary`): "— Writing · 23 essays · Quarterly —". The count derives from `essays.length`; it doubles as honest scale (a real archive, not three posts).
 - **H1** (`--font-serif`, weight 300, display `opsz 144 / SOFT 30`, the `<em>` clause in italic `SOFT 100 / WONK 1`): **"Writing, *arranged by what it argues.*"** — UNCHANGED. The WONK italic on "arranged by what it argues" is sanctioned display-italic use.
 - **Intro** (`--font-serif`, italic, `--body`, `opsz 36 / SOFT 80 / WONK 1`, measure ≤560px): preserved, ending on **"Quarterly. Long-form. No newsletter to sign up for."** See User Context — this is the line that disarms Pierce.
-- **The filter** lives at the right/end of the head (see `writing-index-filter` below), quiet and secondary — a tool, not a hero.
+- **No controls in the head.** The view toggle and filter have moved **out of the masthead** into a dedicated controls band that sits **below the featured pull, just above the list** (see `writing-index-controls`). The head is just eyebrow + H1 + intro.
 
-### `writing-index-filter` (within the head)
+### `writing-index-filter` (in the controls band)
 A minimal type-to-filter, deliberately under-designed.
 
-- A single text input under a hairline `--ink` rule, with a mono "— Find —" label and a "×" clear control (`--tertiary`, → `--ink` on hover). Placeholder in quiet italic `--tertiary`.
+- A single text input under a hairline `--ink` rule, with a mono "— Find —" label and a "×" clear control (`--tertiary`, → `--ink` on hover). Placeholder reads **"Filter essays"** (no surrounding dashes), quiet italic `--tertiary` at **50% opacity**.
 - It **filters across each essay's title + deck text** and **hides** non-matching `a.essay` rows. Nothing collapses, nothing animates open/shut.
-- A small mono result line (`aria-live="polite"`) shows the count of matching essays and a clear control — e.g. "— 4 essays · Clear —". No "X shown / Y hidden", no "Section:" focus state, no multi-part status string. Count + clear, nothing more.
-- When the filter is active, the featured pull (`writing-index-featured`) hides — the user is now in "scan the archive" mode, and a single highlighted essay would be noise.
+- A small mono result line (`aria-live="polite"`) shows the **count only** — e.g. "— 4 essays —". **No inline "Clear" link** (the in-field × is the only clear affordance), no "X shown / Y hidden", no "Section:" focus state, no multi-part status string.
+- The featured pull (`writing-index-featured`) **stays visible while filtering** — a permanent highlight above the controls band (owner change 2026-06-10; overrides the original hide-on-filter behavior).
+
+### `writing-index-view-toggle` (in the controls band)
+A quiet two-state control that re-arranges the list — **Topic** (default) or **Date**.
+
+- Form: a mono `— Arrange —` label, then two options **`Topic`** and **`Date`** separated by a thin `|` divider (the em-dash → vertical-bar motif). Active option in `--ink`; inactive in `--tertiary`; the active one carries a 1px underline. `--font-mono`, ~11px, 0.22em tracking, uppercase — the same administrative voice as the eyebrow.
+- Implemented as two `<button>`s (or one toggle) with `aria-pressed` reflecting the active arrangement; keyboard-operable; focus ring per the global floor.
+- **Default is Topic** on first-ever load — it matches the H1 ("arranged by what it argues") and is the recommended reading order. The last choice is **persisted in `localStorage`** (key `uxward:writing-view`, like the theme toggle) and restored on return; with no stored value, Topic.
+- **No red.** The toggle is administrative chrome; its active state is ink/underline, not signature. (Red stays the hover/focus splash + the featured event-mark.)
+
+### `writing-index-date-list` (the Date arrangement)
+When Date is active, the three `writing-index-section` groups are replaced by **one flat list**, newest → oldest, from `essaysNewestFirst` (already sorted by quarter descending, stable). No section heads, no § numerals — a single continuous run of rows.
+
+- Each row is the same `writing-index-row` (title · leader · meta), with one addition: a **topic tag** in the right-side meta cluster, because the grouping context is gone. The cluster reads **`EXPERIENCE DESIGN · Q2 2021`** — tag, then `·`, then quarter — all `--font-mono`, uppercase, `--tertiary`. The leader dots run from the title to this cluster.
+- **Tag labels** are the section titles with the "On " prefix dropped: `leadership → LEADERSHIP`, `craft → EXPERIENCE DESIGN`, `ai → AI`. Derive from `essaySections` (don't hardcode a fourth list).
+- Hover/focus behaves identically (red title + deck reveal). The tag does **not** turn red on hover — only the title does.
 
 ### `writing-index-featured` — UNCHANGED, out of scope (owner decision, 2026-06-10)
-The featured-essay pull stays **exactly as currently built** in `src/pages/writing/index.astro`. The redesign does **not** touch it — keep its markup, layout (gutter "— Featured —" stamp with 3px `--signature` left border, red eyebrow, `<h2>` title link, deck, pulled excerpt with `--rule` left border, "— Read the essay → —" affordance), and its existing behavior (hides when the filter is active). It remains the page's one persistent **event-red** placement; that is incidental to leaving it alone, not a new instruction. Do not restyle, relayout, or "bring it in line" — it is correct as is.
+The featured-essay pull stays **exactly as currently built** in `src/pages/writing/index.astro`. The redesign does **not** touch it — keep its markup, layout (gutter "— Featured —" stamp with 3px `--signature` left border, red eyebrow, `<h2>` title link, deck, pulled excerpt with `--rule` left border, "— Read the essay → —" affordance). **One behavior change (owner, 2026-06-10):** it no longer hides while filtering — the featured pull is **always visible**, including during search. It remains the page's one persistent **event-red** placement. Otherwise do not restyle, relayout, or "bring it in line" — the markup and visual are correct as built.
+
+### `writing-index-controls` (band between featured and the list)
+A full-width control band positioned **directly below the featured pull and directly above the first section/row** — the threshold between the one highlighted pick and the full archive.
+
+- It holds the two tools, baseline-aligned on one row: the **view toggle** (`writing-index-view-toggle`) on the **left** (`— Arrange — Topic | Date`), the **filter** (`writing-index-filter`) on the **right** (`— Find —` input + clear). `justify-content: space-between`, within the container; quiet mono throughout — a toolbar, not a hero.
+- The filter's result line (`— N essays · Clear —`) sits just under the band, right-aligned beneath the filter.
+- A hairline `--rule` separates the band from the list below; the featured already carries a rule above it.
+- **Responsive ≤880px:** the band stacks — view toggle on its own row, filter full-width beneath it, result line left-aligned.
 
 ### `writing-index-section` ×3
 The three topic groups, rendered as **always-open** sections. Never collapsible. Order and contents come straight from `essaySections` + `essays` (already grouped, already newest-first within each group):
@@ -66,9 +93,9 @@ The Service Design of Nest. ··························
 
 - **Title** (left): `--font-serif`, the essay's `title` rendered with `set:html` to preserve its `<em>` clause (`opsz 96 / SOFT 30`; `<em>` → italic `SOFT 100 / WONK 1`). Color `--ink` at rest.
 - **Leader** (center): a flexible hairline **dotted leader** in `--rule`, baseline-aligned to the title's last line, filling the space between the end of the title and the right-aligned quarter. See Behavior for the technique.
-- **Quarter** (right): `--font-mono`, ~10.5px, 0.22em tracking, uppercase, `--tertiary`, right-aligned — e.g. "Q4 2014". Kept per Resolved Decisions #3.
+- **Quarter** (right): `--font-mono`, ~10.5px, 0.22em tracking, uppercase, `--tertiary`, right-aligned — e.g. "Q4 2014". Kept per Resolved Decisions #3. In **Date** mode this right cluster becomes `TOPIC · QUARTER` (see `writing-index-date-list`).
 - **Deck** (the reward): the essay's `deck` in quiet serif italic, **revealed on hover/focus** below the title (see Behavior). The plain-text title and deck are mirrored onto `data-title` / `data-deck` for the filter (via `plainTitle()`), as today.
-- Rows are separated by hairline `--rule`; the last row in a section drops its border.
+- Rows are separated by **whitespace only — no hairline divider between articles** (owner decision, 2026-06-10, during step-7 review). The leader dots and row padding carry the separation; the only rules that remain are the section-head hairline and the section-to-section border.
 
 ### `writing-index-pivot`
 The closing pivot to `/about` (the route exists today). Unchanged in intent.
@@ -103,9 +130,23 @@ The dotted leader is what makes a row read as a table-of-contents line rather th
 
 ### Filter behavior
 - Type-to-filter matches `q` (lowercased, trimmed) against each row's `data-title` + `data-deck`; non-matching rows get `hidden`. Empty query → all rows shown.
-- The result line shows the live match count + a clear control. Clearing (× or the inline clear) empties the input, re-shows all rows, restores the featured pull, and returns focus to the input.
+- The result line shows the live match count + a clear control. Clearing (× or the inline clear) empties the input, re-shows all rows, and returns focus to the input. (The featured pull is always visible, so there is nothing to restore.)
 - **Per-section empty state:** when a section has **zero** matching rows under the current query, that section shows a quiet italic message in place of its rows — "— No matches in {section title}. —" — while still rendering its head and § numeral (so the archive's structure stays legible during a filter). Sections with matches render normally.
 - **Removed for good:** section-focus / `activeSection`, the `.collapsed` state, the "Section: …" status fragment, the "X shown" verbosity, and the "Hidden. Click to expand." message. The filter only ever *hides rows* and *reports a count*.
+- **Filter operates on the visible arrangement.** In Topic mode it hides section rows (with per-section empty states). In Date mode there are no sections, so a zero-result query shows a **single** "— No matches. —" line; the count + clear line is identical in both modes.
+
+### View toggle behavior
+- Clicking **Topic** / **Date** swaps the visible arrangement. The default on load is **Topic**.
+- **Recommended implementation:** render *both* arrangements server-side — the topic-grouped sections and the flat date list (with tags) — and the toggle swaps which one is shown (e.g. a `data-view` attribute on the list wrapper or a body class). With only 23 rows the duplicated markup is cheap and avoids client-side sort/reorder bugs. The filter targets whichever arrangement is visible; both carry the same `data-title` / `data-deck` so filter logic is shared.
+- The **featured pull shows in both modes** and **stays visible while filtering** in both.
+- Switching arrangements is an instant DOM swap — no animation (composed in stasis). An active filter query persists across a toggle (re-applied to the newly-visible arrangement).
+- The **H1 stays static** ("arranged by what it argues") regardless of mode — it states the writing's nature and the default order; the toggle's active state communicates the current sort. Do not rewrite the signature H1 per mode.
+
+### Filter & view motion (owner-requested, 2026-06-10)
+The instant show/hide felt abrupt; these soften it without breaking "composed in stasis" (they are in the spirit of the sanctioned 150ms hover and the 200ms light/dark cross-fade — fast, never showy):
+- **Filter (per row):** a filtered-out row **fades out first (150ms opacity)**, *then* collapses its height/padding (150ms, started after the fade) so the remaining rows **reflow up** smoothly. Filtering back in reverses (open height, then fade in). Implemented with a `.filtered-out` class and staggered CSS transitions (no `display:none` toggle). A collapsed row is removed from the a11y/tab order (`visibility: hidden`, delayed past the motion).
+- **View toggle (Topic ↔ Date):** a quick **cross-fade dip** — the active view fades out (~120ms), the arrangement swaps while invisible, the new view fades in (~120ms). Not a hard cut.
+- **Reduced motion:** under `prefers-reduced-motion: reduce` both become instant state swaps (global transition-zeroing for the filter; the view toggle short-circuits the dip). Verified.
 
 ---
 
@@ -113,13 +154,14 @@ The dotted leader is what makes a row read as a table-of-contents line rather th
 
 Static, data-driven marketing page — no loading/error states. The states that exist:
 
-1. **Default (no filter):** featured pull visible (unchanged); all three sections open with all rows; decks at rest — space reserved, `opacity: 0`.
-2. **Row hover/focus:** title color `--ink` → `--signature` red; deck revealed; 150ms color/opacity transition; focus ring on keyboard focus.
-3. **Filtering, matches present:** featured pull hidden; non-matching rows hidden; result count shown; clear control present.
-4. **Filtering, a section has zero matches:** that section shows "— No matches in {title}. —" in place of rows; other sections show their matches.
-5. **Filtering, zero matches site-wide:** every section shows its empty message; result line reads "— 0 essays · Clear —".
-6. **Reduced motion (`prefers-reduced-motion: reduce`):** all reveals/transitions become instant state swaps; no fades, no movement.
-7. **Responsive ≤880px (single column):**
+1. **Default (Topic view, no filter):** view toggle shows Topic active; featured pull visible (unchanged); all three sections open with all rows; decks at rest — space reserved, `opacity: 0`.
+2. **Date view (no filter):** toggle shows Date active; sections replaced by one flat newest→oldest list; every row carries a `TOPIC · QUARTER` meta cluster; featured still visible.
+3. **Row hover/focus:** title color `--ink` → `--signature` red; deck revealed; 150ms color/opacity transition; focus ring on keyboard focus. (Identical in both views; the topic tag does not turn red.)
+4. **Filtering, matches present:** featured pull **stays visible**; non-matching rows **fade out then collapse** (remaining rows reflow up); result count shown (count-only, no inline Clear); the in-field × clears. Works in whichever view is active.
+5. **Filtering, zero matches — Topic view:** each section shows "— No matches in {title}. —"; result line reads "— 0 essays · Clear —".
+6. **Filtering, zero matches — Date view:** a single "— No matches. —" line; result line reads "— 0 essays · Clear —".
+7. **Reduced motion (`prefers-reduced-motion: reduce`):** all reveals/transitions/view-swaps become instant state swaps; no fades, no movement.
+8. **Responsive ≤880px (single column):**
    - The `--gutter-mark` collapses; § numerals move inline above each section title (or to a compact inline position) rather than in a left gutter.
    - **Rows stack:** the title takes the full width; the **quarter moves below the title** (mono, left-aligned), joined by/replacing the deck on the meta line.
    - **Leader dots drop or simplify:** with the quarter no longer right-aligned on the same baseline, the dotted leader has nothing to span — drop it (or render a single short hairline). It is a desktop affordance; do not force it on a stacked phone row.
@@ -139,15 +181,19 @@ Pierce, arriving from a single trusted essay, scans `/writing` and reads it as *
 2. **Three topic groups kept, always open.** Rendered with big quiet § numerals in the left gutter (`§ 01 / § 02 / § 03`) and the existing `essaySections` descriptors. Never collapse. All collapse/expand/"hidden" machinery dropped. Newest-first within each group (current data order).
 3. **Per-row quarter kept** (right side, end of the leader). The fresh Q1 2026 dates do positioning work (proof of current writing) and, newest-first, sit atop each group; honest about the archive's age range.
 4. **Minimal inline filter kept, stripped down.** Type-to-filter across title + deck; hides non-matching rows; per-section empty message on zero matches; a simple result count + clear. No section-focus, no collapse states, no multi-part status string.
-5. **Featured-essay pull — UNCHANGED, out of scope (owner decision, 2026-06-10).** Leave the current built featured block exactly as is — markup, red mark, layout, and hide-on-filter behavior. The redesign does not touch it.
+5. **Featured-essay pull — markup/visual UNCHANGED; one behavior change (owner, 2026-06-10).** Leave the built featured block's markup, red mark, and layout exactly as is. The one change: it no longer hides while filtering — the featured pull is now **always visible** (a permanent highlight above the controls). Nothing else about it is touched.
 7. **Decks → hover/focus-reveal (Option A, approved 2026-06-10).** Wireframed against Option B (always-visible) and chosen: titles stay a calm scannable column; decks reveal on hover/focus with reserved space (no reflow). Option B rejected as reverting to a card-list.
+9. **Featured always visible + filter chrome (owner, 2026-06-10).** Featured no longer hides while filtering. The result line is count-only ("— N essays —"); the inline "Clear" link is removed (in-field × is the sole clear). Placeholder is "Filter essays" (no dashes) at 50% opacity, fading out on focus / back in on blur (150ms).
+10. **Filter & view motion (owner, 2026-06-10).** Filtered rows fade (150ms) then collapse so the rest reflow; the Topic↔Date toggle is a ~120ms cross-fade dip. Both instant under `prefers-reduced-motion`. Lightly extends "composed in stasis," in the spirit of the sanctioned hover/mode-toggle motion.
+
+8. **View toggle — Topic / Date (added 2026-06-10, owner request).** A quiet mono toggle in a controls band **below the featured pull, above the list** (with the filter), re-arranges the list: **Topic** (default — the three argued § sections, matching the H1) or **Date** (one flat newest→oldest list, each row tagged with its topic since the grouping is gone). Toggle is ink/underline chrome, no red. Recommended build: render both arrangements, swap visibility. H1 stays static across modes. Tag labels derived from `essaySections` (drop "On "). Choice persisted in `localStorage` (`uxward:writing-view`), restored on return.
 6. **RED ON HOVER — now the site-wide convention (owner decision, 2026-06-10).** An earlier draft removed the per-row red hover as a ration violation; the owner has instead **promoted red-on-hover to an official system rule.** Row titles — and all links/titles site-wide — shift `--ink` → `--signature` on hover/focus, color only (no WONK lean). Red now works in two registers: **event red** (the rationed, full-volume, persistent placements — the featured mark here, the home closing block, case bands) and **interaction red** (this transient hover/focus splash). `visual-direction.md` is updated to match — "never a hover state" is replaced by interaction-red as the standard accent. The featured pull keeps its one persistent earned-editorial mark. **Follow-up (outside this loop):** the home page currently hovers to `--tertiary` and should be switched to red to comply — a small `index.astro` edit, tracked in the design log.
 
 ---
 
 ## Open Questions
 
-1. **Leader-dot technique** (border-bottom dotted vs repeating-gradient dots) and its baseline alignment when titles wrap — a build-time visual detail to resolve against real Fraunces metrics; the wireframe approves the *pattern*, not the exact dot rendering.
+1. **Leader-dot technique** — RESOLVED (2026-06-10): `radial-gradient` dots (not a `dotted` border, which can't control gap), ~1px dot on an **8px period** (owner-tuned, wide/airy gap), baseline-aligned via `top: -0.22em`. Attaches to the last line when a title wraps.
 2. **"On AI" depth is a content gap, not a layout gap** — owner action item. The format treats a 2-row section as legitimate; growing it is the owner's to do.
 
 ---

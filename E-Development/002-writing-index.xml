@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<prd id="002" title="Writing index — typographic editorial redesign" project="uxward" created="2026-06-10" status="planned">
+<prd id="002" title="Writing index — typographic editorial redesign" project="uxward" created="2026-06-10" status="implemented">
 
   <overview>
     Covers Freya Work Order WO-003. A full redesign of the Writing index (/writing) from a
@@ -29,7 +29,7 @@
 
   <requirements>
 
-    <requirement id="002-REQ-001" type="interface" status="planned">
+    <requirement id="002-REQ-001" type="interface" status="implemented">
       <title>Editorial index structure — leader-dots rows + always-open sections</title>
       <description>
         Rewrite the body of src/pages/writing/index.astro so each essay renders as a single
@@ -51,7 +51,7 @@
         <criterion>The dotted leader is decorative only — not selectable text, not exposed to assistive tech, not matched by the filter.</criterion>
         <criterion>Three always-open sections render with § 01/02/03 gutter numerals, their titles, and descriptors: On Leadership (10), On Experience Design (11), On AI (2).</criterion>
         <criterion>No toggle &lt;button&gt;, aria-expanded attribute, toggle glyph, or .collapsed/"Hidden, click to expand" element exists anywhere in the rendered DOM.</criterion>
-        <criterion>The featured-essay pull is byte-for-byte the same markup/behavior as before this PRD (including its 3px --signature left border, red eyebrow, and hide-on-filter behavior).</criterion>
+        <criterion>The featured-essay pull markup is byte-for-byte the same as before this PRD (3px --signature left border, red eyebrow, deck, excerpt, CTA). [Its hide-on-filter behavior was later removed per REQ-007 — markup/visual unchanged.]</criterion>
         <criterion>The H1 "Writing, arranged by what it argues." and the intro ending "Quarterly. Long-form. No newsletter to sign up for." are present verbatim.</criterion>
         <criterion>npm run build passes; counts derive from essays.js (eyebrow shows the real total).</criterion>
       </acceptance>
@@ -61,7 +61,7 @@
       </refs>
     </requirement>
 
-    <requirement id="002-REQ-002" type="interface" status="planned">
+    <requirement id="002-REQ-002" type="interface" status="implemented">
       <title>Row hover/focus — red title + deck reveal (no reflow)</title>
       <description>
         On hover AND :focus-visible of a row, shift the title colour --ink → --signature (colour
@@ -86,7 +86,7 @@
       </refs>
     </requirement>
 
-    <requirement id="002-REQ-003" type="interface" status="planned">
+    <requirement id="002-REQ-003" type="interface" status="implemented">
       <title>Simplified filter — count + clear, per-section empty states</title>
       <description>
         Keep a quiet type-to-filter; strip the section-focus machinery. Match the trimmed,
@@ -95,8 +95,8 @@
         ONLY — e.g. "— 4 essays · Clear —" — with no "X shown", no "Section:" fragment, no
         multi-part status string. When a section has zero matches under the query, show a quiet
         italic "— No matches in {section title}. —" in place of its rows while still rendering its
-        head + § numeral. When the filter is active, the featured pull hides (keep the existing
-        body.is-filtered .featured { display:none } behavior). Remove state.activeSection, the
+        head + § numeral. [SUPERSEDED by REQ-007: the featured pull now stays visible while
+        filtering — the body.is-filtered hide behavior was removed.] Remove state.activeSection, the
         .collapsed toggling, the .section-toggle click handlers, and the "Clear all" multi-part hint.
       </description>
       <acceptance>
@@ -112,7 +112,7 @@
       </refs>
     </requirement>
 
-    <requirement id="002-REQ-004" type="interface" status="planned">
+    <requirement id="002-REQ-004" type="interface" status="implemented">
       <title>Responsive ≤880px — rows stack, leader dots drop</title>
       <description>
         At ≤880px: collapse the --gutter-mark column and move § numerals inline above each section
@@ -133,7 +133,7 @@
       </refs>
     </requirement>
 
-    <requirement id="002-REQ-005" type="interface" status="planned">
+    <requirement id="002-REQ-005" type="interface" status="implemented">
       <title>Site-wide hover convention — home page titles hover red</title>
       <description>
         Apply the new site-wide interaction-red convention to src/pages/index.astro: the home
@@ -154,10 +154,104 @@
       </refs>
     </requirement>
 
+    <requirement id="002-REQ-006" type="interface" status="implemented">
+      <title>View toggle — Topic / Date arrangement + controls band</title>
+      <description>
+        Add a Topic/Date view toggle and relocate the controls. (1) Move the filter OUT of the
+        masthead into a new controls band that sits between the featured pull and the list; the
+        band holds the view toggle (left) and the filter (right), with the result line beneath.
+        (2) The toggle is quiet mono — "— Arrange — Topic | Date" — two buttons with aria-pressed,
+        active state ink + underline, NO red (administrative chrome; inactive grey). (3) Render BOTH
+        arrangements server-side: #view-topic (the existing three § sections) and #view-date (one
+        flat list from essaysNewestFirst, no sections, each row carrying a topic tag in its meta
+        cluster as "TOPIC · QUARTER", tag derived from essaySections minus the "On " prefix). The
+        toggle swaps which view is visible via a data-view attribute. (4) The choice is persisted in
+        localStorage (key uxward:writing-view) and restored on load; default Topic. (5) The filter
+        operates on the visible view: per-section empty messages in Topic, a single "— No matches. —"
+        in Date; an active query persists across a toggle. The H1 stays static in both modes. The
+        featured pull shows in both modes and still hides while filtering. View swap is instant (no
+        animation). essays.js is not modified.
+      </description>
+      <acceptance>
+        <criterion>The filter no longer sits in the masthead; it and the view toggle live in a controls band between the featured pull and the first row, toggle left / filter right.</criterion>
+        <criterion>Toggle shows two options Topic|Date in mono; the active one is ink + underline, the inactive grey; neither is red; both are keyboard-operable with aria-pressed reflecting state.</criterion>
+        <criterion>Topic view renders the three § sections (unchanged). Date view renders one flat list, newest→oldest, with NO § sections and each row showing "TOPIC · QUARTER" (e.g. "EXPERIENCE DESIGN · Q2 2021").</criterion>
+        <criterion>Clicking Date then reloading the page returns to Date (persisted in localStorage); clearing storage / first visit shows Topic.</criterion>
+        <criterion>Filtering works in whichever view is active: Topic shows per-section empty messages, Date shows a single "— No matches. —"; the count+clear line is identical; featured hides while filtering in both.</criterion>
+        <criterion>The H1 "Writing, arranged by what it argues." is unchanged in both modes; hover/focus red+deck-reveal works on rows in both views; the topic tag does not turn red on hover.</criterion>
+        <criterion>npm run build passes; src/data/essays.js is unmodified; the featured pull markup is still byte-identical.</criterion>
+      </acceptance>
+      <refs>
+        <spec>D-UX-Design/writing-index.md</spec>
+        <wireframe>D-UX-Design/wireframes/writing-index.png</wireframe>
+      </refs>
+    </requirement>
+
+    <requirement id="002-REQ-007" type="interface" status="implemented">
+      <title>Step-7 review refinements — featured always-visible, filter chrome, filter/view motion</title>
+      <description>
+        Owner refinements during the step-7 design review (2026-06-10). (1) FEATURED ALWAYS VISIBLE:
+        the featured pull no longer hides while filtering — supersedes the hide-on-filter behavior
+        specified in REQ-003 (the body.is-filtered rule and class toggle are removed). (2) FILTER
+        CHROME: the result line is count-only ("— N essays —") — the inline "Clear" link is removed;
+        the in-field × is the sole clear affordance. The placeholder is "Filter essays" (no
+        surrounding dashes) at 50% opacity, fading to 0 on focus and back to 50% on blur (150ms).
+        (3) FILTER MOTION: filtered rows fade out (150ms opacity) then collapse height/padding
+        (150ms, delayed) so remaining rows reflow up — implemented via a .filtered-out class with
+        staggered transitions (no display:none toggle); collapsed rows leave the a11y/tab order
+        (visibility hidden, delayed past the motion). (4) VIEW MOTION: the Topic↔Date swap is a
+        ~120ms cross-fade dip (fade out active view, swap, fade in). (5) Both motions are instant
+        under prefers-reduced-motion. Also folded in earlier in the review: row-to-row dividers
+        removed; leader dots switched to a radial-gradient with a wide 8px gap.
+      </description>
+      <acceptance>
+        <criterion>Featured pull stays visible while filtering in both Topic and Date views.</criterion>
+        <criterion>Result line shows count only ("— N essays —"); no inline Clear link/button exists; the in-field × clears the input and restores all rows.</criterion>
+        <criterion>Placeholder is "Filter essays" (no dashes), 50% opacity at rest, fades to 0 on focus and back to 50% on blur.</criterion>
+        <criterion>A filtered-out row ends at opacity 0, max-height 0, visibility hidden (faded then collapsed); a kept row stays opaque; clearing restores all 23.</criterion>
+        <criterion>Topic↔Date toggle cross-fades (no hard cut); after settle the data-view is swapped, vw-leaving/vw-entering classes are cleaned up, and the shown view is fully opaque.</criterion>
+        <criterion>Under prefers-reduced-motion: reduce, both the filter and the view swap apply instantly (verified at ~80ms).</criterion>
+        <criterion>npm run build passes; essays.js unmodified; featured markup still byte-identical.</criterion>
+      </acceptance>
+      <refs>
+        <spec>D-UX-Design/writing-index.md</spec>
+        <wireframe>D-UX-Design/wireframes/writing-index.png</wireframe>
+      </refs>
+    </requirement>
+
   </requirements>
 
   <test-protocol>
-    <!-- Added at build time (Mode D), before browser verification. -->
+    <!-- Verified 2026-06-10 via Playwright/Chromium against `npm run preview` (localhost:4322).
+         26 automated assertions, all PASS — desktop 1440px, mobile 375px, light + dark, keyboard. -->
+    <test ref="002-REQ-001">
+      <steps>Load /writing. Count a.essay rows; count .section; read .essay-lead border-style + aria-hidden; grep DOM for section-toggle/aria-expanded/glyph on the sections; confirm featured markup + masthead lines present.</steps>
+      <expected>23 rows; 3 sections; leader border-bottom-style=dotted, aria-hidden=true; 0 accordion elements on sections (the aria-expanded/glyph in DOM belong to the site header, identical on /); featured pull + "arranged by what it argues" + "No newsletter to sign up for" present. PASS.</expected>
+    </test>
+    <test ref="002-REQ-002">
+      <steps>Read first deck opacity at rest. Hover row 1: read title color + deck opacity; compare document.scrollHeight before/after. Tab to first a.essay; after settle, read :focus-visible, title color, deck opacity, outline color. Repeat hover in dark mode (data-theme=dark).</steps>
+      <expected>Rest deck opacity=0. Hover: title rgb(204,0,6), deck opacity=1, scrollHeight 5164→5164 (no reflow). Keyboard focus: matches :focus-visible, title rgb(204,0,6), deck opacity=1, outline rgb(204,0,6). Dark: canvas rgb(18,18,18), hover title rgb(229,38,58), deck revealed. PASS.</expected>
+    </test>
+    <test ref="002-REQ-003">
+      <steps>Type "buffalo" → count visible rows, read #search-hint, read #featured display, check On AI section .no-matches + empty msg. Type "zzzqqq" → count visible + hint. Click #search-clear → count visible + featured display.</steps>
+      <expected>"buffalo": 1 visible, hint "— 1 essay · Clear —" (no Section/shown), featured display:none, On AI shows empty message. "zzzqqq": 0 visible, hint "— 0 essays · Clear —". Clear: 23 visible, featured display:block. PASS.</expected>
+    </test>
+    <test ref="002-REQ-004">
+      <steps>At 375px load /writing. Read .essay-lead display; compare quarter.top vs title.bottom within a row; check document.scrollingElement.scrollWidth ≤ innerWidth.</steps>
+      <expected>Leader display:none; quarter sits below title; no horizontal overflow at 375px. PASS.</expected>
+    </test>
+    <test ref="002-REQ-005">
+      <steps>Load /. Hover .case .title and .essay .title; read computed color.</steps>
+      <expected>Both hover to rgb(204,0,6) signature (light); resolves to the dark signature in dark mode via the token. PASS. (Global a:hover remains tertiary by design — only title hovers were promoted, per PRD scope.)</expected>
+    </test>
+    <test ref="002-REQ-006">
+      <steps>Load /writing. Check controls band order (featured→controls→list), filter out of head. Read toggle default (Topic active+ink+underline, aria-pressed; no red). Click Date: assert topic hidden / date shown, 0 sections, 23 flat rows, first meta "TOPIC · QUARTER" newest-first. Reload → expect Date (localStorage). Filter per view; hover a Date row.</steps>
+      <expected>Controls between featured and list; filter in controls not head. Topic default active, Date grey, neither red. Date = 23 flat rows, "Experience Design · Q1 2026" first. Persists across reload. Filter scoped to active view (Topic per-section empty, Date single empty). Date hover → title red + deck, tag stays grey. H1 unchanged. 18/18 PASS.</expected>
+    </test>
+    <test ref="002-REQ-007">
+      <steps>Filter "buffalo" (settle 450ms): count visible by !.filtered-out, read result line + featured display, read a filtered-out row's opacity/max-height/visibility. Clear via × → recount. Toggle Date (settle): read data-view, vw-* leftover classes, #view-date opacity. Placeholder: read ::placeholder opacity at rest / focus / blur. Reduced-motion context: filter + toggle, check at 80ms.</steps>
+      <expected>1 visible; "— 1 essay —" (no Clear button); featured display:block. filtered-out row opacity 0 / max-height 0px / visibility hidden; kept row opacity 1; clear restores 23. After toggle: data-view=date, no vw-leaving/vw-entering, #view-date opacity 1, topic display:none. Placeholder 0.5 → 0 (focus) → 0.5 (blur). Reduced-motion: 1 visible and view=date already at 80ms. 21/21 PASS (consolidated final suite).</expected>
+    </test>
   </test-protocol>
 
 </prd>
