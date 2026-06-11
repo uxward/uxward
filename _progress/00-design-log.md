@@ -9,17 +9,21 @@ WDS strategic process log. Most recent at top.
 | A — Product Brief | ✓ complete (2026-06-08) |
 | B — Trigger Map | ✓ complete (2026-06-08) |
 | C — UX Scenarios | ✓ complete (2026-06-09) |
-| D — UX Design | ⏳ Home fold ✓ complete (reviewed + tokens); other scenario pages remain as-built |
+| D — UX Design | ✓ complete (2026-06-10) — all scenario pages designed then built; Home fold formally specced (reviewed + tokens), rest designed-in-build |
 | E — Development | ✓ PRD 001 built, reviewed, merged to master (REQ-009/010 await assets) |
 
 ## Current
 
-**Freya — UX Design (Design Loop).** Home page, the fold (audit finding #1, proof-below-fold).
+**Freya — UX Design (Design Loop): Writing Index redesign.** Replacing the accordion/collapse list with a typographic editorial index (table-of-contents leader-dots pattern). Spec written; awaiting owner read before wireframe.
+
+**System decision (2026-06-10): red-on-hover is now the site-wide convention.** Owner promoted red from "never a hover state" to the standard link/title hover & focus color. `visual-direction.md` updated — red now has two registers: *event red* (rationed full-volume placements) and *interaction red* (transient hover splash). **Follow-up (outside this loop):** home page `index.astro` cases/essays/links currently hover to `--tertiary` and should switch to `--signature` to comply.
 
 Design Loop Status:
 | Page | Status |
 |---|---|
-| Home (fold) | ✓ T — complete. Built (REQ-007), browser-reviewed, tokens extracted. Direction C (REQ-008) descoped; finding #1 delivered by the proof-forward deck. |
+| Writing Index | ⏳ ✓S → B — spec approved + synced, **WO-003 written** (`E-Development/WO-003-writing-index.md`). Decks → Option A (hover-reveal). Featured pull untouched (out of scope). Red hover site-wide. Next: wake Mimir to build. |
+| Home (fold) | ✓ complete. Built (REQ-007), browser-reviewed, tokens extracted. Direction C (REQ-008) descoped; finding #1 delivered by the proof-forward deck. |
+| About · Colophon · Contact · Work (index + 6 cases) | ✓ designed-in-build — live and accepted as-built; no separate spec file. |
 
 Direction shipped: **A** — proof-forward deck (leads with Speakeazy "live to real users since Jan 2026", inline link to the case). **C descoped** (H1 drives fold height; not worth altering the signature H1).
 
@@ -30,6 +34,15 @@ Deliverables: `D-UX-Design/home.md` (spec), `wireframes/home.excalidraw` + `home
 **Still open (assets from Brandon):** About portrait + 3 Speakeazy artifact images → Mimir REQ-009/010.
 
 ## Log
+
+### 2026-06-10 — UX Design: Writing Index redesign + red-hover system decision — Freya
+Owner asked for a UX/UI elevation pass; took the Writing page through the full Design Loop. Replaced the accordion/collapse list with a **typographic editorial index** (table-of-contents leader-dots: title · dotted leader · quarter, three always-open argued sections with § numerals). Discuss → 3 decisions locked (topic groups / keep quarter / minimal filter) → spec (`D-UX-Design/writing-index.md`) → wireframe (`wireframes/writing-index.png`, two deck options) → approved: **Option A** (decks reveal on hover/focus, space reserved, reduced-motion safe).
+
+**System decision:** owner promoted **red-on-hover to the site-wide convention** (was forbidden — "never a hover state"). `visual-direction.md` updated: red now has two registers — *event red* (rationed, persistent, full-volume) vs *interaction red* (transient hover/focus splash). Writing rows + pivot hover ink→signature; home page to follow (bundled into WO-003 §B).
+
+**Featured pull:** owner directed it be left **exactly as built** — out of scope, do-not-touch (stated 3× in spec + WO).
+
+Handoff: **WO-003** written (`E-Development/WO-003-writing-index.md`) — full redesign of `src/pages/writing/index.astro` + small site-wide hover edit on `index.astro`; `essays.js` and masthead voice untouched. Open (non-blocking): exact leader-dot rendering (build judgment); "On AI" only 2 essays (owner content gap). Next: wake Mimir to build.
 
 ### 2026-06-09 — Build: PRD 001 (credibility quick wins + home fold) — Mimir
 Tech audit → master PRD → feature PRD 001 → build loop on branch `build/credibility-and-fold` (7 commits, one per requirement, browser/build-verified).

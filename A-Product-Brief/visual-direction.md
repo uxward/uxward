@@ -32,7 +32,11 @@
 
 ## Color Direction
 
-**Red means "this matters."** The signature red is an *event*, not ornament — rationed across the whole site to five sanctioned places, and when it appears it appears at full volume. Never a button color, never a hover state, never a recurring divider, never body copy (it fails AA at small sizes on white — which is *why* it's never body).
+**Red means "this matters."** The signature red works in two registers:
+- **Event red** — an *event*, not ornament. Rationed across the whole site to the five sanctioned places below, persistent and often full-bleed, and when it appears it appears at full volume.
+- **Interaction red** — the standard link/title **hover & focus** color, site-wide (owner decision, 2026-06-10). A transient splash that reverts the instant the cursor leaves. The focus ring is already 2px `--signature`; hover now matches.
+
+Red is still **never a button fill, never a recurring divider, never body copy** (it fails AA at small sizes on white — which is *why* it's never body). Event red stays special by being persistent and full-volume, not by being the only red on the page.
 
 **Tokens — light mode (authoritative, from `global.css`):**
 
@@ -48,7 +52,7 @@
 
 **Tokens — dark mode:** `--canvas #121212` · `--ink #FFFFFF` · `--body #E8E6E1` (warm off-white, avoids cold cast) · `--tertiary #9A958C` · `--rule #2A2A2A` · `--paper #1A1A1A` · `--signature #E5263A` (retuned hotter for the dark canvas).
 
-**Five sanctioned uses of red:**
+**Five sanctioned uses of *event* red** (full-volume, persistent — distinct from the systemic interaction-red hover above):
 1. Homepage — the closing "Currently considering" full-bleed block (the single most important recruiter signal).
 2. Work index — a red marker on the hero case **only** (now Speakeazy, per the resolved hero decision); other cases stay neutral.
 3. Case studies — one red full-bleed band per case, carrying the most consequential outcome, white type on red.
