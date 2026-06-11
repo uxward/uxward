@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prd id="002" title="Writing index — typographic editorial redesign" project="uxward" created="2026-06-10" status="planned">
+
+  <overview>
+    Covers Freya Work Order WO-003. A full redesign of the Writing index (/writing) from a
+    collapsible accordion list into a typographic editorial index — a serious archive's table
+    of contents. Each essay becomes one row: serif title (left), a dotted hairline leader, and
+    the mono quarter (right). The three argued sections (On Leadership / On Experience Design /
+    On AI) become always-open with big quiet § numerals; all accordion/collapse/section-focus
+    machinery is removed. On hover or keyboard focus a row's title turns signature red and its
+    deck reveals beneath (no layout shift). The search filter is simplified to a quiet
+    type-to-filter (count + clear, per-section empty states).
+
+    This PRD also carries one small site-wide change: the owner promoted red-on-hover to the
+    standard link/title hover convention (visual-direction.md updated), so the home page's
+    title hovers move from tertiary grey to signature red to match /writing.
+
+    No backend work — static Astro site, one file rewritten (src/pages/writing/index.astro) plus
+    a surgical hover-colour edit on src/pages/index.astro. The essays data file (src/data/essays.js)
+    and the masthead voice are explicitly out of scope and must not change. The featured-essay
+    pull on /writing is left exactly as built (owner directive).
+  </overview>
+
+  <scope>
+    <scenarios>03-pierce-the-peer (primary), 01-vivian-the-vp + 02-tessa-the-talent-partner (pass-through)</scenarios>
+    <views>Writing index (/writing) — full redesign; Home (/) — hover-colour only</views>
+    <platform>None. Static site. Reads existing src/data/essays.js; no data, API, or DB work.</platform>
+  </scope>
+
+  <requirements>
+
+    <requirement id="002-REQ-001" type="interface" status="planned">
+      <title>Editorial index structure — leader-dots rows + always-open sections</title>
+      <description>
+        Rewrite the body of src/pages/writing/index.astro so each essay renders as a single
+        table-of-contents row: an &lt;a&gt; to /writing/&lt;slug&gt; containing the serif title
+        (rendered with set:html to preserve the &lt;em&gt; clause, --ink at rest), a flexible
+        dotted hairline leader in --rule (decorative, aria-hidden/pure-CSS, never real text),
+        and the mono quarter right-aligned (--tertiary, e.g. "Q4 2014"). Render the three
+        sections from essaySections + essays (already grouped, newest-first within each) as
+        ALWAYS-OPEN: each with a big quiet § numeral in the gutter (§ 01/02/03), the &lt;h2&gt;
+        title, the existing descriptor, and a --rule hairline. Remove the &lt;button class="section-toggle"&gt;,
+        aria-expanded, the toggle glyph, and the .collapsed / .section-collapsed-msg /
+        "Hidden. Click to expand." machinery entirely. Per-row deck text is rendered but hidden
+        at rest (revealed in REQ-002); mirror plain title + deck onto data-title / data-deck via
+        plainTitle() for the filter. Keep the masthead (eyebrow, H1, intro) and the /about pivot;
+        keep the featured pull EXACTLY as built.
+      </description>
+      <acceptance>
+        <criterion>Each of the 23 essays renders as one row: serif title (left) · dotted --rule leader · mono quarter (right).</criterion>
+        <criterion>The dotted leader is decorative only — not selectable text, not exposed to assistive tech, not matched by the filter.</criterion>
+        <criterion>Three always-open sections render with § 01/02/03 gutter numerals, their titles, and descriptors: On Leadership (10), On Experience Design (11), On AI (2).</criterion>
+        <criterion>No toggle &lt;button&gt;, aria-expanded attribute, toggle glyph, or .collapsed/"Hidden, click to expand" element exists anywhere in the rendered DOM.</criterion>
+        <criterion>The featured-essay pull is byte-for-byte the same markup/behavior as before this PRD (including its 3px --signature left border, red eyebrow, and hide-on-filter behavior).</criterion>
+        <criterion>The H1 "Writing, arranged by what it argues." and the intro ending "Quarterly. Long-form. No newsletter to sign up for." are present verbatim.</criterion>
+        <criterion>npm run build passes; counts derive from essays.js (eyebrow shows the real total).</criterion>
+      </acceptance>
+      <refs>
+        <spec>D-UX-Design/writing-index.md</spec>
+        <wireframe>D-UX-Design/wireframes/writing-index.png</wireframe>
+      </refs>
+    </requirement>
+
+    <requirement id="002-REQ-002" type="interface" status="planned">
+      <title>Row hover/focus — red title + deck reveal (no reflow)</title>
+      <description>
+        On hover AND :focus-visible of a row, shift the title colour --ink → --signature (colour
+        only — no weight/style/position change, no WONK lean) and reveal the essay's deck (quiet
+        serif italic) beneath the title. Use a 150ms (--t-fast) colour transition. Prevent layout
+        shift by reserving the deck's vertical space at rest (deck rendered, opacity:0, fading to
+        1 on hover/focus). Under prefers-reduced-motion: reduce, swap opacity instantly (no fade).
+        Keyboard parity is mandatory: focus produces the identical red+deck state plus the standard
+        2px --signature focus ring. The /about pivot hover also moves to --signature (was tertiary).
+      </description>
+      <acceptance>
+        <criterion>Hovering a row turns its title --signature red (colour only) and shows its deck; both revert on mouse-out.</criterion>
+        <criterion>Hovering a mid-list row causes NO vertical movement of the rows below it (space reserved).</criterion>
+        <criterion>Tabbing to a row by keyboard shows the identical red-title + deck-revealed state plus a 2px --signature focus ring; every row is reachable in DOM order.</criterion>
+        <criterion>With prefers-reduced-motion: reduce, the colour/deck change is instant (no fade); no movement.</criterion>
+        <criterion>The /about pivot link hovers to --signature red, not tertiary.</criterion>
+        <criterion>Hover red works correctly in both light and dark mode.</criterion>
+      </acceptance>
+      <refs>
+        <spec>D-UX-Design/writing-index.md</spec>
+        <wireframe>D-UX-Design/wireframes/writing-index.png</wireframe>
+      </refs>
+    </requirement>
+
+    <requirement id="002-REQ-003" type="interface" status="planned">
+      <title>Simplified filter — count + clear, per-section empty states</title>
+      <description>
+        Keep a quiet type-to-filter; strip the section-focus machinery. Match the trimmed,
+        lowercased query against each row's data-title + data-deck; set hidden on non-matching
+        rows; empty query shows all rows. The result line (aria-live="polite") shows count + clear
+        ONLY — e.g. "— 4 essays · Clear —" — with no "X shown", no "Section:" fragment, no
+        multi-part status string. When a section has zero matches under the query, show a quiet
+        italic "— No matches in {section title}. —" in place of its rows while still rendering its
+        head + § numeral. When the filter is active, the featured pull hides (keep the existing
+        body.is-filtered .featured { display:none } behavior). Remove state.activeSection, the
+        .collapsed toggling, the .section-toggle click handlers, and the "Clear all" multi-part hint.
+      </description>
+      <acceptance>
+        <criterion>Typing filters rows live: non-matching rows are hidden; clearing restores all rows, the featured pull, and focus to the input.</criterion>
+        <criterion>The result line shows only a count + clear control (e.g. "— 4 essays · Clear —"); no "Section:" or "X shown" text appears.</criterion>
+        <criterion>A query matching nothing in one section shows "— No matches in {title}. —" under that section's still-visible head; other sections show their matches.</criterion>
+        <criterion>A query matching nothing site-wide shows the empty message in all three sections and "— 0 essays · Clear —".</criterion>
+        <criterion>No section-focus, collapse, or activeSection code path remains in the page script.</criterion>
+      </acceptance>
+      <refs>
+        <spec>D-UX-Design/writing-index.md</spec>
+        <wireframe>D-UX-Design/wireframes/writing-index.png</wireframe>
+      </refs>
+    </requirement>
+
+    <requirement id="002-REQ-004" type="interface" status="planned">
+      <title>Responsive ≤880px — rows stack, leader dots drop</title>
+      <description>
+        At ≤880px: collapse the --gutter-mark column and move § numerals inline above each section
+        title; stack rows so the title takes full width and the quarter moves below the title
+        (mono, left-aligned); drop the dotted leader (or render a single short hairline) since the
+        quarter is no longer right-aligned on the same baseline; make the filter input full-width
+        and left-align the result line.
+      </description>
+      <acceptance>
+        <criterion>At 375px wide there is no horizontal scroll and no overlap; rows are stacked with the quarter beneath the title.</criterion>
+        <criterion>The leader dots are not rendered as a spanning element on stacked phone rows.</criterion>
+        <criterion>§ numerals remain visible (inline) and the filter input is full-width.</criterion>
+        <criterion>Hover/focus reveal (REQ-002) still works where a pointer/keyboard is available at small widths.</criterion>
+      </acceptance>
+      <refs>
+        <spec>D-UX-Design/writing-index.md</spec>
+        <wireframe>D-UX-Design/wireframes/writing-index.png</wireframe>
+      </refs>
+    </requirement>
+
+    <requirement id="002-REQ-005" type="interface" status="planned">
+      <title>Site-wide hover convention — home page titles hover red</title>
+      <description>
+        Apply the new site-wide interaction-red convention to src/pages/index.astro: the home
+        page's title hovers currently go to --tertiary; change them to --signature so the home
+        page matches /writing. Specifically the case-card title hover (.case:hover .title) and the
+        recent-essay title hover (.essay:hover .title), plus any other link/title hover currently
+        resolving to --tertiary. Surgical — hover COLOUR only. Do not touch the fold, the §06
+        red-bleed block, layout, or copy.
+      </description>
+      <acceptance>
+        <criterion>On the home page, hovering a case-card title and a recent-essay title turns the title --signature red (not tertiary).</criterion>
+        <criterion>No other home-page change: fold, red-bleed, layout, and copy are untouched (diff is hover-colour declarations only).</criterion>
+        <criterion>Home page still builds and renders identically except for hover colour; works in light and dark mode.</criterion>
+      </acceptance>
+      <refs>
+        <spec>A-Product-Brief/visual-direction.md (red registers); E-Development/WO-003-writing-index.md §B</spec>
+        <wireframe></wireframe>
+      </refs>
+    </requirement>
+
+  </requirements>
+
+  <test-protocol>
+    <!-- Added at build time (Mode D), before browser verification. -->
+  </test-protocol>
+
+</prd>
