@@ -324,6 +324,16 @@ import { essays, essaySections, plainTitle } from '../../data/essays.js';
     }
     a.essay[hidden] { display: none; }
 
+    /* REQ-002 — hover / focus: title → red, deck reveals (space already reserved) */
+    a.essay:hover .essay-title,
+    a.essay:focus-visible .essay-title { color: var(--signature); }
+    a.essay:hover .essay-deck,
+    a.essay:focus-visible .essay-deck { opacity: 1; }
+    a.essay:focus-visible {
+      outline: 2px solid var(--signature);
+      outline-offset: 3px;
+    }
+
     .pivot {
       padding: var(--space-9) 0;
       border-top: 1px solid var(--rule);
@@ -366,7 +376,8 @@ import { essays, essaySections, plainTitle } from '../../data/essays.js';
       max-width: 520px;
       font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
     }
-    .pivot-link:hover .label { color: var(--tertiary); }
+    .pivot-link:hover .label,
+    .pivot-link:focus-visible .label { color: var(--signature); }
 
     @media (max-width: 880px) {
       .head-grid { grid-template-columns: 1fr; }
