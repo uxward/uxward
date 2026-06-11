@@ -34,7 +34,7 @@
 
 **Red means "this matters."** The signature red works in two registers:
 - **Event red** — an *event*, not ornament. Rationed across the whole site to the five sanctioned places below, persistent and often full-bleed, and when it appears it appears at full volume.
-- **Interaction red** — the standard link/title **hover & focus** color, site-wide (owner decision, 2026-06-10). A transient splash that reverts the instant the cursor leaves. The focus ring is already 2px `--signature`; hover now matches.
+- **Interaction red** — the **universal hover & focus color, site-wide** (owner decision 2026-06-10; extended to *all* hovers 2026-06-11). Every interactive element that changes text colour on hover — body links, nav, footer, breadcrumbs, back-links, the view toggle, controls — resolves to `--signature`. A transient splash that reverts the instant the cursor leaves; the focus ring is already 2px `--signature`.
 
 Red is still **never a button fill, never a recurring divider, never body copy** (it fails AA at small sizes on white — which is *why* it's never body). Event red stays special by being persistent and full-volume, not by being the only red on the page.
 
