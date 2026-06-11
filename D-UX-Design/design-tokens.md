@@ -14,7 +14,7 @@ Source of truth is `src/styles/global.css` (the implemented token set). This reg
 | color-paper | #FAF8F4 | #1A1A1A | global.css |
 | color-signature | #CC0006 | #E5263A | global.css |
 
-Note (**updated 2026-06-10**): signature red now works in **two registers** (see `A-Product-Brief/visual-direction.md`) — **event red** (rationed, persistent, full-volume placements) and **interaction red** (the standard link/title **hover & focus** colour, site-wide). *This supersedes the earlier note that red was "never a link/button/hover color."* Still never a button fill, divider, or body copy. On the Writing index: row titles + the `/about` pivot hover to signature; the view-toggle chrome deliberately does **not** use red.
+Note (**updated 2026-06-10**): signature red now works in **two registers** (see `A-Product-Brief/visual-direction.md`) — **event red** (rationed, persistent, full-volume placements) and **interaction red** (the standard link/title **hover & focus** colour, site-wide). *This supersedes the earlier note that red was "never a link/button/hover color."* Still never a button fill, divider, or body copy. As of 2026-06-11 **every** hover that changes text colour resolves to signature site-wide (links, nav, footer, breadcrumbs, back-links, controls). The view-toggle's *active/resting* state still uses ink/underline (no red), but its hover follows the universal convention.
 
 ## Typography
 Two families only: **Fraunces** (`--font-serif`, all editorial type), **JetBrains Mono** (`--font-mono`, meta/labels).

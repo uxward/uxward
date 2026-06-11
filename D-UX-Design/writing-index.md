@@ -50,7 +50,7 @@ A quiet two-state control that re-arranges the list — **Topic** (default) or *
 - Form: a mono `— Arrange —` label, then two options **`Topic`** and **`Date`** separated by a thin `|` divider (the em-dash → vertical-bar motif). Active option in `--ink`; inactive in `--tertiary`; the active one carries a 1px underline. `--font-mono`, ~11px, 0.22em tracking, uppercase — the same administrative voice as the eyebrow.
 - Implemented as two `<button>`s (or one toggle) with `aria-pressed` reflecting the active arrangement; keyboard-operable; focus ring per the global floor.
 - **Default is Topic** on first-ever load — it matches the H1 ("arranged by what it argues") and is the recommended reading order. The last choice is **persisted in `localStorage`** (key `uxward:writing-view`, like the theme toggle) and restored on return; with no stored value, Topic.
-- **No red.** The toggle is administrative chrome; its active state is ink/underline, not signature. (Red stays the hover/focus splash + the featured event-mark.)
+- **Active/resting state uses no red** — the active option is ink + underline, inactive grey (administrative chrome). Its **hover** follows the universal red convention (2026-06-11). Red is otherwise the hover/focus splash + the featured event-mark.
 
 ### `writing-index-date-list` (the Date arrangement)
 When Date is active, the three `writing-index-section` groups are replaced by **one flat list**, newest → oldest, from `essaysNewestFirst` (already sorted by quarter descending, stable). No section heads, no § numerals — a single continuous run of rows.

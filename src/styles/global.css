@@ -108,7 +108,7 @@ a, .link {
   text-underline-offset: 3px;
   transition: color var(--t-fast) ease;
 }
-a:hover, .link:hover { color: var(--tertiary); }
+a:hover, .link:hover { color: var(--signature); }
 a:focus-visible, .link:focus-visible {
   outline: 2px solid var(--signature);
   outline-offset: 3px;
@@ -193,7 +193,7 @@ nav.hdr-nav { display: flex; gap: 28px; align-items: baseline; }
   color: var(--ink);
   text-decoration: none;
 }
-.hdr-nav a:hover { color: var(--tertiary); }
+.hdr-nav a:hover { color: var(--signature); }
 .toggle {
   font-family: var(--font-serif);
   font-size: 20px;
@@ -206,7 +206,7 @@ nav.hdr-nav { display: flex; gap: 28px; align-items: baseline; }
   transition: color var(--t-fast) ease;
   display: inline-block;
 }
-.toggle:hover { color: var(--tertiary); }
+.toggle:hover { color: var(--signature); }
 .toggle-glyph {
   display: inline-block;
   transition: transform var(--t-mode) ease;
@@ -270,7 +270,7 @@ nav.hdr-nav { display: flex; gap: 28px; align-items: baseline; }
   color: var(--ink);
   padding: 0 4px;
 }
-.menu-close:hover { color: var(--tertiary); }
+.menu-close:hover { color: var(--signature); }
 .nav-overlay-menu {
   display: flex;
   flex-direction: column;
@@ -286,7 +286,7 @@ nav.hdr-nav { display: flex; gap: 28px; align-items: baseline; }
   padding: var(--space-5) 0;
   border-bottom: 1px solid var(--rule);
 }
-.nav-overlay-menu a:hover { color: var(--tertiary); }
+.nav-overlay-menu a:hover { color: var(--signature); }
 
 @media (max-width: 720px) {
   nav.hdr-nav { display: none; }
@@ -310,7 +310,7 @@ nav.hdr-nav { display: flex; gap: 28px; align-items: baseline; }
   width: 100%;
   transition: color var(--t-fast) ease, transform var(--t-mode) ease;
 }
-.nav-overlay-menu .toggle:hover { color: var(--tertiary); }
+.nav-overlay-menu .toggle:hover { color: var(--signature); }
 
 /* ============================================================
    Footer
@@ -341,7 +341,7 @@ footer.foot {
   color: var(--ink);
   text-decoration: none;
 }
-.foot-nav a:hover, .foot-ext a:hover { color: var(--tertiary); }
+.foot-nav a:hover, .foot-ext a:hover { color: var(--signature); }
 .foot-ext { display: flex; gap: 18px; justify-content: flex-end; }
 .colophon-line {
   margin-top: var(--space-8);
