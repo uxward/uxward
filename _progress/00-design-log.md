@@ -10,7 +10,7 @@ WDS strategic process log. Most recent at top.
 | B — Trigger Map | ✓ complete (2026-06-08) |
 | C — UX Scenarios | ✓ complete (2026-06-09) |
 | D — UX Design | ✓ complete (2026-06-10) — all scenario pages designed then built; Home fold formally specced (reviewed + tokens), rest designed-in-build |
-| E — Development | ✓ PRD 001 built, reviewed, merged to master (REQ-009/010 await assets) |
+| E — Development | ✓ PRD 001 + PRD 002 (Writing index) merged to master. REQ-009 portrait done (2026-06-11). REQ-010 (Speakeazy artifacts) still asset-blocked. |
 
 ## Current
 
@@ -21,7 +21,7 @@ WDS strategic process log. Most recent at top.
 Design Loop Status:
 | Page | Status |
 |---|---|
-| Writing Index | ✓ complete (R+T) — built, browser-reviewed (step-7, 21/21), tokens extracted (step-8). PRD 002 REQ-001..007 implemented. Step-7 batch: leader-dots TOC, Topic/Date toggle (persisted), controls band below featured, featured stays visible while filtering, count-only filter (× only), placeholder fade, filter+view motion. Ready to merge `build/writing-index` → master. |
+| Writing Index | ✓ complete + **merged to master** (R+T). PRD 002 REQ-001..007: leader-dots TOC, Topic/Date toggle (persisted), controls band below featured, featured stays visible while filtering, count-only filter (× only), placeholder fade, filter+view motion. 21/21 browser checks; tokens extracted. |
 | Home (fold) | ✓ complete. Built (REQ-007), browser-reviewed, tokens extracted. Direction C (REQ-008) descoped; finding #1 delivered by the proof-forward deck. |
 | About · Colophon · Contact · Work (index + 6 cases) | ✓ designed-in-build — live and accepted as-built; no separate spec file. |
 
@@ -31,9 +31,14 @@ Step-7 review: deck/link/H1/voice all match spec; inline link is ink (not red), 
 
 Deliverables: `D-UX-Design/home.md` (spec), `wireframes/home.excalidraw` + `home.png`, `design-tokens.md` (registry seeded from global.css — 0 new tokens from the fold).
 
-**Still open (assets from Brandon):** About portrait + 3 Speakeazy artifact images → Mimir REQ-009/010.
+**Still open (assets from Brandon):** 3 Speakeazy artifact images → Mimir REQ-010. *(About portrait REQ-009 done 2026-06-11.)*
 
 ## Log
+
+### 2026-06-11 — Writing index merged + About portrait — Freya/Mimir
+PRD 002 (Writing index editorial redesign) closed the full loop — built, step-7 reviewed (21/21 browser checks across desktop/mobile/light/dark/keyboard/reduced-motion), step-8 tokens extracted — and **merged to master** (`build/writing-index`). Final feature set: leader-dots TOC, Topic/Date view toggle (persisted in localStorage, cross-fade), controls band below the featured pull, featured stays visible while filtering, count-only filter with in-field ×, placeholder fade, and filter fade+reflow motion. New token-registry patterns: leader-dots-row, view-toggle, controls-band, topic-tag, list-filter-motion (+ t-quick 120ms candidate).
+
+**REQ-009 unblocked:** Brandon supplied the About portrait (`public/images/BrandonEBWard-006.jpg`, 1200×1712). Wired into About §01 in a 1px rule frame at natural aspect; placeholder removed; merged (`build/about-portrait`). Only REQ-010 (Speakeazy artifact images) remains asset-blocked.
 
 ### 2026-06-10 — UX Design: Writing Index redesign + red-hover system decision — Freya
 Owner asked for a UX/UI elevation pass; took the Writing page through the full Design Loop. Replaced the accordion/collapse list with a **typographic editorial index** (table-of-contents leader-dots: title · dotted leader · quarter, three always-open argued sections with § numerals). Discuss → 3 decisions locked (topic groups / keep quarter / minimal filter) → spec (`D-UX-Design/writing-index.md`) → wireframe (`wireframes/writing-index.png`, two deck options) → approved: **Option A** (decks reveal on hover/focus, space reserved, reduced-motion safe).
