@@ -15,7 +15,7 @@ export const slate = [
     title: 'Speakeazy — the tool that <em>should have existed.</em>',
     deck: 'AI-native dialogue attribution and character analysis for audiobook narrators. I went looking for a tool to do the unpaid prep, found that none existed, and built one myself — three abandoned prototypes, a two-week ground-up rewrite, launched to real users in January 2026.',
     eyebrow: '2025 — Present · Designer & developer · Solo',
-    pullout: "You can't learn on page 200 that the character you've voiced as a man for <em>199 pages</em> is a woman.",
+    pullout: "You can't learn on page 200 that the character you've voiced <em>en français</em> for 199 pages is from Paris, Texas.",
     stamps: ['Solo build', '3 prototypes → 1 product', 'Live January 2026'],
   },
   {
