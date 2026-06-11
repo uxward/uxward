@@ -68,7 +68,7 @@ The Service Design of Nest. ··························
 - **Leader** (center): a flexible hairline **dotted leader** in `--rule`, baseline-aligned to the title's last line, filling the space between the end of the title and the right-aligned quarter. See Behavior for the technique.
 - **Quarter** (right): `--font-mono`, ~10.5px, 0.22em tracking, uppercase, `--tertiary`, right-aligned — e.g. "Q4 2014". Kept per Resolved Decisions #3.
 - **Deck** (the reward): the essay's `deck` in quiet serif italic, **revealed on hover/focus** below the title (see Behavior). The plain-text title and deck are mirrored onto `data-title` / `data-deck` for the filter (via `plainTitle()`), as today.
-- Rows are separated by hairline `--rule`; the last row in a section drops its border.
+- Rows are separated by **whitespace only — no hairline divider between articles** (owner decision, 2026-06-10, during step-7 review). The leader dots and row padding carry the separation; the only rules that remain are the section-head hairline and the section-to-section border.
 
 ### `writing-index-pivot`
 The closing pivot to `/about` (the route exists today). Unchanged in intent.
