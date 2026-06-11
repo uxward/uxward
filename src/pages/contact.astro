@@ -81,19 +81,26 @@ import Base from '../layouts/Base.astro';
     }
     .bleed a.email {
       margin-top: var(--space-9);
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4em;
       font-family: var(--font-serif);
       font-weight: 300;
       font-size: clamp(28px, 3.4vw, 44px);
       line-height: 1.1;
       letter-spacing: -0.015em;
       color: #FFFFFF;
+      font-variation-settings: 'opsz' 96, 'SOFT' 30;
+    }
+    .bleed a.email .email-text {
       text-decoration: underline;
       text-decoration-thickness: 1px;
       text-underline-offset: 8px;
-      font-variation-settings: 'opsz' 96, 'SOFT' 30;
     }
+    .bleed a.email .send-ico { width: 0.82em; height: 0.82em; }
     .bleed a.email:hover { color: rgba(255,255,255,0.82); }
+    .bleed a.email:hover .send-icon,
+    .bleed a.email:focus-visible .send-icon { animation: send-fly 0.5s ease; }
     .bleed .kicker {
       font-family: var(--font-mono);
       font-size: 11px;
@@ -245,7 +252,10 @@ import Base from '../layouts/Base.astro';
         <div>
           <div class="eyebrow">— Currently considering —</div>
           <h2>Senior design leadership roles. <em>Direct line below.</em></h2>
-          <a class="email" href="mailto:brandon@uxward.com">brandon@uxward.com</a>
+          <a class="email" href="mailto:brandon@uxward.com">
+            <svg class="send-ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g class="send-icon"><path d="M10 14l11 -11" /><path d="M21 3l-6.5 18a.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a.55 .55 0 0 1 0 -1l18 -6.5" /></g></svg>
+            <span class="email-text">brandon@uxward.com</span>
+          </a>
           <div class="kicker">— Read daily · Reply within two business days —</div>
         </div>
       </div>
