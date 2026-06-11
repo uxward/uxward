@@ -285,18 +285,13 @@ import { essaysNewestFirst } from '../data/essays.js';
       text-underline-offset: 4px;
     }
     .portrait {
-      aspect-ratio: 4 / 5;
-      background: var(--paper);
       border: 1px solid var(--rule);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--tertiary);
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
       max-width: 360px;
+    }
+    .portrait img {
+      display: block;
+      width: 100%;
+      height: auto;
     }
 
     /* ---------- Block 06 — Red bleed ---------- */
@@ -517,7 +512,11 @@ import { essaysNewestFirst } from '../data/essays.js';
               </p>
               <a class="more" href="/about">— More about me →</a>
             </div>
-            <div class="portrait" aria-label="Portrait of Brandon E. B. Ward — coming soon">portrait</div>
+            <div class="portrait">
+              <img src="/images/BrandonEBWard-002.jpg"
+                   alt="Portrait of Brandon E. B. Ward"
+                   width="1200" height="1799" />
+            </div>
           </div>
         </div>
       </div>
