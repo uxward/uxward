@@ -21,7 +21,7 @@ WDS strategic process log. Most recent at top.
 Design Loop Status:
 | Page | Status |
 |---|---|
-| Writing Index | ⏳ ✓S → B — spec approved + synced, **WO-003 written** (`E-Development/WO-003-writing-index.md`). Decks → Option A (hover-reveal). Featured pull untouched (out of scope). Red hover site-wide. Next: wake Mimir to build. |
+| Writing Index | ⏳ B+review — built & browser-verified (PRD 002, branch `build/writing-index`); in step-7 review. Step-7 changes so far: row dividers removed; leader dots → radial-gradient 8px gap. **New: Topic/Date view toggle added to spec (owner request) — pending build.** |
 | Home (fold) | ✓ complete. Built (REQ-007), browser-reviewed, tokens extracted. Direction C (REQ-008) descoped; finding #1 delivered by the proof-forward deck. |
 | About · Colophon · Contact · Work (index + 6 cases) | ✓ designed-in-build — live and accepted as-built; no separate spec file. |
 
