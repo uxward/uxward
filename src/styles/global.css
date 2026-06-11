@@ -226,9 +226,24 @@ nav.hdr-nav { display: flex; gap: 28px; align-items: baseline; }
 .toggle:hover { color: var(--signature); }
 .toggle-glyph {
   display: inline-block;
-  transition: transform var(--t-mode) ease;
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  overflow: visible;
 }
-.toggle.rotating .toggle-glyph { transform: rotate(90deg); }
+/* Sun that sets (light) / rises (dark). The cover masks the part of the
+   orb that sinks below the horizon; rays fade as the sun goes down. */
+.sun-cover { fill: var(--canvas); }
+.sun-orb {
+  transition: transform var(--t-mode) ease;
+  transform: translateY(6px);
+}
+.sun-rays {
+  transition: opacity var(--t-mode) ease;
+  opacity: 0.25;
+}
+[data-theme="dark"] .sun-orb { transform: translateY(-2px); }
+[data-theme="dark"] .sun-rays { opacity: 1; }
 
 /* Hamburger */
 .menu-toggle {
