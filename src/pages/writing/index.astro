@@ -475,4 +475,57 @@ import { essays, essaySections, plainTitle } from '../../data/essays.js';
       </div>
     </div>
   </section>
+
+  <script>
+    (function () {
+      var body = document.body;
+      var input = document.getElementById('search-input');
+      var clear = document.getElementById('search-clear');
+      var hint = document.getElementById('search-hint');
+      var searchEl = document.querySelector('.search');
+      var sections = Array.prototype.slice.call(document.querySelectorAll('.section'));
+
+      function apply() {
+        var q = input.value.trim().toLowerCase();
+        var total = 0;
+
+        sections.forEach(function (sec) {
+          var rows = sec.querySelectorAll('a.essay');
+          var match = 0;
+          rows.forEach(function (r) {
+            var t = (r.getAttribute('data-title') || '').toLowerCase();
+            var d = (r.getAttribute('data-deck') || '').toLowerCase();
+            var ok = !q || t.indexOf(q) !== -1 || d.indexOf(q) !== -1;
+            r.hidden = !ok;
+            if (ok) match++;
+          });
+          sec.classList.toggle('no-matches', !!q && match === 0);
+          total += match;
+        });
+
+        var filtering = !!q;
+        body.classList.toggle('is-filtered', filtering);
+        searchEl.classList.toggle('has-text', filtering);
+
+        if (filtering) {
+          hint.innerHTML = '— ' + total + (total === 1 ? ' essay' : ' essays') +
+            ' · <button type="button" class="reset" id="reset-btn">Clear</button> —';
+          var rb = document.getElementById('reset-btn');
+          if (rb) rb.addEventListener('click', resetAll);
+        } else {
+          hint.textContent = '';
+        }
+      }
+
+      function resetAll() {
+        input.value = '';
+        apply();
+        input.focus();
+      }
+
+      input.addEventListener('input', apply);
+      clear.addEventListener('click', resetAll);
+      apply();
+    })();
+  </script>
 </Base>
