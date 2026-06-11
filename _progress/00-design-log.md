@@ -16,7 +16,7 @@ WDS strategic process log. Most recent at top.
 
 **Freya — UX Design (Design Loop): Writing Index redesign.** Replacing the accordion/collapse list with a typographic editorial index (table-of-contents leader-dots pattern). Spec written; awaiting owner read before wireframe.
 
-**System decision (2026-06-10): red-on-hover is now the site-wide convention.** Owner promoted red from "never a hover state" to the standard link/title hover & focus color. `visual-direction.md` updated — red now has two registers: *event red* (rationed full-volume placements) and *interaction red* (transient hover splash). **Follow-up (outside this loop):** home page `index.astro` cases/essays/links currently hover to `--tertiary` and should switch to `--signature` to comply.
+**System decision: red-on-hover convention (2026-06-10 → universal 2026-06-11).** Owner promoted red from "never a hover state" to the standard hover/focus colour, then extended it to **every** hover that changes text colour site-wide (links, nav, footer, breadcrumbs, back-links, controls) — one-property swap across global.css + all pages. `visual-direction.md` / `design-tokens.md` updated. Red now has two registers: *event red* (rationed full-volume placements) and *interaction red* (universal transient hover splash). Home-page follow-up resolved as part of the universal sweep.
 
 Design Loop Status:
 | Page | Status |
@@ -34,6 +34,9 @@ Deliverables: `D-UX-Design/home.md` (spec), `wireframes/home.excalidraw` + `home
 **Still open (assets from Brandon):** 3 Speakeazy artifact images → Mimir REQ-010. *(About portrait REQ-009 done 2026-06-11.)*
 
 ## Log
+
+### 2026-06-11 — Universal red hover + writing-index back-home link — Freya
+Two site-consistency changes merged to master. (1) **Universal red hover:** owner extended the red-hover convention to *every* colour-changing hover site-wide — swapped all `:hover` tertiary/ink colours to `--signature` across global.css + 35 pages (resting styles untouched); 6/6 hover spots browser-verified; `visual-direction.md` + `design-tokens.md` synced. Note: a `/work` case now reddens both title and number on hover (heavier red — flagged, easy to dial back). (2) **Back-home link:** the writing index was the only top-level page missing the `§ ↩ — Back home` bar that about/contact/colophon/work-index carry; added with matching markup/styling.
 
 ### 2026-06-11 — Writing index merged + About portrait — Freya/Mimir
 PRD 002 (Writing index editorial redesign) closed the full loop — built, step-7 reviewed (21/21 browser checks across desktop/mobile/light/dark/keyboard/reduced-motion), step-8 tokens extracted — and **merged to master** (`build/writing-index`). Final feature set: leader-dots TOC, Topic/Date view toggle (persisted in localStorage, cross-fade), controls band below the featured pull, featured stays visible while filtering, count-only filter with in-field ×, placeholder fade, and filter fade+reflow motion. New token-registry patterns: leader-dots-row, view-toggle, controls-band, topic-tag, list-filter-motion (+ t-quick 120ms candidate).
