@@ -339,13 +339,21 @@ import { essaysNewestFirst } from '../data/essays.js';
     }
     .red-bleed .reach a {
       color: #FFFFFF;
+      font-family: var(--font-serif);
+      font-size: 22px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5em;
+    }
+    .red-bleed .reach a .email-text {
       text-decoration: underline;
       text-underline-offset: 5px;
       text-decoration-thickness: 1px;
-      font-family: var(--font-serif);
-      font-size: 22px;
     }
+    .red-bleed .reach a .send-ico { width: 0.82em; height: 0.82em; }
     .red-bleed .reach a:hover { color: rgba(255,255,255,0.78); }
+    .red-bleed .reach a:hover .send-icon,
+    .red-bleed .reach a:focus-visible .send-icon { animation: send-fly 0.5s ease; }
     .red-bleed .reach .kicker {
       font-family: var(--font-mono);
       font-size: 11px;
@@ -527,7 +535,10 @@ import { essaysNewestFirst } from '../data/essays.js';
             Senior design leadership at companies that take design <em>seriously.</em>
           </h2>
           <div class="reach">
-            <a href="mailto:brandon@uxward.com">brandon@uxward.com</a>
+            <a href="mailto:brandon@uxward.com">
+              <svg class="send-ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g class="send-icon"><path d="M10 14l11 -11" /><path d="M21 3l-6.5 18a.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a.55 .55 0 0 1 0 -1l18 -6.5" /></g></svg>
+              <span class="email-text">brandon@uxward.com</span>
+            </a>
             <span class="kicker">— Direct line, read daily —</span>
           </div>
         </div>

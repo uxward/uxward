@@ -133,6 +133,21 @@ a:focus-visible, .link:focus-visible {
 }
 
 /* ============================================================
+   Animated send icon (contact email links)
+   On hover/focus of the email link, the paper-plane flies out
+   top-right + fades, instantly resets to bottom-left, flies back.
+   (Reduced-motion handled by the rule above — animation goes instant.)
+   ============================================================ */
+.send-ico { overflow: visible; flex: none; }
+.send-ico .send-icon { transform-box: fill-box; transform-origin: center; }
+@keyframes send-fly {
+  0%   { transform: translate(0, 0);        opacity: 1; }
+  40%  { transform: translate(120%, -120%); opacity: 0; }
+  41%  { transform: translate(-120%, 120%); opacity: 0; }
+  100% { transform: translate(0, 0);        opacity: 1; }
+}
+
+/* ============================================================
    Shared layout primitives
    ============================================================ */
 .container {
