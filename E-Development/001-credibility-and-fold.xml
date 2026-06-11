@@ -193,14 +193,17 @@
       </refs>
     </requirement>
 
-    <requirement id="001-REQ-009" type="interface" status="blocked">
-      <title>About portrait (ASSET-BLOCKED — not built)</title>
+    <requirement id="001-REQ-009" type="interface" status="implemented">
+      <title>About portrait (asset supplied 2026-06-11)</title>
       <description>
-        Replace the About §01 placeholder frame with the commissioned portrait. Blocked: no
-        source image exists. Do not generate or fake an image. Implement when Brandon supplies it.
+        Replace the About §01 placeholder frame with the real portrait. Asset supplied by Brandon:
+        public/images/BrandonEBWard-006.jpg (1200×1712). Rendered as an &lt;img&gt; in a 1px --rule
+        frame at natural aspect (no crop/distortion), max-width 480, right-aligned; placeholder
+        markup + .ph-label/.ph-detail styles removed. Built on branch build/about-portrait.
       </description>
       <acceptance>
-        <criterion>BLOCKED — pending portrait image from Brandon.</criterion>
+        <criterion>The About §01 frame shows public/images/BrandonEBWard-006.jpg (HTTP 200, natural 1200×1712, no distortion).</criterion>
+        <criterion>Placeholder "to be commissioned" markup and its orphaned styles are gone; npm run build passes and copies the image to dist.</criterion>
       </acceptance>
       <refs>
         <spec>E-Development/WO-001 item C; C-UX-Scenarios/audit-notes.md (finding #3)</spec>

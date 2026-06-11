@@ -64,32 +64,15 @@ import Base from '../layouts/Base.astro';
       padding-top: var(--space-9);
     }
     .portrait {
-      aspect-ratio: 4 / 5;
-      background: #DCD8D0;
       border: 1px solid var(--rule);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      gap: var(--space-3);
-      color: var(--tertiary);
       max-width: 480px;
       width: 100%;
       margin-left: auto;
     }
-    .portrait .ph-label {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--body);
-    }
-    .portrait .ph-detail {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-size: 16px;
-      color: var(--tertiary);
-      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
+    .portrait img {
+      display: block;
+      width: 100%;
+      height: auto;
     }
     .portrait-caption {
       font-family: var(--font-serif);
@@ -342,9 +325,10 @@ import Base from '../layouts/Base.astro';
               <span class="source">— B.W., Dallas, March 2026 —</span>
             </p>
           </div>
-          <div class="portrait" aria-label="Portrait of Brandon E. B. Ward — placeholder">
-            <span class="ph-label">— Portrait —</span>
-            <span class="ph-detail">to be commissioned</span>
+          <div class="portrait">
+            <img src="/images/BrandonEBWard-006.jpg"
+                 alt="Portrait of Brandon E. B. Ward"
+                 width="1200" height="1712" />
           </div>
         </div>
       </div>
