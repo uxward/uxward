@@ -383,6 +383,19 @@ import { essays, essaySections, plainTitle } from '../../data/essays.js';
       .head-grid { grid-template-columns: 1fr; }
       .search { justify-self: stretch; width: auto; }
       .search-hint { text-align: left; }
+
+      /* § numerals inline above each section title */
+      .section-head { grid-template-columns: 1fr; gap: var(--space-3); }
+      .section-mark { padding-top: 0; }
+      .section-body { grid-template-columns: 1fr; }
+      .essays { grid-column: auto; }
+      .section-empty-msg { grid-column: auto; }
+
+      /* rows stack: title full width, quarter below, leader dropped */
+      .essay-line { flex-wrap: wrap; }
+      .essay-lead { display: none; }
+      .essay-title { flex: 1 1 100%; }
+      .essay-quarter { flex-basis: 100%; margin-top: 6px; }
     }
   </style>
 
