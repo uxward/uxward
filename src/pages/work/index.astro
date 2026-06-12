@@ -11,37 +11,38 @@ const [hero, ...cases] = slate;
 // Heroes (Speakeazy, a global automaker, Porte, a major insurance broker, + Party City & Telescope to come)
 // live in the slate above; Deloitte Intela is intentionally held out.
 // Edit / reorder a card by editing one entry; the count below auto-updates.
+// Optional: add `link: "…"` (read text) + `url: "https://…"` (href) to any
+// still-live project and a link renders at the bottom of its card.
 const archive = [
-  { tag: "UX Legal Expert Witness",client: "Match",                    hook: "FTC vs. Match RE: Subscription cancelation",out: "Seven-hundred hours. Two-hundred usability studies. Over three-hundred pages in reports. A case fit for trial." },
+  { tag: "AR / sales",          client: "GarageVision",             hook: "seeing the door on your house",           out: "An AR app composites a custom garage door onto a customer's home in real time, with live pricing.", link: "view project", url: "https://www.garagevision.pro" },
+  { tag: "Product strategy",    client: "Generational",             hook: "DealForce, the next-gen M&A platform",    out: "Business-model-canvas work defined the MVP and a roadmap for a best-in-class deal platform.", link: "view project", url: "https://www.dealforce.com" },
+  { tag: "Navigation UX",       client: "Solovis",                  hook: "fixing the nav users got lost in",        out: "Tree-tested IA and usability-validated navigation lifted adoption and engagement.", link: "view project", url: "https://go.solovis.com/portfolio-analytics" },
+  { tag: "Product design",      client: "Solovis",                  hook: "'what-if' modeling for asset managers",   out: "An app to stack unlimited scenarios with live-redrawing charts and a client presentation mode.", link: "view project", url: "https://go.solovis.com/predict"},
+  { tag: "Strategy / UX",            client: "CollateralEdge",           hook: "research when they asked for a website",  out: "Insights and a journey map became the brand and site that pre-empted buyers' questions and doubts.", link: "view project", url: "https://collateraledge.com/"},
+  { tag: "Web & UX",            client: "CDC Small Business Finance", hook: "a mission lender's site that converts", out: "A research-led, CTA-driven redesign lifted traffic, engagement, and conversions for an SMB lender.", link: "view project", url: "https://cdcloans.com/" },
+  { tag: "Creative / games",    client: "American Heart Association", hook: "gamifying stroke awareness",            out: "Nog, an animated-brain game suite for F.A.S.T. — built in ~8 months, then extended to a Spanish R.A.P.I.D.O. edition.", link: "view project", url: "https://www.stroke.org/en/be-fast-experience" },
+  { tag: "UX Legal Expert Witness",client: "Match",                 hook: "FTC vs. Match RE: Subscription cancelation",out: "Seven-hundred hours. Two-hundred usability studies. Over three-hundred pages in reports. A case fit for trial." },
   { tag: "Data & viz",          client: "Neiman Marcus",            hook: "Flashboard, real-time sales analytics",   out: "Consolidated siloed enterprise data into a responsive tool — drill-down to a single SKU at a single store." },
-  { tag: "Product redesign",    client: "ServiceKing",              hook: "halving CSR call time",                   out: "The Overdrive redesign cut call time 50% — doubling call-center capacity — and ended mis-assigned vehicles." },
-  { tag: "Platform overhaul",   client: "WorldatWork",              hook: "a membership portal that finally loads",  out: "Re-architected portal cut page loads 50%+ and let marketing manage content without developers." },
+  { tag: "Product redesign",    client: "Crash Champions",          hook: "halving CSR call time",                   out: "The Hyperdrive redesign cut call time 50% — doubling call-center capacity — and ended mis-assigned vehicles." },
   { tag: "Design system",       client: "Deloitte",                 hook: "a dashboard platform in two weeks",       out: "Hi-fi prototype and a reusable style guide in 14 days — then the baseline for other Deloitte platforms." },
   { tag: "UX / UI",             client: "Deloitte",                 hook: "an acquired app, brought up to standard", out: "A ~4-week uplift aligned a newly-acquired product to brand and fixed its weakest flows." },
-  { tag: "AR",                  client: "NOKIA",                    hook: "troubleshooting hardware through a HUD",  out: "An AR proof of concept identified faulty hardware in unfamiliar rooms and guided just-in-time repairs." },
+  { tag: "AR / MR",             client: "NOKIA",                    hook: "troubleshooting hardware through a HUD",  out: "A MS Hololens proof of concept identified faulty hardware in unfamiliar rooms and guided just-in-time repairs." },
   { tag: "AR",                  client: "NOKIA",                    hook: "just-in-time training for field techs",   out: "Mobile AR tutorials cut training and install time for contractors with little prior experience." },
   { tag: "VR",                  client: "RetailGIS",                hook: "walking a store before it's built",       out: "Turned existing 2D store schematics into multi-user VR walkthroughs in the Meta Quest." },
-  { tag: "AR / sales",          client: "Welborn Garage Doors",     hook: "seeing the door on your house",           out: "An AR app composites a custom garage door onto a customer's home in real time, with live pricing." },
   { tag: "Usability research",  client: "a global automaker",                   hook: "an accident app for people in distress",  out: "A usability study surfaced dealbreaker limitations and the fixes to make it usable under stress." },
   { tag: "Usability research",  client: "Automaker Connected",         hook: "catching the flaw that left cars unlocked", out: "Real-world testing caught a return-flow defect that would've left every car unlocked after use." },
   { tag: "Usability research",  client: "a global automaker",                   hook: "programming a mirror, in a real car",     out: "In-vehicle testing of the full-display rearview mirror produced clearer controls, icons, and sunlight visibility." },
   { tag: "Adoption study",      client: "a global automaker",                   hook: "why a companion app wasn't catching on",  out: "A usability study pinpointed the onboarding and IA fixes to lift the companion app adoption." },
   { tag: "Accessibility",       client: "Automaker Mobility",          hook: "touchscreen controls for power wheelchairs", out: "Live-intercept surveys and two usability rounds (21 users) at the Dallas & LA Abilities Expos validated a touchscreen for Group 2–3 users." },
   { tag: "Enterprise UX",       client: "HKS",                      hook: "finding people across 24 offices",        out: "A PoC freed resourcing from a finance-only ERP, letting PMs find and plan talent worldwide." },
-  { tag: "Enterprise platform", client: "Milestone",               hook: "paper onboarding, digitized",             out: "A bespoke portal automated onboarding and gave HR and execs real-time performance dashboards." },
-  { tag: "Product strategy",    client: "Generational",             hook: "DealForce, the next-gen M&A platform",    out: "Business-model-canvas work defined the MVP and a roadmap for a best-in-class deal platform." },
+  { tag: "Enterprise platform", client: "Milestone",                hook: "paper onboarding, digitized",             out: "A bespoke portal automated onboarding and gave HR and execs real-time performance dashboards." },
   { tag: "Platform strategy",   client: "Success Group Int'l",      hook: "consolidating a fractured platform",      out: "A 6-week MVP definition and phased roadmap cut IT complexity and support costs." },
   { tag: "UX redesign",         client: "Success Group Int'l",      hook: "a sales scoreboard worth trusting",       out: "Redesign cut data-entry errors and maintenance costs, raising admin and subscriber satisfaction." },
-  { tag: "Navigation UX",       client: "Solovis",                  hook: "fixing the nav users got lost in",        out: "Tree-tested IA and usability-validated navigation lifted adoption and engagement." },
-  { tag: "Product design",      client: "Solovis",                  hook: "'what-if' modeling for asset managers",   out: "An app to stack unlimited scenarios with live-redrawing charts and a client presentation mode." },
-  { tag: "Strategy",            client: "CollateralEdge",           hook: "research when they asked for a website",  out: "Insights and a journey map became the brand and site that pre-empted buyers' questions and doubts." },
-  { tag: "Web & UX",            client: "CDC Small Business Finance", hook: "a mission lender's site that converts", out: "A research-led, CTA-driven redesign lifted traffic, engagement, and conversions for an SMB lender." },
   { tag: "Brand & 0→1",         client: "REdibs (now SellWhenever)", hook: "launching a novel real-estate model",    out: "Full brand, site, and portals plus a marketing strategy that improved agent conversion." },
   { tag: "Product design",      client: "FanPlan",                  hook: "a marketing concept made real",           out: "A 3-week discovery sprint defined personas, IA, and full customer + admin prototypes." },
   { tag: "CX / conversion",     client: "YPO",                      hook: "smoothing the path to membership",        out: "Hotjar and 1:1 research drove content and funnel fixes that sustained higher application rates." },
   { tag: "UX / engagement",     client: "YPO",                      hook: "a member portal worth returning to",      out: "Continuous-improvement UX work lifted engagement across a global member portal." },
   { tag: "Mobile",              client: "YPO",                      hook: "standardizing how leaders run forums",    out: "A native iOS/Android app for forum moderators, launched at the 2018 Global Leadership Conference." },
-  { tag: "Creative / games",    client: "American Heart Association", hook: "gamifying stroke awareness",            out: "Nog, an animated-brain game suite for F.A.S.T. — built in ~8 months, then extended to a Spanish R.A.P.I.D.O. edition." },
 ];
 ---
 <Base title="Work · uxward">
@@ -423,6 +424,17 @@ const archive = [
       margin: var(--space-4) 0 0;
       font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
     }
+    .arch-card .arch-link {
+      display: inline-block;
+      margin-top: var(--space-4);
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--signature);
+      text-decoration: none;
+    }
+    .arch-card .arch-link:hover { text-decoration: underline; }
     @media (max-width: 600px) {
       .arch-grid { grid-template-columns: 1fr; }
     }
@@ -497,7 +509,7 @@ const archive = [
     <div class="grid">
       <div class="marker">§ ✦</div>
       <div>
-        <div class="arch-eyebrow">— The wider archive · {archive.length} pieces —</div>
+        <div class="arch-eyebrow">— The wider archive · selected {archive.length} projects —</div>
         <h2 class="arch-h">The years, <em>in brief.</em></h2>
         <div class="arch-grid">
           {archive.map((c) => (
@@ -505,6 +517,9 @@ const archive = [
               <div class="tag">— {c.tag} —</div>
               <h3 class="arch-title">{c.client} — <em>{c.hook}</em></h3>
               <p class="arch-out">{c.out}</p>
+              {c.url && (
+                <a class="arch-link" href={c.url} target="_blank" rel="noopener">{c.link} ↗</a>
+              )}
             </div>
           ))}
         </div>

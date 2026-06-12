@@ -16,7 +16,7 @@ export const slate = [
     deck: 'AI-native dialogue attribution and character analysis for audiobook narrators. I went looking for a tool to do the unpaid prep, found that none existed, and built one myself — three abandoned prototypes, a two-week ground-up rewrite, launched to real users in January 2026.',
     eyebrow: '2025 — Present · Designer & developer · Solo',
     pullout: "You can't learn on page 200 that the character you've voiced <em>en français</em> for 199 pages is from Paris, Texas.",
-    stamps: ['Solo build', '3 prototypes → 1 product', 'Live January 2026'],
+    stamps: ['Solo build', 'Live January 2026'],
   },
   {
     slug: 'precocity',
@@ -30,14 +30,14 @@ export const slate = [
     client: 'a global automaker',
     title: 'a global automaker — testing like an <em>outsider.</em>',
     deck: 'A carmaker celebrated for consumer research realized it was being out-designed by the tech industry. Across 17 studies and 3,500 hours of testing, I built and led the independent, bias-free usability practice that turned guesswork into a closed-loop design process — and that a global automaker eventually brought in-house.',
-    stamps: ['Director of UX', '2017 — 2022'],
+    stamps: ['Dir. of UX', '2017 — 2022'],
   },
   {
     slug: 'porte',
     client: 'Porte',
     title: 'Porte — tested before a <em>line of code.</em>',
     deck: "Populous's first mobile-only bank had to stand out in a saturated market, for a generation it had never designed for. We researched and tested every layer — app, card, mailer, brand — before a line of code was written, and shipped a 1.0 that earned 4.8 stars.",
-    stamps: ['Director of UX', '2019'],
+    stamps: ['Dir. of UX', '2019'],
   },
   {
     slug: 'insurco',
