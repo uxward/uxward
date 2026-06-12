@@ -12,6 +12,7 @@ const [hero, ...cases] = slate;
 // live in the slate above; Deloitte Intela is intentionally held out.
 // Edit / reorder a card by editing one entry; the count below auto-updates.
 const archive = [
+  { tag: "UX Legal Expert Witness",client: "Match",                    hook: "FTC vs. Match RE: Subscription cancelation",out: "Seven-hundred hours. Two-hundred usability studies. Over three-hundred pages in reports. A case fit for trial." },
   { tag: "Data & viz",          client: "Neiman Marcus",            hook: "Flashboard, real-time sales analytics",   out: "Consolidated siloed enterprise data into a responsive tool — drill-down to a single SKU at a single store." },
   { tag: "Product redesign",    client: "ServiceKing",              hook: "halving CSR call time",                   out: "The Overdrive redesign cut call time 50% — doubling call-center capacity — and ended mis-assigned vehicles." },
   { tag: "Platform overhaul",   client: "WorldatWork",              hook: "a membership portal that finally loads",  out: "Re-architected portal cut page loads 50%+ and let marketing manage content without developers." },
@@ -497,7 +498,7 @@ const archive = [
       <div class="marker">§ ✦</div>
       <div>
         <div class="arch-eyebrow">— The wider archive · {archive.length} pieces —</div>
-        <h2 class="arch-h">Twenty-five years, <em>in brief.</em></h2>
+        <h2 class="arch-h">The years, <em>in brief.</em></h2>
         <div class="arch-grid">
           {archive.map((c) => (
             <div class="arch-card">

@@ -170,8 +170,15 @@ a:focus-visible, .link:focus-visible {
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--tertiary);
-  padding-top: 10px;
+  padding-top: 0;
 }
+/* Case-study hero number sits beside the 132px case number (no label to
+   baseline against) — keep its optical nudge. */
+.title-block .marker { padding-top: 10px; }
+/* Back-home / breadcrumb bars: the label is an inline link sitting in an
+   18px-strut line box (no 11px block to match the marker), so baseline-align
+   the marker to the link rather than top-align it. */
+.grid:has(> div > a:only-child) { align-items: baseline; }
 @media (max-width: 720px) {
   .grid { grid-template-columns: 1fr; }
   .grid > .marker { padding-top: 0; }
