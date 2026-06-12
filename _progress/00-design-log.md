@@ -14,6 +14,8 @@ WDS strategic process log. Most recent at top.
 
 ## Current
 
+**Freya — UX Design (Design Loop): Case-study Product-Preview hero (pilot on Speakeazy).** New pattern — promote design proof into the case-study fold instead of burying screenshots at the bottom of the scroll. Extends Home's shipped *proof-forward* thesis one level down. Decisions: **Preview band** layout (full-width framed still under the deck, above the meta-strip, in the content column); **single still** clickable to the existing lightbox (not the carousel); money shot = `projects-6.11.26.png` (library cover-art grid — strongest glance value). Two assets / two jobs: hero still = the *lede*; §04 carousel = the *build story* (unchanged). Built on Speakeazy (`hero-preview` reuses the `.artifact .frame` treatment + lightbox binding). **Awaiting owner review before rollout to the other 5 cases** — asset-gated (needs one strong hero shot per case).
+
 **Freya — UX Design (Design Loop): Writing Index redesign.** Replacing the accordion/collapse list with a typographic editorial index (table-of-contents leader-dots pattern). Spec written; awaiting owner read before wireframe.
 
 **System decision: red-on-hover convention (2026-06-10 → universal 2026-06-11).** Owner promoted red from "never a hover state" to the standard hover/focus colour, then extended it to **every** hover that changes text colour site-wide (links, nav, footer, breadcrumbs, back-links, controls) — one-property swap across global.css + all pages. `visual-direction.md` / `design-tokens.md` updated. Red now has two registers: *event red* (rationed full-volume placements) and *interaction red* (universal transient hover splash). Home-page follow-up resolved as part of the universal sweep.
