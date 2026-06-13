@@ -1,10 +1,13 @@
 ---
 import '../styles/global.css';
+import '../styles/essay.css';
+import '../styles/case.css';
 export interface Props {
   title: string;
   description?: string;
+  bodyClass?: string;
 }
-const { title, description = "Brandon E. B. Ward — senior design leadership. Building design practice from scratch since 2001." } = Astro.props;
+const { title, description = "Brandon E. B. Ward — senior design leadership. Building design practice from scratch since 2001.", bodyClass } = Astro.props;
 ---
 <!doctype html>
 <html lang="en" data-theme="light">
@@ -22,11 +25,40 @@ const { title, description = "Brandon E. B. Ward — senior design leadership. B
         if (saved === 'dark' || saved === 'light') {
           document.documentElement.setAttribute('data-theme', saved);
         }
+        // Persisted cyberpunk easter egg: restore the class + chosen fonts here
+        // so pages navigated to while it's active load with no flash / FOUT.
+        if (localStorage.getItem('uxward-cyber') === '1') {
+          var root = document.documentElement;
+          root.classList.add('cyber');
+          var F = {
+            fraunces:  { css: '"Fraunces", Georgia, serif' },
+            jetbrains: { css: '"JetBrains Mono", ui-monospace, monospace' },
+            rocksalt:  { css: '"Rock Salt", cursive', href: 'https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap' },
+            orbitron:  { css: '"Orbitron", sans-serif', href: 'https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap' },
+            doto:      { css: '"Doto", monospace', href: 'https://fonts.googleapis.com/css2?family=Doto:wght@400;700&display=swap' },
+            pixelify:  { css: '"Pixelify Sans", sans-serif', href: 'https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&display=swap' },
+            sixtyfour: { css: '"Sixtyfour", monospace', href: 'https://fonts.googleapis.com/css2?family=Sixtyfour&display=swap' },
+            bitcount:  { css: '"Bitcount Single", monospace', href: 'https://fonts.googleapis.com/css2?family=Bitcount+Single&display=swap' }
+          };
+          var DEF = { logo: 'rocksalt', head: 'rocksalt', body: 'orbitron', nav: 'sixtyfour' };
+          Object.keys(DEF).forEach(function (slot) {
+            var k = localStorage.getItem('uxward-cyber-' + slot) || DEF[slot];
+            var f = F[k];
+            if (!f) return;
+            if (f.href && !document.querySelector('link[data-cyberfont="' + k + '"]')) {
+              var l = document.createElement('link');
+              l.rel = 'stylesheet'; l.href = f.href;
+              l.setAttribute('data-cyberfont', k);
+              document.head.appendChild(l);
+            }
+            root.style.setProperty('--cf-' + slot, f.css);
+          });
+        }
       } catch (e) {}
     })();
   </script>
 </head>
-<body>
+<body class={bodyClass}>
 
   <header class="hdr">
     <div class="container hdr-row">
@@ -38,7 +70,7 @@ const { title, description = "Brandon E. B. Ward — senior design leadership. B
           <a href="/about">About</a>
           <a href="/contact">Contact</a>
         </nav>
-        <button id="theme-toggle" class="toggle" title="Toggle theme" aria-label="Toggle theme"><svg class="toggle-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true" focusable="false"><g class="sun-rays"><line x1="12" y1="3.5" x2="12" y2="6"/><line x1="6.2" y1="6.2" x2="7.9" y2="7.9"/><line x1="17.8" y1="6.2" x2="16.1" y2="7.9"/><line x1="3.5" y1="12" x2="6" y2="12"/><line x1="20.5" y1="12" x2="18" y2="12"/></g><circle class="sun-orb" cx="12" cy="12" r="3.8"/><rect class="sun-cover" x="0" y="18" width="24" height="8" stroke="none"/><line class="sun-horizon" x1="3" y1="18" x2="21" y2="18"/></svg></button>
+        <button id="theme-toggle" class="toggle" title="Toggle theme" aria-label="Toggle theme"><svg class="toggle-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true" focusable="false"><g class="sun-rays"><line x1="12" y1="3.5" x2="12" y2="6"/><line x1="6.2" y1="6.2" x2="7.9" y2="7.9"/><line x1="17.8" y1="6.2" x2="16.1" y2="7.9"/><line x1="3.5" y1="12" x2="6" y2="12"/><line x1="20.5" y1="12" x2="18" y2="12"/></g><circle class="sun-orb" cx="12" cy="12" r="3.8"/><rect class="sun-cover" x="0" y="18" width="24" height="8" stroke="none"/><line class="sun-horizon" x1="3" y1="18" x2="21" y2="18"/></svg><svg class="cyber-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10.6"/><g class="rad-blades" fill="currentColor" stroke="none"><path d="M9.94 9.17 L7.18 5.37 A8.2 8.2 0 0 1 16.82 5.37 L14.06 9.17 A3.5 3.5 0 0 0 9.94 9.17 Z"/><path d="M15.48 11.63 L20.16 11.14 A8.2 8.2 0 0 1 15.34 19.49 L13.42 15.20 A3.5 3.5 0 0 0 15.48 11.63 Z"/><path d="M10.58 15.20 L8.66 19.49 A8.2 8.2 0 0 1 3.84 11.14 L8.52 11.63 A3.5 3.5 0 0 0 10.58 15.20 Z"/></g><circle cx="12" cy="12" r="1.7" fill="currentColor" stroke="none"/></svg></button>
         <button id="menu-toggle" class="menu-toggle" aria-label="Open menu" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
@@ -57,7 +89,7 @@ const { title, description = "Brandon E. B. Ward — senior design leadership. B
         <a href="/writing">Writing</a>
         <a href="/about">About</a>
         <a href="/contact">Contact</a>
-        <button class="toggle nav-overlay-toggle" title="Toggle theme" aria-label="Toggle theme"><svg class="toggle-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true" focusable="false"><g class="sun-rays"><line x1="12" y1="3.5" x2="12" y2="6"/><line x1="6.2" y1="6.2" x2="7.9" y2="7.9"/><line x1="17.8" y1="6.2" x2="16.1" y2="7.9"/><line x1="3.5" y1="12" x2="6" y2="12"/><line x1="20.5" y1="12" x2="18" y2="12"/></g><circle class="sun-orb" cx="12" cy="12" r="3.8"/><rect class="sun-cover" x="0" y="18" width="24" height="8" stroke="none"/><line class="sun-horizon" x1="3" y1="18" x2="21" y2="18"/></svg></button>
+        <button class="toggle nav-overlay-toggle" title="Toggle theme" aria-label="Toggle theme"><svg class="toggle-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true" focusable="false"><g class="sun-rays"><line x1="12" y1="3.5" x2="12" y2="6"/><line x1="6.2" y1="6.2" x2="7.9" y2="7.9"/><line x1="17.8" y1="6.2" x2="16.1" y2="7.9"/><line x1="3.5" y1="12" x2="6" y2="12"/><line x1="20.5" y1="12" x2="18" y2="12"/></g><circle class="sun-orb" cx="12" cy="12" r="3.8"/><rect class="sun-cover" x="0" y="18" width="24" height="8" stroke="none"/><line class="sun-horizon" x1="3" y1="18" x2="21" y2="18"/></svg><svg class="cyber-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10.6"/><g class="rad-blades" fill="currentColor" stroke="none"><path d="M9.94 9.17 L7.18 5.37 A8.2 8.2 0 0 1 16.82 5.37 L14.06 9.17 A3.5 3.5 0 0 0 9.94 9.17 Z"/><path d="M15.48 11.63 L20.16 11.14 A8.2 8.2 0 0 1 15.34 19.49 L13.42 15.20 A3.5 3.5 0 0 0 15.48 11.63 Z"/><path d="M10.58 15.20 L8.66 19.49 A8.2 8.2 0 0 1 3.84 11.14 L8.52 11.63 A3.5 3.5 0 0 0 10.58 15.20 Z"/></g><circle cx="12" cy="12" r="1.7" fill="currentColor" stroke="none"/></svg></button>
       </nav>
     </div>
   </div>
@@ -88,6 +120,66 @@ const { title, description = "Brandon E. B. Ward — senior design leadership. B
     </div>
   </footer>
 
+  <!-- Font Lab — only visible in cyber mode (CSS-gated on .cyber). A live
+       picker for experimenting with per-role font combos. Each row controls
+       one role; buttons preview in their own face. -->
+  <div id="cyber-fontlab" class="cyber-fontlab" aria-label="Cyber font lab">
+    <button type="button" class="cfl-close" aria-label="Close Font Lab">×</button>
+    <div class="cfl-head">▚ Font Lab <span>— cyber only —</span></div>
+    <div class="cfl-group">
+      <div class="cfl-label">Logo</div>
+      <div class="cfl-row" data-slot="logo">
+        <button type="button" data-font="rocksalt"  style="font-family:'Rock Salt',cursive">Rock Salt</button>
+        <button type="button" data-font="orbitron"  style="font-family:'Orbitron',sans-serif">Orbitron</button>
+        <button type="button" data-font="doto"       style="font-family:'Doto',monospace">Doto</button>
+        <button type="button" data-font="pixelify"   style="font-family:'Pixelify Sans',sans-serif">Pixelify</button>
+        <button type="button" data-font="sixtyfour"  style="font-family:'Sixtyfour',monospace">Sixtyfour</button>
+        <button type="button" data-font="bitcount"   style="font-family:'Bitcount Single',monospace">Bitcount</button>
+        <button type="button" data-font="jetbrains"  style="font-family:'JetBrains Mono',monospace">JetBrains</button>
+        <button type="button" data-font="fraunces"   style="font-family:'Fraunces',serif">Fraunces</button>
+      </div>
+    </div>
+    <div class="cfl-group">
+      <div class="cfl-label">Headings</div>
+      <div class="cfl-row" data-slot="head">
+        <button type="button" data-font="rocksalt"  style="font-family:'Rock Salt',cursive">Rock Salt</button>
+        <button type="button" data-font="orbitron"  style="font-family:'Orbitron',sans-serif">Orbitron</button>
+        <button type="button" data-font="doto"       style="font-family:'Doto',monospace">Doto</button>
+        <button type="button" data-font="pixelify"   style="font-family:'Pixelify Sans',sans-serif">Pixelify</button>
+        <button type="button" data-font="sixtyfour"  style="font-family:'Sixtyfour',monospace">Sixtyfour</button>
+        <button type="button" data-font="bitcount"   style="font-family:'Bitcount Single',monospace">Bitcount</button>
+        <button type="button" data-font="jetbrains"  style="font-family:'JetBrains Mono',monospace">JetBrains</button>
+        <button type="button" data-font="fraunces"   style="font-family:'Fraunces',serif">Fraunces</button>
+      </div>
+    </div>
+    <div class="cfl-group">
+      <div class="cfl-label">Body</div>
+      <div class="cfl-row" data-slot="body">
+        <button type="button" data-font="jetbrains"  style="font-family:'JetBrains Mono',monospace">JetBrains</button>
+        <button type="button" data-font="fraunces"   style="font-family:'Fraunces',serif">Fraunces</button>
+        <button type="button" data-font="orbitron"  style="font-family:'Orbitron',sans-serif">Orbitron</button>
+        <button type="button" data-font="doto"       style="font-family:'Doto',monospace">Doto</button>
+        <button type="button" data-font="pixelify"   style="font-family:'Pixelify Sans',sans-serif">Pixelify</button>
+        <button type="button" data-font="rocksalt"   style="font-family:'Rock Salt',cursive">Rock Salt</button>
+        <button type="button" data-font="sixtyfour"  style="font-family:'Sixtyfour',monospace">Sixtyfour</button>
+        <button type="button" data-font="bitcount"   style="font-family:'Bitcount Single',monospace">Bitcount</button>
+      </div>
+    </div>
+    <div class="cfl-group">
+      <div class="cfl-label">Nav</div>
+      <div class="cfl-row" data-slot="nav">
+        <button type="button" data-font="jetbrains"  style="font-family:'JetBrains Mono',monospace">JetBrains</button>
+        <button type="button" data-font="fraunces"   style="font-family:'Fraunces',serif">Fraunces</button>
+        <button type="button" data-font="orbitron"  style="font-family:'Orbitron',sans-serif">Orbitron</button>
+        <button type="button" data-font="doto"       style="font-family:'Doto',monospace">Doto</button>
+        <button type="button" data-font="pixelify"   style="font-family:'Pixelify Sans',sans-serif">Pixelify</button>
+        <button type="button" data-font="rocksalt"   style="font-family:'Rock Salt',cursive">Rock Salt</button>
+        <button type="button" data-font="sixtyfour"  style="font-family:'Sixtyfour',monospace">Sixtyfour</button>
+        <button type="button" data-font="bitcount"   style="font-family:'Bitcount Single',monospace">Bitcount</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     (function () {
       var root = document.documentElement;
@@ -95,8 +187,11 @@ const { title, description = "Brandon E. B. Ward — senior design leadership. B
 
       function syncGlyph() {
         var dark = root.getAttribute('data-theme') === 'dark';
+        var cyber = root.classList.contains('cyber');
         toggles.forEach(function (t) {
-          t.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+          t.setAttribute('aria-label',
+            cyber ? 'Exit cyber mode (back to dark)'
+                  : (dark ? 'Switch to light mode' : 'Switch to dark mode'));
         });
       }
 
@@ -104,6 +199,15 @@ const { title, description = "Brandon E. B. Ward — senior design leadership. B
 
       toggles.forEach(function (t) {
         t.addEventListener('click', function () {
+          // In cyber the glyph is a radioactive trefoil — clicking it exits
+          // Night City straight back to dark mode.
+          if (root.classList.contains('cyber')) {
+            exitCyber();
+            root.setAttribute('data-theme', 'dark');
+            try { localStorage.setItem('uxward-theme', 'dark'); } catch (e) {}
+            syncGlyph();
+            return;
+          }
           var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
           root.setAttribute('data-theme', next);
           try { localStorage.setItem('uxward-theme', next); } catch (e) {}
@@ -137,6 +241,176 @@ const { title, description = "Brandon E. B. Ward — senior design leadership. B
           link.addEventListener('click', closeMenu);
         });
       }
+
+      /* ════════════════════════════════════════════════
+         Cyberpunk easter egg. Type a secret code to flip the whole
+         site into wet-neon "Night City" mode. Persists across pages;
+         exit via the theme toggle, Esc, or re-typing any code.
+         ════════════════════════════════════════════════ */
+      var CODES = [
+        { keys: ['i', 'd', 'd', 'q', 'd'], label: 'IDDQD // GOD MODE' },
+        { keys: ['arrowup', 'arrowup', 'arrowdown', 'arrowdown', 'arrowleft', 'arrowright', 'arrowleft', 'arrowright', 'b', 'a'], label: '↑↑↓↓←→←→BA // KONAMI' },
+        { keys: ['c', 'h', 'o', 'n', 'k'], label: 'CHONK' },
+        { keys: ['b', 'r', 'a', 'w', 'n', 'd', 'o'], label: "BRAWNDO // IT'S GOT ELECTROLYTES" },
+        { keys: ['w', 'h', 'o', 'a', 'h'], label: 'WHOAH' }
+      ];
+      var MAXLEN = CODES.reduce(function (n, c) { return Math.max(n, c.keys.length); }, 0);
+      var buffer = [];
+
+      /* ── Font Lab ── live per-role font picker (cyber mode only). Four
+         slots, each driving a CSS var on <html>: logo→--cf-logo,
+         head→--cf-head, body→--cf-body, nav→--cf-nav. Picks lazy-load + persist. */
+      var FONTS = {
+        fraunces:  { css: '"Fraunces", Georgia, serif' },
+        jetbrains: { css: '"JetBrains Mono", ui-monospace, monospace' },
+        rocksalt:  { css: '"Rock Salt", cursive',        href: 'https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap' },
+        orbitron:  { css: '"Orbitron", sans-serif',      href: 'https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap' },
+        doto:      { css: '"Doto", monospace',           href: 'https://fonts.googleapis.com/css2?family=Doto:wght@400;700&display=swap' },
+        pixelify:  { css: '"Pixelify Sans", sans-serif', href: 'https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&display=swap' },
+        sixtyfour: { css: '"Sixtyfour", monospace',      href: 'https://fonts.googleapis.com/css2?family=Sixtyfour&display=swap' },
+        bitcount:  { css: '"Bitcount Single", monospace', href: 'https://fonts.googleapis.com/css2?family=Bitcount+Single&display=swap' }
+      };
+      var SLOT_DEFAULTS = { logo: 'rocksalt', head: 'rocksalt', body: 'orbitron', nav: 'sixtyfour' };
+      var fontlab = document.getElementById('cyber-fontlab');
+
+      function loadFont(key) {
+        var f = FONTS[key];
+        if (!f || !f.href || document.querySelector('link[data-cyberfont="' + key + '"]')) return;
+        var l = document.createElement('link');
+        l.rel = 'stylesheet'; l.href = f.href;
+        l.setAttribute('data-cyberfont', key);
+        document.head.appendChild(l);
+      }
+      function getPref(slot) { try { return localStorage.getItem('uxward-cyber-' + slot); } catch (e) { return null; } }
+      function setPref(slot, key) { try { localStorage.setItem('uxward-cyber-' + slot, key); } catch (e) {} }
+
+      function applyCyberFonts() {
+        Object.keys(SLOT_DEFAULTS).forEach(function (slot) {
+          var key = getPref(slot) || SLOT_DEFAULTS[slot];
+          loadFont(key);                       // load only the active faces
+          if (FONTS[key]) root.style.setProperty('--cf-' + slot, FONTS[key].css);
+          if (fontlab) {
+            fontlab.querySelectorAll('[data-slot="' + slot + '"] [data-font]').forEach(function (b) {
+              b.setAttribute('aria-pressed', String(b.dataset.font === key));
+            });
+          }
+        });
+      }
+
+      // Font Lab is a hidden second easter egg: typing "font lab" while in cyber
+      // toggles it. Opening it lazy-loads every face so the labels preview.
+      function toggleFontLab() {
+        var open = root.classList.toggle('fontlab-open');
+        if (open) Object.keys(FONTS).forEach(loadFont);
+      }
+
+      if (fontlab) {
+        fontlab.querySelectorAll('[data-font]').forEach(function (b) {
+          b.addEventListener('click', function () {
+            setPref(b.parentNode.getAttribute('data-slot'), b.dataset.font);
+            applyCyberFonts();
+          });
+        });
+        var closeBtn = fontlab.querySelector('.cfl-close');
+        if (closeBtn) closeBtn.addEventListener('click', function () {
+          root.classList.remove('fontlab-open');
+        });
+      }
+
+      function showToast(text) {
+        var prev = document.querySelector('.cyber-toast');
+        if (prev) prev.remove();
+        var el = document.createElement('div');
+        el.className = 'cyber-toast';
+        el.textContent = text;
+        document.body.appendChild(el);
+        setTimeout(function () {
+          el.classList.add('is-leaving');
+          setTimeout(function () { el.remove(); }, 320);
+        }, 2400);
+      }
+
+      function glitch() {
+        var g = document.createElement('div');
+        g.className = 'cyber-glitch';
+        document.body.appendChild(g);
+        setTimeout(function () { g.remove(); }, 700);
+      }
+
+      function enterCyber(label) {
+        root.classList.add('cyber');
+        applyCyberFonts();
+        syncGlyph();
+        try { localStorage.setItem('uxward-cyber', '1'); } catch (e) {}
+        glitch();
+        showToast(label);
+      }
+
+      function exitCyber() {
+        root.classList.remove('cyber');
+        root.classList.remove('fontlab-open');
+        // Drop the inline role vars so normal light/dark returns to Fraunces.
+        ['logo', 'head', 'body', 'nav'].forEach(function (s) { root.style.removeProperty('--cf-' + s); });
+        try { localStorage.removeItem('uxward-cyber'); } catch (e) {}
+        var t = document.querySelector('.cyber-toast');
+        if (t) t.remove();
+        syncGlyph();
+      }
+
+      // Persisted cyber page load: the class is already on <html> from the
+      // before-paint script — sync the panel + ensure all faces are loaded.
+      if (root.classList.contains('cyber')) applyCyberFonts();
+
+      function normKey(e) {
+        var k = e.key;
+        if (!k) return null;
+        if (k.length === 1) return k.toLowerCase();
+        if (k.indexOf('Arrow') === 0) return k.toLowerCase();
+        return null;
+      }
+
+      document.addEventListener('keydown', function (e) {
+        // Don't hijack typing in fields, or modified keystrokes.
+        var tag = (e.target && e.target.tagName) || '';
+        if (tag === 'INPUT' || tag === 'TEXTAREA' || (e.target && e.target.isContentEditable)) return;
+        if (e.metaKey || e.ctrlKey || e.altKey) return;
+
+        if (e.key === 'Escape' && root.classList.contains('cyber')) { exitCyber(); return; }
+
+        var k = normKey(e);
+        if (!k) return;
+        buffer.push(k);
+        if (buffer.length > MAXLEN) buffer.shift();
+
+        // "font lab" reveals the hidden picker (only while already in cyber)
+        var FONTLAB = ['f', 'o', 'n', 't', ' ', 'l', 'a', 'b'];
+        // keep the space in "font lab" from scrolling the page mid-sequence
+        if (k === ' ' && root.classList.contains('cyber') && buffer.slice(-5).join('') === 'font ') {
+          e.preventDefault();
+        }
+        if (root.classList.contains('cyber') && buffer.length >= FONTLAB.length) {
+          var fl = true;
+          for (var n = 1; n <= FONTLAB.length; n++) {
+            if (buffer[buffer.length - n] !== FONTLAB[FONTLAB.length - n]) { fl = false; break; }
+          }
+          if (fl) { buffer = []; toggleFontLab(); return; }
+        }
+
+        for (var i = 0; i < CODES.length; i++) {
+          var keys = CODES[i].keys;
+          if (buffer.length < keys.length) continue;
+          var match = true;
+          for (var j = 1; j <= keys.length; j++) {
+            if (buffer[buffer.length - j] !== keys[keys.length - j]) { match = false; break; }
+          }
+          if (match) {
+            buffer = [];
+            if (root.classList.contains('cyber')) exitCyber();
+            else enterCyber(CODES[i].label);
+            break;
+          }
+        }
+      });
     })();
   </script>
 </body>

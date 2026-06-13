@@ -48,6 +48,14 @@
   --font-serif: "Fraunces", Georgia, "Times New Roman", serif;
   --font-mono:  "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
+  /* Semantic role tokens — default to the two faces above so the normal site
+     is unchanged. Hoisted/global type rules reference these so a single place
+     controls each role; cyber mode repoints them (see :root.cyber). */
+  --font-logo: var(--font-serif);
+  --font-head: var(--font-serif);
+  --font-body: var(--font-serif);
+  --font-nav:  var(--font-mono);
+
   --t-fast: 150ms;
   --t-mode: 200ms;
 }
@@ -74,6 +82,44 @@
     --paper:     #1A1A1A;
     --signature: #E5263A;
   }
+}
+
+/* ---------- Tokens: Cyberpunk (easter egg) ----------
+   Activated by typing a secret code (iddqd, konami, chonk, brawndo, whoah).
+   Layered as a .cyber class on <html> over data-theme, so exiting restores
+   the prior light/dark mode. Overriding these tokens recolors ~80% of the
+   site automatically; the effects/glow rules live at the bottom of the file. */
+:root.cyber {
+  --canvas:    #07060f;
+  --ink:       #f6f7ff;
+  --body:      #c9d6ff;
+  --tertiary:  #8b7fc4;
+  --rule:      rgba(255, 43, 214, 0.30);
+  --paper:     #0e0b1d;
+  --signature: #ff2bd6;
+
+  --neon-cyan: #19f0ff;
+  --neon-pink: #ff2bd6;
+  --neon-blue: #2b6bff;
+  --neon-red:  #ff2e4d;
+
+  /* Cyber typography — four independent role slots, each overridable live by
+     the Font Lab panel (inline --cf-* vars on <html>). Body is the default:
+     pointing --font-serif at --cf-body means every serif slot site-wide
+     follows the Body picker for free; logo/headings/nav are pulled out below. */
+  --cf-logo: "Rock Salt", cursive;
+  --cf-head: "Rock Salt", cursive;
+  --cf-body: "Orbitron", sans-serif;
+  --cf-nav:  "Sixtyfour", monospace;
+
+  /* Repoint the semantic role tokens at the cyber slots so hoisted/global
+     rules (e.g. essay.css) follow the Font Lab without per-page overrides.
+     --font-serif also points at body for any page not yet tokenized. */
+  --font-logo: var(--cf-logo);
+  --font-head: var(--cf-head);
+  --font-body: var(--cf-body);
+  --font-nav:  var(--cf-nav);
+  --font-serif: var(--cf-body);
 }
 
 /* ============================================================
@@ -417,4 +463,281 @@ footer.foot {
 @media (max-width: 720px) {
   .foot-row { grid-template-columns: 1fr; gap: var(--space-6); }
   .foot-ext { justify-content: flex-start; }
+}
+
+/* ============================================================
+   Cyberpunk easter egg — effects & chrome
+   Everything below only applies under :root.cyber. Tokens are set
+   up top; this section adds the neon glow, wet-street backdrop,
+   scanlines, the activation glitch flash, and the code toast.
+   ============================================================ */
+
+/* ── Four font roles ──
+   Body is the default (via --font-serif → --cf-body in the tokens above), so
+   every scoped serif element follows the Body picker automatically — no
+   per-page edits. The rules below pull the other three roles out. The
+   `html.cyber` prefix out-specifies Astro's per-page scoped selectors; the
+   doubled class (e.g. `.fold.fold h1`) bumps specificity past descendant
+   scoped selectors without having to touch ~30 page files. */
+
+/* Logo */
+html.cyber .wm {
+  font-family: var(--cf-logo);
+  font-variation-settings: normal;        /* pixel/script faces have no variable axes */
+  letter-spacing: 0;
+  text-shadow: 0 0 4px var(--neon-cyan), 0 0 12px rgba(255, 43, 214, 0.55);
+}
+
+/* Headings — neon GLOW for every heading. The font itself now comes from the
+   --font-head TOKEN (essays, case studies, work/writing-index titles all map
+   to it); this rule only adds the glow + axis reset, so it never fights a
+   font mapping. */
+html.cyber h1,
+html.cyber h2,
+html.cyber h1.title,
+html.cyber h1.name,
+html.cyber .section-head,
+html.cyber .case-title,
+html.cyber .case-num,
+html.cyber .cs-head,
+html.cyber .page-h,
+html.cyber .hero-title,
+html.cyber body.essay .essay-title,
+html.cyber .head-h,
+html.cyber .fold.fold h1,
+html.cyber .red-bleed.red-bleed h2,
+html.cyber .bleed.bleed h2,
+html.cyber .essay-body.essay-body h2 {
+  font-variation-settings: normal;
+  letter-spacing: 0;
+  text-shadow: 0 0 4px var(--neon-cyan), 0 0 12px rgba(255, 43, 214, 0.55);
+}
+
+/* Font fallback — forces the Headings face only on pages NOT yet on the token
+   (home, about, contact, colophon, 404, work/writing page titles). These are
+   all h1/h2 elements or the explicit classes below, so bare h1/h2 only ever
+   matches a heading.
+   GUARD: never add a Body-tokenized selector here (e.g. the writing-index
+   `.essay-title` span) — it would override the Body slot, which is the bug
+   this split exists to prevent. */
+html.cyber h1,
+html.cyber h2,
+html.cyber h1.title,
+html.cyber h1.name,
+html.cyber .section-head,
+html.cyber .timeline-head,
+html.cyber .page-h,
+html.cyber .head-h,
+html.cyber .fold.fold h1,
+html.cyber .red-bleed.red-bleed h2,
+html.cyber .bleed.bleed h2 {
+  font-family: var(--cf-head);
+}
+
+/* Home hero h1 is the largest type on the site (116px) — dial it back in cyber
+   so the graffiti face doesn't overpower the page. */
+html.cyber .fold.fold h1 { font-size: clamp(64px, 8.4vw, 94px); }
+
+/* Nav */
+html.cyber .hdr-nav a,
+html.cyber .nav-overlay-menu a,
+html.cyber .foot-nav a,
+html.cyber .foot-ext a {
+  font-family: var(--cf-nav);
+}
+.cyber .wm .wm-given { color: var(--neon-cyan); }
+.cyber .wm:hover { color: var(--neon-cyan); }
+
+/* Theme-toggle glyph swap: in cyber the sun becomes a radioactive trefoil
+   that pulses; clicking it exits Night City back to dark mode. */
+.cyber-glyph { display: none; }
+.cyber .toggle .toggle-glyph { display: none; }
+.cyber .toggle .cyber-glyph {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  overflow: visible;
+  color: var(--neon-cyan);
+  filter: drop-shadow(0 0 3px var(--neon-cyan));
+}
+.cyber .toggle:hover .cyber-glyph {
+  color: var(--neon-pink);
+  filter: drop-shadow(0 0 5px var(--neon-pink));
+}
+.cyber-glyph .rad-blades { animation: cyber-rad 1.8s ease-in-out infinite; }
+@keyframes cyber-rad {
+  0%, 100% { opacity: 0.5; }
+  50%      { opacity: 1; }
+}
+
+/* Links glow; hover flips to cyan */
+.cyber a:hover,
+.cyber .link:hover { text-shadow: 0 0 8px var(--neon-cyan); }
+.cyber .hdr-nav a:hover,
+.cyber .foot-nav a:hover,
+.cyber .foot-ext a:hover,
+.cyber .nav-overlay-menu a:hover { color: var(--neon-cyan); }
+
+/* Rules / borders pick up a faint magenta bloom */
+.cyber .hdr { box-shadow: 0 1px 0 rgba(255, 43, 214, 0.25); }
+.cyber ::selection { background: var(--neon-pink); color: #07060f; }
+
+/* Wet-street backdrop: drifting neon glows + faint perspective grid */
+.cyber body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 50% at 18% 12%, rgba(255, 43, 214, 0.18), transparent 60%),
+    radial-gradient(55% 45% at 85% 22%, rgba(25, 240, 255, 0.16), transparent 60%),
+    radial-gradient(70% 60% at 50% 108%, rgba(43, 107, 255, 0.22), transparent 60%),
+    linear-gradient(transparent 0, transparent calc(100% - 1px), rgba(25, 240, 255, 0.05) 100%),
+    repeating-linear-gradient(0deg,   rgba(255, 43, 214, 0.04) 0 1px, transparent 1px 44px),
+    repeating-linear-gradient(90deg,  rgba(25, 240, 255, 0.04) 0 1px, transparent 1px 44px);
+}
+
+/* CRT scanlines, animated drift */
+.cyber body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9990;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg, rgba(0, 0, 0, 0.16) 0 1px, transparent 1px 3px);
+  mix-blend-mode: multiply;
+  opacity: 0.6;
+  animation: cyber-scan 8s linear infinite;
+}
+@keyframes cyber-scan {
+  from { background-position: 0 0; }
+  to   { background-position: 0 96px; }
+}
+
+/* Activation glitch flash — a transient overlay mounted by JS */
+.cyber-glitch {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  background:
+    linear-gradient(90deg, rgba(255, 43, 214, 0.5), rgba(25, 240, 255, 0.5));
+  animation: cyber-boot 620ms steps(2, end) 1;
+}
+@keyframes cyber-boot {
+  0%   { opacity: 0;   transform: translate(0, 0); }
+  10%  { opacity: 0.9; transform: translate(-6px, 2px); }
+  25%  { opacity: 0.4; transform: translate(5px, -3px); }
+  45%  { opacity: 0.85; transform: translate(-3px, 1px); }
+  70%  { opacity: 0.3; transform: translate(4px, 2px); }
+  100% { opacity: 0;   transform: translate(0, 0); }
+}
+
+/* Code toast */
+.cyber-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 28px;
+  transform: translateX(-50%);
+  z-index: 9999;
+  pointer-events: none;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #07060f;
+  background: var(--neon-cyan);
+  padding: 10px 18px;
+  border: 1px solid var(--neon-pink);
+  box-shadow:
+    0 0 0 1px rgba(7, 6, 15, 0.4),
+    0 0 20px rgba(25, 240, 255, 0.7),
+    0 0 36px rgba(255, 43, 214, 0.5);
+  animation: cyber-toast-in 220ms ease-out 1;
+}
+.cyber-toast.is-leaving { animation: cyber-toast-out 260ms ease-in forwards; }
+@keyframes cyber-toast-in {
+  from { opacity: 0; transform: translate(-50%, 14px); }
+  to   { opacity: 1; transform: translate(-50%, 0); }
+}
+@keyframes cyber-toast-out {
+  from { opacity: 1; transform: translate(-50%, 0); }
+  to   { opacity: 0; transform: translate(-50%, 14px); }
+}
+
+/* Reduced motion: kill the animated layers, keep the look static.
+   (The global reduced-motion rule near the top already neutralizes
+   animation duration; this also hides the scanline drift + glitch.) */
+@media (prefers-reduced-motion: reduce) {
+  .cyber body::after { animation: none; }
+  .cyber-glitch { display: none; }
+}
+
+/* ---- Font Lab — hidden secondary easter egg ----
+   Live per-role font picker. Hidden by default in cyber; revealed by typing
+   "font lab" while in cyber mode (toggles .fontlab-open on <html>). */
+.cyber-fontlab { display: none; }
+.cyber.fontlab-open .cyber-fontlab {
+  display: block;
+  position: fixed;
+  left: 16px;
+  bottom: 16px;
+  z-index: 9995;
+  width: 250px;
+  max-height: 80vh;
+  overflow: auto;
+  padding: 12px 14px 14px;
+  background: rgba(7, 6, 15, 0.92);
+  border: 1px solid var(--neon-pink);
+  box-shadow: 0 0 18px rgba(255, 43, 214, 0.5), inset 0 0 18px rgba(25, 240, 255, 0.08);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  font-family: var(--font-mono);
+}
+.cyber-fontlab .cfl-close {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  color: var(--neon-pink);
+  font-family: var(--font-mono);
+  font-size: 18px;
+  line-height: 1;
+  padding: 2px 5px;
+  transition: color 0.12s ease;
+}
+.cyber-fontlab .cfl-close:hover { color: var(--neon-cyan); }
+.cyber-fontlab .cfl-head {
+  font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--neon-cyan); margin-bottom: 4px;
+  padding-right: 18px;       /* clear the close button */
+}
+.cyber-fontlab .cfl-head span { color: var(--tertiary); letter-spacing: 0.16em; }
+.cyber-fontlab .cfl-group { margin-top: 12px; }
+.cyber-fontlab .cfl-label {
+  font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--tertiary); margin-bottom: 7px;
+}
+.cyber-fontlab .cfl-row { display: flex; flex-wrap: wrap; gap: 5px; }
+.cyber-fontlab button {
+  font-size: 13px; line-height: 1;
+  color: var(--ink); background: rgba(25, 240, 255, 0.06);
+  border: 1px solid rgba(25, 240, 255, 0.30);
+  padding: 7px 9px; cursor: pointer;
+  transition: color 0.12s ease, background 0.12s ease, border-color 0.12s ease;
+}
+.cyber-fontlab button:hover { border-color: var(--neon-cyan); color: var(--neon-cyan); }
+.cyber-fontlab button[aria-pressed="true"] {
+  background: var(--neon-cyan); color: #07060f; border-color: var(--neon-cyan);
+  box-shadow: 0 0 10px rgba(25, 240, 255, 0.6);
+}
+@media (max-width: 720px) {
+  .cyber .cyber-fontlab { left: 8px; bottom: 8px; width: 188px; padding: 9px 10px 10px; }
 }

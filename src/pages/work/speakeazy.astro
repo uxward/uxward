@@ -9,172 +9,10 @@ const num = String(idx + 1).padStart(2, '0');
 const prev = slate[(idx + slate.length - 1) % slate.length];
 const next = slate[(idx + 1) % slate.length];
 ---
-<Base title="Speakeazy — the tool that should have existed · uxward">
+<Base title="Speakeazy — the tool that should have existed · uxward" bodyClass="case">
   <style>
-    .breadcrumb { padding-top: var(--space-8); padding-bottom: var(--space-7); }
-    .breadcrumb a {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--tertiary);
-      text-decoration: none;
-    }
-    .breadcrumb a:hover { color: var(--signature); }
-
-    .title-block { padding-top: var(--space-7); padding-bottom: var(--space-10); }
-    .hero-preview { margin-top: var(--space-9); }
-    .case-num {
-      font-family: var(--font-serif);
-      font-feature-settings: "tnum" 1;
-      font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 1;
-      font-weight: 300;
-      font-size: 132px;
-      line-height: 0.9;
-      letter-spacing: -0.03em;
-      color: var(--signature);
-      margin: 0 0 var(--space-7);
-      display: block;
-    }
-    .case-title {
-      font-family: var(--font-serif);
-      font-weight: 300;
-      font-size: clamp(56px, 7.4vw, 104px);
-      line-height: 0.96;
-      letter-spacing: -0.035em;
-      font-variation-settings: 'opsz' 144, 'SOFT' 30;
-      color: var(--ink);
-      margin: 0;
-      max-width: 1080px;
-    }
-    .case-title em {
-      font-style: italic; font-weight: 400;
-      font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
-    }
-    .case-deck {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-weight: 300;
-      font-size: 24px;
-      line-height: 1.42;
-      color: var(--body);
-      margin: var(--space-8) 0 0;
-      max-width: 720px;
-      font-variation-settings: 'opsz' 36, 'SOFT' 80, 'WONK' 1;
-    }
-
-    .meta-strip {
-      border-top: 1px solid var(--rule);
-      border-bottom: 1px solid var(--rule);
-      padding: var(--space-6) 0;
-      margin-top: var(--space-9);
-    }
-    .meta-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr 1fr;
-      gap: var(--space-7);
-    }
-    .meta-row .cell .label {
-      font-family: var(--font-mono);
-      font-size: 10.5px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--tertiary);
-      margin-bottom: 6px;
-    }
-    .meta-row .cell .value {
-      font-family: var(--font-serif);
-      font-size: 17px;
-      color: var(--ink);
-      font-variation-settings: 'opsz' 24, 'SOFT' 30;
-    }
-
-    section.cs {
-      padding: var(--space-10) 0 var(--space-9);
-      border-top: 1px solid var(--rule);
-    }
-    section.cs:first-of-type { border-top: 0; }
-    .cs-eyebrow {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--signature);
-      margin-bottom: var(--space-7);
-    }
-    .cs-eyebrow .num {
-      color: var(--ink);
-      margin-right: 10px;
-      letter-spacing: 0.18em;
-    }
-    .cs-head {
-      font-family: var(--font-serif);
-      font-weight: 300;
-      font-size: 44px;
-      line-height: 1.05;
-      letter-spacing: -0.02em;
-      color: var(--ink);
-      margin: 0 0 var(--space-8) 0;
-      font-variation-settings: 'opsz' 96, 'SOFT' 30;
-      max-width: 720px;
-    }
-    .cs-head em {
-      font-style: italic; font-weight: 400;
-      font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1;
-    }
-    .cs-prose p {
-      font-family: var(--font-serif);
-      font-weight: 400;
-      font-size: 19px;
-      line-height: 1.65;
-      color: var(--body);
-      max-width: 660px;
-      margin: 0 0 var(--space-6);
-    }
-    .cs-prose p strong { font-weight: 500; color: var(--ink); }
-    .cs-prose p em { font-style: italic; }
-
-    .cs-pullquote {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-weight: 300;
-      font-size: 28px;
-      line-height: 1.35;
-      color: var(--ink);
-      border-left: 3px solid var(--signature);
-      padding-left: var(--space-7);
-      margin: var(--space-9) 0;
-      max-width: 620px;
-      font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1;
-    }
-
-    .choices {
-      margin: var(--space-8) 0 var(--space-7);
-      border-top: 1px solid var(--rule);
-    }
-    .choice-row {
-      display: grid;
-      grid-template-columns: 200px 1fr;
-      gap: var(--space-7);
-      padding: var(--space-5) 0;
-      border-bottom: 1px solid var(--rule);
-    }
-    .choice-row .key {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--tertiary);
-      padding-top: 4px;
-    }
-    .choice-row .val {
-      font-family: var(--font-serif);
-      font-size: 18px;
-      line-height: 1.55;
-      color: var(--body);
-      max-width: 580px;
-    }
-    .choice-row .val strong { font-weight: 500; color: var(--ink); }
+    /* speakeazy-only: full-bleed carousel, lightbox, real-image artifacts.
+       Shared case-study type/chrome lives in src/styles/case.css. */
 
     .artifacts {
       margin-top: var(--space-7);
@@ -182,10 +20,13 @@ const next = slate[(idx + 1) % slate.length];
       gap: var(--space-10);
       min-width: 0;
     }
+
     /* Stop the full-bleed carousel from forcing the 1fr column (and the
        standalone images that share it) wider via min-content. */
     .grid > div:not(.marker) { min-width: 0; }
+
     .artifact { min-width: 0; }
+
     .artifact .frame {
       display: block;
       position: relative;
@@ -193,28 +34,33 @@ const next = slate[(idx + 1) % slate.length];
       width: calc(100% + 60px);
       margin-left: -30px;
     }
+
     .artifact .frame img {
       display: block;
       width: 100%;
       height: auto;
     }
+
     .artifact .frame:not(.carousel) img { cursor: zoom-in; }
 
     /* Carousel — breaks out to full viewport width; width/margin/offset set by JS. */
     .artifact .frame.carousel {
       margin-left: 0;
     }
+
     .artifact .frame.carousel .track {
       display: flex;
       gap: var(--space-6);
       width: max-content;
       transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
     }
+
     .artifact .frame.carousel .track img {
       flex: 0 0 auto;
       width: var(--slide-w, 100%);
       cursor: zoom-in;
     }
+
     .car-nav {
       position: absolute;
       top: 50%;
@@ -233,9 +79,13 @@ const next = slate[(idx + 1) % slate.length];
       text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
       transition: color 0.2s;
     }
+
     .car-nav:hover { color: var(--signature); }
+
     .car-nav.prev { left: var(--space-5); }
+
     .car-nav.next { right: var(--space-5); }
+
     .car-dots {
       position: absolute;
       bottom: var(--space-5);
@@ -244,6 +94,7 @@ const next = slate[(idx + 1) % slate.length];
       display: flex;
       gap: 8px;
     }
+
     .car-dots button {
       width: 8px;
       height: 8px;
@@ -254,6 +105,7 @@ const next = slate[(idx + 1) % slate.length];
       background: color-mix(in srgb, var(--ink) 30%, transparent);
       transition: background 0.2s, transform 0.2s;
     }
+
     .car-dots button.active {
       background: var(--signature);
       transform: scale(1.25);
@@ -272,13 +124,16 @@ const next = slate[(idx + 1) % slate.length];
       visibility: hidden;
       transition: opacity 0.25s, visibility 0.25s;
     }
+
     .lightbox.open { opacity: 1; visibility: visible; }
+
     .lightbox img {
       max-width: 92vw;
       max-height: 88vh;
       object-fit: contain;
       background: none;
     }
+
     .lb-close, .lb-nav {
       position: absolute;
       background: transparent;
@@ -289,12 +144,19 @@ const next = slate[(idx + 1) % slate.length];
       opacity: 0.7;
       transition: opacity 0.2s;
     }
+
     .lb-close, .lb-nav { color: #fff; }
+
     .lb-close:hover, .lb-nav:hover { opacity: 1; color: var(--signature); }
+
     .lb-close { top: var(--space-6); right: var(--space-7); font-size: 40px; color: #fff; }
+
     .lb-nav { top: 50%; transform: translateY(-50%); font-size: 56px; padding: 0 var(--space-5); }
+
     .lb-nav.prev { left: var(--space-5); }
+
     .lb-nav.next { right: var(--space-5); }
+
     .lb-dots {
       position: absolute;
       bottom: var(--space-7);
@@ -303,6 +165,7 @@ const next = slate[(idx + 1) % slate.length];
       display: flex;
       gap: 10px;
     }
+
     .lb-dots button {
       width: 9px;
       height: 9px;
@@ -313,120 +176,23 @@ const next = slate[(idx + 1) % slate.length];
       background: color-mix(in srgb, var(--paper) 35%, transparent);
       transition: background 0.2s, transform 0.2s;
     }
+
     .lb-dots button.active {
       background: var(--paper);
       transform: scale(1.25);
     }
+
     .lightbox[data-count="1"] .lb-nav,
     .lightbox[data-count="1"] .lb-dots { display: none; }
-    .artifact .frame .placeholder-label {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--tertiary);
-    }
-    .artifact .frame .placeholder-detail {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-size: 17px;
-      color: var(--body);
-      max-width: 480px;
-      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
-    }
-    .artifact .caption-grid {
-      display: grid;
-      grid-template-columns: 110px 1fr;
-      gap: var(--space-7);
-      align-items: baseline;
-      margin-top: var(--space-6);
-    }
-    .artifact .caption-grid .num {
-      font-family: var(--font-serif);
-      font-feature-settings: "tnum" 1;
-      font-variation-settings: 'opsz' 96, 'SOFT' 30, 'WONK' 1;
-      font-weight: 300;
-      font-size: 36px;
-      line-height: 1;
-      color: var(--ink);
-    }
-    .artifact .caption-grid h4 {
-      font-family: var(--font-serif);
-      font-weight: 400;
-      font-size: 22px;
-      line-height: 1.25;
-      letter-spacing: -0.01em;
-      color: var(--ink);
-      margin: 0 0 8px 0;
-      font-variation-settings: 'opsz' 36, 'SOFT' 50;
-    }
-    .artifact .caption-grid p.cap {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-size: 16.5px;
-      line-height: 1.5;
-      color: var(--body);
-      margin: 0;
-      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
-    }
 
-    .outcomes-bleed {
-      background: var(--signature);
-      color: #FFFFFF;
-      padding: 128px 0 120px;
-    }
-    .outcomes-bleed .cs-eyebrow { color: rgba(255,255,255,0.78); }
-    .outcomes-bleed .cs-eyebrow .num { color: #FFFFFF; }
-    .outcomes-bleed .cs-head {
-      color: #FFFFFF;
-      font-size: clamp(48px, 6vw, 80px);
-      line-height: 1.02;
-      letter-spacing: -0.03em;
-      max-width: 980px;
-    }
     .outcomes-bleed .cs-prose p { color: rgba(255,255,255,0.92); }
+
     .outcomes-bleed .cs-prose { margin-top: var(--space-9); }
-    .outcomes-stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--space-9);
-      margin-top: var(--space-10);
-      border-top: 1px solid rgba(255,255,255,0.28);
-      padding-top: var(--space-8);
-    }
-    .stat .label {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.78);
-      margin-bottom: var(--space-4);
-    }
-    .stat .figure {
-      font-family: var(--font-serif);
-      font-feature-settings: "tnum" 1;
-      font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 1;
-      font-weight: 300;
-      font-size: 64px;
-      line-height: 1;
-      letter-spacing: -0.025em;
-      color: #FFFFFF;
-      margin-bottom: var(--space-4);
-    }
-    .stat .desc {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-size: 16.5px;
-      line-height: 1.5;
-      color: #FFFFFF;
-      max-width: 320px;
-      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
-    }
 
     .outcomes-bleed .live-cta {
       display: inline-block;
       margin-top: var(--space-9);
-      font-family: var(--font-serif);
+      font-family: var(--font-head);
       font-weight: 300;
       font-size: clamp(22px, 2.6vw, 32px);
       line-height: 1.1;
@@ -437,60 +203,8 @@ const next = slate[(idx + 1) % slate.length];
       text-underline-offset: 6px;
       font-variation-settings: 'opsz' 96, 'SOFT' 30;
     }
+
     .outcomes-bleed .live-cta:hover { color: rgba(255,255,255,0.82); }
-
-    .prevnext {
-      border-top: 2px solid var(--ink);
-      padding: var(--space-9) 0;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--space-9);
-    }
-    .pn-cell .label {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--tertiary);
-      margin-bottom: var(--space-4);
-    }
-    .pn-cell a {
-      font-family: var(--font-serif);
-      font-weight: 300;
-      font-size: 32px;
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-      color: var(--ink);
-      text-decoration: none;
-      font-variation-settings: 'opsz' 96, 'SOFT' 30;
-      display: block;
-    }
-    .pn-cell a:hover { color: var(--signature); }
-    .pn-cell a em { font-style: italic; font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1; }
-    .pn-cell.next { text-align: right; }
-
-    .back-all {
-      padding: var(--space-9) 0 var(--space-10);
-      text-align: center;
-      border-top: 1px solid var(--rule);
-    }
-    .back-all a {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--ink);
-      text-decoration: none;
-    }
-    .back-all a:hover { color: var(--signature); }
-
-    @media (max-width: 720px) {
-      .meta-row { grid-template-columns: 1fr 1fr; }
-      .outcomes-stats { grid-template-columns: 1fr; }
-      .prevnext { grid-template-columns: 1fr; }
-      .pn-cell.next { text-align: left; }
-      .choice-row { grid-template-columns: 1fr; }
-    }
   </style>
 
   <div class="container breadcrumb">

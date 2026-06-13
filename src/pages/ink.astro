@@ -157,6 +157,27 @@ import Base from '../layouts/Base.astro';
     :global([data-theme="dark"]) .ink-swatch:focus-visible { box-shadow: 0 0 0 2px #0B0D10, 0 0 0 3px #E5263A; }
     :global([data-theme="dark"]) .ink-fallback { color: #C9C6C0; }
 
+    /* Cyberpunk easter egg — neon basin + chrome, mirroring the dark block.
+       Keyed off the .cyber class on <html> (set outside this component). */
+    :global(.cyber) .ink-stage { background: #07060f; }
+    :global(.cyber) .ink-caption .eyebrow { color: #19F0FF; }
+    :global(.cyber) .ink-caption h1 {
+      font-family: var(--cf-head);
+      font-variation-settings: normal;
+      letter-spacing: 0;
+      color: #F6F7FF;
+      text-shadow: 0 0 6px #19F0FF, 0 0 16px rgba(255, 43, 214, 0.6);
+    }
+    :global(.cyber) .ink-caption h1 em { font-variation-settings: normal; }
+    :global(.cyber) .ink-caption p { color: #C9D6FF; }
+    :global(.cyber) .ink-controls .act { color: #8B7FC4; }
+    :global(.cyber) .ink-controls .act:hover,
+    :global(.cyber) .ink-controls .act[aria-pressed="true"] { color: #FF2BD6; }
+    :global(.cyber) .ink-swatch { border-color: rgba(25, 240, 255, 0.4); }
+    :global(.cyber) .ink-swatch[aria-pressed="true"] { box-shadow: 0 0 0 2px #07060f, 0 0 0 3px #19F0FF; }
+    :global(.cyber) .ink-swatch:focus-visible { box-shadow: 0 0 0 2px #07060f, 0 0 0 3px #FF2BD6; }
+    :global(.cyber) .ink-fallback { color: #C9D6FF; }
+
     @media (max-width: 640px) {
       .ink-caption p { display: none; }
       .ink-controls { gap: var(--space-5); }
@@ -242,6 +263,9 @@ import Base from '../layouts/Base.astro';
                inks: { ink: '#040404', graphite: '#6B6B6B', vermilion: '#CC0006' } },
       dark:  { water: '#0B0D10', additive: true,
                inks: { ink: '#FFFFFF', graphite: '#707070', vermilion: '#E5263A' } },
+      // Cyberpunk easter egg — neon ink glowing on a near-black basin.
+      cyber: { water: '#07060f', additive: true,
+               inks: { ink: '#19F0FF', graphite: '#2B6BFF', vermilion: '#FF2BD6' } },
     };
     const INK_KEYS = ['ink', 'graphite', 'vermilion'];
     const ADD_GAIN = 1.4;            // emissive scale for the additive (dark) model
@@ -254,6 +278,7 @@ import Base from '../layouts/Base.astro';
       };
     }
     function currentTheme() {
+      if (document.documentElement.classList.contains('cyber')) return 'cyber';
       return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
     }
 
@@ -751,7 +776,7 @@ import Base from '../layouts/Base.astro';
         clearDye();
       }
       new MutationObserver(applyTheme).observe(document.documentElement, {
-        attributes: true, attributeFilter: ['data-theme'],
+        attributes: true, attributeFilter: ['data-theme', 'class'],
       });
       applyTheme();
 
