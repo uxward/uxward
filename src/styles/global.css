@@ -557,6 +557,9 @@ html.cyber .foot-ext a {
   width: 20px;
   height: 20px;
   vertical-align: middle;
+  /* trefoil art is geometrically centered (the sun glyph it replaces is
+     top-weighted), so nudge up to optically center against the nav caps */
+  transform: translateY(-2px);
   overflow: visible;
   color: var(--neon-cyan);
   filter: drop-shadow(0 0 3px var(--neon-cyan));
