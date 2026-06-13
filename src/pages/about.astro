@@ -116,6 +116,16 @@ import Base from '../layouts/Base.astro';
       text-wrap: pretty;
     }
     .bio-prose p strong { font-weight: 500; color: var(--ink); }
+    .bio-prose ul {
+      font-family: var(--font-serif);
+      font-size: 19px;
+      line-height: 1.65;
+      color: var(--body);
+      max-width: 660px;
+      margin: 0 0 var(--space-6);
+      padding-left: 1.4em;
+    }
+    .bio-prose li { margin-bottom: var(--space-3); }
 
     .timeline-section {
       padding: var(--space-10) 0;
@@ -214,6 +224,10 @@ import Base from '../layouts/Base.astro';
       text-transform: uppercase;
       color: var(--tertiary);
     }
+    .currently-row .vals {
+      display: grid;
+      gap: var(--space-4);
+    }
     .currently-row .val {
       font-family: var(--font-serif);
       font-size: 20px;
@@ -250,7 +264,7 @@ import Base from '../layouts/Base.astro';
     .elsewhere-list { border-top: 1px solid var(--rule); }
     .elsewhere-row {
       display: grid;
-      grid-template-columns: 200px 1fr 160px;
+      grid-template-columns: 140px 1fr max-content;
       gap: var(--space-7);
       padding: var(--space-5) 0;
       border-bottom: 1px solid var(--rule);
@@ -279,6 +293,7 @@ import Base from '../layouts/Base.astro';
       text-underline-offset: 4px;
       text-decoration-thickness: 1px;
       text-align: right;
+      white-space: nowrap;
     }
     .elsewhere-row a.go:hover { color: var(--signature); }
 
@@ -343,48 +358,56 @@ import Base from '../layouts/Base.astro';
           <div class="bio-prose">
             <p>
               I'm Brandon. I've spent my career building and running design practices
-              — at three startups in the early 2000s, two design and digital agencies in the
+              — at four startups in the early 2000s, two design and digital agencies in the
               middle stretch, two senior consulting roles after that, and at Precocity for
               the last decade. The throughline is that every one of those jobs began with the
-              same sentence: <strong>there is no design practice yet; build one.</strong>
+              same sentence: <strong>there is no UX/SD/design practice yet; build one.</strong>
             </p>
             <p>
               The first startup was an e-learning organization I salvaged from dillution when the
               Director of Production abruptly quit, building the team, bringing everything in-house.
               The second was a small e-commerce platform where I learned to ship in a small room with
               engineers who outranked me and a CEO who wanted to sue me to stay when I left. The third
-              was an early-to-market video search platform with all the promise and a CEO from hell. The third
-              taught me that products that lead with great design with the users in mind backed up by
+              was an early-to-market video search platform with all the promise and a scrupulous CEO. 
+              The fourth taught me that products that lead with great design with the users in mind backed up by
               quality software is worth millions.
             </p>
             <p>
               The agency years were the years I learned to run a creative team. The
               consulting years after were the ones where I learned to run a creative team
               <strong>inside a business that didn't think of itself as a creative one.</strong>
-              At Precocity I joined as the first design hire and spent ten years growing the
+              At Precocity I joined as the first UX hire and spent ten years growing the
               practice into the discipline that closes the firm's enterprise contracts. That
-              case study is the load-bearing piece on this site. Read it if you read nothing
+              case study is the load-bearing piece on this site. <a href="../work/precocity">Read it</a> if you read nothing
               else.
             </p>
             <p>
               The AI-era expression of the same instinct, for me, has been shipping my own
-              tools — Speakeazy (live, real users), FORGE (the most ambitious of the set),
-              Verity, RAD, a Markdown plugin Precocity uses internally. The tools matter to me
-              less as products than as proof. I don't believe a senior design leader who
-              hasn't shipped anything with their own hands in five years. So I keep shipping
-              with my own hands. The medium is different than it was in 2001. The discipline
+              tools —
+            </p>
+            <ul>
+              <li><a href="../work/speakeazy">Speakeazy</a> (live, real users)</li>
+              <li>FORGE (a content-driven, AI-powered IA, UX, UI, and Build tool)</li>
+              <li>Verity (a comprehensive UX Research platform)</li>
+              <li>RAD (a visualization and reporting tool for moderated usability studies)</li>
+              <li>Marksman (a MacOS Markdown converter mini-app Precocity uses internally for AI projects)</li>
+              <li><a href="https://www.figma.com/community/plugin/1355255111922370746/design-library-showcase-generator-by-precocity">Design Library Showcase Generator</a> (a Figma plugin to help you instantly create a showcase of all library components and their variants)</li>
+            </ul>
+            <p>
+              The tools matter to me less as products than as proof. I don't believe a design leader who
+              hasn't shipped anything with their own hands in five years. Maybe it was a painting, or a teapot, or a chair, or an app. 
+              The medium is different than it was in 2001. The discipline
               isn't.
             </p>
             <p>
-              The summary version, for recruiters who scan: <strong>I build design practice
-              from scratch and run it across every mode</strong> — strategy, creative
+              The summary version, for recruiters who scan: <strong>I build design practices
+              from scratch, or take existing teams, turn them up to 11, and run them across every mode</strong> — strategy, creative
               direction, hands-on production. Unlike most leaders at my level, I'm still
-              shipping in the new tools every week. I'm currently considering senior design
+              shipping in the new tools every week. I'm currently considering executive design
               leadership roles at companies that take design seriously.
             </p>
             <p>
-              I live in Dallas. I write here quarterly. I act, occasionally, at a different
-              address. I am not on Twitter and I am not building a personal brand.
+              I live in Dallas. I write here periodically. I love kung fu, classic cars, singing, acting, teaching, traveling, husbanding, and fathering.
             </p>
           </div>
         </div>
@@ -398,7 +421,7 @@ import Base from '../layouts/Base.astro';
         <div class="marker">§ 03</div>
         <div>
           <div class="timeline-eyebrow">— Career, in years —</div>
-          <h2 class="timeline-head">Twenty-five years, told <em>plainly.</em></h2>
+          <h2 class="timeline-head">The years, told <em>plainly.</em></h2>
 
           <div class="tl">
             <div class="tl-row">
@@ -456,22 +479,26 @@ import Base from '../layouts/Base.astro';
           <div class="currently-list">
             <div class="currently-row">
               <span class="key">— Considering —</span>
-              <span class="val">Senior design leadership at companies that take design seriously. <em>Head of Design, VP, CDO.</em></span>
+              <span class="val">Executive design leadership at companies that take design seriously. <em>Head of Design, VP, CDO, CXO</em></span>
             </div>
             <div class="currently-row">
               <span class="key">— Building —</span>
-              <span class="val">FORGE — the AI tool I'd most defend. <em>Public alpha, late 2026.</em></span>
+              <div class="vals">
+                <span class="val"><a href="../work/speakeazy">Speakeazy</a> — <em>Public, launched Jan. 1, 2026.</em></span>
+                <span class="val">FORGE — Content > IA > Design > Code in minutes. <em>Private alpha, internal.</em></span>
+                <span class="val">Verity — Comprehensive UXR platform that doesn't suck. <em>Private alpha, internal.</em></span>
+              </div>
             </div>
             <div class="currently-row">
               <span class="key">— Reading —</span>
-              <span class="val">Annual reports, mostly. <em>The most honest design writing nobody calls design writing.</em></span>
+              <span class="val">Mostly LitRPG, Sci-Fi, and Fantasy, and the occasional business or design book. My <em>tsundoku</em> betrays me sometimes. I'll be the guy from <em>Time Enough At Last</em> screaming "There was time now. There was, was all the time I needed&hellip;"</span>
             </div>
             <div class="currently-row">
               <span class="key">— Not doing —</span>
-              <span class="val">A newsletter. A podcast. A personal brand. <em>The work is the brand.</em></span>
+              <span class="val">A newsletter. A podcast. A personal brand.</span>
             </div>
           </div>
-          <div class="currently-stamp">— Updated quarterly · Last revised Q1 2026 —</div>
+          <div class="currently-stamp">— Updated quarterly · Last revised Q2 2026 —</div>
         </div>
       </div>
     </div>
@@ -487,12 +514,12 @@ import Base from '../layouts/Base.astro';
             <div class="elsewhere-row">
               <span class="where">— LinkedIn —</span>
               <span class="what">The professional record. The same ground, drier.</span>
-              <a class="go" href="https://linkedin.com/in/brandonebward" target="_blank" rel="noopener">linkedin.com/in/brandonebward →</a>
+              <a class="go" href="https://linkedin.com/in/brandonebward" target="_blank" rel="noopener">/in/brandonebward →</a>
             </div>
             <div class="elsewhere-row">
               <span class="where">— GitHub —</span>
-              <span class="what">FORGE, RAD, the Markdown plugin, a few smaller artifacts.</span>
-              <a class="go" href="https://github.com/uxward" target="_blank" rel="noopener">github.com/uxward →</a>
+              <span class="what">This site. Everything else is private.</span>
+              <a class="go" href="https://github.com/uxward" target="_blank" rel="noopener">/uxward →</a>
             </div>
             <div class="elsewhere-row">
               <span class="where">— Acting —</span>

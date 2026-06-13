@@ -22,7 +22,7 @@ The name *uxward* is a wordplay on his surname (Ward) combined with a directiona
 
 ### The recruitable claim
 
-Brandon has been building design practice from scratch for 25 years — at three startups, two agencies, two senior consulting roles, and at Precocity for the last decade. He runs across modes (strategy, creative direction, hands-on production) with a fluency most senior leaders have lost. The AI-era expression of the same instinct is shipping his own tools — Speakeazy, FORGE, Verity, RAD, and a Figma plugin.
+Brandon has been building design practice from scratch for 25 years — at four startups, two agencies, two senior consulting roles, and at Precocity for the last decade. He runs across modes (strategy, creative direction, hands-on production) with a fluency most senior leaders have lost. The AI-era expression of the same instinct is shipping his own tools — Speakeazy, FORGE, Verity, RAD, and a Figma plugin.
 
 The positioning sentence the site is built to communicate:
 

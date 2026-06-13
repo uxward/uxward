@@ -30,8 +30,8 @@ The fold keeps its current architecture — eyebrow, H1, deck, meta line, vertic
 - Rationale: already plainspoken; it is the positioning *claim*. The deck below now supplies the *proof* for it (Golden Circle: claim → immediate evidence).
 
 ### `home-fold-deck` — REWRITE (Direction A: proof-forward)
-- **Was:** "Founder/builder at three startups, two agencies, ten years at Precocity, and now my own SaaS."
-- **Now:** "I shipped **Speakeazy** solo — live to real users since January 2026. Before that: 25 years standing up design practice at three startups, two agencies, and a decade at Precocity."
+- **Was:** "Founder/builder at four startups, two agencies, ten years at Precocity, and now my own SaaS."
+- **Now:** "I shipped **Speakeazy** solo — live to real users since January 2026. Before that: 25 years standing up design practice at four startups, two agencies, and a decade at Precocity."
 - **Purpose:** Lead with the single most disqualification-proof fact (a real, dated, shipped product built solo) so it is the first thing *read*, not the first thing scrolled to. The credential list becomes supporting context, not the headline claim.
 - **Serves:** shipped-proof hero (6.9), plainspoken voice (7.3) — it adds zero adjectives; it reorders existing truth.
 

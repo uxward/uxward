@@ -115,6 +115,20 @@ a:focus-visible, .link:focus-visible {
 }
 
 /* ============================================================
+   Lists — ✦ markers in the signature color (unordered only;
+   ol keeps its numbers). Marker hangs into each list's existing
+   left padding, so it works at any indent.
+   ============================================================ */
+ul { list-style: none; }
+ul > li { position: relative; }
+ul > li::before {
+  content: "✦";
+  position: absolute;
+  left: -1.2em;
+  color: var(--signature);
+}
+
+/* ============================================================
    Focus floor
    ============================================================ */
 :where(button, [role="button"], input, select, textarea, summary):focus-visible {

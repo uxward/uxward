@@ -60,9 +60,9 @@
       "strokeWidth": 1, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "groupIds": [],
       "frameId": null, "roundness": null, "seed": 1006, "version": 1, "versionNonce": 16, "isDeleted": false,
       "boundElements": [], "updated": 1, "link": null, "locked": false,
-      "text": "I shipped Speakeazy solo — live to real users since\nJanuary 2026. Before that: 25 years standing up design\npractice at three startups, two agencies, a decade at Precocity.", "fontSize": 20,
+      "text": "I shipped Speakeazy solo — live to real users since\nJanuary 2026. Before that: 25 years standing up design\npractice at four startups, two agencies, a decade at Precocity.", "fontSize": 20,
       "fontFamily": 1, "textAlign": "left", "verticalAlign": "top", "baseline": 20,
-      "containerId": null, "originalText": "I shipped Speakeazy solo — live to real users since\nJanuary 2026. Before that: 25 years standing up design\npractice at three startups, two agencies, a decade at Precocity.", "lineHeight": 1.25
+      "containerId": null, "originalText": "I shipped Speakeazy solo — live to real users since\nJanuary 2026. Before that: 25 years standing up design\npractice at four startups, two agencies, a decade at Precocity.", "lineHeight": 1.25
     },
     {
       "id": "link-underline", "type": "line", "x": 388, "y": 432, "width": 96, "height": 0,

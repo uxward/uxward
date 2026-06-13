@@ -172,6 +172,50 @@ import Base from '../layouts/Base.astro';
     }
     .channel-row a.go:hover { color: var(--signature); }
 
+    .elsewhere-list { border-top: 1px solid var(--rule); }
+    .elsewhere-row {
+      display: grid;
+      grid-template-columns: 140px 1fr max-content;
+      gap: var(--space-7);
+      padding: var(--space-5) 0;
+      border-bottom: 1px solid var(--rule);
+      align-items: baseline;
+    }
+    .elsewhere-row .where {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+    }
+    .elsewhere-row .what {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 17.5px;
+      line-height: 1.5;
+      color: var(--body);
+      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
+    }
+    .elsewhere-row a.go {
+      font-family: var(--font-serif);
+      font-size: 17px;
+      color: var(--ink);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-thickness: 1px;
+      text-align: right;
+      white-space: nowrap;
+    }
+    .elsewhere-row a.go:hover { color: var(--signature); }
+
+    @media (max-width: 900px) {
+      .portrait-row { grid-template-columns: 1fr; }
+      .tl-row { grid-template-columns: 1fr; }
+      .tl-row .place { text-align: left; }
+      .elsewhere-row { grid-template-columns: 1fr; }
+      .elsewhere-row a.go { text-align: left; }
+    }
+
     .faq { border-top: 1px solid var(--rule); }
     .faq-row {
       display: grid;
@@ -269,21 +313,21 @@ import Base from '../layouts/Base.astro';
         <div>
           <div class="section-eyebrow">— Other channels —</div>
           <h3 class="section-head">Email is the right one. <em>The rest are listed for completeness.</em></h3>
-          <div class="channels">
-            <div class="channel-row">
+          <div class="elsewhere-list">
+            <div class="elsewhere-row">
               <span class="where">— LinkedIn —</span>
               <span class="what">Same record, longer form. Connection requests welcome.</span>
               <a class="go" href="https://linkedin.com/in/brandonebward" target="_blank" rel="noopener">/in/brandonebward →</a>
             </div>
-            <div class="channel-row">
+            <div class="elsewhere-row">
               <span class="where">— GitHub —</span>
-              <span class="what">FORGE, RAD, the Markdown plugin, a few smaller artifacts.</span>
-              <a class="go" href="https://github.com/uxward" target="_blank" rel="noopener">/brandonebward →</a>
+              <span class="what">This site. Everything else is private.</span>
+              <a class="go" href="https://github.com/uxward" target="_blank" rel="noopener">/uxward →</a>
             </div>
-            <div class="channel-row">
+            <div class="elsewhere-row">
               <span class="where">— Calendar —</span>
               <span class="what">By introduction only. Email first, scheduling link after.</span>
-              <a class="go" href="mailto:brandon@uxward.com">— By email —</a>
+              <a class="go" href="mailto:brandon@uxward.com">brandon@uxward.com →</a>
             </div>
           </div>
         </div>

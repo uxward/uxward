@@ -142,7 +142,7 @@
         In src/pages/index.astro Block 01, replace the deck text per the approved fold spec.
         New deck: "I shipped &lt;a href='/work/speakeazy'&gt;Speakeazy&lt;/a&gt; solo — live to
         real users since January 2026. Before that: 25 years standing up design practice at
-        three startups, two agencies, and a decade at Precocity." The "Speakeazy" word links to
+        four startups, two agencies, and a decade at Precocity." The "Speakeazy" word links to
         /work/speakeazy (aria-label "Read the Speakeazy case study"), styled as a quiet serif
         inline link (underline) — not a button, not red. H1, eyebrow, and meta line unchanged.
       </description>

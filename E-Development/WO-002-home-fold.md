@@ -23,8 +23,8 @@ Vivian (primary persona) lands on the fold skeptical and time-poor; her #1 drivi
 
 | | Text |
 |---|---|
-| **Was** | `Founder/builder at three startups, two agencies, ten years at Precocity, and now my own SaaS.` |
-| **Now** | `I shipped <a href="/work/speakeazy">Speakeazy</a> solo — live to real users since January 2026. Before that: 25 years standing up design practice at three startups, two agencies, and a decade at Precocity.` |
+| **Was** | `Founder/builder at four startups, two agencies, ten years at Precocity, and now my own SaaS.` |
+| **Now** | `I shipped <a href="/work/speakeazy">Speakeazy</a> solo — live to real users since January 2026. Before that: 25 years standing up design practice at four startups, two agencies, and a decade at Precocity.` |
 
 - "Speakeazy" is an inline link to `/work/speakeazy`. Style it as a quiet serif inline link (underline, `text-underline-offset`), consistent with other inline links in the body voice — **not** a button, not red.
 - `aria-label` on the link: `Read the Speakeazy case study`.
