@@ -13,6 +13,11 @@ import { essaysNewestFirst } from '../data/essays.js';
       justify-content: center;
       padding: var(--space-10) 0;
     }
+
+    /* Cyber-only animated backdrop behind the hero. The display/positioning is
+       gated on html.cyber in global.css — scoped CSS can't target the .cyber
+       class on <html> (it lives outside this page's scope attribute). */
+    .hero-bg { display: none; }
     .fold .eyebrow-line {
       font-family: var(--font-mono);
       font-size: 11px;
@@ -371,6 +376,11 @@ import { essaysNewestFirst } from '../data/essays.js';
 
   <!-- BLOCK 01 — Above the fold -->
   <section class="fold">
+    <!-- Cyber-only animated city backdrop. The source is attached lazily by the
+         script below so non-cyber visitors never download the clip. -->
+    <div class="hero-bg" aria-hidden="true">
+      <video class="hero-bg-video" muted loop playsinline preload="none" data-src="/videos/cybercity-sm.mp4"></video>
+    </div>
     <div class="container">
       <div class="grid">
         <div class="marker">§ 01</div>
@@ -549,4 +559,32 @@ import { essaysNewestFirst } from '../data/essays.js';
       </div>
     </div>
   </section>
+
+  <script>
+    // Hero backdrop video: load + play only while cyber mode is on, so the clip
+    // is never fetched by visitors who haven't tripped the easter egg.
+    (function () {
+      var root = document.documentElement;
+      var video = document.querySelector('.hero-bg-video');
+      if (!video) return;
+
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+      function sync() {
+        var on = root.classList.contains('cyber') && !reduce.matches;
+        if (on) {
+          if (!video.src) video.src = video.dataset.src;   // attach + fetch on first activation
+          var p = video.play();
+          if (p && p.catch) p.catch(function () {});         // ignore autoplay rejections
+        } else {
+          video.pause();
+        }
+      }
+
+      // React to enter/exit cyber (class toggles on <html>) and reduced-motion changes.
+      new MutationObserver(sync).observe(root, { attributes: true, attributeFilter: ['class'] });
+      reduce.addEventListener('change', sync);
+      sync();
+    })();
+  </script>
 </Base>

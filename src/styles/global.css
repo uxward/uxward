@@ -586,6 +586,42 @@ html.cyber .foot-ext a {
 .cyber .hdr { box-shadow: 0 1px 0 rgba(255, 43, 214, 0.25); }
 .cyber ::selection { background: var(--neon-pink); color: #07060f; }
 
+/* Homepage hero: animated cyber-city backdrop behind the fold. Lives here (not
+   in index.astro's scoped block) because `.cyber` sits on <html>, outside the
+   page's scope attribute — a scoped `.cyber .hero-bg` rule never matches. The
+   <video> source is attached lazily by index.astro's script so non-cyber
+   visitors never fetch the clip. */
+html.cyber .fold { position: relative; isolation: isolate; }
+html.cyber .fold .container { position: relative; z-index: 1; }
+html.cyber .hero-bg {
+  display: block;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+html.cyber .hero-bg video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(1.15) contrast(1.05);
+}
+/* Legibility + cyber tint: darken toward --canvas, bias the bottom so the
+   eyebrow/deck sit on near-solid ground, with a faint neon wash on top. */
+html.cyber .hero-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(60% 50% at 18% 12%, rgba(255, 43, 214, 0.16), transparent 60%),
+    radial-gradient(55% 45% at 85% 22%, rgba(25, 240, 255, 0.14), transparent 60%),
+    linear-gradient(180deg, rgba(7, 6, 15, 0.55) 0%, rgba(7, 6, 15, 0.38) 42%, rgba(7, 6, 15, 0.82) 100%);
+}
+@media (prefers-reduced-motion: reduce) {
+  html.cyber .hero-bg { display: none; }
+}
+
 /* Wet-street backdrop: drifting neon glows + faint perspective grid */
 .cyber body::before {
   content: "";
@@ -602,22 +638,27 @@ html.cyber .foot-ext a {
     repeating-linear-gradient(90deg,  rgba(25, 240, 255, 0.04) 0 1px, transparent 1px 44px);
 }
 
-/* CRT scanlines, animated drift */
+/* CRT scanlines, animated drift.
+   Driven by a GPU-composited transform (not background-position) so the browser
+   slides one cached layer instead of repainting this full-screen, blend-mode
+   overlay every frame. Oversized by one drift distance (96px = 32× the 3px line
+   period) on each edge so translating never exposes a gap and still loops clean. */
 .cyber body::after {
   content: "";
   position: fixed;
-  inset: 0;
+  inset: -96px 0;
   z-index: 9990;
   pointer-events: none;
   background: repeating-linear-gradient(
     0deg, rgba(0, 0, 0, 0.16) 0 1px, transparent 1px 3px);
   mix-blend-mode: multiply;
   opacity: 0.6;
+  will-change: transform;
   animation: cyber-scan 8s linear infinite;
 }
 @keyframes cyber-scan {
-  from { background-position: 0 0; }
-  to   { background-position: 0 96px; }
+  from { transform: translateY(0); }
+  to   { transform: translateY(96px); }
 }
 
 /* Activation glitch flash — a transient overlay mounted by JS */

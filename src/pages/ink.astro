@@ -597,8 +597,9 @@ import Base from '../layouts/Base.astro';
         pointer.moved = true;
         lastInteraction = performance.now();
       });
-      addEventListener('pointerup', () => { pointer.down = false; });
-      addEventListener('pointercancel', () => { pointer.down = false; });
+      function onPointerUp() { pointer.down = false; }
+      addEventListener('pointerup', onPointerUp);
+      addEventListener('pointercancel', onPointerUp);
 
       function applyPointer() {
         if (!pointer.moved) return;
@@ -705,8 +706,11 @@ import Base from '../layouts/Base.astro';
       }
 
       let lastT = performance.now();
+      let rafId = 0;
+      let running = false;
       function frame(now) {
-        requestAnimationFrame(frame);
+        if (!running) return;
+        rafId = requestAnimationFrame(frame);
         let dt = (now - lastT) / 1000;
         lastT = now;
         dt = Math.min(dt, 1 / 30);
@@ -719,6 +723,33 @@ import Base from '../layouts/Base.astro';
         displayMat.uniforms.uTime.value = now * 0.001;
         blit(displayMat, null);
       }
+
+      // Only run the solver while the canvas is actually visible — paused when
+      // the tab is hidden or the stage is scrolled off-screen. Otherwise the full
+      // fluid sim (28 pressure iters at DYE_RES) would pin a core/GPU on a page
+      // no one is looking at.
+      let onscreen = true;
+      function start() {
+        if (running) return;
+        running = true;
+        lastT = performance.now();         // reset so dt doesn't jump after a pause
+        rafId = requestAnimationFrame(frame);
+      }
+      function stop() {
+        running = false;
+        if (rafId) cancelAnimationFrame(rafId);
+        rafId = 0;
+      }
+      function updateRun() {
+        if (!document.hidden && onscreen) start();
+        else stop();
+      }
+      document.addEventListener('visibilitychange', updateRun);
+      const visObserver = new IntersectionObserver(entries => {
+        onscreen = entries[entries.length - 1].isIntersecting;
+        updateRun();
+      }, { threshold: 0 });
+      visObserver.observe(stage);
 
       // opening reveal: three drops
       function seed() {
@@ -743,7 +774,7 @@ import Base from '../layouts/Base.astro';
         });
       });
 
-      addEventListener('resize', () => {
+      function onResize() {
         viewW = stage.clientWidth || 1;
         viewH = stage.clientHeight || 1;
         renderer.setSize(viewW, viewH);
@@ -753,7 +784,8 @@ import Base from '../layouts/Base.astro';
         curlRT.setSize(S.sw, S.sh);
         divergeRT.setSize(S.sw, S.sh);
         dye.resize(S.dw, S.dh);
-      });
+      }
+      addEventListener('resize', onResize);
 
       // Clear the dye field — used when the model flips between light/dark,
       // since stored values mean different things in each (absorbance vs light).
@@ -775,13 +807,35 @@ import Base from '../layouts/Base.astro';
         pointer.color = INKS[inkMode] || INKS.ink;
         clearDye();
       }
-      new MutationObserver(applyTheme).observe(document.documentElement, {
+      const themeObserver = new MutationObserver(applyTheme);
+      themeObserver.observe(document.documentElement, {
         attributes: true, attributeFilter: ['data-theme', 'class'],
       });
       applyTheme();
 
       seed();
-      requestAnimationFrame(frame);
+      updateRun();
+
+      // Free the GL context + render targets and detach observers/listeners on
+      // unload. Latent in this MPA (a full navigation drops the context anyway),
+      // but it keeps the page leak-free if it ever runs under client-side routing
+      // / view transitions, where the script re-runs without a fresh context.
+      function dispose() {
+        stop();
+        visObserver.disconnect();
+        themeObserver.disconnect();
+        document.removeEventListener('visibilitychange', updateRun);
+        removeEventListener('pointerup', onPointerUp);
+        removeEventListener('pointercancel', onPointerUp);
+        removeEventListener('resize', onResize);
+        [velocity, dye, pressure].forEach(f => { f.read.dispose(); f.write.dispose(); });
+        curlRT.dispose();
+        divergeRT.dispose();
+        quad.geometry.dispose();
+        renderer.dispose();
+        renderer.forceContextLoss();
+      }
+      addEventListener('pagehide', dispose, { once: true });
     }
   </script>
 </Base>
