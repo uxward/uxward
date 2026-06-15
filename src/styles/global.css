@@ -661,24 +661,164 @@ html.cyber .hero-bg::after {
   to   { transform: translateY(96px); }
 }
 
-/* Activation glitch flash — a transient overlay mounted by JS */
-.cyber-glitch {
-  position: fixed;
-  inset: 0;
-  z-index: 9998;
+/* ════════════════════════════════════════════════
+   Cyber ENTER cinematic (~4s). The page you're on degrades into signal
+   corruption — chromatic split, shake, color flicker, static, tear bars,
+   and the actual page text falling / flying away — then an opaque cover
+   masks a hand-off to "/", which powers on out of black (the arrival
+   rules at the end). Stage classes (cyber-glitching → cyber-peak →
+   cyber-cover) and the per-element teardown are driven by JS in Base.astro.
+   prefers-reduced-motion: JS skips the cinematic and just navigates. */
+
+/* The corrupting page: clip flung elements (no scrollbars), block input,
+   chromatic-split every text run, and shake + flicker the whole frame. */
+html.cyber-glitching { overflow: hidden !important; }
+html.cyber-glitching body {
   pointer-events: none;
-  mix-blend-mode: screen;
-  background:
-    linear-gradient(90deg, rgba(255, 43, 214, 0.5), rgba(25, 240, 255, 0.5));
-  animation: cyber-boot 620ms steps(2, end) 1;
+  text-shadow: 2px 0 rgba(255, 43, 214, 0.85), -2px 0 rgba(25, 240, 255, 0.85);
+  animation: cyber-shake 0.16s steps(2, end) infinite,
+             cyber-flicker 1.6s steps(1, end) infinite;
 }
-@keyframes cyber-boot {
-  0%   { opacity: 0;   transform: translate(0, 0); }
-  10%  { opacity: 0.9; transform: translate(-6px, 2px); }
-  25%  { opacity: 0.4; transform: translate(5px, -3px); }
-  45%  { opacity: 0.85; transform: translate(-3px, 1px); }
-  70%  { opacity: 0.3; transform: translate(4px, 2px); }
-  100% { opacity: 0;   transform: translate(0, 0); }
+html.cyber-glitching.cyber-peak body {
+  text-shadow: 6px 0 rgba(255, 43, 214, 0.9), -6px 0 rgba(25, 240, 255, 0.9);
+  animation: cyber-shake 0.08s steps(2, end) infinite,
+             cyber-flicker 0.5s steps(1, end) infinite;
+}
+/* Once the opaque cover fades in, stop the body filter flicker so the cover
+   (a child of body) reads as true black for the hand-off, never inverted white. */
+html.cyber-glitching.cyber-cover body { animation: none; filter: none; }
+@keyframes cyber-shake {
+  0%   { transform: translate(0, 0); }
+  20%  { transform: translate(-4px, 2px) skewX(0.4deg); }
+  40%  { transform: translate(3px, -3px); }
+  60%  { transform: translate(-2px, 1px) skewX(-0.4deg); }
+  80%  { transform: translate(4px, 2px); }
+  100% { transform: translate(0, 0); }
+}
+@keyframes cyber-flicker {
+  0%, 100% { filter: none; }
+  8%   { filter: invert(1) hue-rotate(90deg); }
+  10%  { filter: none; }
+  26%  { filter: hue-rotate(180deg) saturate(3); }
+  28%  { filter: none; }
+  52%  { filter: invert(1) contrast(1.6); }
+  54%  { filter: none; }
+  74%  { filter: hue-rotate(-70deg) contrast(2); }
+  76%  { filter: none; }
+}
+
+/* Per-element teardown — JS tags page elements + sets random --tx/--ty/--rot/--gd. */
+.cyber-fall, .cyber-fly {
+  position: relative;
+  z-index: 1;
+  will-change: transform, opacity;
+  animation-duration: var(--gd, 1s);
+  animation-fill-mode: forwards;
+}
+.cyber-fall { animation-name: cyber-fall-kf; animation-timing-function: cubic-bezier(0.5, 0, 0.85, 0.3); }
+.cyber-fly  { animation-name: cyber-fly-kf;  animation-timing-function: cubic-bezier(0.3, 0.1, 0.2, 1); }
+@keyframes cyber-fall-kf {
+  0%   { transform: translateY(0) rotate(0); opacity: 1; }
+  12%  { transform: translateY(-8px) rotate(calc(var(--rot, 30deg) * 0.08)); opacity: 1; }
+  100% { transform: translateY(var(--ty, 120vh)) translateX(calc(var(--tx, 0vw) * 0.4)) rotate(var(--rot, 30deg)); opacity: 0; }
+}
+@keyframes cyber-fly-kf {
+  0%   { transform: translate(0, 0) rotate(0) scale(1); opacity: 1; }
+  100% { transform: translate(var(--tx, 60vw), var(--ty, -80vh)) rotate(var(--rot, 60deg)) scale(0.3); opacity: 0; }
+}
+
+/* Full-screen FX overlay (built + appended by JS). */
+.cyber-fx { position: fixed; inset: 0; z-index: 100000; pointer-events: none; overflow: hidden; }
+.cyber-fx > * { position: absolute; inset: 0; }
+.cyber-fx .fx-noise {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: screen;
+  opacity: 0.06;
+  animation: cyber-noise 0.12s steps(3) infinite;
+}
+.cyber-peak  .cyber-fx .fx-noise { opacity: 0.22; }
+.cyber-cover .cyber-fx .fx-noise { opacity: 0.5; }
+@keyframes cyber-noise {
+  0%   { background-position: 0 0; }
+  33%  { background-position: -40px 20px; }
+  66%  { background-position: 30px -30px; }
+  100% { background-position: -20px -10px; }
+}
+.cyber-fx .fx-flash {
+  mix-blend-mode: screen;
+  opacity: 0;
+  animation: cyber-fx-flash 0.9s steps(1, end) infinite;
+}
+@keyframes cyber-fx-flash {
+  0%, 100% { opacity: 0; }
+  6%  { opacity: 0.5; background: rgba(255, 43, 214, 0.5); }
+  8%  { opacity: 0; }
+  40% { opacity: 0.4; background: rgba(25, 240, 255, 0.5); }
+  42% { opacity: 0; }
+  70% { opacity: 0.7; background: rgba(255, 255, 255, 0.6); }
+  73% { opacity: 0; }
+}
+.cyber-fx .fx-bar {
+  left: 0; right: 0;
+  background: rgba(25, 240, 255, 0.13);
+  mix-blend-mode: screen;
+  animation: cyber-bar 0.4s steps(2, end) infinite;
+}
+@keyframes cyber-bar {
+  0%, 100% { transform: translateX(-100%); opacity: 0; }
+  10%  { transform: translateX(0); opacity: 1; }
+  60%  { transform: translateX(0); opacity: 1; }
+  62%  { transform: translateX(7%); opacity: 0.3; }
+}
+.cyber-fx .fx-msg {
+  inset: auto; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  font-family: var(--font-mono, monospace);
+  font-size: clamp(13px, 3vw, 26px);
+  letter-spacing: 0.3em;
+  color: #19F0FF;
+  text-shadow: 2px 0 #FF2BD6, -2px 0 #19F0FF, 0 0 18px rgba(25, 240, 255, 0.8);
+  white-space: nowrap;
+  opacity: 0;
+}
+.cyber-peak .cyber-fx .fx-msg { opacity: 1; animation: cyber-msg 0.16s steps(2, end) infinite; }
+@keyframes cyber-msg {
+  0%, 100% { transform: translate(-50%, -50%); }
+  50%      { transform: translate(calc(-50% + 4px), -50%); }
+}
+/* Opaque hand-off cover — fades in at the peak to hide the page swap. */
+.cyber-fx .fx-cover { background: #04030a; opacity: 0; transition: opacity 0.35s linear; }
+.cyber-cover .cyber-fx .fx-cover { opacity: 1; }
+
+/* ── Arrival on the (cyber) home page: power on out of the black cover.
+   The before-paint script in Base.astro adds .cyber-arriving so the very
+   first paint is already covered; the main script then runs the reveal. ── */
+html.cyber-arriving { overflow: hidden; }
+html.cyber-arriving::before {
+  content: ""; position: fixed; inset: 0; z-index: 100000;
+  background: #04030a; pointer-events: none;
+}
+html.cyber-arrive-go::before { animation: cyber-bootcover 900ms ease-out forwards; }
+@keyframes cyber-bootcover {
+  0%  { opacity: 1; }   8%  { opacity: 0.2; }  12% { opacity: 0.9; }
+  20% { opacity: 0.1; } 26% { opacity: 0.6; }  42% { opacity: 0; }  100% { opacity: 0; }
+}
+html.cyber-arrive-go::after {
+  content: ""; position: fixed; left: 0; right: 0; top: -45vh; height: 45vh;
+  z-index: 100001; pointer-events: none; mix-blend-mode: screen;
+  background: linear-gradient(180deg, transparent, rgba(25, 240, 255, 0.4), rgba(255, 255, 255, 0.85), rgba(25, 240, 255, 0.4), transparent);
+  animation: cyber-sweep 720ms ease-in forwards;
+}
+@keyframes cyber-sweep { from { transform: translateY(0); } to { transform: translateY(170vh); } }
+
+/* Reduced motion: no shake, no falling, no flashing — straight to a covered
+   hand-off and an instant (uncovered) cyber home. */
+@media (prefers-reduced-motion: reduce) {
+  html.cyber-glitching body { animation: none; text-shadow: none; }
+  .cyber-fall, .cyber-fly { animation: none; }
+  .cyber-fx { display: none; }
+  html.cyber-arriving::before,
+  html.cyber-arrive-go::before,
+  html.cyber-arrive-go::after { display: none; animation: none; }
 }
 
 /* Code toast */
@@ -714,12 +854,11 @@ html.cyber .hero-bg::after {
   to   { opacity: 0; transform: translate(-50%, 14px); }
 }
 
-/* Reduced motion: kill the animated layers, keep the look static.
+/* Reduced motion: kill the animated scanline drift, keep the look static.
    (The global reduced-motion rule near the top already neutralizes
-   animation duration; this also hides the scanline drift + glitch.) */
+   animation duration.) */
 @media (prefers-reduced-motion: reduce) {
   .cyber body::after { animation: none; }
-  .cyber-glitch { display: none; }
 }
 
 /* ---- Font Lab — hidden secondary easter egg ----

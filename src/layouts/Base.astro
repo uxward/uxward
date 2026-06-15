@@ -54,6 +54,11 @@ const { title, description = "Brandon E. B. Ward — senior design leadership. B
             root.style.setProperty('--cf-' + slot, f.css);
           });
         }
+        // Mid-transition arrival: cover the very first paint so the page
+        // swap is invisible — the main script powers it on out of black.
+        if (sessionStorage.getItem('uxward-cyber-arriving')) {
+          document.documentElement.classList.add('cyber-arriving');
+        }
       } catch (e) {}
     })();
   </script>
@@ -256,6 +261,7 @@ const { title, description = "Brandon E. B. Ward — senior design leadership. B
       ];
       var MAXLEN = CODES.reduce(function (n, c) { return Math.max(n, c.keys.length); }, 0);
       var buffer = [];
+      var transitioning = false;   // guards against re-triggering mid-cinematic
 
       /* ── Font Lab ── live per-role font picker (cyber mode only). Four
          slots, each driving a CSS var on <html>: logo→--cf-logo,
@@ -330,20 +336,78 @@ const { title, description = "Brandon E. B. Ward — senior design leadership. B
         }, 2400);
       }
 
-      function glitch() {
-        var g = document.createElement('div');
-        g.className = 'cyber-glitch';
-        document.body.appendChild(g);
-        setTimeout(function () { g.remove(); }, 700);
+      // Builds the full-screen FX overlay (static, color flashes, tear bars,
+      // a signal message, and the opaque hand-off cover). CSS does the rest.
+      function buildFx(label) {
+        function box(cls) { var d = document.createElement('div'); d.className = cls; return d; }
+        var fx = box('cyber-fx');
+        fx.appendChild(box('fx-noise'));
+        fx.appendChild(box('fx-flash'));
+        for (var b = 0; b < 5; b++) {
+          var bar = box('fx-bar');
+          bar.style.top = (Math.random() * 88) + '%';
+          bar.style.height = (2 + Math.random() * 7) + '%';
+          bar.style.animationDuration = (0.25 + Math.random() * 0.5).toFixed(2) + 's';
+          bar.style.animationDelay = (Math.random() * 0.5).toFixed(2) + 's';
+          fx.appendChild(bar);
+        }
+        var msg = box('fx-msg');
+        msg.textContent = label || '// NIGHT CITY';
+        fx.appendChild(msg);
+        fx.appendChild(box('fx-cover'));   // opaque cover, last so it paints on top
+        return fx;
       }
 
+      // Tag the visible page elements so they fall / fly off as the signal corrupts.
+      function tearDownText() {
+        var nodes = [].slice.call(document.querySelectorAll(
+          'h1,h2,h3,h4,h5,p,li,figure,img,blockquote,figcaption,.marker,.eyebrow,.deck,.cap'
+        ));
+        var vh = window.innerHeight, picked = [];
+        for (var i = 0; i < nodes.length && picked.length < 150; i++) {
+          var r = nodes[i].getBoundingClientRect();
+          if (r.width <= 0 || r.height <= 0) continue;
+          if (r.bottom < -60 || r.top > vh * 1.4) continue;   // skip far off-screen
+          picked.push(nodes[i]);
+        }
+        for (var s = picked.length - 1; s > 0; s--) {          // shuffle for organic stagger
+          var j = Math.floor(Math.random() * (s + 1)), t = picked[s];
+          picked[s] = picked[j]; picked[j] = t;
+        }
+        picked.forEach(function (el) {
+          var fly = Math.random() < 0.45;
+          el.style.setProperty('--tx', ((Math.random() * 2 - 1) * (fly ? 90 : 40)).toFixed(1) + 'vw');
+          el.style.setProperty('--ty', (fly ? (-60 - Math.random() * 60) : (90 + Math.random() * 70)).toFixed(1) + 'vh');
+          el.style.setProperty('--rot', ((Math.random() * 2 - 1) * (fly ? 180 : 70)).toFixed(0) + 'deg');
+          el.style.setProperty('--gd', (0.7 + Math.random() * 0.9).toFixed(2) + 's');
+          el.style.animationDelay = (0.5 + Math.random() * 1.8).toFixed(2) + 's';
+          el.classList.add(fly ? 'cyber-fly' : 'cyber-fall');
+        });
+      }
+
+      function goHome() {
+        try { history.scrollRestoration = 'manual'; } catch (e) {}
+        if (location.pathname === '/') location.reload();
+        else location.assign('/');
+      }
+
+      // ENTER: ~4s of escalating corruption on the current page, then a covered
+      // hand-off to the home page (which powers on out of black). The cyber flag
+      // is committed up front so home loads already in Night City.
       function enterCyber(label) {
-        root.classList.add('cyber');
-        applyCyberFonts();
-        syncGlyph();
+        if (transitioning) return;
+        transitioning = true;
         try { localStorage.setItem('uxward-cyber', '1'); } catch (e) {}
-        glitch();
-        showToast(label);
+        try { sessionStorage.setItem('uxward-cyber-arriving', label || '// NIGHT CITY'); } catch (e) {}
+
+        if (matchMedia('(prefers-reduced-motion: reduce)').matches) { goHome(); return; }
+
+        root.classList.add('cyber-glitching');
+        document.body.appendChild(buildFx(label));
+        tearDownText();
+        setTimeout(function () { root.classList.add('cyber-peak'); }, 2400);
+        setTimeout(function () { root.classList.add('cyber-cover'); }, 3500);
+        setTimeout(goHome, 4150);
       }
 
       function exitCyber() {
@@ -361,6 +425,30 @@ const { title, description = "Brandon E. B. Ward — senior design leadership. B
       // before-paint script — sync the panel + ensure all faces are loaded.
       if (root.classList.contains('cyber')) applyCyberFonts();
 
+      // Arriving on the home page mid-transition: power on out of the black
+      // cover (added at first paint by the before-paint script), land at top.
+      (function () {
+        var arriving;
+        try { arriving = sessionStorage.getItem('uxward-cyber-arriving'); } catch (e) { arriving = null; }
+        if (!arriving) return;
+        try { sessionStorage.removeItem('uxward-cyber-arriving'); } catch (e) {}
+        try { history.scrollRestoration = 'manual'; } catch (e) {}
+        root.classList.add('cyber');           // ensure cyber even if before-paint missed it
+        applyCyberFonts();
+        syncGlyph();
+        window.scrollTo(0, 0);
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            root.classList.add('cyber-arrive-go');
+            showToast(arriving);
+            setTimeout(function () {
+              root.classList.remove('cyber-arriving', 'cyber-arrive-go');
+              window.scrollTo(0, 0);
+            }, 1000);
+          });
+        });
+      })();
+
       function normKey(e) {
         var k = e.key;
         if (!k) return null;
@@ -374,6 +462,7 @@ const { title, description = "Brandon E. B. Ward — senior design leadership. B
         var tag = (e.target && e.target.tagName) || '';
         if (tag === 'INPUT' || tag === 'TEXTAREA' || (e.target && e.target.isContentEditable)) return;
         if (e.metaKey || e.ctrlKey || e.altKey) return;
+        if (transitioning) return;   // ignore input while the enter cinematic runs
 
         if (e.key === 'Escape' && root.classList.contains('cyber')) { exitCyber(); return; }
 
