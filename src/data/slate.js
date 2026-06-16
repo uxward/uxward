@@ -22,7 +22,7 @@ export const slate = [
     slug: 'precocity',
     client: 'Precocity',
     title: 'Precocity — the <em>ten-year</em> build.',
-    deck: 'Standing up and growing the design practice as a consultant over ten years — from a two-person discipline inside a data-engineering firm to the team that shipped against seven-figure enterprise contracts.',
+    deck: "Joining as Precocity's first-ever UX researcher and designer, I built the design practice from nothing over ten years — into the tip of the spear on every engagement, a multimillion-dollar book of business, and a path from Director of UX to Chief Experience Officer.",
     stamps: ['CXO', '2016 — Present'],
   },
   {

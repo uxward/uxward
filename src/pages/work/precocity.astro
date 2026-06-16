@@ -11,6 +11,50 @@ const next = slate[(idx + 1) % slate.length];
 ---
 <Base title="Precocity — the ten-year build · uxward" bodyClass="case">
 
+  <style>
+    /* — Proof-forward hero: lead with the practice, in numbers, not a placeholder
+         image. Bespoke-in-page, matching the speakeazy/insurco convention. — */
+    body.case .hero-proof {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-7);
+      margin-top: var(--space-9);
+      padding-top: var(--space-7);
+      border-top: 1px solid var(--rule);
+    }
+    body.case .hero-proof .hp .label {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-bottom: var(--space-4);
+    }
+    body.case .hero-proof .hp .figure {
+      font-family: var(--font-head);
+      font-feature-settings: "tnum" 1;
+      font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 1;
+      font-weight: 300;
+      font-size: 64px;
+      line-height: 1;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+      margin-bottom: var(--space-4);
+    }
+    body.case .hero-proof .hp .desc {
+      font-family: var(--font-body);
+      font-style: italic;
+      font-size: 16px;
+      line-height: 1.45;
+      color: var(--body);
+      max-width: 280px;
+      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
+    }
+    @media (max-width: 720px) {
+      body.case .hero-proof { grid-template-columns: 1fr; gap: var(--space-6); }
+    }
+  </style>
+
   <div class="container breadcrumb">
     <div class="grid">
       <div class="marker">§ ↩</div>
@@ -25,16 +69,27 @@ const next = slate[(idx + 1) % slate.length];
         <span class="case-num">{num}</span>
         <h1 class="case-title" set:html={self.title} />
         <p class="case-deck">
-          Standing up and growing the design practice as a consultant over ten years — from a
-          two-person discipline inside a data-engineering firm to the team that shipped against
-          eight-figure enterprise contracts.
+          I joined Precocity in 2016 as its first-ever UX hire — a
+          discipline the firm had never had. Over the next ten years I built the practice, 
+          made it the tip of the spear on every engagement, and grew from
+          Director of UX to Chief Experience Officer and part-owner.
         </p>
-        <div class="artifact hero-preview">
-          <div class="frame">
-            <span class="placeholder-label">Hero preview</span>
-            <span class="placeholder-detail">
-              The case's signature screen — the strongest visual, shown up front.
-            </span>
+
+        <div class="hero-proof">
+          <div class="hp">
+            <div class="label">— Tenure —</div>
+            <div class="figure">10 yrs</div>
+            <div class="desc">Director of UX → Chief Experience Officer, and part-owner.</div>
+          </div>
+          <div class="hp">
+            <div class="label">— Reach —</div>
+            <div class="figure">100+</div>
+            <div class="desc">Clients served, across more than 120 engagements.</div>
+          </div>
+          <div class="hp">
+            <div class="label">— Practice built —</div>
+            <div class="figure">$4.4M</div>
+            <div class="desc">Conservative UX/UI book of business, 2016 — 2026.</div>
           </div>
         </div>
       </div>
@@ -52,7 +107,7 @@ const next = slate[(idx + 1) % slate.length];
           </div>
           <div class="cell">
             <div class="label">Role</div>
-            <div class="value">Chief Experience Officer</div>
+            <div class="value">Director of UX → CXO</div>
           </div>
           <div class="cell">
             <div class="label">Timeframe</div>
@@ -60,7 +115,7 @@ const next = slate[(idx + 1) % slate.length];
           </div>
           <div class="cell">
             <div class="label">Capacity</div>
-            <div class="value">Solo, then 6-person team</div>
+            <div class="value">Built &amp; led the practice</div>
           </div>
         </div>
       </div>
@@ -73,23 +128,26 @@ const next = slate[(idx + 1) % slate.length];
         <div class="marker">§ 01</div>
         <div>
           <div class="cs-eyebrow"><span class="num">01</span>— Context —</div>
-          <h2 class="cs-head">A data-engineering firm, no design <em>practice yet.</em></h2>
+          <h2 class="cs-head">Five designers, and not one who started with the <em>user.</em></h2>
           <div class="cs-prose">
             <p>
-              I joined Precocity in 2016 as the first design hire. The firm had a strong
-              data-engineering reputation and a roster of Fortune 500 clients, but every
-              engagement was bottlenecked at the moment a client asked, <em>what does this
-              actually look like?</em> The answer, until then, was a slide.
+              What drew me to Precocity in 2016 was the range. This was a digital consultancy
+              that built on Microsoft Surface and large-format touch walls and tables before
+              they were mainstream, shipped 3D in game engines like Unity, stood up B2B SaaS,
+              built websites — and carried a marquee client in Deloitte. Technically and
+              creatively, it was strong.
             </p>
             <p>
-              There was no design system, no research function, no usability practice, and no
-              one with a job title containing the word "design." The closest thing was a
-              senior PM who liked Sketch.
+              What it didn't have was a user-experience practice. There were five talented UI,
+              graphic, and brand designers, but no researcher, no UX methodology, and no one
+              whose job was to start with the user and the problem rather than a handed-down
+              list of requirements.
             </p>
             <p>
-              The hiring brief was open-ended: <strong>build the design discipline, however that
-              means.</strong> No team to inherit, no tooling, no playbook. The first six months
-              were spent designing the practice itself.
+              I came in as the sixth person on the design team, and the first the firm had ever
+              hired to do research and UX. The mandate was open-ended: <strong>stand up the
+              discipline, however that needed to look.</strong> No practice to inherit, no
+              playbook — the first months were spent designing the practice itself.
             </p>
           </div>
         </div>
@@ -103,27 +161,25 @@ const next = slate[(idx + 1) % slate.length];
         <div class="marker">§ 02</div>
         <div>
           <div class="cs-eyebrow"><span class="num">02</span>— The problem, named clearly —</div>
-          <h2 class="cs-head">Precocity could win the data work, then <em>lose the deal</em> at the screen.</h2>
+          <h2 class="cs-head">Design arrived at the end of the line — after the real decisions were <em>already made.</em></h2>
           <div class="cs-prose">
             <p>
-              The business problem was specific and measurable. Precocity competed for enterprise
-              data engagements against the big four; technically, it was as strong as any of them.
-              But three out of every four pitches were going to the firm whose deck included
-              <em>credible-looking interfaces</em>, not the firm with the better pipeline.
+              The way work flowed, design was the last stop. Business analysts and developers
+              gathered requirements, handed the design team a list, and asked for a UI. The
+              designers made the screens look right — but no one had asked whether they solved
+              the right problem, and no one had tested them with a real user.
             </p>
             <p>
-              Inside delivery, the same gap showed up downstream. Clients accepted the data
-              architecture and rejected the dashboards built on top of it. Engagements stalled at
-              UAT. Renewal rates trailed the contracts where a designer had been on the bench
-              from week one.
+              For a consultancy, that isn't only a craft problem; it's a business one. Clients
+              were buying output instead of outcomes, and the firm carried the risk when a
+              handsome, unvalidated screen didn't land in front of real people.
             </p>
             <blockquote class="cs-pullquote">
-              The firm wasn't losing on data work. It was losing on the screen the data finally got to.
+              Precocity could build almost anything. What it couldn't yet do was prove it was building the right thing.
             </blockquote>
             <p>
-              The problem statement, when I finally wrote it down on the back of a deck three
-              months in: <strong>Precocity needs the design practice to be load-bearing in sales
-              and load-bearing in delivery, and it needs both inside a year.</strong>
+              The opportunity, stated plainly: <strong>make UX load-bearing — in the pitch and
+              in delivery — so design led the engagement instead of decorating its tail end.</strong>
             </p>
           </div>
         </div>
@@ -137,51 +193,56 @@ const next = slate[(idx + 1) % slate.length];
         <div class="marker">§ 03</div>
         <div>
           <div class="cs-eyebrow"><span class="num">03</span>— The approach —</div>
-          <h2 class="cs-head">Build the practice the firm could <em>defend</em> — not the one I'd want.</h2>
+          <h2 class="cs-head">Lead with the user — and make UX the thing clients bought <em>first.</em></h2>
           <div class="cs-prose">
             <p>
-              The instinct was to hire a five-person team and stand up a research function. I
-              didn't. A consultancy bills hours; a design org that can't tie to a billable line
-              dies in the next downturn. The version I built had to survive a bad quarter, not a
-              good one.
+              The first move was practical. Within the first weeks I moved the team off
+              Balsamiq, Photoshop, and Illustrator onto Sketch — paired with the InVision they
+              already used — not for novelty, but because the old toolchain couldn't support the
+              way modern product design actually works.
             </p>
             <p>
-              The first year was three things: a working sales artifact (a 10-day discovery
-              package the firm could sell into any pitch), a delivery template (a repeatable
-              design phase that slotted into every engagement), and a single junior designer
-              I could grow rather than a senior I'd have to defend.
+              Then the practice itself. I wrote the methodology Precocity had never had:
+              research first, problem first, data-driven. Start with the user, unravel the
+              problem, build the information architecture, wireframe, rapidly prototype, test
+              the wireframe before investing in high fidelity, test the high fidelity, then
+              ship. I also brought service design — still new to the U.S. — into the firm's
+              toolkit, a fresh way to serve a varied book of clients.
             </p>
             <p>
-              The system I built deliberately <em>looked</em> like the firm's existing work — same
-              voice, same materials, same restraint. Designers don't get tenure at consultancies
-              by being precious about their craft.
+              To get UX into the room, I built a deck on the ROI of UX and carried it into pitch
+              after pitch from 2016 until about 2022 — when the results had made the argument
+              for me, and clients simply asked what the problem was, what it would cost, and how
+              fast we could deliver. When the work demanded a research engine the firm didn't
+              have, I built one: hiring and training contractors into researchers, run in two
+              shifts so a deep testing week never meant twelve-hour days for any one person.
             </p>
           </div>
 
           <div class="choices">
             <div class="choice-row">
               <div class="key">— Chose to —</div>
-              <div class="val">Tie every design hire to a billable engagement. <strong>The practice grew at the rate the book of business grew.</strong></div>
+              <div class="val">Start every engagement with the user and the problem — <strong>not a handed-down requirements list.</strong></div>
             </div>
             <div class="choice-row">
               <div class="key">— Chose to —</div>
-              <div class="val">Standardize a 10-day discovery package, billable, sold inside every pitch.</div>
+              <div class="val">Sell the practice with an ROI-of-UX deck — until the outcomes made the deck unnecessary (~2022).</div>
             </div>
             <div class="choice-row">
               <div class="key">— Chose to —</div>
-              <div class="val">Run research lean — five-user studies, no panels, no labs.</div>
+              <div class="val">Build a research engine from trained contractors in two shifts, rather than overhire ahead of the book.</div>
+            </div>
+            <div class="choice-row">
+              <div class="key">— Chose to —</div>
+              <div class="val">Put UX and UI in the room from day one. <strong>The tip of the spear, not the final coat of paint.</strong></div>
             </div>
             <div class="choice-row">
               <div class="key">— Chose <strong>not</strong> to —</div>
-              <div class="val">Build a brand-design or marketing-design capability. The firm's growth was on product, not brand.</div>
+              <div class="val">Build a design system as a first act, or chase brand and marketing work. The firm's growth was in product.</div>
             </div>
             <div class="choice-row">
-              <div class="key">— Chose <strong>not</strong> to —</div>
-              <div class="val">Hire a senior IC to "raise the bar." A senior would have walked in eighteen months. I needed a team that compounded.</div>
-            </div>
-            <div class="choice-row">
-              <div class="key">— Chose <strong>not</strong> to —</div>
-              <div class="val">Build a design system as a first project. Design systems at consultancies are vanity. We made one when a client paid for it, in year four.</div>
+              <div class="key">— Chose to —</div>
+              <div class="val">Drop low fidelity once rapid high-fi prototyping got faster — cutting a whole stage clients no longer had to fund.</div>
             </div>
           </div>
         </div>
@@ -195,11 +256,13 @@ const next = slate[(idx + 1) % slate.length];
         <div class="marker">§ 04</div>
         <div>
           <div class="cs-eyebrow"><span class="num">04</span>— The work itself —</div>
-          <h2 class="cs-head">Three artifacts, ten years of <em>compounding</em>.</h2>
+          <h2 class="cs-head">No single screen is the hero. The <em>practice</em> is.</h2>
           <div class="cs-prose" style="margin-bottom: var(--space-9);">
             <p>
-              The honest version of "the work" at a consultancy is that no single artifact is the
-              hero. The practice is the artifact. These three are the ones I'd defend in a room.
+              At a consultancy, the honest version of "the work" is that no one artifact carries
+              it — the method is what compounds, engagement after engagement, from a global automaker to
+              Porte to a major insurance broker and a hundred more. These three are the pieces of it I'd put on
+              the table.
             </p>
           </div>
 
@@ -208,18 +271,17 @@ const next = slate[(idx + 1) % slate.length];
               <div class="frame">
                 <span class="placeholder-label">Artifact 01 / 03</span>
                 <span class="placeholder-detail">
-                  Two-page spread of the discovery template — left page is the problem framing
-                  worksheet, right is the day-by-day cadence, both set in the firm's house style.
+                  Selected slides from the ROI-of-UX pitch deck.
                 </span>
               </div>
               <div class="caption-grid">
                 <span class="num">01</span>
                 <div class="body">
-                  <h4>The 10-day discovery package</h4>
+                  <h4>The ROI-of-UX deck</h4>
                   <p class="cap">
-                    Sold inside 47 pitches by year three. Won 31. Designed to be presented by an
-                    account exec who'd never met a designer — every page a single decision a
-                    client could approve or reject in a meeting.
+                    The deck I carried into pitch after pitch from 2016 to ~2022, arguing why
+                    every engagement should lead with UX. It worked until it was obsolete — by
+                    the end, clients didn't need convincing.
                   </p>
                 </div>
               </div>
@@ -229,18 +291,16 @@ const next = slate[(idx + 1) % slate.length];
               <div class="frame">
                 <span class="placeholder-label">Artifact 02 / 03</span>
                 <span class="placeholder-detail">
-                  Screen of the dashboard pattern library — six chart types, three layout
-                  templates, the one approved table, set against the canvas the firm shipped.
+                  Redacted client journey map.
                 </span>
               </div>
               <div class="caption-grid">
                 <span class="num">02</span>
                 <div class="body">
-                  <h4>The "house dashboard" pattern library</h4>
+                  <h4>Journey maps &amp; personas</h4>
                   <p class="cap">
-                    Built in year four for a financial-services client; reused, with the client's
-                    blessing, on twelve subsequent engagements. The library that finally made the
-                    firm's dashboards stop being lost at UAT.
+                    The front of the user-first method — the proof we'd understood the problem,
+                    and the people it belonged to, before anyone drew a screen.
                   </p>
                 </div>
               </div>
@@ -250,19 +310,17 @@ const next = slate[(idx + 1) % slate.length];
               <div class="frame">
                 <span class="placeholder-label">Artifact 03 / 03</span>
                 <span class="placeholder-detail">
-                  Org chart at year-one, year-five, and year-ten — same wall-chart treatment,
-                  showing the practice scaling from one designer to a six-person team without
-                  flattening into a managerial layer.
+                  Redacted wireframes and high-fidelity screens.
                 </span>
               </div>
               <div class="caption-grid">
                 <span class="num">03</span>
                 <div class="body">
-                  <h4>The team, drawn at three points in time</h4>
+                  <h4>Wireframe → tested → high fidelity</h4>
                   <p class="cap">
-                    The artifact I'm proudest of, and the one with the smallest visible footprint.
-                    A team that scaled six-fold with one promotion, no churn through three
-                    recessions, and a senior IC track that didn't end in management.
+                    The pipeline itself: wireframes tested before high fidelity, high fidelity
+                    tested before production. The same shape on engagement after engagement —
+                    and the reason clients stopped paying to build the wrong thing.
                   </p>
                 </div>
               </div>
@@ -280,23 +338,23 @@ const next = slate[(idx + 1) % slate.length];
         <div>
           <div class="cs-eyebrow"><span class="num">05</span>— Outcomes —</div>
           <h2 class="cs-head">
-            Design went from cost center to <em>line item on every engagement</em> the firm signed.
+            Design went from the last stop to the tip of the spear — and <em>paid for itself many times over.</em>
           </h2>
           <div class="outcomes-stats">
             <div class="stat">
-              <div class="label">— Pitches involving design —</div>
-              <div class="figure">3 → 47</div>
-              <div class="desc">Per year, between 2016 and 2023.</div>
+              <div class="label">— UX/UI book of business —</div>
+              <div class="figure">$4.4M</div>
+              <div class="desc">Conservative, 2016 — 2026. The practice I built, measured in dollars.</div>
             </div>
             <div class="stat">
-              <div class="label">— Win rate, design-led pitches —</div>
-              <div class="figure">66%</div>
-              <div class="desc">Versus 31% for engineering-only pitches over the same window.</div>
+              <div class="label">— Pitched · won —</div>
+              <div class="figure">91%</div>
+              <div class="desc">Win rate across 141 engagements I personally wrote and pitched.</div>
             </div>
             <div class="stat">
-              <div class="label">— Practice headcount —</div>
-              <div class="figure">1 → 6</div>
-              <div class="desc">Zero unplanned departures across ten years.</div>
+              <div class="label">— Referral · retention —</div>
+              <div class="figure">~99%</div>
+              <div class="desc">Client referral rate — and zero design-team layoffs in ten years.</div>
             </div>
           </div>
         </div>
@@ -310,26 +368,35 @@ const next = slate[(idx + 1) % slate.length];
         <div class="marker">§ 06</div>
         <div>
           <div class="cs-eyebrow"><span class="num">06</span>— Reflection —</div>
-          <h2 class="cs-head">What I'd do differently. What I <em>carried forward.</em></h2>
+          <h2 class="cs-head">What a decade of building actually <em>taught me.</em></h2>
           <div class="cs-prose">
             <p>
-              The decision I'd reverse, knowing what I know now: I waited too long to formalize a
-              research function. By the time we hired our first dedicated researcher in year six,
-              the design team had absorbed research as a side-of-desk discipline, and the muscle
-              never fully separated. The work was good; it would have been better with someone
-              whose whole job was to ask the inconvenient questions.
+              The decade taught me the business, not just the craft. The move from Director of
+              UX to Chief Experience Officer came with equity and an education in how a
+              consultancy actually makes money — patiently taught by our chief creative officer,
+              Tim Doll, and our COO, Tim Starling. For the first five years I was here we had no
+              salespeople; the book grew on delivered work and relationships. And through
+              2020 – 2025, while peers were retrenching, we grew every single year.
             </p>
             <p>
-              The thing that surprised me: <em>how much of the practice was operational, not
-              creative.</em> The artifact that moved the firm wasn't a polished UI — it was a
-              billable-discovery template with a defensible day-by-day. The instinct to spend the
-              first six months on a design system would have killed the practice in its first year.
+              The hardest lessons were about people. I learned to <strong>hire slow and fire
+              fast</strong> the expensive way — by doing the opposite and watching everyone pay
+              for it, the ones I held onto too long most of all. I learned to extend grace, to
+              admit when I'm wrong, and to take a hard critique as a gift. And I learned what
+              I'm proudest of: a design team no one ever had to lay off, where people used
+              Precocity as a launchpad to senior research and design roles at the biggest names
+              in the region — Southwest, Cigna, and more.
             </p>
             <p>
-              What I carried forward, and still operate from: <strong>build the version that can
-              survive a bad quarter, not the version you'd put on Dribbble.</strong> The Speakeazy
-              build is the same instinct applied with different tools. So is FORGE. The medium
-              changed; the discipline didn't.
+              What I carry forward is a bias I've had since I started out as a developer:
+              <strong>build the version that survives a bad quarter, not the one you'd put on
+              Dribbble.</strong> Being a coder first, I've always worked the seam between design
+              and engineering — defending the user when the build is hard, and killing the
+              over-wrought design when it isn't worth the cost. In the AI age I've started
+              building again myself, sometimes live on a client call, turning what they're
+              describing into something on screen before the meeting ends. The Speakeazy build
+              is that same instinct with new tools. The medium keeps changing; the discipline
+              doesn't.
             </p>
           </div>
         </div>
