@@ -19,6 +19,44 @@ const next = slate[(idx + 1) % slate.length];
   ============================================================================
 -->
 <Base title="Porte — research-first mobile banking · uxward" bodyClass="case">
+  <style>
+    /* porte-only: real hero image + lightbox. Shared case-study chrome lives in src/styles/case.css. */
+    .hero-preview .frame { padding: 0; aspect-ratio: auto; display: block; overflow: hidden; }
+    .hero-preview .frame img { display: block; width: 100%; height: auto; cursor: zoom-in; }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.33);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s, visibility 0.25s;
+    }
+
+    .lightbox.open { opacity: 1; visibility: visible; }
+
+    .lightbox img { max-width: 92vw; max-height: 88vh; object-fit: contain; }
+
+    .lb-close {
+      position: absolute;
+      top: var(--space-6);
+      right: var(--space-7);
+      background: transparent;
+      border: 0;
+      color: #fff;
+      cursor: pointer;
+      line-height: 1;
+      font-size: 40px;
+      opacity: 0.7;
+      transition: opacity 0.2s, color 0.2s;
+    }
+
+    .lb-close:hover { opacity: 1; color: var(--signature); }
+  </style>
 
   <div class="container breadcrumb">
     <div class="grid">
@@ -40,10 +78,7 @@ const next = slate[(idx + 1) % slate.length];
         </p>
         <div class="artifact hero-preview">
           <div class="frame">
-            <span class="placeholder-label">Hero preview</span>
-            <span class="placeholder-detail">
-              The case's signature screen — the strongest visual, shown up front.
-            </span>
+            <img src="/images/porte/porte-app-store.png" alt="Porte's App Store listing — a 4.8★ mobile banking app with screenshots of the home dashboard, card, fee breakdown, and charity giving." />
           </div>
         </div>
       </div>
@@ -69,7 +104,7 @@ const next = slate[(idx + 1) % slate.length];
           </div>
           <div class="cell">
             <div class="label">Capacity</div>
-            <div class="value">Lead of a 3-person UX team</div>
+            <div class="value">Lead 3-person UX/UI team</div>
           </div>
         </div>
       </div>
@@ -87,7 +122,7 @@ const next = slate[(idx + 1) % slate.length];
             <p>
               Porte's parent, Populous, had been in financial services for more than fifty years. In
               all that time it had never built anything for the way younger people actually bank —
-              mobile-first, on their own terms.
+              classy, elite, mobile-first, on their own terms.
             </p>
             <p>
               Porte was the answer: a mobile-only bank built for the underbanked and aimed squarely at
@@ -147,7 +182,7 @@ const next = slate[(idx + 1) % slate.length];
           <h2 class="cs-head">Know the customer cold before you build <em>anything.</em></h2>
           <div class="cs-prose">
             <p>
-              The obvious path was to design from the team's instincts and benchmark against the
+              The obvious path was to design from the team's vast and tried instincts and benchmark against the
               category leaders. We did the opposite. Before committing to a direction, we went to the
               customer — on-premise intercept interviews about how they bank, what they value, and what
               they want from their money.
@@ -183,7 +218,7 @@ const next = slate[(idx + 1) % slate.length];
             </div>
             <div class="choice-row">
               <div class="key">— Chose <strong>not</strong> to —</div>
-              <div class="val">Ship code before the experience was validated. Buildout started only after the prototype tested clean.</div>
+              <div class="val">Ship design or code before the experience was validated. Buildout started only after the prototype tested clean.</div>
             </div>
             <div class="choice-row">
               <div class="key">— Chose <strong>not</strong> to —</div>
@@ -335,7 +370,7 @@ const next = slate[(idx + 1) % slate.length];
               micro-apps and APIs would be ready by ship date. They weren't. When the devs went to build
               what we'd designed, the tools couldn't support it and offered no APIs to hook into — so 1.0
               shipped with their clunky embedded micro-apps bolted in, unstyleable, unable to match
-              Porte's look. The result was a Frankensteined first version that compromised the very UX
+              Porte's aesthetic and quality. The result was a Frankensteined first version that compromised the very UX
               and UI we'd tested so hard to get right. The vendors fixed it eventually, and Porte looks
               great today — but I'd never again design against a capability a vendor only promises to
               have later.
@@ -378,4 +413,34 @@ const next = slate[(idx + 1) % slate.length];
       <a href="/work">— Back to all {slate.length} selected pieces →</a>
     </div>
   </div>
+
+  <div class="lightbox" data-lightbox aria-hidden="true">
+    <button type="button" class="lb-close" aria-label="Close">×</button>
+    <img alt="" />
+  </div>
+
+  <script>
+    const lb = document.querySelector('.lightbox');
+    const lbImg = lb.querySelector('img');
+
+    function openLb(src) {
+      lbImg.setAttribute('src', src);
+      lb.classList.add('open');
+      lb.setAttribute('aria-hidden', 'false');
+    }
+    function closeLb() {
+      lb.classList.remove('open');
+      lb.setAttribute('aria-hidden', 'true');
+    }
+
+    lb.querySelector('.lb-close').addEventListener('click', closeLb);
+    lb.addEventListener('click', (e) => { if (e.target === lb || e.target === lbImg) closeLb(); });
+    document.addEventListener('keydown', (e) => {
+      if (lb.classList.contains('open') && e.key === 'Escape') closeLb();
+    });
+
+    document.querySelectorAll('.hero-preview .frame img').forEach((img) => {
+      img.addEventListener('click', () => openLb(img.getAttribute('src')));
+    });
+  </script>
 </Base>

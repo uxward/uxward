@@ -53,6 +53,10 @@ const next = slate[(idx + 1) % slate.length];
     @media (max-width: 720px) {
       body.case .hero-proof { grid-template-columns: 1fr; gap: var(--space-6); }
     }
+
+    /* — Frames that hold a real image fill the 16:9 plate edge to edge. — */
+    body.case .artifact .frame:has(img) { padding: 0; overflow: hidden; }
+    body.case .artifact .frame img { display: block; width: 100%; height: 100%; object-fit: contain; }
   </style>
 
   <div class="container breadcrumb">
@@ -269,10 +273,7 @@ const next = slate[(idx + 1) % slate.length];
           <div class="artifacts">
             <div class="artifact">
               <div class="frame">
-                <span class="placeholder-label">Artifact 01 / 03</span>
-                <span class="placeholder-detail">
-                  Selected slides from the ROI-of-UX pitch deck.
-                </span>
+                <img src="/images/precocity/idea.jpg" loading="lazy" decoding="async" alt="The IDEA methodology framework — Insights, Design, Evaluate, and Apply arranged around a central IDEA mark, the user-first practice carried into every pitch." />
               </div>
               <div class="caption-grid">
                 <span class="num">01</span>
@@ -289,10 +290,7 @@ const next = slate[(idx + 1) % slate.length];
 
             <div class="artifact">
               <div class="frame">
-                <span class="placeholder-label">Artifact 02 / 03</span>
-                <span class="placeholder-detail">
-                  Redacted client journey map.
-                </span>
+                <img src="/images/precocity/journeymaps.jpg" loading="lazy" decoding="async" alt="Client journey maps and service blueprints — large-format experience timelines with phase bands, emotion curves, and the hand-sketched working session behind them." />
               </div>
               <div class="caption-grid">
                 <span class="num">02</span>
@@ -308,10 +306,7 @@ const next = slate[(idx + 1) % slate.length];
 
             <div class="artifact">
               <div class="frame">
-                <span class="placeholder-label">Artifact 03 / 03</span>
-                <span class="placeholder-detail">
-                  Redacted wireframes and high-fidelity screens.
-                </span>
+                <img src="/images/precocity/wireframes.jpg" loading="lazy" decoding="async" alt="Redacted wireframes — a marketing landing page beside three mobile banking screens for Summit, showing card status, funding, and account activity flows." />
               </div>
               <div class="caption-grid">
                 <span class="num">03</span>

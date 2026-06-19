@@ -33,6 +33,10 @@ const next = slate[(idx + 1) % slate.length];
       overflow: hidden;
       width: calc(100% + 60px);
       margin-left: -30px;
+      padding: 0;
+      aspect-ratio: auto;
+      background: none;
+      border: 0;
     }
 
     .artifact .frame img {
@@ -42,6 +46,12 @@ const next = slate[(idx + 1) % slate.length];
     }
 
     .artifact .frame:not(.carousel) img { cursor: zoom-in; }
+
+    /* Hero fills the column exactly (no bleed) like the Porte hero. */
+    .hero-preview .frame {
+      width: 100%;
+      margin-left: 0;
+    }
 
     /* Carousel — breaks out to full viewport width; width/margin/offset set by JS. */
     .artifact .frame.carousel {

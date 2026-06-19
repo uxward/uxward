@@ -29,7 +29,7 @@ export const slate = [
     slug: 'autoco',
     client: 'a global automaker',
     title: 'a global automaker — testing like an <em>outsider.</em>',
-    deck: 'A carmaker celebrated for consumer research realized it was being out-designed by the tech industry. Across 17 studies and 3,500 hours of testing, I built and led the independent, bias-free usability practice that turned guesswork into a closed-loop design process — and that a global automaker eventually brought in-house.',
+    deck: 'Celebrated for their quality and standards, a global automaker realized it was losing to the tech industry on both fronts. Across 17 studies and 3,500 hours of testing, I built and led the independent, bias-free usability practice that turned guesswork into a closed-loop design process they found so valuable they brought it all in-house.',
     stamps: ['Dir. of UX', '2017 — 2022'],
   },
   {
