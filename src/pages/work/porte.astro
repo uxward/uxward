@@ -11,7 +11,7 @@ const next = slate[(idx + 1) % slate.length];
 ---
 <!--
   ============================================================================
-  Remaining (deferred): 3 image frames.
+  Artifacts: 3 real images (porte-1/2/3.jpg), captions written to match.
   Resolved: Client = Porte (Populous, named once, neutrally — no ACE reference) ·
             Role = Director of UX · 2019 · Capacity = lead of 3-person UX team ·
             reflection x3 + feature set + cupcake principle from your notes ·
@@ -23,6 +23,10 @@ const next = slate[(idx + 1) % slate.length];
     /* porte-only: real hero image + lightbox. Shared case-study chrome lives in src/styles/case.css. */
     .hero-preview .frame { padding: 0; aspect-ratio: auto; display: block; overflow: hidden; }
     .hero-preview .frame img { display: block; width: 100%; height: auto; cursor: zoom-in; }
+
+    /* Real artifact images — mirrors the precocity pattern. */
+    body.case .artifact .frame:has(img) { padding: 0; overflow: hidden; }
+    body.case .artifact .frame img { display: block; width: 100%; height: 100%; object-fit: contain; cursor: zoom-in; }
 
     .lightbox {
       position: fixed;
@@ -251,20 +255,17 @@ const next = slate[(idx + 1) % slate.length];
           <div class="artifacts">
             <div class="artifact">
               <div class="frame">
-                <span class="placeholder-label">Artifact 01 / 03</span>
-                <span class="placeholder-detail">
-                  The high-fidelity Porte app — home dashboard showing round-up savings, budgeting, and
-                  color-coded spending, on a phone.
-                </span>
+                <img src="/images/porte/porte-1.jpg" loading="lazy" decoding="async" alt="Two Porte app screens — the home dashboard with available balance, savings, a charity the user supports, and an under-budget progress bar beside a live activity feed; and the spending Tracker showing money in, money out, and the month's cash flow." />
               </div>
               <div class="caption-grid">
                 <span class="num">01</span>
                 <div class="body">
                   <h4>The bank, designed before it was built</h4>
                   <p class="cap">
-                    The product real customers tested before any code: round-ups into a high-yield
-                    savings account, every-purchase donations to a charity of your choice, virtual and
-                    youth cards, and budgeting that helped users understand and improve how they spend.
+                    The product real customers tested before any code: a home that surfaces savings, the
+                    charity you support, and how far under budget you are at a glance — and a spending
+                    Tracker that turns money in, money out, and monthly cash flow into something you
+                    actually understand.
                   </p>
                 </div>
               </div>
@@ -272,20 +273,16 @@ const next = slate[(idx + 1) % slate.length];
 
             <div class="artifact">
               <div class="frame">
-                <span class="placeholder-label">Artifact 02 / 03</span>
-                <span class="placeholder-detail">
-                  The Porte card and its mailer — card materials, packaging, and the welcome layout,
-                  shot flat-lay.
-                </span>
+                <img src="/images/porte/porte-2.jpg" loading="lazy" decoding="async" alt="A close-up montage of Porte's money tools — a spending breakdown donut, a debt-payoff projection counting years and interest saved, linked checking and savings accounts, a payments calendar, and a purchase-based rewards balance." />
               </div>
               <div class="caption-grid">
                 <span class="num">02</span>
                 <div class="body">
-                  <h4>The card and the unboxing</h4>
+                  <h4>Tools that grow money, not just hold it</h4>
                   <p class="cap">
-                    We designed and tested the physical product too — card materials, the mailer, the
-                    layout, the first-touch experience — because a mobile bank's first impression often
-                    arrives in the mail.
+                    Up close, the depth behind the dashboard: debt-payoff projections that count the years
+                    and interest you'd save, spending broken down by category, linked outside accounts, a
+                    payments calendar, and rewards earned on what you already buy.
                   </p>
                 </div>
               </div>
@@ -293,20 +290,16 @@ const next = slate[(idx + 1) % slate.length];
 
             <div class="artifact">
               <div class="frame">
-                <span class="placeholder-label">Artifact 03 / 03</span>
-                <span class="placeholder-detail">
-                  The launch kit — teaser-video stills, social posts, and marketing-site screens in the
-                  Porte identity.
-                </span>
+                <img src="/images/porte/porte-3.jpg" loading="lazy" decoding="async" alt="Porte's brand system — the black-and-gold Porte VISA card and the &quot;Banking built for you&quot; onboarding flow on a phone, beside the &quot;Your door to stress-free banking&quot; marketing site on a laptop with App Store and Google Play badges." />
               </div>
               <div class="caption-grid">
                 <span class="num">03</span>
                 <div class="body">
-                  <h4>The brand and the launch</h4>
+                  <h4>The brand, the card, and the launch</h4>
                   <p class="cap">
-                    Teaser films, social concepts, the marketing site, and the copy — each researched
-                    and tested for imagery, tone, and message before launch, so the whole funnel spoke
-                    with one voice.
+                    The identity that tied it together — the black-and-gold Porte card, the onboarding,
+                    and the marketing site — each researched and tested for imagery, tone, and message so
+                    the whole funnel spoke with one voice.
                   </p>
                 </div>
               </div>
@@ -439,7 +432,7 @@ const next = slate[(idx + 1) % slate.length];
       if (lb.classList.contains('open') && e.key === 'Escape') closeLb();
     });
 
-    document.querySelectorAll('.hero-preview .frame img').forEach((img) => {
+    document.querySelectorAll('.artifact .frame img').forEach((img) => {
       img.addEventListener('click', () => openLb(img.getAttribute('src')));
     });
   </script>

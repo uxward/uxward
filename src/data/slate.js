@@ -27,8 +27,8 @@ export const slate = [
   },
   {
     slug: 'autoco',
-    client: 'a global automaker',
-    title: 'a global automaker — testing like an <em>outsider.</em>',
+    client: 'Global automaker',
+    title: 'A global automaker — testing like an <em>outsider.</em>',
     deck: 'Celebrated for their quality and standards, a global automaker realized it was losing to the tech industry on both fronts. Across 17 studies and 3,500 hours of testing, I built and led the independent, bias-free usability practice that turned guesswork into a closed-loop design process they found so valuable they brought it all in-house.',
     stamps: ['Dir. of UX', '2017 — 2022'],
   },
@@ -41,9 +41,9 @@ export const slate = [
   },
   {
     slug: 'insurco',
-    client: 'a major insurance broker',
-    title: 'a major insurance broker — when white-glove met <em>scale.</em>',
-    deck: "a major insurance broker's white-glove service was cracking under its own growth, and the data that could explain why was locked inside Salesforce. I led the service-design engagement that diagnosed the breakdown, freed the data, and handed leadership a KPI-tied roadmap they backed in full.",
+    client: 'Major insurance broker',
+    title: 'A major insurance broker — when white-glove met <em>scale.</em>',
+    deck: "A major insurance broker's white-glove service was cracking under its own growth, and the data that could explain why was locked inside Salesforce. I led the service-design engagement that diagnosed the breakdown, freed the data, and handed leadership a KPI-tied roadmap they backed in full.",
     stamps: ['CXO', '2024'],
   },
 ];

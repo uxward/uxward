@@ -124,7 +124,7 @@ Captured during brownfield extraction; these are the live truth and supersede th
 
 1. **Hero of the slate — RESOLVED.** The strategy brief named *Precocity* the non-negotiable hero. The decision (2026-06-08) is that **Speakeazy leads** — the AI-era founder proof is the stronger opener for the "still shipping" claim. The brief is stale on this point.
    - **Action:** `precocity.astro` is a complete but **orphaned** case study (absent from `src/data/slate.js`). It should be wired into the slate as the deepest *supporting* case, not deleted.
-2. **Slate size.** Built slate is 4 (Speakeazy, a global automaker, Porte, a major insurance broker) vs. the planned 5–7. FORGE currently lives only in the homepage "currently building" list, not as a case. Adding Precocity brings it to 5.
+2. **Slate size.** Built slate is 4 (Speakeazy, Global automaker, Porte, Major insurance broker) vs. the planned 5–7. FORGE currently lives only in the homepage "currently building" list, not as a case. Adding Precocity brings it to 5.
 3. **Colophon palette bug.** The colophon page displays Ink `#1A1A1A` / Tertiary `#6B6660`; the actual tokens in `global.css` are `#040404` / `#6B6B6B`. The craft-signal page misreports the palette — worth fixing for a page whose whole point is accuracy.
 4. **Homepage "recent writing" links** point to forward-placeholder essays (e.g. `/writing/case-against-design-systems`) that don't yet exist as pages.
 

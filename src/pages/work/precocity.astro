@@ -56,7 +56,41 @@ const next = slate[(idx + 1) % slate.length];
 
     /* — Frames that hold a real image fill the 16:9 plate edge to edge. — */
     body.case .artifact .frame:has(img) { padding: 0; overflow: hidden; }
-    body.case .artifact .frame img { display: block; width: 100%; height: 100%; object-fit: contain; }
+    body.case .artifact .frame img { display: block; width: 100%; height: 100%; object-fit: contain; cursor: zoom-in; }
+
+    /* Lightbox — click any artifact image to expand. Mirrors the porte/speakeazy pattern. */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.33);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s, visibility 0.25s;
+    }
+
+    .lightbox.open { opacity: 1; visibility: visible; }
+
+    .lightbox img { max-width: 92vw; max-height: 88vh; object-fit: contain; }
+
+    .lb-close {
+      position: absolute;
+      top: var(--space-6);
+      right: var(--space-7);
+      background: transparent;
+      border: 0;
+      color: #fff;
+      cursor: pointer;
+      line-height: 1;
+      font-size: 40px;
+      opacity: 0.7;
+      transition: opacity 0.2s, color 0.2s;
+    }
+
+    .lb-close:hover { opacity: 1; color: var(--signature); }
   </style>
 
   <div class="container breadcrumb">
@@ -415,4 +449,34 @@ const next = slate[(idx + 1) % slate.length];
       <a href="/work">— Back to all {slate.length} selected pieces →</a>
     </div>
   </div>
+
+  <div class="lightbox" data-lightbox aria-hidden="true">
+    <button type="button" class="lb-close" aria-label="Close">×</button>
+    <img alt="" />
+  </div>
+
+  <script>
+    const lb = document.querySelector('.lightbox');
+    const lbImg = lb.querySelector('img');
+
+    function openLb(src) {
+      lbImg.setAttribute('src', src);
+      lb.classList.add('open');
+      lb.setAttribute('aria-hidden', 'false');
+    }
+    function closeLb() {
+      lb.classList.remove('open');
+      lb.setAttribute('aria-hidden', 'true');
+    }
+
+    lb.querySelector('.lb-close').addEventListener('click', closeLb);
+    lb.addEventListener('click', (e) => { if (e.target === lb || e.target === lbImg) closeLb(); });
+    document.addEventListener('keydown', (e) => {
+      if (lb.classList.contains('open') && e.key === 'Escape') closeLb();
+    });
+
+    document.querySelectorAll('.artifact .frame img').forEach((img) => {
+      img.addEventListener('click', () => openLb(img.getAttribute('src')));
+    });
+  </script>
 </Base>

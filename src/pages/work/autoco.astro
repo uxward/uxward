@@ -13,12 +13,52 @@ const next = slate[(idx + 1) % slate.length];
   ============================================================================
   Remaining (deferred per your call):
   - Image frames (3) — drop in screenshots when ready.
-  Resolved: client = a global automaker · Role = Director of UX · Timeframe 2017–2022 ·
+  Resolved: client = a global automaker (anonymized) · Role = Director of UX · Timeframe 2017–2022 ·
             reflection + third "Chose not to" written from your notes.
   Optional: anonymize "Rally" → "the design vendor" if you'd rather not name a partner.
   ============================================================================
 -->
-<Base title="a global automaker — usability testing at scale · uxward" bodyClass="case">
+<Base title="A global automaker — usability testing at scale · uxward" bodyClass="case">
+
+  <style>
+    /* — Frames that hold a real image fill the 16:9 plate edge to edge. — */
+    body.case .artifact .frame:has(img) { padding: 0; overflow: hidden; }
+    body.case .artifact .frame img { display: block; width: 100%; height: 100%; object-fit: contain; cursor: zoom-in; }
+
+    /* Lightbox — click any artifact image to expand. Mirrors the porte/speakeazy pattern. */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.33);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s, visibility 0.25s;
+    }
+
+    .lightbox.open { opacity: 1; visibility: visible; }
+
+    .lightbox img { max-width: 92vw; max-height: 88vh; object-fit: contain; }
+
+    .lb-close {
+      position: absolute;
+      top: var(--space-6);
+      right: var(--space-7);
+      background: transparent;
+      border: 0;
+      color: #fff;
+      cursor: pointer;
+      line-height: 1;
+      font-size: 40px;
+      opacity: 0.7;
+      transition: opacity 0.2s, color 0.2s;
+    }
+
+    .lb-close:hover { opacity: 1; color: var(--signature); }
+  </style>
 
   <div class="container breadcrumb">
     <div class="grid">
@@ -41,10 +81,7 @@ const next = slate[(idx + 1) % slate.length];
         </p>
         <div class="artifact hero-preview">
           <div class="frame">
-            <span class="placeholder-label">Hero preview</span>
-            <span class="placeholder-detail">
-              The case's signature screen — the strongest visual, shown up front.
-            </span>
+            <img src="/images/autoco/autoco-results.png" alt="Usability-testing program results — the closed-loop research operation that surfaced 300+ issues across 17 studies and 3,500 hours of testing." />
           </div>
         </div>
       </div>
@@ -58,7 +95,7 @@ const next = slate[(idx + 1) % slate.length];
         <div class="meta-row">
           <div class="cell">
             <div class="label">Client</div>
-            <div class="value">a global automaker</div>
+            <div class="value">Global automaker</div>
           </div>
           <div class="cell">
             <div class="label">Role</div>
@@ -86,7 +123,7 @@ const next = slate[(idx + 1) % slate.length];
           <h2 class="cs-head">A carmaker that researched <em>everything</em> — and still couldn't see itself.</h2>
           <div class="cs-prose">
             <p>
-              a global automaker is famous for the volume of its consumer research — market testing, quality
+              The company is famous for the volume of its consumer research — market testing, quality
               assurance, constant customer feedback. By any automotive standard, they knew their
               customer cold.
             </p>
@@ -166,7 +203,7 @@ const next = slate[(idx + 1) % slate.length];
             <p>
               New thinking needed new tools, so we built them — our own logging, study-tracking, and
               rapid-analysis tooling, and even our own way to structure simulated driving. We were, by
-              a global automaker's own account, the first team to run usability studies on their software. And the
+              the company's own account, the first team to run usability studies on their software. And the
               point was never to run tests; it was to wire results straight back to the design teams
               fast enough to iterate inside the same engagement. A closed loop, not a report.
             </p>
@@ -220,11 +257,7 @@ const next = slate[(idx + 1) % slate.length];
           <div class="artifacts">
             <div class="artifact">
               <div class="frame">
-                <span class="placeholder-label">Artifact 01 / 03</span>
-                <span class="placeholder-detail">
-                  The in-vehicle testing rig — participant in a real a global automaker, multi-camera capture
-                  (face + hands), feeds live-streamed to remote observers.
-                </span>
+                <img src="/images/autoco/autoco-testing-setup.jpg" loading="lazy" decoding="async" alt="The live-streamed testing rig — a branded steering wheel and an iPad running the test prototype, wired to camera arms on stands and a bank of laptops for the moderator and remote observers." />
               </div>
               <div class="caption-grid">
                 <span class="num">01</span>
@@ -241,20 +274,16 @@ const next = slate[(idx + 1) % slate.length];
 
             <div class="artifact">
               <div class="frame">
-                <span class="placeholder-label">Artifact 02 / 03</span>
-                <span class="placeholder-detail">
-                  A spread of the issue-and-recommendation reports — findings tagged by platform and
-                  severity, with the recommended design fix beside each one.
-                </span>
+                <img src="/images/autoco/summary.jpg" loading="lazy" decoding="async" alt="The closeout dashboard for a single usability study — System Usability Score trending toward the 85 target (average 80), aesthetic rating averaging 4.1 of 5, over 55 testing days, 305 tasks, and 2,071 hours." />
               </div>
               <div class="caption-grid">
                 <span class="num">02</span>
                 <div class="body">
-                  <h4>The findings, made actionable</h4>
+                  <h4>One study's closeout — one of 17</h4>
                   <p class="cap">
-                    Over 300 issues surfaced across multiple platforms, each paired with a
-                    recommendation — not a list of problems, but a queue of fixes design teams could
-                    pick up immediately.
+                    The end-of-run scorecard for a single usability study, tracking System Usability
+                    (SUS) toward the 85 target and aesthetic ratings over its full duration. Each of
+                    the 17 studies in the program closed out with a readout like this one.
                   </p>
                 </div>
               </div>
@@ -262,11 +291,7 @@ const next = slate[(idx + 1) % slate.length];
 
             <div class="artifact">
               <div class="frame">
-                <span class="placeholder-label">Artifact 03 / 03</span>
-                <span class="placeholder-detail">
-                  A simple diagram of the closed-loop process — test → result → design iteration →
-                  retest — with the rotating-team cadence (3–5 researchers, 10–12 hrs/day) noted.
-                </span>
+                <img src="/images/autoco/loop.png" loading="lazy" decoding="async" alt="Diagram of the closed-loop research process — a continuous cycle of seven steps: study kickoff and expectations, draft study plan, review and revise plan, recruit participants, execute study (with the report drafted live), review and report results, and design-team iteration that loops back to the start. A subordinate branch shows how large studies scaled up to multiple test days and two back-to-back team shifts (7 AM–1 PM, then 1 PM–7 PM)." />
               </div>
               <div class="caption-grid">
                 <span class="num">03</span>
@@ -284,9 +309,9 @@ const next = slate[(idx + 1) % slate.length];
 
           <div class="cs-prose" style="margin-top: var(--space-9);">
             <p>
-              The program caused major ripples across a global automaker globally. Everyone wanted to see how the North American team
-              was designing, testing, and building the new HMI so quickly and with such high quality. 
-              The chairman himself stopped by to watch a session, and a global automaker teams from around the world 
+              The program caused major ripples across the company globally. Everyone wanted to see how the
+              North American team was designing, testing, and building the new HMI so quickly and with such high quality.
+              The company's chairman himself stopped by to watch a session, and teams from around the world
               asked to adopt the practice. Once the model proved out, the same approach went on to test 
               power wheelchairs, at-speed voice UI, mobile apps, head units, and dashboards.
             </p>
@@ -303,7 +328,7 @@ const next = slate[(idx + 1) % slate.length];
         <div>
           <div class="cs-eyebrow"><span class="num">05</span>— Outcomes —</div>
           <h2 class="cs-head">
-            Stakeholders stopped guessing the customer's mind — and a global automaker brought usability testing in-house for good.
+            Stakeholders stopped guessing the customer's mind — and the company brought usability testing in-house for good.
           </h2>
           <div class="outcomes-stats">
             <div class="stat">
@@ -336,10 +361,10 @@ const next = slate[(idx + 1) % slate.length];
           <h2 class="cs-head">What I'd reverse. What I <em>carried forward.</em></h2>
           <div class="cs-prose">
             <p>
-              <strong>The decision I'd reverse:</strong> I built our relationship with a global automaker and let
+              <strong>The decision I'd reverse:</strong> I built our relationship with the automaker and let
               the relationship with <a href="https://rallyinteractive.com/" target="_blank">Rally</a>
                — the design vendor whose work we were testing — fend for
-              itself. With a global automaker sitting between us as the middleman, the structure quietly pitted two
+              itself. With the automaker sitting between us as the middleman, the structure quietly pitted two
               vendors against each other. We were there to validate and elevate Rally's work; too often
               it must have felt like we were there to break it. I should have fought for a direct,
               close partnership with Rally from day one — because research is only as useful as the
@@ -357,7 +382,7 @@ const next = slate[(idx + 1) % slate.length];
               <strong>What I carried forward:</strong> never be afraid to step into the dark and build
               the thing that doesn't exist yet. We had to invent most of our apparatus — the logging,
               the study-tracking, the rapid analysis, even how to structure simulated driving — to run
-              studies no one at a global automaker had run before. If the tool you need doesn't exist, you build
+              studies no one at the company had run before. If the tool you need doesn't exist, you build
               it. It's the same instinct behind <a href="speakeazy"><em>Speakeazy</em></a>.
             </p>
           </div>
@@ -382,4 +407,34 @@ const next = slate[(idx + 1) % slate.length];
       <a href="/work">— Back to all {slate.length} selected pieces →</a>
     </div>
   </div>
+
+  <div class="lightbox" data-lightbox aria-hidden="true">
+    <button type="button" class="lb-close" aria-label="Close">×</button>
+    <img alt="" />
+  </div>
+
+  <script>
+    const lb = document.querySelector('.lightbox');
+    const lbImg = lb.querySelector('img');
+
+    function openLb(src) {
+      lbImg.setAttribute('src', src);
+      lb.classList.add('open');
+      lb.setAttribute('aria-hidden', 'false');
+    }
+    function closeLb() {
+      lb.classList.remove('open');
+      lb.setAttribute('aria-hidden', 'true');
+    }
+
+    lb.querySelector('.lb-close').addEventListener('click', closeLb);
+    lb.addEventListener('click', (e) => { if (e.target === lb || e.target === lbImg) closeLb(); });
+    document.addEventListener('keydown', (e) => {
+      if (lb.classList.contains('open') && e.key === 'Escape') closeLb();
+    });
+
+    document.querySelectorAll('.artifact .frame img').forEach((img) => {
+      img.addEventListener('click', () => openLb(img.getAttribute('src')));
+    });
+  </script>
 </Base>
