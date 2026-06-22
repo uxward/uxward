@@ -11,7 +11,6 @@ const next = slate[(idx + 1) % slate.length];
 ---
 <!--
   ============================================================================
-  Remaining (deferred): 3 image frames.
   Note: this file adds .cs-pullquote .attribution beyond the precocity baseline —
         carry it along if shared case styles ever move into Base.astro.
   Resolved: Client = a major insurance broker (anonymized) · Role = Chief Experience Officer · 2024 ·
@@ -24,6 +23,44 @@ const next = slate[(idx + 1) % slate.length];
 <Base title="A major insurance broker — service design at scale · uxward" bodyClass="case">
   <style>
     .cs-pullquote .attribution { display: block; font-style: normal; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--tertiary); margin-top: var(--space-5); font-variation-settings: normal; }
+
+    /* — Frames that hold a real image fill the 16:9 plate edge to edge. — */
+    body.case .artifact .frame:has(img) { padding: 0; overflow: hidden; }
+    body.case .artifact .frame img { display: block; width: 100%; height: 100%; object-fit: contain; cursor: zoom-in; }
+
+    /* Lightbox — click any artifact image to expand. Mirrors the precocity/porte pattern. */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.33);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s, visibility 0.25s;
+    }
+
+    .lightbox.open { opacity: 1; visibility: visible; }
+
+    .lightbox img { max-width: 92vw; max-height: 88vh; object-fit: contain; }
+
+    .lb-close {
+      position: absolute;
+      top: var(--space-6);
+      right: var(--space-7);
+      background: transparent;
+      border: 0;
+      color: #fff;
+      cursor: pointer;
+      line-height: 1;
+      font-size: 40px;
+      opacity: 0.7;
+      transition: opacity 0.2s, color 0.2s;
+    }
+
+    .lb-close:hover { opacity: 1; color: var(--signature); }
   </style>
 
   <div class="container breadcrumb">
@@ -46,10 +83,7 @@ const next = slate[(idx + 1) % slate.length];
         </p>
         <div class="artifact hero-preview">
           <div class="frame">
-            <span class="placeholder-label">Hero preview</span>
-            <span class="placeholder-detail">
-              The case's signature screen — the strongest visual, shown up front.
-            </span>
+            <img src="/images/insurco/future-state.png" loading="eager" decoding="async" alt="The potential future-state architecture — a four-stage flow (Data Prep, Origination, Routing, Execution) layered over the people, process, and platform stack that powers it: Salesforce, Snowflake, Tableau, and Cortex AI." />
           </div>
         </div>
       </div>
@@ -222,11 +256,7 @@ const next = slate[(idx + 1) % slate.length];
           <div class="artifacts">
             <div class="artifact">
               <div class="frame">
-                <span class="placeholder-label">Artifact 01 / 03</span>
-                <span class="placeholder-detail">
-                  A wall of current-state process maps and service blueprints — 20+ flows annotated with
-                  gaps and redesign opportunities.
-                </span>
+                <img src="/images/insurco/blueprints.png" loading="lazy" decoding="async" alt="Current vs. future-state case-lifecycle blueprints — two large service-design grids side by side, each a wall of annotated, color-coded process steps mapping how a case moves through the organization today versus the redesigned future state." />
               </div>
               <div class="caption-grid">
                 <span class="num">01</span>
@@ -242,11 +272,7 @@ const next = slate[(idx + 1) % slate.length];
 
             <div class="artifact">
               <div class="frame">
-                <span class="placeholder-label">Artifact 02 / 03</span>
-                <span class="placeholder-detail">
-                  The Salesforce → Snowflake → Tableau pipeline and a KPI dashboard — case-aging and
-                  service trends visualized.
-                </span>
+                <img src="/images/insurco/reduction.png" loading="lazy" decoding="async" alt="A Tableau line chart titled '43% Reduction in Suboptimal Cases' — the count of cases reassigned three or more times holds steady for months, then drops sharply in September, annotated as the effect of a process change implemented in mid-August." />
               </div>
               <div class="caption-grid">
                 <span class="num">02</span>
@@ -254,8 +280,9 @@ const next = slate[(idx + 1) % slate.length];
                   <h4>The data, finally usable</h4>
                   <p class="cap">
                     With Service data moved from Salesforce into Snowflake, the team built Tableau
-                    dashboards that became the standard for every Service report — including the analysis
-                    that validated a 46% drop in case-aging.
+                    dashboards that became the standard for every Service report. The analysis shown here
+                    traced a 43% drop in suboptimal "flipped" cases to a mid-August process change — the
+                    same rigor that validated a separate 46% reduction in case-aging.
                   </p>
                 </div>
               </div>
@@ -263,11 +290,7 @@ const next = slate[(idx + 1) % slate.length];
 
             <div class="artifact">
               <div class="frame">
-                <span class="placeholder-label">Artifact 03 / 03</span>
-                <span class="placeholder-detail">
-                  The Q4 / FY25 / FY26 roadmap — each project tied to a Service KPI, with
-                  cross-department dependencies mapped.
-                </span>
+                <img src="/images/insurco/roadmap.png" loading="lazy" decoding="async" alt="A multi-quarter critical-priority roadmap — a Gantt chart spanning 2025 into 2026, grouped into 'Clean Up' and 'Top Line' swimlanes (junk and duplicates, case reduction, data accuracy, one-touch close, SLA, service quality), totaling 24 projects across 36 weeks." />
               </div>
               <div class="caption-grid">
                 <span class="num">03</span>
@@ -380,4 +403,34 @@ const next = slate[(idx + 1) % slate.length];
       <a href="/work">— Back to all {slate.length} selected pieces →</a>
     </div>
   </div>
+
+  <div class="lightbox" data-lightbox aria-hidden="true">
+    <button type="button" class="lb-close" aria-label="Close">×</button>
+    <img alt="" />
+  </div>
+
+  <script>
+    const lb = document.querySelector('.lightbox');
+    const lbImg = lb.querySelector('img');
+
+    function openLb(src) {
+      lbImg.setAttribute('src', src);
+      lb.classList.add('open');
+      lb.setAttribute('aria-hidden', 'false');
+    }
+    function closeLb() {
+      lb.classList.remove('open');
+      lb.setAttribute('aria-hidden', 'true');
+    }
+
+    lb.querySelector('.lb-close').addEventListener('click', closeLb);
+    lb.addEventListener('click', (e) => { if (e.target === lb || e.target === lbImg) closeLb(); });
+    document.addEventListener('keydown', (e) => {
+      if (lb.classList.contains('open') && e.key === 'Escape') closeLb();
+    });
+
+    document.querySelectorAll('.artifact .frame img').forEach((img) => {
+      img.addEventListener('click', () => openLb(img.getAttribute('src')));
+    });
+  </script>
 </Base>
