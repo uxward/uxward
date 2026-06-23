@@ -3,304 +3,109 @@ import Base from '../layouts/Base.astro';
 ---
 <Base title="Contact — uxward">
   <style>
-    .top { padding-top: var(--space-8); padding-bottom: var(--space-7); }
-    .top a.back {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--tertiary);
-      text-decoration: none;
-    }
+    /* contact — Archivo / Swiss system. Quieter caps labels; red bleed kept. */
+    .top { padding-top: var(--space-8); padding-bottom: var(--space-6); }
+    .top a.back { font-weight: 600; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); text-decoration: none; }
     .top a.back:hover { color: var(--signature); }
 
-    .name-block { padding-top: var(--space-8); padding-bottom: var(--space-9); }
-    .name-eyebrow {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--tertiary);
-      margin-bottom: var(--space-7);
-    }
-    h1.name {
-      font-family: var(--font-serif);
-      font-weight: 300;
-      font-size: clamp(48px, 6vw, 88px);
-      line-height: 1.0;
-      letter-spacing: -0.03em;
-      font-variation-settings: 'opsz' 144, 'SOFT' 30;
-      color: var(--ink);
-      margin: 0;
-      max-width: 1080px;
-    }
-    h1.name em {
-      font-style: italic; font-weight: 400;
-      font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
-    }
-    .deck {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-weight: 300;
-      font-size: 22px;
-      line-height: 1.5;
-      color: var(--body);
-      margin: var(--space-7) 0 0;
-      max-width: 660px;
-      font-variation-settings: 'opsz' 36, 'SOFT' 80, 'WONK' 1;
-    }
+    .name-eyebrow, .section-eyebrow { font-weight: 700; font-size: 13px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); margin-bottom: var(--space-7); }
 
-    .bleed {
-      background: var(--signature);
-      color: #FFFFFF;
-      padding: 128px 0 120px;
-      margin-top: var(--space-9);
-    }
-    .bleed .eyebrow {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.78);
-      margin-bottom: var(--space-8);
-    }
-    .bleed h2 {
-      font-family: var(--font-serif);
-      font-weight: 300;
-      font-size: clamp(48px, 6.4vw, 88px);
-      line-height: 1.02;
-      letter-spacing: -0.03em;
-      color: #FFFFFF;
-      margin: 0;
-      max-width: 980px;
-      font-variation-settings: 'opsz' 144, 'SOFT' 30;
-    }
-    .bleed h2 em {
-      font-style: italic; font-weight: 400;
-      font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
-    }
-    .bleed a.email {
-      margin-top: var(--space-9);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4em;
-      font-family: var(--font-serif);
-      font-weight: 300;
-      font-size: clamp(28px, 3.4vw, 44px);
-      line-height: 1.1;
-      letter-spacing: -0.015em;
-      color: #FFFFFF;
-      font-variation-settings: 'opsz' 96, 'SOFT' 30;
-    }
-    .bleed a.email .email-text {
-      text-decoration: underline;
-      text-decoration-thickness: 1px;
-      text-underline-offset: 8px;
-    }
+    .name-block { padding-top: var(--space-7); padding-bottom: var(--space-9); }
+    h1.name { font-weight: 900; font-size: clamp(44px, 6vw, 88px); line-height: 0.98; letter-spacing: -0.035em; color: var(--ink); margin: 0; max-width: 18ch; }
+    h1.name em { font-style: normal; }
+    .deck { font-weight: 400; font-size: clamp(19px, 2.2vw, 22px); line-height: 1.5; color: var(--body); margin: var(--space-7) 0 0; max-width: 64ch; }
+
+    /* Red bleed CTA */
+    .bleed { background: var(--signature); color: var(--offwhite); padding: 120px 0 112px; margin-top: var(--space-9); }
+    .bleed .eyebrow { font-weight: 600; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(231,231,231,0.82); margin-bottom: var(--space-8); }
+    .bleed h2 { font-weight: 900; font-size: clamp(40px, 6vw, 80px); line-height: 0.95; letter-spacing: -0.035em; color: var(--offwhite); margin: 0; max-width: 18ch; }
+    .bleed h2 em { font-style: normal; }
+    .bleed a.email { margin-top: var(--space-9); display: inline-flex; align-items: center; gap: 0.45em; font-weight: 800; font-size: clamp(26px, 3.4vw, 40px); line-height: 1.1; letter-spacing: -0.02em; color: var(--offwhite); }
+    .bleed a.email .email-text { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
     .bleed a.email .send-ico { width: 0.82em; height: 0.82em; }
-    .bleed a.email:hover { color: rgba(255,255,255,0.82); }
+    .bleed a.email:hover { color: rgba(231,231,231,0.78); }
     .bleed a.email:hover .send-icon,
     .bleed a.email:focus-visible .send-icon { animation: send-fly 0.5s ease; }
-    .bleed .kicker {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.78);
-      margin-top: var(--space-5);
-    }
+    .bleed .kicker { font-weight: 600; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(231,231,231,0.82); margin-top: var(--space-5); }
 
-    .section {
-      padding: var(--space-10) 0;
-      border-top: 1px solid var(--rule);
-    }
-    .section-eyebrow {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--tertiary);
-      margin-bottom: var(--space-8);
-    }
-    .section-head {
-      font-family: var(--font-serif);
-      font-weight: 300;
-      font-size: 36px;
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-      color: var(--ink);
-      margin: 0 0 var(--space-8) 0;
-      font-variation-settings: 'opsz' 96, 'SOFT' 30;
-      max-width: 720px;
-    }
-    .section-head em {
-      font-style: italic; font-weight: 400;
-      font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1;
-    }
+    .section { padding: var(--space-10) 0; border-top: 1px solid var(--rule-faint); }
+    .section-head { font-weight: 900; font-size: clamp(28px, 3.4vw, 40px); line-height: 1.04; letter-spacing: -0.025em; color: var(--ink); margin: 0 0 var(--space-8) 0; max-width: 22ch; }
+    .section-head em { font-style: normal; }
 
-    .channels { border-top: 1px solid var(--rule); }
-    .channel-row {
-      display: grid;
-      grid-template-columns: 200px 1fr 200px;
-      gap: var(--space-7);
-      padding: var(--space-5) 0;
-      border-bottom: 1px solid var(--rule);
-      align-items: baseline;
-    }
-    .channel-row .where {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--tertiary);
-    }
-    .channel-row .what {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-size: 17px;
-      line-height: 1.55;
-      color: var(--body);
-      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
-    }
-    .channel-row a.go {
-      font-family: var(--font-serif);
-      font-size: 17px;
-      color: var(--ink);
-      text-decoration: underline;
-      text-underline-offset: 4px;
-      text-align: right;
-    }
+    .channels, .elsewhere-list, .faq { border-top: 1px solid var(--rule-faint); }
+    .channel-row { display: grid; grid-template-columns: 200px 1fr 200px; gap: var(--space-7); padding: var(--space-5) 0; border-bottom: 1px solid var(--rule-faint); align-items: baseline; }
+    .channel-row .where { font-weight: 600; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); }
+    .channel-row .what { font-size: 17px; line-height: 1.55; color: var(--body); }
+    .channel-row a.go { font-weight: 700; font-size: 14px; color: var(--ink); text-decoration: none; text-align: right; }
     .channel-row a.go:hover { color: var(--signature); }
 
-    .elsewhere-list { border-top: 1px solid var(--rule); }
-    .elsewhere-row {
-      display: grid;
-      grid-template-columns: 140px 1fr max-content;
-      gap: var(--space-7);
-      padding: var(--space-5) 0;
-      border-bottom: 1px solid var(--rule);
-      align-items: baseline;
-    }
-    .elsewhere-row .where {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--tertiary);
-    }
-    .elsewhere-row .what {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-size: 17.5px;
-      line-height: 1.5;
-      color: var(--body);
-      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
-    }
-    .elsewhere-row a.go {
-      font-family: var(--font-serif);
-      font-size: 17px;
-      color: var(--ink);
-      text-decoration: underline;
-      text-underline-offset: 4px;
-      text-decoration-thickness: 1px;
-      text-align: right;
-      white-space: nowrap;
-    }
+    .elsewhere-row { display: grid; grid-template-columns: 140px 1fr max-content; gap: var(--space-7); padding: var(--space-5) 0; border-bottom: 1px solid var(--rule-faint); align-items: baseline; }
+    .elsewhere-row .where { font-weight: 600; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); }
+    .elsewhere-row .what { font-size: 17.5px; line-height: 1.5; color: var(--body); }
+    .elsewhere-row a.go { font-weight: 700; font-size: 14px; color: var(--ink); text-decoration: none; text-align: right; white-space: nowrap; }
     .elsewhere-row a.go:hover { color: var(--signature); }
 
-    @media (max-width: 900px) {
-      .portrait-row { grid-template-columns: 1fr; }
-      .tl-row { grid-template-columns: 1fr; }
-      .tl-row .place { text-align: left; }
-      .elsewhere-row { grid-template-columns: 1fr; }
-      .elsewhere-row a.go { text-align: left; }
-    }
-
-    .faq { border-top: 1px solid var(--rule); }
-    .faq-row {
-      display: grid;
-      grid-template-columns: 280px 1fr;
-      gap: var(--space-8);
-      padding: var(--space-7) 0;
-      border-bottom: 1px solid var(--rule);
-      align-items: baseline;
-    }
-    .faq-row .q {
-      font-family: var(--font-serif);
-      font-weight: 500;
-      font-size: 19px;
-      line-height: 1.3;
-      color: var(--ink);
-      font-variation-settings: 'opsz' 36, 'SOFT' 30;
-    }
-    .faq-row .a {
-      font-family: var(--font-serif);
-      font-size: 17.5px;
-      line-height: 1.6;
-      color: var(--body);
-      max-width: 580px;
-    }
+    .faq-row { display: grid; grid-template-columns: 280px 1fr; gap: var(--space-8); padding: var(--space-7) 0; border-bottom: 1px solid var(--rule-faint); align-items: baseline; }
+    .faq-row .q { font-weight: 700; font-size: 19px; line-height: 1.3; color: var(--ink); }
+    .faq-row .a { font-size: 17.5px; line-height: 1.6; color: var(--body); max-width: 580px; }
     .faq-row .a em { font-style: italic; }
 
-    .note p {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-size: 17px;
-      line-height: 1.6;
-      color: var(--body);
-      max-width: 580px;
-      margin: 0;
-      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
-    }
-    .note .stamp {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--tertiary);
-      margin-top: var(--space-6);
-    }
+    .note p { font-size: 17px; line-height: 1.6; color: var(--body); max-width: 580px; margin: 0; }
+    .note .stamp { font-weight: 600; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); margin-top: var(--space-6); }
 
     @media (max-width: 900px) {
       .channel-row { grid-template-columns: 1fr; }
       .channel-row a.go { text-align: left; }
+      .elsewhere-row { grid-template-columns: 1fr; }
+      .elsewhere-row a.go { text-align: left; }
       .faq-row { grid-template-columns: 1fr; }
     }
   </style>
 
   <div class="container top">
-    <div class="grid">
-      <div class="marker">§ ↩</div>
-      <div><a class="back" href="/">— Back home</a></div>
-    </div>
+    <div><a class="back" href="/">Back home</a></div>
   </div>
 
   <div class="container name-block">
-    <div class="grid">
-      <div class="marker">§ 00</div>
-      <div>
-        <div class="name-eyebrow">— Contact —</div>
-        <h1 class="name">The <em>direct line</em>, and a few notes on using it.</h1>
-        <p class="deck">
-          Most of what's here applies to recruiters, hiring managers, and reporters. If you're
-          a friend of the work and want to write — even briefer than a cold email is fine.
-        </p>
-      </div>
-    </div>
+    <div class="name-eyebrow">Contact</div>
+    <h1 class="name">The <em>direct line</em>, and a few notes on using it.</h1>
+    <p class="deck">
+      Most of what's here applies to recruiters, hiring managers, and reporters. If you're
+      a friend of the work and want to write — even briefer than a cold email is fine.
+    </p>
   </div>
 
   <section class="bleed">
     <div class="container">
-      <div class="grid">
-        <div class="marker" style="color: rgba(255,255,255,0.78);">§ 01</div>
-        <div>
-          <div class="eyebrow">— Currently considering —</div>
-          <h2>Senior design leadership roles. <em>Direct line below.</em></h2>
-          <a class="email" href="mailto:brandon@uxward.com">
-            <svg class="send-ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g class="send-icon"><path d="M10 14l11 -11" /><path d="M21 3l-6.5 18a.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a.55 .55 0 0 1 0 -1l18 -6.5" /></g></svg>
-            <span class="email-text">brandon@uxward.com</span>
-          </a>
-          <div class="kicker">— Read daily · Reply within two business days —</div>
+      <div class="eyebrow">Currently considering</div>
+      <h2>Senior design leadership roles. <em>Direct line below.</em></h2>
+      <a class="email" href="mailto:brandon@uxward.com">
+        <svg class="send-ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g class="send-icon"><path d="M10 14l11 -11" /><path d="M21 3l-6.5 18a.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a.55 .55 0 0 1 0 -1l18 -6.5" /></g></svg>
+        <span class="email-text">brandon@uxward.com</span>
+      </a>
+      <div class="kicker">Read daily · Reply within two business days</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-eyebrow">Other channels</div>
+      <h3 class="section-head">Email is the right one. <em>The rest are listed for completeness.</em></h3>
+      <div class="elsewhere-list">
+        <div class="elsewhere-row">
+          <span class="where">LinkedIn</span>
+          <span class="what">Same record, longer form. Connection requests welcome.</span>
+          <a class="go" href="https://linkedin.com/in/brandonebward" target="_blank" rel="noopener">/in/brandonebward</a>
+        </div>
+        <div class="elsewhere-row">
+          <span class="where">GitHub</span>
+          <span class="what">This site. Everything else is private.</span>
+          <a class="go" href="https://github.com/uxward" target="_blank" rel="noopener">/uxward</a>
+        </div>
+        <div class="elsewhere-row">
+          <span class="where">Calendar</span>
+          <span class="what">By introduction only. Email first, scheduling link after.</span>
+          <a class="go" href="mailto:brandon@uxward.com">brandon@uxward.com</a>
         </div>
       </div>
     </div>
@@ -308,81 +113,47 @@ import Base from '../layouts/Base.astro';
 
   <section class="section">
     <div class="container">
-      <div class="grid">
-        <div class="marker">§ 02</div>
-        <div>
-          <div class="section-eyebrow">— Other channels —</div>
-          <h3 class="section-head">Email is the right one. <em>The rest are listed for completeness.</em></h3>
-          <div class="elsewhere-list">
-            <div class="elsewhere-row">
-              <span class="where">— LinkedIn —</span>
-              <span class="what">Same record, longer form. Connection requests welcome.</span>
-              <a class="go" href="https://linkedin.com/in/brandonebward" target="_blank" rel="noopener">/in/brandonebward →</a>
-            </div>
-            <div class="elsewhere-row">
-              <span class="where">— GitHub —</span>
-              <span class="what">This site. Everything else is private.</span>
-              <a class="go" href="https://github.com/uxward" target="_blank" rel="noopener">/uxward →</a>
-            </div>
-            <div class="elsewhere-row">
-              <span class="where">— Calendar —</span>
-              <span class="what">By introduction only. Email first, scheduling link after.</span>
-              <a class="go" href="mailto:brandon@uxward.com">brandon@uxward.com →</a>
-            </div>
+      <div class="section-eyebrow">Before you write</div>
+      <h3 class="section-head">A few honest answers, <em>so the email is shorter.</em></h3>
+      <div class="faq">
+        <div class="faq-row">
+          <div class="q">What roles are you considering?</div>
+          <div class="a">
+            Head of Design, VP Design, Chief Design Officer, Chief Experience Officer. <em>The executive leadership tier.</em>
+            I am not considering pure individual-contributor roles (unless maybe you're LEGO or a streaming media provider), design-management roles below the
+            Director title, or contract work outside Precocity's existing book.
           </div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <div class="grid">
-        <div class="marker">§ 03</div>
-        <div>
-          <div class="section-eyebrow">— Before you write —</div>
-          <h3 class="section-head">A few honest answers, <em>so the email is shorter.</em></h3>
-          <div class="faq">
-            <div class="faq-row">
-              <div class="q">What roles are you considering?</div>
-              <div class="a">
-                Head of Design, VP Design, Chief Design Officer, Chief Experience Officer. <em>The executive leadership tier.</em>
-                I am not considering pure individual-contributor roles (unless maybe you're LEGO or a streaming media provider), design-management roles below the
-                Director title, or contract work outside Precocity's existing book.
-              </div>
-            </div>
-            <div class="faq-row">
-              <div class="q">Where will you work?</div>
-              <div class="a">
-                Dallas (where I live), hybrid with travel, or fully remote. I will
-                relocate for the right role, including (especially?) if abroad. I will not relocate for a fast-growth startup whose
-                runway is the recruiter's main selling point.
-              </div>
-            </div>
-            <div class="faq-row">
-              <div class="q">What companies are interesting?</div>
-              <div class="a">
-                Companies where design has earned a real seat and the CEO can name three things
-                their best designer shipped last quarter. I'm specifically interested in flagship
-                consumer and tooling companies — LEGO, Netflix, Apple, Airbnb, and the equivalents. 
-                I'm also very interested in opportunities available in traditionally "non-tech" sectors 
-                like John Deere, Caterpillar, Maersk, et al.
-              </div>
-            </div>
-            <div class="faq-row">
-              <div class="q">Will you do a take-home?</div>
-              <div class="a">
-                <em>No.</em> The work on this site is the take-home. I will do a paid, time-boxed
-                advisory engagement at any stage of the process if it helps both sides decide.
-              </div>
-            </div>
-            <div class="faq-row">
-              <div class="q">Are you doing speaking, writing, advising on the side?</div>
-              <div class="a">
-                Speaking, occasionally and selectively. Writing, only here. Advisory, only by
-                introduction. I am not signing on as a podcast guest unless you've read the work.
-              </div>
-            </div>
+        <div class="faq-row">
+          <div class="q">Where will you work?</div>
+          <div class="a">
+            Dallas (where I live), hybrid with travel, or fully remote. I will
+            relocate for the right role, including (especially?) if abroad. I will not relocate for a fast-growth startup whose
+            runway is the recruiter's main selling point.
+          </div>
+        </div>
+        <div class="faq-row">
+          <div class="q">What companies are interesting?</div>
+          <div class="a">
+            Companies where design has earned a real seat and the CEO can name three things
+            their best designer shipped last quarter. I'm specifically interested in flagship
+            consumer and tooling companies — LEGO, Netflix, Apple, Airbnb, and the equivalents.
+            I'm also very interested in opportunities available in traditionally "non-tech" sectors
+            like John Deere, Caterpillar, Maersk, et al.
+          </div>
+        </div>
+        <div class="faq-row">
+          <div class="q">Will you do a take-home?</div>
+          <div class="a">
+            <em>No.</em> The work on this site is the take-home. I will do a paid, time-boxed
+            advisory engagement at any stage of the process if it helps both sides decide.
+          </div>
+        </div>
+        <div class="faq-row">
+          <div class="q">Are you doing speaking, writing, advising on the side?</div>
+          <div class="a">
+            Speaking, occasionally and selectively. Writing, only here. Advisory, only by
+            introduction. I am not signing on as a podcast guest unless you've read the work.
           </div>
         </div>
       </div>
@@ -391,18 +162,13 @@ import Base from '../layouts/Base.astro';
 
   <section class="section note">
     <div class="container">
-      <div class="grid">
-        <div class="marker">§ 04</div>
-        <div>
-          <div class="section-eyebrow">— A note on response —</div>
-          <p>
-            I read every email that arrives at this address. I reply inside two business days,
-            including the ones I'm declining — declining is also a response. If you do not hear
-            back inside a week, the email did not arrive; resend.
-          </p>
-          <div class="stamp">— Last revised Q1 2026 · Updated quarterly —</div>
-        </div>
-      </div>
+      <div class="section-eyebrow">A note on response</div>
+      <p>
+        I read every email that arrives at this address. I reply inside two business days,
+        including the ones I'm declining — declining is also a response. If you do not hear
+        back inside a week, the email did not arrive; resend.
+      </p>
+      <div class="stamp">Last revised Q1 2026 · Updated quarterly</div>
     </div>
   </section>
 </Base>

@@ -5,9 +5,9 @@ import Base from '../layouts/Base.astro';
   <style>
     .ink-top { padding-top: var(--space-8); padding-bottom: 0; }
     .ink-top a.back {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.2em;
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
       color: var(--tertiary);
       text-decoration: none;
@@ -19,8 +19,8 @@ import Base from '../layouts/Base.astro';
       margin: var(--space-7) 0 var(--space-10);
       height: clamp(520px, 82svh, 1080px);
       background: #FAF8F4;            /* --paper — the basin is a framed artwork, light in both themes */
-      border-top: 1px solid var(--rule);
-      border-bottom: 1px solid var(--rule);
+      border-top: 1px solid var(--rule-faint);
+      border-bottom: 1px solid var(--rule-faint);
       overflow: hidden;
       touch-action: none;
       cursor: crosshair;
@@ -39,36 +39,28 @@ import Base from '../layouts/Base.astro';
       justify-content: space-between;
     }
     .ink-caption .eyebrow {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.22em;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
       color: #6B6B6B;
       margin-bottom: var(--space-5);
     }
     .ink-caption h1 {
-      font-family: var(--font-serif);
-      font-weight: 300;
+      font-weight: 900;
       font-size: clamp(40px, 6vw, 84px);
-      line-height: 1;
-      letter-spacing: -0.03em;
+      line-height: 0.96;
+      letter-spacing: -0.04em;
       color: #040404;
       margin: 0;
-      font-variation-settings: 'opsz' 144, 'SOFT' 30;
     }
-    .ink-caption h1 em {
-      font-style: italic; font-weight: 400;
-      font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
-    }
+    .ink-caption h1 em { font-style: normal; }
     .ink-caption p {
-      font-family: var(--font-serif);
-      font-style: italic;
       font-size: 18px;
       line-height: 1.5;
       color: #282828;
       margin: var(--space-5) 0 0;
       max-width: 32ch;
-      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
     }
 
     .ink-controls {
@@ -83,9 +75,9 @@ import Base from '../layouts/Base.astro';
       border: none;
       padding: 0;
       cursor: pointer;
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.22em;
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
       color: #6B6B6B;
       transition: color 0.15s ease;
@@ -187,7 +179,7 @@ import Base from '../layouts/Base.astro';
   <div class="container ink-top">
     <div class="grid">
       <div class="marker">§ ❦</div>
-      <div><a class="back" href="/colophon">— Back to the colophon</a></div>
+      <div><a class="back" href="/colophon">Back to the colophon</a></div>
     </div>
   </div>
 
@@ -195,7 +187,7 @@ import Base from '../layouts/Base.astro';
     <canvas id="ink-canvas"></canvas>
     <div class="ink-overlay">
       <div class="ink-caption">
-        <div class="eyebrow">— Suminagashi · 墨流し —</div>
+        <div class="eyebrow">Suminagashi · 墨流し</div>
         <h1>Floating <em>ink.</em></h1>
         <p>Trace the water with your cursor. Ink floated on a still surface, the way it was done a thousand years ago — for the reader who got this far.</p>
       </div>

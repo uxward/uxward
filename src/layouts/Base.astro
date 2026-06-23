@@ -119,7 +119,7 @@ const { title, description = "Brandon E. B. Ward — senior design leadership. B
         </div>
       </div>
       <div class="colophon-line">
-        <span>— Set in Fraunces &amp; JetBrains Mono · Built with Astro on Cloudflare —</span>
+        <span>— Set in Archivo · Built with Astro —</span>
         <span class="fleuron" aria-hidden="true">❦</span>
       </div>
     </div>
@@ -471,7 +471,7 @@ const { title, description = "Brandon E. B. Ward — senior design leadership. B
         buffer.push(k);
         if (buffer.length > MAXLEN) buffer.shift();
 
-        // "font lab" reveals the hidden picker (only while already in cyber)
+        // "font lab" reveals the hidden Font Lab picker — cyber mode only.
         var FONTLAB = ['f', 'o', 'n', 't', ' ', 'l', 'a', 'b'];
         // keep the space in "font lab" from scrolling the page mid-sequence
         if (k === ' ' && root.classList.contains('cyber') && buffer.slice(-5).join('') === 'font ') {

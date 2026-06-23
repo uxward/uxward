@@ -4,588 +4,355 @@ import { slate } from '../data/slate.js';
 import { essaysNewestFirst } from '../data/essays.js';
 ---
 <Base title="uxward — Brandon E. B. Ward">
+
   <style>
-    /* ---------- Block 01 — Fold ---------- */
-    .fold {
-      min-height: 88vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: var(--space-10) 0;
+    /* ============================================================
+       Homepage — the Archivo / Swiss system. Lineage (see colophon):
+         · Wim Crouwel — total grid, the page as a system
+         · Experimental Jetset — one typeface, used without apology
+         · Reid Miles / Blue Note — type + color cropped to the edge
+         · Massimo Vignelli — the grid made visible; black, white, one color
+       One grotesque (Archivo), exposed rules, big tight display, catalog
+       numbers, a full-bleed color field.
+       ============================================================ */
+    .sys {
+      font-family: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+      padding-bottom: 0;
+      /* Softened rule color so dividers aren't harsh ink in either theme. */
+      --alt-rule: color-mix(in srgb, var(--ink) 10%, transparent);
     }
+    .sys h1, .sys h2, .sys h3, .sys p { margin: 0; }
 
-    /* Cyber-only animated backdrop behind the hero. The display/positioning is
-       gated on html.cyber in global.css — scoped CSS can't target the .cyber
-       class on <html> (it lives outside this page's scope attribute). */
-    .hero-bg { display: none; }
-    .fold .eyebrow-line {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--tertiary);
-      margin-bottom: var(--space-9);
+    /* ---------- Masthead: a Unigrid spec bar ---------- */
+    .sys .mast { padding: var(--space-8) 0 0; }
+    .sys .spec-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 1px solid var(--alt-rule);
     }
-    .fold h1 {
-      font-family: var(--font-serif);
-      font-weight: 300;
-      font-size: clamp(64px, 8.4vw, 116px);
-      line-height: 0.94;
-      letter-spacing: -0.035em;
-      font-variation-settings: 'opsz' 144, 'SOFT' 30;
+    .sys .spec-bar .cell {
+      padding: var(--space-4) var(--space-5);
+      border-left: 1px solid var(--alt-rule);
+    }
+    .sys .spec-bar .cell:first-child { border-left: 0; }
+    .sys .spec-bar .k {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--tertiary);
+      margin-bottom: 7px;
+    }
+    .sys .spec-bar .v { font-size: 16px; font-weight: 700; color: var(--ink); line-height: 1.2; }
+
+    /* ---------- Hero: big, tight, heavy ---------- */
+    .sys .hero { padding: var(--space-10) 0 var(--space-11); }
+    .sys .hero h1 {
+      font-weight: 900;
+      font-size: clamp(46px, 7.6vw, 120px);
+      line-height: 0.9;
+      letter-spacing: -0.045em;
       color: var(--ink);
-      margin: 0;
-      max-width: 1080px;
+      max-width: 15ch;
     }
-    .fold h1 em {
-      font-style: italic;
+    .sys .hero .lede {
+      font-size: clamp(18px, 2vw, 23px);
       font-weight: 400;
-      font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
-    }
-    .fold .deck {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-weight: 300;
-      font-size: 24px;
-      line-height: 1.42;
+      line-height: 1.45;
       color: var(--body);
-      margin: var(--space-8) 0 0;
-      max-width: 720px;
-      font-variation-settings: 'opsz' 36, 'SOFT' 80, 'WONK' 1;
+      max-width: 58ch;
+      margin-top: var(--space-8);
     }
-    .fold .meta {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--tertiary);
-      margin-top: var(--space-9);
-    }
+    .sys .hero .lede a { color: var(--ink); text-underline-offset: 3px; }
 
-    /* ---------- Section frame ---------- */
-    section.block {
-      padding: var(--space-10) 0;
-      border-top: 1px solid var(--rule);
-    }
-    section.block.on-paper {
-      background: var(--paper);
-      border-top: 1px solid var(--rule);
-      border-bottom: 1px solid var(--rule);
-    }
-    .eyebrow-section {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--tertiary);
+    /* ---------- Catalog section header (big red number + caps title) ---------- */
+    /* Full-bleed section dividers (edge-to-edge); the red field needs none. */
+    .sys section { padding: var(--space-9) 0; border-top: 1px solid var(--alt-rule); }
+    .sys section.cta { border-top: 0; }
+    .sys .sec-head {
+      display: flex;
+      align-items: flex-end;
+      gap: var(--space-5);
       margin-bottom: var(--space-8);
     }
-    .section-head {
-      font-family: var(--font-serif);
-      font-weight: 300;
-      font-size: 40px;
-      line-height: 1.05;
-      letter-spacing: -0.02em;
-      color: var(--ink);
-      margin: 0 0 var(--space-9) 0;
-      font-variation-settings: 'opsz' 96, 'SOFT' 30;
-      max-width: 720px;
-    }
-    .section-head em {
-      font-style: italic;
-      font-weight: 400;
-      font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1;
-    }
-
-    /* ---------- Block 02 — Selected work ---------- */
-    .work {
-      display: grid;
-      grid-template-columns: 1.4fr 1fr 1fr;
-      gap: var(--space-9);
-      align-items: start;
-    }
-    .case {
-      text-decoration: none;
-      color: inherit;
-      display: block;
-    }
-    .case .num {
-      font-family: var(--font-serif);
-      font-feature-settings: "tnum" 1;
-      font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 1;
-      font-weight: 300;
-      font-size: 64px;
-      line-height: 1;
-      letter-spacing: -0.02em;
-      color: var(--tertiary);
-      display: block;
-      margin-bottom: var(--space-6);
-    }
-    .case.hero .num { font-size: 84px; color: var(--ink); }
-    .case .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-family: var(--font-mono);
-      font-size: 10px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
+    .sys .sec-head .no {
+      font-weight: 900;
+      font-size: clamp(40px, 6vw, 82px);
+      line-height: 0.78;
+      letter-spacing: -0.045em;
       color: var(--signature);
-      margin-bottom: var(--space-5);
     }
-    .case .badge::before {
-      content: "";
-      display: inline-block;
-      width: 8px; height: 8px;
-      background: var(--signature);
-    }
-    .case .title {
-      font-family: var(--font-serif);
-      font-weight: 400;
-      font-size: 24px;
-      line-height: 1.18;
-      letter-spacing: -0.015em;
-      color: var(--ink);
-      font-variation-settings: 'opsz' 48, 'SOFT' 50;
-      margin: 0 0 var(--space-3) 0;
-      text-decoration: underline;
-      text-decoration-thickness: 1px;
-      text-underline-offset: 4px;
-      text-decoration-color: var(--rule);
-    }
-    .case.hero .title {
-      font-size: 34px;
-      line-height: 1.08;
-      font-variation-settings: 'opsz' 96, 'SOFT' 50;
-    }
-    .case:hover .title { color: var(--signature); text-decoration-color: var(--signature); }
-    .case .desc {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-weight: 400;
-      font-size: 17px;
-      line-height: 1.5;
-      color: var(--body);
-      margin: var(--space-3) 0 var(--space-5);
-      max-width: 38ch;
-      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
-    }
-    .case .meta {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.2em;
+    .sys .sec-head .ttl {
+      font-weight: 700;
+      font-size: 14px;
       text-transform: uppercase;
-      color: var(--tertiary);
-    }
-    .see-all {
-      margin-top: var(--space-10);
-      display: inline-block;
-      font-family: var(--font-serif);
-      font-size: 18px;
+      letter-spacing: 0.05em;
       color: var(--ink);
-      text-decoration: underline;
-      text-decoration-thickness: 1px;
-      text-underline-offset: 4px;
+      padding-bottom: 0.5em;
     }
 
-    /* ---------- Block 03 — Currently building ---------- */
-    .tools { border-top: 1px solid var(--rule); }
-    .tool-row {
+    /* ---------- Catalog list (work, writing) ---------- */
+    .sys .cat .item {
       display: grid;
-      grid-template-columns: 220px 1fr 100px;
-      gap: var(--space-7);
-      align-items: baseline;
+      grid-template-columns: 1fr auto;
+      column-gap: var(--space-7);
+      row-gap: var(--space-3);
       padding: var(--space-6) 0;
-      border-bottom: 1px solid var(--rule);
-    }
-    .tool-row .name {
-      font-family: var(--font-serif);
-      font-weight: 500;
-      font-size: 22px;
-      color: var(--ink);
-      letter-spacing: -0.01em;
-      font-variation-settings: 'opsz' 36, 'SOFT' 30;
-    }
-    .tool-row .desc {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-weight: 400;
-      font-size: 17px;
-      color: var(--body);
-      line-height: 1.5;
-      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
-    }
-    .tool-row .tag {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--tertiary);
-      text-align: right;
-      text-decoration: none;
-    }
-    .tool-row a.tag { color: var(--ink); text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
-    .tool-row a.tag:hover { color: var(--signature); }
-
-    /* ---------- Block 04 — Recent writing ---------- */
-    .essays {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: var(--space-9);
-    }
-    .essay {
-      text-decoration: none;
-      color: inherit;
-      display: block;
-    }
-    .essay .meta {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--tertiary);
-      margin-bottom: var(--space-5);
-    }
-    .essay .title {
-      font-family: var(--font-serif);
-      font-weight: 400;
-      font-size: 23px;
-      line-height: 1.2;
-      letter-spacing: -0.015em;
-      color: var(--ink);
-      font-variation-settings: 'opsz' 48, 'SOFT' 50;
-      margin: 0 0 var(--space-3) 0;
-    }
-    .essay .deck {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-weight: 400;
-      font-size: 16.5px;
-      line-height: 1.5;
-      color: var(--body);
-      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
-    }
-    .essay:hover .title { color: var(--signature); }
-
-    /* ---------- Block 05 — Bio ---------- */
-    .bio {
-      display: grid;
-      grid-template-columns: 1.3fr 1fr;
-      gap: var(--space-10);
-      align-items: start;
-    }
-    .bio p {
-      font-family: var(--font-serif);
-      font-size: 19px;
-      line-height: 1.65;
-      color: var(--body);
-      max-width: 580px;
-      margin: 0 0 var(--space-7);
-    }
-    .bio .more {
-      font-family: var(--font-serif);
-      font-size: 17px;
-      color: var(--ink);
-      text-decoration: underline;
-      text-underline-offset: 4px;
-    }
-    .portrait {
-      border: 1px solid var(--rule);
-      max-width: 360px;
-    }
-    .portrait img {
-      display: block;
-      width: 100%;
-      height: auto;
-    }
-
-    /* ---------- Block 06 — Red bleed ---------- */
-    .red-bleed {
-      background: var(--signature);
-      color: #FFFFFF;
-      padding: 144px 0 132px;
-      margin-top: var(--space-10);
-    }
-    .red-bleed .eyebrow-on-red {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.78);
-      margin-bottom: var(--space-8);
-    }
-    .red-bleed h2 {
-      font-family: var(--font-serif);
-      font-weight: 300;
-      font-size: clamp(48px, 6.4vw, 88px);
-      line-height: 1.02;
-      letter-spacing: -0.03em;
-      color: #FFFFFF;
-      font-variation-settings: 'opsz' 144, 'SOFT' 30;
-      margin: 0;
-      max-width: 980px;
-    }
-    .red-bleed h2 em {
-      font-style: italic;
-      font-weight: 400;
-      font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
-    }
-    .red-bleed .reach {
-      margin-top: var(--space-9);
-      display: flex;
+      border-top: 1px solid var(--alt-rule);
       align-items: baseline;
-      gap: var(--space-7);
-      flex-wrap: wrap;
     }
-    .red-bleed .reach a {
-      color: #FFFFFF;
-      font-family: var(--font-serif);
-      font-size: 22px;
+    .sys .cat .item:first-child { border-top: 0; }
+    .sys .cat a { color: inherit; text-decoration: none; }
+    .sys .cat .c-title {
+      font-weight: 800;
+      font-size: clamp(23px, 2.9vw, 34px);
+      line-height: 1.02;
+      letter-spacing: -0.022em;
+      color: var(--ink);
+    }
+    .sys .cat .item:hover .c-title { color: var(--signature); }
+    /* Titular name leads heavy (Archivo 900); the tagline after it sits back. */
+    .sys .cat .c-title .n { font-weight: 900; }
+    .sys .cat .c-title .t { font-weight: 500; color: var(--body); }
+    .sys .cat .c-when {
+      font-weight: 600;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--tertiary);
+      white-space: nowrap;
+      text-align: right;
+    }
+    .sys .cat .c-desc {
+      grid-column: 1 / -1;
+      font-size: 17px;
+      line-height: 1.5;
+      color: var(--body);
+      max-width: 66ch;
+    }
+    .sys .cat .c-desc a { color: var(--ink); }
+    .sys .more {
+      display: inline-block;
+      margin-top: var(--space-7);
+      font-weight: 700;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--ink);
+      border-bottom: 2px solid var(--signature);
+      padding-bottom: 2px;
+    }
+    .sys .more:hover { color: var(--signature); }
+
+    /* Building variant: name / desc / status */
+    .sys .cat.build .item { grid-template-columns: 250px 1fr auto; }
+    .sys .cat.build .b-name { font-weight: 700; font-size: 19px; letter-spacing: -0.01em; color: var(--ink); }
+    .sys .cat.build .b-desc { font-size: 16px; line-height: 1.45; color: var(--body); }
+    .sys .cat.build .b-desc a { color: var(--ink); }
+    .sys .cat.build .b-status {
+      font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em;
+      color: var(--tertiary); text-align: right; white-space: nowrap;
+    }
+    .sys .cat.build .b-status a { color: var(--signature); }
+
+    /* ---------- About ---------- */
+    /* Drop the bottom padding so the portrait's base meets the red field below. */
+    .sys section.about-sec { padding-bottom: 0; }
+    .sys .about { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-9); align-items: start; }
+    .sys .about p { font-size: 19px; line-height: 1.6; color: var(--body); max-width: 56ch; }
+    .sys .about .more { margin-top: var(--space-6); }
+    .sys .portrait { align-self: start; }
+    .sys .portrait img { display: block; width: 100%; height: auto; }
+
+    /* ---------- CTA: the bold color field (used, not rationed) ---------- */
+    .sys .cta { background: var(--signature); padding: var(--space-11) 0; }
+    .sys .cta .sec-head { border-top-color: #e7e7e7; }
+    .sys .cta .sec-head .no { color: #e7e7e7; }
+    .sys .cta .sec-head .ttl { color: rgba(231,231,231,0.85); }
+    .sys .cta h2 {
+      font-weight: 900;
+      font-size: clamp(38px, 5.4vw, 80px);
+      line-height: 0.92;
+      letter-spacing: -0.035em;
+      color: #e7e7e7;
+      max-width: 17ch;
+    }
+    .sys .cta .email {
       display: inline-flex;
       align-items: center;
-      gap: 0.5em;
+      gap: 0.45em;
+      margin-top: var(--space-8);
+      font-weight: 800;
+      font-size: clamp(22px, 3vw, 36px);
+      color: #e7e7e7;
     }
-    .red-bleed .reach a .email-text {
+    .sys .cta .email .email-text {
       text-decoration: underline;
-      text-underline-offset: 5px;
-      text-decoration-thickness: 1px;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 6px;
     }
-    .red-bleed .reach a .send-ico { width: 0.82em; height: 0.82em; }
-    .red-bleed .reach a:hover { color: rgba(255,255,255,0.78); }
-    .red-bleed .reach a:hover .send-icon,
-    .red-bleed .reach a:focus-visible .send-icon { animation: send-fly 0.5s ease; }
-    .red-bleed .reach .kicker {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.78);
+    .sys .cta .email .send-ico { width: 0.82em; height: 0.82em; }
+    .sys .cta .email:hover { color: rgba(231,231,231,0.72); }
+    .sys .cta .email:hover .send-icon,
+    .sys .cta .email:focus-visible .send-icon { animation: send-fly 0.5s ease; }
+    .sys .cta .note {
+      font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em;
+      color: rgba(231,231,231,0.8); margin-top: var(--space-6);
     }
 
     @media (max-width: 900px) {
-      .work { grid-template-columns: 1fr; }
-      .essays { grid-template-columns: 1fr; gap: var(--space-8); }
-      .bio { grid-template-columns: 1fr; }
-      .tool-row { grid-template-columns: 1fr 1fr; }
-      .tool-row .tag { text-align: left; }
-    }
-    @media (max-width: 600px) {
-      .tool-row { grid-template-columns: 1fr; }
+      .sys .spec-bar { grid-template-columns: 1fr 1fr; }
+      .sys .spec-bar .cell:nth-child(3) { border-left: 0; }
+      .sys .spec-bar .cell:nth-child(3), .sys .spec-bar .cell:nth-child(4) { border-top: 1px solid var(--ink); }
+      .sys .about { grid-template-columns: 1fr; gap: var(--space-8); }
+      .sys .portrait { order: -1; }
+      .sys .cat.build .item { grid-template-columns: 1fr; }
+      .sys .cat.build .b-status { text-align: left; }
     }
   </style>
 
-  <!-- BLOCK 01 — Above the fold -->
-  <section class="fold">
-    <!-- Cyber-only animated city backdrop. The source is attached lazily by the
-         script below so non-cyber visitors never download the clip. -->
-    <div class="hero-bg" aria-hidden="true">
-      <video class="hero-bg-video" muted loop playsinline preload="none" data-src="/videos/cybercity-sm.mp4"></video>
-    </div>
-    <div class="container">
-      <div class="grid">
-        <div class="marker">§ 01</div>
-        <div>
-          <div class="eyebrow-line">Brandon E. B. Ward — executive design leadership</div>
-          <h1>
-            I've spent years standing up design practices from scratch.
-            Now I do it in the <em>AI era.</em>
-          </h1>
-          <p class="deck">
-            I shipped <a href="/work/speakeazy" aria-label="Read the Speakeazy case study">Speakeazy</a> solo — live to real users since January 2026. Before that: years standing up design practice at four startups, two agencies, and a decade at Precocity.
-          </p>
-          <div class="meta">— Considering executive design leadership · Remote · Hybrid · Dallas, TX —</div>
+  <div class="sys">
+    <!-- Masthead -->
+    <div class="mast">
+      <div class="container">
+        <div class="spec-bar">
+          <div class="cell"><span class="k">Currently</span><span class="v">Building Speakeazy</span></div>
+          <div class="cell"><span class="k">Discipline</span><span class="v">Design leadership</span></div>
+          <div class="cell"><span class="k">Based</span><span class="v">Dallas, Texas</span></div>
+          <div class="cell"><span class="k">Status</span><span class="v">Open to exec roles</span></div>
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- BLOCK 02 — Selected work -->
-  <section class="block on-paper">
-    <div class="container">
-      <div class="grid">
-        <div class="marker">§ 02</div>
-        <div>
-          <div class="eyebrow-section">— Selected work —</div>
-          <h2 class="section-head">Three pieces that <em>carry the slate.</em></h2>
+    <!-- Hero -->
+    <div class="hero">
+      <div class="container">
+        <h1>Design practice, built from scratch. Now in the AI era.</h1>
+        <p class="lede">
+          I shipped <a href="/work/speakeazy">Speakeazy</a> solo — live to real users since January 2026.
+          Before that, years standing up design practice at four startups, two agencies, and a decade at Precocity.
+        </p>
+      </div>
+    </div>
 
-          <div class="work">
-            <a class="case hero" href="/work/speakeazy">
-              <span class="badge">Hero of the slate</span>
-              <span class="num">01</span>
-              <h3 class="title">Speakeazy — the tool that should have existed</h3>
-              <p class="desc">AI-native dialogue attribution and character analysis for audiobook narrators. Built solo; live to real users since January 2026. The load-bearing case on the site.</p>
-              <span class="meta">2025–Present · Founder</span>
+    <!-- 01 Work -->
+    <section>
+      <div class="container">
+        <div class="sec-head"><span class="no">01</span><span class="ttl">Selected work</span></div>
+        <div class="cat">
+          <a class="item" href="/work/speakeazy">
+            <h3 class="c-title"><span class="n">Speakeazy</span><span class="t"> — the tool that should have existed</span></h3>
+            <span class="c-when">Founder · 2025–present</span>
+            <p class="c-desc">AI-native dialogue attribution and character analysis for audiobook narrators. Built solo; live to real users since January 2026. The load-bearing case on the site.</p>
+          </a>
+          <a class="item" href="/work/precocity">
+            <h3 class="c-title"><span class="n">Precocity</span><span class="t"> — the ten-year build</span></h3>
+            <span class="c-when">CXO · 2016–present</span>
+            <p class="c-desc">First design hire; grew the practice over a decade from a two-person discipline into the team that ships against eight-figure enterprise contracts.</p>
+          </a>
+          <a class="item" href="/work/autoco">
+            <h3 class="c-title"><span class="n">A global automaker</span><span class="t"> — testing like an outsider</span></h3>
+            <span class="c-when">Director of UX · 2017–2022</span>
+            <p class="c-desc">Built and led the independent, bias-free usability practice — 17 studies, 3,500 hours of testing — that the automaker brought in-house.</p>
+          </a>
+        </div>
+        <a class="more" href="/work">See all {slate.length} pieces</a>
+      </div>
+    </section>
+
+    <!-- 02 Building -->
+    <section>
+      <div class="container">
+        <div class="sec-head"><span class="no">02</span><span class="ttl">Building now</span></div>
+        <div class="cat build">
+          <div class="item">
+            <span class="b-name">Speakeazy</span>
+            <span class="b-desc">AI-native dialogue attribution and character analysis for voice actors. Real users.</span>
+            <span class="b-status"><a href="https://speakeazy.pro" target="_blank" rel="noopener">Live</a></span>
+          </div>
+          <div class="item">
+            <span class="b-name">Design Library Showcase Generator</span>
+            <span class="b-desc">A Figma plugin to instantly create a showcase of all library components and their variants.</span>
+            <span class="b-status"><a href="https://www.figma.com/community/plugin/1355255111922370746/design-library-showcase-generator-by-precocity" target="_blank" rel="noopener">Live</a></span>
+          </div>
+          <div class="item">
+            <span class="b-name">FORGE</span>
+            <span class="b-desc">Context-to-complete-site-build via AI. The most ambitious tool of the set.</span>
+            <span class="b-status">Private</span>
+          </div>
+          <div class="item">
+            <span class="b-name">Verity</span>
+            <span class="b-desc">Foundations of an enterprise UX research and reporting platform.</span>
+            <span class="b-status">Private</span>
+          </div>
+          <div class="item">
+            <span class="b-name">RAD</span>
+            <span class="b-desc">A usability testing dashboard. A concrete designer-tooling artifact.</span>
+            <span class="b-status">Private</span>
+          </div>
+          <div class="item">
+            <span class="b-name">Marksman</span>
+            <span class="b-desc">An in-house macOS markdown converter, built with <a href="https://github.com/microsoft/markitdown">Markitdown</a> at Precocity.</span>
+            <span class="b-status">Private</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 Writing -->
+    <section>
+      <div class="container">
+        <div class="sec-head"><span class="no">03</span><span class="ttl">Writing</span></div>
+        <div class="cat">
+          {essaysNewestFirst.slice(0, 3).map((e) => (
+            <a class="item" href={`/writing/${e.slug}`}>
+              <h3 class="c-title" set:html={e.title} />
+              <span class="c-when">{e.quarter}</span>
+              <p class="c-desc">{e.deck}</p>
             </a>
-
-            <a class="case" href="/work/precocity">
-              <span class="num">02</span>
-              <h3 class="title">Precocity — the ten-year build</h3>
-              <p class="desc">First design hire; grew the practice over a decade from a two-person discipline into the team that ships against eight-figure enterprise contracts.</p>
-              <span class="meta">2016–Present · Chief Experience Officer</span>
-            </a>
-
-            <a class="case" href="/work/autoco">
-              <span class="num">03</span>
-              <h3 class="title">A global automaker — testing like an outsider</h3>
-              <p class="desc">Built and led the independent, bias-free usability practice — 17 studies, 3,500 hours of testing — that the automaker eventually brought in-house.</p>
-              <span class="meta">2017–2022 · Director of UX</span>
-            </a>
-          </div>
-
-          <a class="see-all" href="/work">— See all {slate.length} selected pieces →</a>
+          ))}
         </div>
+        <a class="more" href="/writing">All writing</a>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- BLOCK 03 — Currently building -->
-  <section class="block">
-    <div class="container">
-      <div class="grid">
-        <div class="marker">§ 03</div>
-        <div>
-          <div class="eyebrow-section">— Currently building —</div>
-          <h2 class="section-head">Six tools, one builder, AI as the <em>medium.</em></h2>
-
-          <div class="tools">
-            <div class="tool-row">
-              <div class="name">Speakeazy</div>
-              <div class="desc">AI-native dialogue attribution and character analysis for voice actors. Real users.</div>
-              <a class="tag" href="https://speakeazy.pro" target="_blank" rel="noopener">Live →</a>
-            </div>
-            <div class="tool-row">
-              <div class="name">Design Library Showcase Generator</div>
-              <div class="desc">A Figma plugin to help you instantly create a showcase of all library components and their variants.</div>
-              <a class="tag" href="https://www.figma.com/community/plugin/1355255111922370746/design-library-showcase-generator-by-precocity" target="_blank" rel="noopener">Live →</a>
-            </div>
-            <div class="tool-row">
-              <div class="name">FORGE</div>
-              <div class="desc">Context-to-complete-site-build via AI. The most ambitious tool of the set.</div>
-              <span class="tag">Private</span>
-            </div>
-            <div class="tool-row">
-              <div class="name">Verity</div>
-              <div class="desc">Foundations of an enterprise UX research and reporting platform.</div>
-              <span class="tag">Private</span>
-            </div>
-            <div class="tool-row">
-              <div class="name">RAD</div>
-              <div class="desc">Usability testing dashboard. Concrete designer-tooling artifact.</div>
-              <span class="tag">Private</span>
-            </div>
-            <div class="tool-row">
-              <div class="name">Marksman</div>
-              <div class="desc">In-house, MacOS markdown converter, built with <a href="https://github.com/microsoft/markitdown">Markitdown</a> at Precocity for AI workflows.</div>
-              <span class="tag">Private</span>
-            </div>
+    <!-- 04 About -->
+    <section class="about-sec">
+      <div class="container">
+        <div class="sec-head"><span class="no">04</span><span class="ttl">About</span></div>
+        <div class="about">
+          <div>
+            <p>
+              I'm Brandon. I've spent years building and running design practices — at four startups,
+              two agencies, a senior consulting run, and at Precocity for the last decade. I've shipped
+              Speakeazy, FORGE, and a handful of smaller AI-era tools as their solo builder. I write here
+              periodically. I'm based in Dallas, and currently considering executive design leadership
+              roles at companies that take design seriously.
+            </p>
+            <a class="more" href="/about">More about me</a>
+          </div>
+          <div class="portrait">
+            <img src="/images/BrandonEBWard-002.png"
+                 alt="Portrait of Brandon E. B. Ward"
+                 loading="lazy" decoding="async"
+                 width="1000" height="851" />
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- BLOCK 04 — Recent writing -->
-  <section class="block on-paper">
-    <div class="container">
-      <div class="grid">
-        <div class="marker">§ 04</div>
-        <div>
-          <div class="eyebrow-section">— Recent writing —</div>
-          <h2 class="section-head">Periodically. Long enough to be wrong <em>out loud.</em></h2>
-
-          <div class="essays">
-            {essaysNewestFirst.slice(0, 3).map((e) => (
-              <a class="essay" href={`/writing/${e.slug}`}>
-                <div class="meta">— {e.quarter} · Essay —</div>
-                <h3 class="title" set:html={e.title} />
-                <p class="deck">{e.deck}</p>
-              </a>
-            ))}
-          </div>
-
-          <a class="see-all" href="/writing">— All writing →</a>
-        </div>
+    <!-- 05 CTA — the color field -->
+    <section class="cta">
+      <div class="container">
+        <div class="sec-head"><span class="no">05</span><span class="ttl">Contact</span></div>
+        <h2>Senior design leadership at companies that take design seriously.</h2>
+        <a class="email" href="mailto:brandon@uxward.com">
+          <svg class="send-ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g class="send-icon"><path d="M10 14l11 -11" /><path d="M21 3l-6.5 18a.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a.55 .55 0 0 1 0 -1l18 -6.5" /></g></svg>
+          <span class="email-text">brandon@uxward.com</span>
+        </a>
+        <p class="note">A direct line, read daily.</p>
       </div>
-    </div>
-  </section>
-
-  <!-- BLOCK 05 — Bio teaser -->
-  <section class="block">
-    <div class="container">
-      <div class="grid">
-        <div class="marker">§ 05</div>
-        <div>
-          <div class="eyebrow-section">— About —</div>
-          <div class="bio">
-            <div>
-              <p>
-                I'm Brandon. I've spent years building and running design practices — at four startups,
-                two agencies, a senior consulting run, and at Precocity for the last decade. I've
-                shipped Speakeazy, FORGE, and a handful of smaller AI-era tools as their solo builder.
-                I write here periodically. I'm based in Dallas. I'm currently considering executive design
-                leadership roles at companies that take design seriously.
-              </p>
-              <a class="more" href="/about">— More about me →</a>
-            </div>
-            <div class="portrait">
-              <img src="/images/BrandonEBWard-002.jpg"
-                   alt="Portrait of Brandon E. B. Ward"
-                   loading="lazy" decoding="async"
-                   width="1200" height="1799" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- BLOCK 06 — The earned red moment -->
-  <section class="red-bleed">
-    <div class="container">
-      <div class="grid">
-        <div class="marker" style="color: rgba(255,255,255,0.78);">§ 06</div>
-        <div>
-          <div class="eyebrow-on-red">— considering —</div>
-          <h2>
-            Senior design leadership at companies that take design <em>seriously.</em>
-          </h2>
-          <div class="reach">
-            <a href="mailto:brandon@uxward.com">
-              <svg class="send-ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g class="send-icon"><path d="M10 14l11 -11" /><path d="M21 3l-6.5 18a.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a.55 .55 0 0 1 0 -1l18 -6.5" /></g></svg>
-              <span class="email-text">brandon@uxward.com</span>
-            </a>
-            <span class="kicker">— Direct line, read daily —</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <script>
-    // Hero backdrop video: load + play only while cyber mode is on, so the clip
-    // is never fetched by visitors who haven't tripped the easter egg.
-    (function () {
-      var root = document.documentElement;
-      var video = document.querySelector('.hero-bg-video');
-      if (!video) return;
-
-      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
-
-      function sync() {
-        var on = root.classList.contains('cyber') && !reduce.matches;
-        if (on) {
-          if (!video.src) video.src = video.dataset.src;   // attach + fetch on first activation
-          var p = video.play();
-          if (p && p.catch) p.catch(function () {});         // ignore autoplay rejections
-        } else {
-          video.pause();
-        }
-      }
-
-      // React to enter/exit cyber (class toggles on <html>) and reduced-motion changes.
-      new MutationObserver(sync).observe(root, { attributes: true, attributeFilter: ['class'] });
-      reduce.addEventListener('change', sync);
-      sync();
-    })();
-  </script>
+    </section>
+  </div>
 </Base>

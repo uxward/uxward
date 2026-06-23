@@ -3,17 +3,18 @@
    Colors, type, tokens. Source of truth.
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,30..100,0..1;1,9..144,300..700,30..100,0..1&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,30..100,0..1;1,9..144,300..700,30..100,0..1&family=JetBrains+Mono:wght@400;500;700&display=swap');
 
 /* ---------- Tokens: Light ---------- */
 :root {
-  --canvas:    #FFFFFF;
+  --canvas:    #E7E7E7;   /* off-white — no pure white */
   --ink:       #040404;
   --body:      #282828;
   --tertiary:  #6B6B6B;
   --rule:      #E4E1DC;
   --paper:     #FAF8F4;
   --signature: #CC0006;
+  --offwhite:  #E7E7E7;   /* the white-on-color value (red fields, dark text) */
 
   --bg:        var(--canvas);
   --fg:        var(--ink);
@@ -45,12 +46,21 @@
   --gutter-x-sm:  20px;
   --gutter-mark:  100px;
 
-  --font-serif: "Fraunces", Georgia, "Times New Roman", serif;
+  /* The site is set in Archivo (a grotesque). --font-serif is retained as a
+     token name only (lots of legacy rules reference it) but now resolves to
+     the grotesque — Fraunces is fully retired from the live site. --font-mono
+     is kept for the cyber easter egg. */
+  --font-sans:  "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: var(--font-sans);
   --font-mono:  "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
-  /* Semantic role tokens — default to the two faces above so the normal site
-     is unchanged. Hoisted/global type rules reference these so a single place
-     controls each role; cyber mode repoints them (see :root.cyber). */
+  /* Faint divider — 10% ink, reads in both themes. The new system's rules. */
+  --rule-faint: color-mix(in srgb, var(--ink) 10%, transparent);
+
+  /* Semantic role tokens stay on the serif so not-yet-migrated pages (cases,
+     essays) remain fully in the old design. Migrated pages use --font-sans
+     directly; each page flips cleanly when its turn comes. Cyber repoints
+     these (see :root.cyber). */
   --font-logo: var(--font-serif);
   --font-head: var(--font-serif);
   --font-body: var(--font-serif);
@@ -64,7 +74,7 @@
 :root[data-theme="dark"],
 .theme-dark {
   --canvas:    #121212;
-  --ink:       #FFFFFF;
+  --ink:       #E7E7E7;
   --body:      #E8E6E1;
   --tertiary:  #9A958C;
   --rule:      #2A2A2A;
@@ -75,7 +85,7 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --canvas:    #121212;
-    --ink:       #FFFFFF;
+    --ink:       #E7E7E7;
     --body:      #E8E6E1;
     --tertiary:  #9A958C;
     --rule:      #2A2A2A;
@@ -219,19 +229,10 @@ ul > li::before {
   .container { padding: 0 var(--gutter-x-sm); }
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: var(--gutter-mark) 1fr;
-  column-gap: var(--space-7);
-}
-.grid > .marker {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--tertiary);
-  padding-top: 0;
-}
+/* The §-marker rail is retired site-wide — content runs full width inside
+   .container. (The new Archivo/Swiss system has no rail.) */
+.grid { display: block; }
+.grid > .marker { display: none; }
 /* Case-study hero number sits beside the 132px case number (no label to
    baseline against) — keep its optical nudge. */
 .title-block .marker { padding-top: 10px; }
@@ -256,11 +257,10 @@ ul > li::before {
   padding-bottom: 20px;
 }
 .wm {
-  font-family: var(--font-serif);
-  font-size: 26px;
-  font-weight: 400;
-  letter-spacing: -0.01em;
-  font-variation-settings: 'opsz' 24, 'SOFT' 30;
+  font-family: var(--font-sans);
+  font-size: 25px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
   color: var(--ink);
   text-decoration: none;
   white-space: nowrap;
@@ -270,9 +270,10 @@ ul > li::before {
 .hdr-controls { display: flex; align-items: center; gap: 20px; }
 nav.hdr-nav { display: flex; gap: 28px; align-items: baseline; }
 .hdr-nav a {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.2em;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--ink);
   text-decoration: none;
@@ -433,9 +434,10 @@ footer.foot {
   gap: 22px;
 }
 .foot-nav a, .foot-ext a {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.2em;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--ink);
   text-decoration: none;
@@ -447,9 +449,10 @@ footer.foot {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
+  font-weight: 600;
   font-size: 10.5px;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--tertiary);
 }
@@ -924,3 +927,4 @@ html.cyber-arrive-go::after {
 @media (max-width: 720px) {
   .cyber .cyber-fontlab { left: 8px; bottom: 8px; width: 188px; padding: 9px 10px 10px; }
 }
+

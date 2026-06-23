@@ -1,76 +1,103 @@
 /* ============================================================
-   Case-study typography & chrome — hoisted from the per-page scoped
-   blocks (porte/precocity/autoco were byte-identical; that shared set
-   is the canonical template here). Scoped under `body.case` (case pages
-   pass bodyClass="case") so generic names like .title-block / .cs-head
-   never leak onto other pages.
+   Case-study typography & chrome — the Archivo / Swiss system.
+   Scoped under body.case (case pages pass bodyClass="case").
 
-   Font-family uses the semantic role tokens so cyber mode repoints a
-   whole role at once. speakeazy/insurco keep only their bespoke rules
-   (carousel, lightbox, real-image artifacts, attribution) in-page.
+   The role-token override below flips every case page's type to the
+   grotesque in one place, so the per-page bespoke blocks (hero-proof,
+   lightbox, carousel) follow automatically without per-file edits.
+   The §-marker rail is neutralised here too.
    ============================================================ */
 
-body.case .breadcrumb { padding-top: var(--space-8); padding-bottom: var(--space-7); }
-body.case .breadcrumb a { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--tertiary); text-decoration: none; }
+html:not(.cyber) body.case {
+  --font-head: var(--font-sans);
+  --font-body: var(--font-sans);
+  --font-mono: var(--font-sans);
+}
+
+/* Drop the marker rail — content runs full width inside .container. */
+body.case .grid { display: block; }
+body.case .grid > .marker { display: none; }
+
+/* ---------- Breadcrumb ---------- */
+body.case .breadcrumb { padding-top: var(--space-8); padding-bottom: var(--space-6); }
+body.case .breadcrumb a { font-weight: 600; font-size: 13px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); text-decoration: none; }
 body.case .breadcrumb a:hover { color: var(--signature); }
 
-body.case .title-block { padding-top: var(--space-7); padding-bottom: var(--space-10); }
+/* ---------- Title block ---------- */
+body.case .title-block { padding-top: var(--space-6); padding-bottom: var(--space-9); }
 body.case .hero-preview { margin-top: var(--space-9); }
-body.case .case-num { font-family: var(--font-head); font-feature-settings: "tnum" 1; font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 1; font-weight: 300; font-size: 132px; line-height: 0.9; letter-spacing: -0.03em; color: var(--signature); margin: 0 0 var(--space-7); display: block; }
-body.case .case-title { font-family: var(--font-head); font-weight: 300; font-size: clamp(56px, 7.4vw, 104px); line-height: 0.96; letter-spacing: -0.035em; font-variation-settings: 'opsz' 144, 'SOFT' 30; color: var(--ink); margin: 0; max-width: 1080px; }
-body.case .case-title em { font-style: italic; font-weight: 400; font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1; }
-body.case .case-deck { font-family: var(--font-body); font-style: italic; font-weight: 300; font-size: 24px; line-height: 1.42; color: var(--body); margin: var(--space-8) 0 0; max-width: 720px; font-variation-settings: 'opsz' 36, 'SOFT' 80, 'WONK' 1; }
+body.case .case-num { font-weight: 900; font-size: clamp(60px, 11vw, 150px); line-height: 0.78; letter-spacing: -0.05em; color: var(--signature); margin: 0 0 var(--space-5); display: block; }
+body.case .case-title { font-weight: 900; font-size: clamp(46px, 7.2vw, 104px); line-height: 0.94; letter-spacing: -0.04em; color: var(--ink); margin: 0; max-width: 16ch; }
+body.case .case-title em { font-style: normal; }
+body.case .case-deck { font-weight: 400; font-size: clamp(19px, 2.2vw, 24px); line-height: 1.45; color: var(--body); margin: var(--space-8) 0 0; max-width: 64ch; }
 
-body.case .meta-strip { border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: var(--space-6) 0; margin-top: var(--space-9); }
-body.case .meta-row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: var(--space-7); }
-body.case .meta-row .cell .label { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--tertiary); margin-bottom: 6px; }
-body.case .meta-row .cell .value { font-family: var(--font-body); font-size: 17px; color: var(--ink); font-variation-settings: 'opsz' 24, 'SOFT' 30; }
+/* ---------- Meta strip → Unigrid spec bar ---------- */
+body.case .meta-strip { border: 0; padding: 0; margin-top: var(--space-9); }
+body.case .meta-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid var(--rule-faint); }
+body.case .meta-row .cell { padding: var(--space-4) var(--space-5); border-left: 1px solid var(--rule-faint); }
+body.case .meta-row .cell:first-child { border-left: 0; }
+body.case .meta-row .cell .label { font-weight: 600; font-size: 11px; letter-spacing: 0.09em; text-transform: uppercase; color: var(--tertiary); margin-bottom: 7px; }
+body.case .meta-row .cell .value { font-weight: 700; font-size: 16px; line-height: 1.25; color: var(--ink); }
+body.case .meta-row .cell .value a { color: var(--signature); }
 
-body.case section.cs { padding: var(--space-10) 0 var(--space-9); border-top: 1px solid var(--rule); }
-body.case section.cs:first-of-type { border-top: 0; }
-body.case .cs-eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--signature); margin-bottom: var(--space-7); }
-body.case .cs-eyebrow .num { color: var(--ink); margin-right: 10px; letter-spacing: 0.18em; }
-body.case .cs-head { font-family: var(--font-head); font-weight: 300; font-size: 44px; line-height: 1.05; letter-spacing: -0.02em; color: var(--ink); margin: 0 0 var(--space-8) 0; font-variation-settings: 'opsz' 96, 'SOFT' 30; max-width: 720px; }
-body.case .cs-head em { font-style: italic; font-weight: 400; font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1; }
-body.case .cs-prose p { font-family: var(--font-body); font-weight: 400; font-size: 19px; line-height: 1.65; color: var(--body); max-width: 660px; margin: 0 0 var(--space-6); }
-body.case .cs-prose p strong { font-weight: 500; color: var(--ink); }
+/* ---------- Sections: big red number + caps label ---------- */
+/* Full-bleed section dividers (edge-to-edge); the red outcomes field needs none. */
+body.case section.cs { padding: var(--space-10) 0 var(--space-9); border-top: 1px solid var(--rule-faint); }
+body.case section.cs.outcomes-bleed { border-top: 0; }
+body.case .cs-eyebrow {
+  display: flex; align-items: flex-end; gap: var(--space-5); margin-bottom: var(--space-7);
+  font-weight: 700; font-size: 14px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink);
+}
+body.case .cs-eyebrow .num {
+  font-weight: 900; font-size: clamp(40px, 6vw, 82px); line-height: 0.78;
+  letter-spacing: -0.045em; color: var(--signature); margin: 0;
+}
+body.case .cs-head { font-weight: 900; font-size: clamp(30px, 3.6vw, 46px); line-height: 1.02; letter-spacing: -0.025em; color: var(--ink); margin: 0 0 var(--space-7); max-width: 20ch; }
+body.case .cs-head em { font-style: normal; }
+body.case .cs-prose p { font-weight: 400; font-size: 19px; line-height: 1.62; color: var(--body); max-width: 660px; margin: 0 0 var(--space-6); }
+body.case .cs-prose p strong { font-weight: 700; color: var(--ink); }
 body.case .cs-prose p em { font-style: italic; }
 
-body.case .cs-pullquote { font-family: var(--font-body); font-style: italic; font-weight: 300; font-size: 28px; line-height: 1.35; color: var(--ink); border-left: 3px solid var(--signature); padding-left: var(--space-7); margin: var(--space-9) 0; max-width: 620px; font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1; }
+body.case .cs-pullquote { font-weight: 700; font-size: clamp(24px, 3vw, 34px); line-height: 1.2; letter-spacing: -0.02em; color: var(--ink); border-left: 4px solid var(--signature); padding-left: var(--space-7); margin: var(--space-9) 0; max-width: 720px; }
+body.case .cs-pullquote em { font-style: italic; }
 
-body.case .choices { margin: var(--space-8) 0 var(--space-7); border-top: 1px solid var(--rule); }
-body.case .choice-row { display: grid; grid-template-columns: 200px 1fr; gap: var(--space-7); padding: var(--space-5) 0; border-bottom: 1px solid var(--rule); }
-body.case .choice-row .key { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--tertiary); padding-top: 4px; }
-body.case .choice-row .val { font-family: var(--font-body); font-size: 18px; line-height: 1.55; color: var(--body); max-width: 580px; }
-body.case .choice-row .val strong { font-weight: 500; color: var(--ink); }
+/* ---------- Choices ---------- */
+body.case .choices { margin: var(--space-8) 0 var(--space-7); border-top: 0; }
+body.case .choice-row { display: grid; grid-template-columns: 200px 1fr; gap: var(--space-7); padding: var(--space-5) 0; border-top: 1px solid var(--rule-faint); border-bottom: 0; }
+body.case .choice-row .key { font-weight: 700; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); padding-top: 4px; }
+body.case .choice-row .val { font-size: 18px; line-height: 1.55; color: var(--body); max-width: 600px; }
+body.case .choice-row .val strong { font-weight: 700; color: var(--ink); }
 
+/* ---------- Artifacts ---------- */
 body.case .artifacts { margin-top: var(--space-7); display: grid; gap: var(--space-10); }
-body.case .artifact .frame { background: var(--paper); border: 1px solid var(--rule); aspect-ratio: 16 / 9; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-3); color: var(--tertiary); padding: var(--space-7); text-align: center; }
-body.case .artifact .frame .placeholder-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--tertiary); }
-body.case .artifact .frame .placeholder-detail { font-family: var(--font-body); font-style: italic; font-size: 17px; color: var(--body); max-width: 480px; font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1; }
-body.case .artifact .caption-grid { display: grid; grid-template-columns: 110px 1fr; gap: var(--space-7); align-items: baseline; margin-top: var(--space-6); }
-body.case .artifact .caption-grid .num { font-family: var(--font-head); font-feature-settings: "tnum" 1; font-variation-settings: 'opsz' 96, 'SOFT' 30, 'WONK' 1; font-weight: 300; font-size: 36px; line-height: 1; color: var(--ink); }
-body.case .artifact .caption-grid h4 { font-family: var(--font-head); font-weight: 400; font-size: 22px; line-height: 1.25; letter-spacing: -0.01em; color: var(--ink); margin: 0 0 8px 0; font-variation-settings: 'opsz' 36, 'SOFT' 50; }
-body.case .artifact .caption-grid p.cap { font-family: var(--font-body); font-style: italic; font-size: 16.5px; line-height: 1.5; color: var(--body); margin: 0; font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1; }
+body.case .artifact .frame { background: var(--paper); border: 1px solid var(--rule-faint); aspect-ratio: 16 / 9; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-3); color: var(--tertiary); padding: var(--space-7); text-align: center; }
+body.case .artifact .frame .placeholder-label { font-weight: 600; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--tertiary); }
+body.case .artifact .frame .placeholder-detail { font-size: 17px; color: var(--body); max-width: 480px; }
+body.case .artifact .caption-grid { display: grid; grid-template-columns: 90px 1fr; gap: var(--space-6); align-items: baseline; margin-top: var(--space-6); }
+body.case .artifact .caption-grid .num { font-weight: 900; font-size: 34px; line-height: 1; color: var(--signature); }
+body.case .artifact .caption-grid h4 { font-weight: 800; font-size: 21px; line-height: 1.2; letter-spacing: -0.01em; color: var(--ink); margin: 0 0 8px 0; }
+body.case .artifact .caption-grid p.cap { font-size: 16.5px; line-height: 1.5; color: var(--body); margin: 0; }
 
-body.case .outcomes-bleed { background: var(--signature); color: #FFFFFF; padding: 128px 0 120px; }
-body.case .outcomes-bleed .cs-eyebrow { color: rgba(255,255,255,0.78); }
-body.case .outcomes-bleed .cs-eyebrow .num { color: #FFFFFF; }
-body.case .outcomes-bleed .cs-head { color: #FFFFFF; font-size: clamp(48px, 6vw, 80px); line-height: 1.02; letter-spacing: -0.03em; max-width: 980px; }
-body.case .outcomes-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-9); margin-top: var(--space-10); border-top: 1px solid rgba(255,255,255,0.28); padding-top: var(--space-8); }
-body.case .stat .label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.78); margin-bottom: var(--space-4); }
-body.case .stat .figure { font-family: var(--font-head); font-feature-settings: "tnum" 1; font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 1; font-weight: 300; font-size: 64px; line-height: 1; letter-spacing: -0.025em; color: #FFFFFF; margin-bottom: var(--space-4); }
-body.case .stat .desc { font-family: var(--font-body); font-style: italic; font-size: 16.5px; line-height: 1.5; color: #FFFFFF; max-width: 320px; font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1; }
+/* ---------- Outcomes: the bold red field ---------- */
+body.case .outcomes-bleed { background: var(--signature); color: var(--offwhite); padding: 120px 0 112px; }
+body.case .outcomes-bleed .cs-eyebrow { color: rgba(231,231,231,0.85); border-top-color: rgba(231,231,231,0.4); }
+body.case .outcomes-bleed .cs-eyebrow .num { color: var(--offwhite); }
+body.case .outcomes-bleed .cs-head { color: var(--offwhite); max-width: 20ch; }
+body.case .outcomes-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-9); margin-top: var(--space-9); border-top: 1px solid rgba(231,231,231,0.3); padding-top: var(--space-8); }
+body.case .stat .label { font-weight: 600; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(231,231,231,0.8); margin-bottom: var(--space-4); }
+body.case .stat .figure { font-weight: 900; font-size: clamp(48px, 6vw, 72px); line-height: 0.9; letter-spacing: -0.03em; color: var(--offwhite); margin-bottom: var(--space-4); }
+body.case .stat .desc { font-size: 16px; line-height: 1.5; color: var(--offwhite); max-width: 320px; }
 
-body.case .prevnext { border-top: 2px solid var(--ink); padding: var(--space-9) 0; display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-9); }
-body.case .pn-cell .label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--tertiary); margin-bottom: var(--space-4); }
-body.case .pn-cell a { font-family: var(--font-head); font-weight: 300; font-size: 32px; line-height: 1.1; letter-spacing: -0.02em; color: var(--ink); text-decoration: none; font-variation-settings: 'opsz' 96, 'SOFT' 30; display: block; }
+/* ---------- Prev / next + back ---------- */
+body.case .prevnext { border-top: 2px solid var(--rule-faint); padding: var(--space-9) 0; display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-9); }
+body.case .pn-cell .label { font-weight: 600; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--tertiary); margin-bottom: var(--space-4); }
+body.case .pn-cell a { font-weight: 800; font-size: clamp(22px, 2.4vw, 30px); line-height: 1.1; letter-spacing: -0.02em; color: var(--ink); text-decoration: none; display: block; }
 body.case .pn-cell a:hover { color: var(--signature); }
-body.case .pn-cell a em { font-style: italic; font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1; }
+body.case .pn-cell a em { font-style: normal; }
 body.case .pn-cell.next { text-align: right; }
 
-body.case .back-all { padding: var(--space-9) 0 var(--space-10); text-align: center; border-top: 1px solid var(--rule); }
-body.case .back-all a { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+body.case .back-all { padding: var(--space-9) 0 var(--space-10); text-align: center; border-top: 1px solid var(--rule-faint); }
+body.case .back-all a { font-weight: 600; font-size: 13px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
 body.case .back-all a:hover { color: var(--signature); }
 
 @media (max-width: 720px) {

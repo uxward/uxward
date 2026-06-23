@@ -3,298 +3,67 @@ import Base from '../layouts/Base.astro';
 ---
 <Base title="About — Brandon E. B. Ward · uxward">
   <style>
-    .about-top { padding-top: var(--space-8); padding-bottom: var(--space-7); }
-    .about-top a.back {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--tertiary);
-      text-decoration: none;
-    }
+    /* about — Archivo / Swiss system. Quieter caps section labels (the big red
+       numbers are reserved for the homepage + case studies). */
+    .about-top { padding-top: var(--space-8); padding-bottom: var(--space-6); }
+    .about-top a.back { font-weight: 600; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); text-decoration: none; }
     .about-top a.back:hover { color: var(--signature); }
 
-    .name-block { padding-top: var(--space-9); padding-bottom: var(--space-10); }
-    .name-eyebrow {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--tertiary);
-      margin-bottom: var(--space-7);
-    }
-    h1.name {
-      font-family: var(--font-serif);
-      font-weight: 300;
-      font-size: clamp(56px, 7vw, 104px);
-      line-height: 0.96;
-      letter-spacing: -0.035em;
-      font-variation-settings: 'opsz' 144, 'SOFT' 30;
-      color: var(--ink);
-      margin: 0;
-      max-width: 1080px;
-    }
-    h1.name em {
-      font-style: italic; font-weight: 400;
-      font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
-    }
-    .name-deck {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-weight: 300;
-      font-size: 24px;
-      line-height: 1.42;
-      color: var(--body);
-      margin: var(--space-8) 0 0;
-      max-width: 720px;
-      font-variation-settings: 'opsz' 36, 'SOFT' 80, 'WONK' 1;
+    /* Shared section label */
+    .name-eyebrow, .bio-eyebrow, .timeline-eyebrow, .currently-eyebrow, .elsewhere-eyebrow {
+      font-weight: 700; font-size: 13px; letter-spacing: 0.05em; text-transform: uppercase;
+      color: var(--ink); margin-bottom: var(--space-7);
     }
 
-    .portrait-section {
-      padding: var(--space-8) 0 var(--space-10);
-      border-top: 1px solid var(--rule);
-      border-bottom: 1px solid var(--rule);
-      background: var(--paper);
-    }
-    .portrait-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--space-10);
-      align-items: end;
-      padding-top: var(--space-9);
-    }
-    .portrait {
-      border: 1px solid var(--rule);
-      max-width: 480px;
-      width: 100%;
-      margin-left: auto;
-    }
-    .portrait img {
-      display: block;
-      width: 100%;
-      height: auto;
-    }
-    .portrait-caption {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-size: 17px;
-      line-height: 1.5;
-      color: var(--body);
-      max-width: 380px;
-      margin: 0;
-      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
-      padding-bottom: var(--space-6);
-    }
-    .portrait-caption .source {
-      display: block;
-      margin-top: var(--space-4);
-      font-style: normal;
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--tertiary);
-    }
+    .name-block { padding-top: var(--space-7); padding-bottom: var(--space-10); }
+    h1.name { font-weight: 900; font-size: clamp(52px, 7vw, 104px); line-height: 0.94; letter-spacing: -0.04em; color: var(--ink); margin: 0; max-width: 16ch; }
+    h1.name em { font-style: normal; }
+    .name-deck { font-weight: 400; font-size: clamp(19px, 2.2vw, 24px); line-height: 1.45; color: var(--body); margin: var(--space-8) 0 0; max-width: 64ch; }
 
-    .bio-section { padding: var(--space-10) 0; }
-    .bio-eyebrow {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--tertiary);
-      margin-bottom: var(--space-8);
-    }
-    .bio-prose p {
-      font-family: var(--font-serif);
-      font-weight: 400;
-      font-size: 19px;
-      line-height: 1.65;
-      color: var(--body);
-      max-width: 660px;
-      margin: 0 0 var(--space-6);
-      text-wrap: pretty;
-    }
-    .bio-prose p strong { font-weight: 500; color: var(--ink); }
-    .bio-prose ul {
-      font-family: var(--font-serif);
-      font-size: 19px;
-      line-height: 1.65;
-      color: var(--body);
-      max-width: 660px;
-      margin: 0 0 var(--space-6);
-      padding-left: 1.4em;
-    }
+    .portrait-section { padding: var(--space-9) 0 var(--space-10); border-top: 1px solid var(--rule-faint); }
+    .portrait-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-10); align-items: end; }
+    .portrait { max-width: 520px; width: 100%; margin-left: auto; }
+    .portrait img { display: block; width: 100%; height: auto; }
+    .portrait-caption { font-size: 18px; line-height: 1.5; color: var(--body); max-width: 380px; margin: 0; padding-bottom: var(--space-6); }
+    .portrait-caption .source { display: block; margin-top: var(--space-4); font-weight: 600; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); }
+
+    .bio-section { padding: var(--space-10) 0; border-top: 1px solid var(--rule-faint); }
+    .bio-prose p { font-weight: 400; font-size: 19px; line-height: 1.65; color: var(--body); max-width: 660px; margin: 0 0 var(--space-6); text-wrap: pretty; }
+    .bio-prose p strong { font-weight: 700; color: var(--ink); }
+    .bio-prose p em { font-style: italic; }
+    .bio-prose a { color: var(--ink); }
+    .bio-prose a:hover { color: var(--signature); }
+    .bio-prose ul { font-size: 19px; line-height: 1.65; color: var(--body); max-width: 660px; margin: 0 0 var(--space-6); padding-left: 1.4em; }
     .bio-prose li { margin-bottom: var(--space-3); }
 
-    .timeline-section {
-      padding: var(--space-10) 0;
-      border-top: 1px solid var(--rule);
-    }
-    .timeline-eyebrow {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--tertiary);
-      margin-bottom: var(--space-8);
-    }
-    .timeline-head {
-      font-family: var(--font-serif);
-      font-weight: 300;
-      font-size: 40px;
-      line-height: 1.05;
-      letter-spacing: -0.02em;
-      color: var(--ink);
-      margin: 0 0 var(--space-9) 0;
-      font-variation-settings: 'opsz' 96, 'SOFT' 30;
-      max-width: 720px;
-    }
-    .timeline-head em {
-      font-style: italic; font-weight: 400;
-      font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1;
-    }
-    .tl { border-top: 1px solid var(--rule); }
-    .tl-row {
-      display: grid;
-      grid-template-columns: 160px 1fr 200px;
-      gap: var(--space-7);
-      padding: var(--space-5) 0;
-      border-bottom: 1px solid var(--rule);
-      align-items: baseline;
-    }
-    .tl-row .years {
-      font-family: var(--font-mono);
-      font-size: 12px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--tertiary);
-    }
-    .tl-row .role {
-      font-family: var(--font-serif);
-      font-size: 19px;
-      line-height: 1.4;
-      color: var(--ink);
-      font-variation-settings: 'opsz' 24, 'SOFT' 30;
-    }
-    .tl-row .role em {
-      font-style: italic;
-      color: var(--body);
-      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
-    }
-    .tl-row .place {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--tertiary);
-      text-align: right;
-    }
+    .timeline-section { padding: var(--space-10) 0; border-top: 1px solid var(--rule-faint); }
+    .timeline-head { font-weight: 900; font-size: clamp(30px, 3.6vw, 46px); line-height: 1.02; letter-spacing: -0.025em; color: var(--ink); margin: 0 0 var(--space-8) 0; max-width: 20ch; }
+    .timeline-head em { font-style: normal; }
+    .tl { border-top: 1px solid var(--rule-faint); }
+    .tl-row { display: grid; grid-template-columns: 160px 1fr 200px; gap: var(--space-7); padding: var(--space-5) 0; border-bottom: 1px solid var(--rule-faint); align-items: baseline; }
+    .tl-row .years { font-weight: 600; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); }
+    .tl-row .role { font-size: 19px; line-height: 1.4; color: var(--ink); }
+    .tl-row .role em { font-style: italic; color: var(--body); }
+    .tl-row .place { font-weight: 600; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); text-align: right; }
 
-    .currently-section {
-      padding: var(--space-10) 0;
-      border-top: 1px solid var(--rule);
-    }
-    .currently-eyebrow {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--tertiary);
-      margin-bottom: var(--space-8);
-    }
-    .currently-list {
-      display: grid;
-      gap: var(--space-6);
-      max-width: 720px;
-    }
-    .currently-row {
-      display: grid;
-      grid-template-columns: 140px 1fr;
-      gap: var(--space-7);
-      padding-bottom: var(--space-5);
-      border-bottom: 1px solid var(--rule);
-      align-items: baseline;
-    }
+    .currently-section { padding: var(--space-10) 0; border-top: 1px solid var(--rule-faint); }
+    .currently-list { display: grid; gap: var(--space-6); max-width: 720px; }
+    .currently-row { display: grid; grid-template-columns: 140px 1fr; gap: var(--space-7); padding-bottom: var(--space-5); border-bottom: 1px solid var(--rule-faint); align-items: baseline; }
     .currently-row:last-child { border-bottom: 0; }
-    .currently-row .key {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--tertiary);
-    }
-    .currently-row .vals {
-      display: grid;
-      gap: var(--space-4);
-    }
-    .currently-row .val {
-      font-family: var(--font-serif);
-      font-size: 20px;
-      line-height: 1.45;
-      color: var(--ink);
-      font-variation-settings: 'opsz' 24, 'SOFT' 30;
-    }
-    .currently-row .val em {
-      font-style: italic;
-      color: var(--body);
-      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
-    }
-    .currently-stamp {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--tertiary);
-      margin-top: var(--space-7);
-    }
+    .currently-row .key { font-weight: 600; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); }
+    .currently-row .vals { display: grid; gap: var(--space-4); }
+    .currently-row .val { font-size: 20px; line-height: 1.45; color: var(--ink); }
+    .currently-row .val em { font-style: italic; color: var(--body); }
+    .currently-row .val a { color: var(--ink); }
+    .currently-row .val a:hover { color: var(--signature); }
+    .currently-stamp { font-weight: 600; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); margin-top: var(--space-7); }
 
-    .elsewhere-section {
-      padding: var(--space-10) 0;
-      border-top: 1px solid var(--rule);
-    }
-    .elsewhere-eyebrow {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--tertiary);
-      margin-bottom: var(--space-8);
-    }
-    .elsewhere-list { border-top: 1px solid var(--rule); }
-    .elsewhere-row {
-      display: grid;
-      grid-template-columns: 140px 1fr max-content;
-      gap: var(--space-7);
-      padding: var(--space-5) 0;
-      border-bottom: 1px solid var(--rule);
-      align-items: baseline;
-    }
-    .elsewhere-row .where {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--tertiary);
-    }
-    .elsewhere-row .what {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-size: 17.5px;
-      line-height: 1.5;
-      color: var(--body);
-      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
-    }
-    .elsewhere-row a.go {
-      font-family: var(--font-serif);
-      font-size: 17px;
-      color: var(--ink);
-      text-decoration: underline;
-      text-underline-offset: 4px;
-      text-decoration-thickness: 1px;
-      text-align: right;
-      white-space: nowrap;
-    }
+    .elsewhere-section { padding: var(--space-10) 0; border-top: 1px solid var(--rule-faint); }
+    .elsewhere-list { border-top: 1px solid var(--rule-faint); }
+    .elsewhere-row { display: grid; grid-template-columns: 140px 1fr max-content; gap: var(--space-7); padding: var(--space-5) 0; border-bottom: 1px solid var(--rule-faint); align-items: baseline; }
+    .elsewhere-row .where { font-weight: 600; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); }
+    .elsewhere-row .what { font-size: 17.5px; line-height: 1.5; color: var(--body); }
+    .elsewhere-row a.go { font-weight: 700; font-size: 14px; color: var(--ink); text-decoration: none; text-align: right; white-space: nowrap; }
     .elsewhere-row a.go:hover { color: var(--signature); }
 
     @media (max-width: 900px) {
@@ -309,7 +78,7 @@ import Base from '../layouts/Base.astro';
   <div class="container about-top">
     <div class="grid">
       <div class="marker">§ ↩</div>
-      <div><a class="back" href="/">— Back home</a></div>
+      <div><a class="back" href="/">Back home</a></div>
     </div>
   </div>
 
@@ -317,7 +86,7 @@ import Base from '../layouts/Base.astro';
     <div class="grid">
       <div class="marker">§ 00</div>
       <div>
-        <div class="name-eyebrow">— About —</div>
+        <div class="name-eyebrow">About</div>
         <h1 class="name">Brandon E. B. <em>Ward.</em></h1>
         <p class="name-deck">
           Executive design leader. Many years standing up design practices from scratch.
@@ -336,13 +105,13 @@ import Base from '../layouts/Base.astro';
           <div>
             <p class="portrait-caption">
               The page where the recruiter is compelled to read the long version.
-              <span class="source">— B.E.B.W., Dallas, March 2026 —</span>
+              <span class="source">B.E.B.W., Dallas, March 2026</span>
             </p>
           </div>
           <div class="portrait">
-            <img src="/images/BrandonEBWard-006.jpg"
+            <img src="/images/BrandonEBWard-006.png"
                  alt="Portrait of Brandon E. B. Ward"
-                 width="1200" height="1712" />
+                 width="1000" height="833" />
           </div>
         </div>
       </div>
@@ -354,7 +123,7 @@ import Base from '../layouts/Base.astro';
       <div class="grid">
         <div class="marker">§ 02</div>
         <div>
-          <div class="bio-eyebrow">— The longer version —</div>
+          <div class="bio-eyebrow">The longer version</div>
           <div class="bio-prose">
             <p>
               I'm Brandon. I've spent my career building and running design practices
@@ -427,7 +196,7 @@ import Base from '../layouts/Base.astro';
       <div class="grid">
         <div class="marker">§ 03</div>
         <div>
-          <div class="timeline-eyebrow">— Career, in years —</div>
+          <div class="timeline-eyebrow">Career, in years</div>
           <h2 class="timeline-head">The years, told <em>plainly.</em></h2>
 
           <div class="tl">
@@ -492,14 +261,14 @@ import Base from '../layouts/Base.astro';
       <div class="grid">
         <div class="marker">§ 04</div>
         <div>
-          <div class="currently-eyebrow">— Currently —</div>
+          <div class="currently-eyebrow">Currently</div>
           <div class="currently-list">
             <div class="currently-row">
-              <span class="key">— Considering —</span>
+              <span class="key">Considering</span>
               <span class="val">Executive design leadership at companies that take design seriously. <em>Head of Design, VP, CDO, CXO</em></span>
             </div>
             <div class="currently-row">
-              <span class="key">— Building —</span>
+              <span class="key">Building</span>
               <div class="vals">
                 <span class="val"><a href="../work/speakeazy">Speakeazy</a> — <em>Public, launched Jan. 1, 2026.</em></span>
                 <span class="val">FORGE — Content > IA > Design > Code in minutes. <em>Private alpha, internal.</em></span>
@@ -507,15 +276,15 @@ import Base from '../layouts/Base.astro';
               </div>
             </div>
             <div class="currently-row">
-              <span class="key">— Reading —</span>
+              <span class="key">Reading</span>
               <span class="val">Mostly LitRPG, Sci-Fi, and Fantasy, and the occasional business or design book. My <em>tsundoku</em> betrays me sometimes. I'll be the guy from <em>Time Enough At Last</em> screaming "There was time now. There was, was all the time I needed&hellip;"</span>
             </div>
             <div class="currently-row">
-              <span class="key">— Not doing —</span>
+              <span class="key">Not doing</span>
               <span class="val">A newsletter. A podcast. A personal brand.</span>
             </div>
           </div>
-          <div class="currently-stamp">— Updated quarterly · Last revised Q2 2026 —</div>
+          <div class="currently-stamp">Updated quarterly · Last revised Q2 2026</div>
         </div>
       </div>
     </div>
@@ -526,27 +295,27 @@ import Base from '../layouts/Base.astro';
       <div class="grid">
         <div class="marker">§ 05</div>
         <div>
-          <div class="elsewhere-eyebrow">— Elsewhere —</div>
+          <div class="elsewhere-eyebrow">Elsewhere</div>
           <div class="elsewhere-list">
             <div class="elsewhere-row">
-              <span class="where">— LinkedIn —</span>
+              <span class="where">LinkedIn</span>
               <span class="what">The professional record. The same ground, drier.</span>
-              <a class="go" href="https://linkedin.com/in/brandonebward" target="_blank" rel="noopener">/in/brandonebward →</a>
+              <a class="go" href="https://linkedin.com/in/brandonebward" target="_blank" rel="noopener">/in/brandonebward</a>
             </div>
             <div class="elsewhere-row">
-              <span class="where">— GitHub —</span>
+              <span class="where">GitHub</span>
               <span class="what">This site. Everything else is private.</span>
-              <a class="go" href="https://github.com/uxward" target="_blank" rel="noopener">/uxward →</a>
+              <a class="go" href="https://github.com/uxward" target="_blank" rel="noopener">/uxward</a>
             </div>
             <div class="elsewhere-row">
-              <span class="where">— Acting —</span>
+              <span class="where">Acting</span>
               <span class="what">The other thing I do. A different address; deliberately separated.</span>
-              <a class="go" href="https://brandonebward.com" target="_blank" rel="noopener">brandonebward.com →</a>
+              <a class="go" href="https://brandonebward.com" target="_blank" rel="noopener">brandonebward.com</a>
             </div>
             <div class="elsewhere-row">
-              <span class="where">— Email —</span>
+              <span class="where">Email</span>
               <span class="what">The direct line. Read daily. The right way to reach me.</span>
-              <a class="go" href="mailto:brandon@uxward.com">brandon@uxward.com →</a>
+              <a class="go" href="mailto:brandon@uxward.com">brandon@uxward.com</a>
             </div>
           </div>
         </div>
