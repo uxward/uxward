@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import MoreArticles from '../../components/MoreArticles.astro';
 ---
 <Base title="Arrr, Know Yer Personæ · uxward" bodyClass="essay">
   <style>
@@ -50,36 +51,7 @@ import Base from '../../layouts/Base.astro';
 
   </article>
 
-  <section class="container">
-    <div class="more">
-      <div class="grid">
-        <div class="marker">§ ↗</div>
-        <div>
-          <div class="more-eyebrow">More from the writing</div>
-          <div class="more-grid">
-            <a class="essay-card" href="/writing">
-              <div class="meta">Essay</div>
-              <h3 class="title">More writing</h3>
-              <p class="deck">Thoughts on design, leadership, and the work of making things for people.</p>
-            </a>
-            <a class="essay-card" href="/writing">
-              <div class="meta">Essay</div>
-              <h3 class="title">More writing</h3>
-              <p class="deck">Thoughts on design, leadership, and the work of making things for people.</p>
-            </a>
-            <a class="essay-card" href="/writing">
-              <div class="meta">Essay</div>
-              <h3 class="title">More writing</h3>
-              <p class="deck">Thoughts on design, leadership, and the work of making things for people.</p>
-            </a>
-          </div>
-          <div class="all-link">
-            <a href="/writing">All writing</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <MoreArticles currentSlug="arrr-know-yer-personae" />
 
   <script>
     (function () {
