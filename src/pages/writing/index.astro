@@ -17,7 +17,7 @@ const tagLabel = Object.fromEntries(essaySections.map((s) => [s.key, s.title.rep
     .head-intro { font-weight: 400; font-size: 21px; line-height: 1.5; color: var(--body); max-width: 60ch; margin: var(--space-6) 0 0; }
 
     /* ---------- Controls band (toggle left · filter right) ---------- */
-    .controls { padding: var(--space-7) 0; border-bottom: 1px solid var(--rule-faint); }
+    .controls { padding: var(--space-9) 0 var(--space-4); }
     .controls-row { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-7); }
     .viewtoggle { display: flex; align-items: baseline; gap: var(--space-4); white-space: nowrap; }
     .vt-label { font-weight: 600; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); }
@@ -54,7 +54,7 @@ const tagLabel = Object.fromEntries(essaySections.map((s) => [s.key, s.title.rep
     a.featured-link:hover .featured-cta { color: var(--signature); }
 
     /* ---------- List + view swap ---------- */
-    .list { padding-top: var(--space-7); padding-bottom: var(--space-10); }
+    .list { padding-top: var(--space-4); padding-bottom: var(--space-10); }
     .list[data-view="topic"] #view-date { display: none; }
     .list[data-view="date"] #view-topic { display: none; }
     /* view cross-fade: dip the active view out, swap, fade the new one in */
@@ -172,17 +172,20 @@ const tagLabel = Object.fromEntries(essaySections.map((s) => [s.key, s.title.rep
     </div>
   </div>
 
-  <section class="container head">
-    <div class="head-eyebrow">Writing · {essays.length} essays · Quarterly</div>
+  <section class="head">
+    <div class="container">
+    <div class="head-eyebrow">Writing · {essays.length} essays · Occaisionally</div>
     <h1 class="head-h">Writing, <em>arranged by what it argues.</em></h1>
     <p class="head-intro">
       This is where I write about design leadership, the craft itself, the research
       that shapes both, and where AI is taking us. Periodically. Long-form (usually). No newsletter
       to sign up for.
     </p>
+    </div>
   </section>
 
-  <section class="container featured" id="featured">
+  <section class="featured" id="featured">
+    <div class="container">
     <div class="featured-grid">
       <div class="featured-mark">Featured</div>
       <div>
@@ -201,9 +204,11 @@ const tagLabel = Object.fromEntries(essaySections.map((s) => [s.key, s.title.rep
         </a>
       </div>
     </div>
+    </div>
   </section>
 
-  <section class="container controls">
+  <section class="controls">
+    <div class="container">
     <div class="controls-row">
       <div class="viewtoggle" role="group" aria-label="Arrange essays">
         <span class="vt-label">Arrange</span>
@@ -221,12 +226,14 @@ const tagLabel = Object.fromEntries(essaySections.map((s) => [s.key, s.title.rep
       </form>
     </div>
     <div class="search-hint" id="search-hint" aria-live="polite"></div>
+    </div>
   </section>
 
-  <main class="container list" data-view="topic">
+  <main class="list" data-view="topic">
     <div id="view-topic">
       {essaySections.map((s, i) => (
         <section class="section" data-section={s.key}>
+          <div class="container">
           <div class="section-head">
             <div class="section-mark">{String(i + 1).padStart(2, '0')}</div>
             <div class="section-title">
@@ -252,11 +259,13 @@ const tagLabel = Object.fromEntries(essaySections.map((s) => [s.key, s.title.rep
             </div>
             <div class="section-empty-msg">No matches in {s.title}.</div>
           </div>
+          </div>
         </section>
       ))}
     </div>
 
     <div id="view-date">
+      <div class="container">
       <div class="section-body">
         <div class="essays">
           {essaysNewestFirst.map((e) => (
@@ -274,11 +283,12 @@ const tagLabel = Object.fromEntries(essaySections.map((s) => [s.key, s.title.rep
         </div>
         <div class="flat-empty-msg">No matches.</div>
       </div>
+      </div>
     </div>
   </main>
 
-  <section class="container">
-    <div class="pivot">
+  <section class="pivot">
+    <div class="container">
       <div class="pivot-grid">
         <div class="pivot-mark">↗</div>
         <a class="pivot-link" href="/about">

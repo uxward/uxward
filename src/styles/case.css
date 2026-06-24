@@ -32,7 +32,7 @@ body.case .case-title em { font-style: normal; }
 body.case .case-deck { font-weight: 400; font-size: clamp(19px, 2.2vw, 24px); line-height: 1.45; color: var(--body); margin: var(--space-8) 0 0; max-width: 64ch; }
 
 /* ---------- Meta strip → Unigrid spec bar ---------- */
-body.case .meta-strip { border: 0; padding: 0; margin-top: var(--space-9); }
+body.case .meta-strip { border: 0; padding: 0; margin-top: var(--space-9); margin-bottom: var(--space-9); }
 body.case .meta-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid var(--rule-faint); }
 body.case .meta-row .cell { padding: var(--space-4) var(--space-5); border-left: 1px solid var(--rule-faint); }
 body.case .meta-row .cell:first-child { border-left: 0; }
@@ -96,9 +96,6 @@ body.case .pn-cell a:hover { color: var(--signature); }
 body.case .pn-cell a em { font-style: normal; }
 body.case .pn-cell.next { text-align: right; }
 
-body.case .back-all { padding: var(--space-9) 0 var(--space-10); text-align: center; border-top: 1px solid var(--rule-faint); }
-body.case .back-all a { font-weight: 600; font-size: 13px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
-body.case .back-all a:hover { color: var(--signature); }
 
 @media (max-width: 720px) {
   body.case .meta-row { grid-template-columns: 1fr 1fr; }

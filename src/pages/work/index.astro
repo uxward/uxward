@@ -57,9 +57,11 @@ const archive = [
     .page-h em { font-style: normal; }
     .page-intro { font-weight: 400; font-size: clamp(19px, 2.2vw, 22px); line-height: 1.5; color: var(--body); max-width: 64ch; margin: var(--space-7) 0 0; }
 
-    .slate { padding-top: var(--space-7); padding-bottom: var(--space-9); }
+    /* Section divider above the slate runs page-wide (full-bleed) — the
+       border lives on the full-width section, not the inner .container. */
+    .slate { padding-top: 0; padding-bottom: var(--space-9); border-top: 1px solid var(--rule-faint); }
 
-    a.hero { display: block; text-decoration: none; color: inherit; padding: var(--space-9) 0 var(--space-10); border-top: 1px solid var(--rule-faint); border-bottom: 1px solid var(--rule-faint); transition: opacity var(--t-fast) ease; }
+    a.hero { display: block; text-decoration: none; color: inherit; padding: var(--space-9) 0 var(--space-10); border-bottom: 1px solid var(--rule-faint); transition: opacity var(--t-fast) ease; }
     a.hero .hero-head { display: grid; grid-template-columns: 200px 1fr; gap: var(--space-7); align-items: start; }
     a.hero .num { font-weight: 900; font-size: 96px; line-height: 0.82; letter-spacing: -0.045em; color: var(--signature); font-feature-settings: 'tnum' 1; }
     a.hero .num small { display: block; margin-top: var(--space-4); font-weight: 700; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--signature); font-feature-settings: normal; }
@@ -123,8 +125,15 @@ const archive = [
     .arch-card .arch-title { font-weight: 700; font-size: 21px; line-height: 1.2; letter-spacing: -0.015em; color: var(--ink); margin: 0; }
     .arch-card .arch-title em { font-style: normal; font-weight: 400; color: var(--body); }
     .arch-card .arch-out { font-weight: 400; font-size: 15.5px; line-height: 1.5; color: var(--body); margin: var(--space-4) 0 0; }
-    .arch-card .arch-link { display: inline-block; margin-top: var(--space-4); font-weight: 700; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--signature); text-decoration: none; }
+    .arch-card .arch-link { display: inline-flex; align-items: center; gap: 2px; margin-top: var(--space-4); font-weight: 700; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--signature); text-decoration: none; }
     .arch-card .arch-link:hover { text-decoration: underline; }
+    .arch-link .chevron-ico { display: inline-block; flex: none; }
+    .arch-link:hover .chevron-ico { animation: chevron-slide 0.8s ease-in-out; }
+    @keyframes chevron-slide {
+      0%   { transform: translateX(0); }
+      50%  { transform: translateX(6px); }
+      100% { transform: translateX(0); }
+    }
     @media (max-width: 600px) {
       .arch-grid { grid-template-columns: 1fr; }
     }
@@ -152,7 +161,8 @@ const archive = [
     </div>
   </div>
 
-  <section class="container slate">
+  <section class="slate">
+    <div class="container">
 
     <a class="hero" href={`/work/${hero.slug}`} aria-label={`Open the ${hero.client} case study`}>
       <div class="hero-head">
@@ -193,9 +203,11 @@ const archive = [
       </a>
     ))}
 
+    </div>
   </section>
 
-  <section class="container archive">
+  <section class="archive">
+    <div class="container">
     <div class="grid">
       <div class="marker">§ ✦</div>
       <div>
@@ -208,21 +220,22 @@ const archive = [
               <h3 class="arch-title">{c.client} — <em>{c.hook}</em></h3>
               <p class="arch-out">{c.out}</p>
               {c.url && (
-                <a class="arch-link" href={c.url} target="_blank" rel="noopener">{c.link}</a>
+                <a class="arch-link" href={c.url} target="_blank" rel="noopener">{c.link}<svg class="chevron-ico" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
               )}
             </div>
           ))}
         </div>
       </div>
     </div>
+    </div>
   </section>
 
-  <section class="container">
-    <div class="pivot">
+  <section class="pivot">
+    <div class="container">
       <div class="grid">
         <div class="marker">§</div>
         <div>
-          <div class="pivot-eyebrow">If the work isn't enough</div>
+          <div class="pivot-eyebrow">Compelled to explore a bit more?</div>
           <div class="pivot-grid">
             <a class="pivot-card" href="/writing">
               <div class="key">Writing</div>

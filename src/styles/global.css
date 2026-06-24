@@ -147,7 +147,6 @@ html, body {
   line-height: 1.68;
   letter-spacing: 0.005em;
   word-spacing: 0.02em;
-  font-variation-settings: 'opsz' 14;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }

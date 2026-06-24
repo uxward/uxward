@@ -33,11 +33,10 @@ const next = slate[(idx + 1) % slate.length];
     body.case .hero-proof .hp .figure {
       font-family: var(--font-head);
       font-feature-settings: "tnum" 1;
-      font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 1;
-      font-weight: 300;
+      font-weight: 900;
       font-size: 64px;
       line-height: 1;
-      letter-spacing: -0.025em;
+      letter-spacing: -0.04em;
       color: var(--ink);
       margin-bottom: var(--space-4);
     }
@@ -48,7 +47,6 @@ const next = slate[(idx + 1) % slate.length];
       line-height: 1.45;
       color: var(--body);
       max-width: 280px;
-      font-variation-settings: 'opsz' 24, 'SOFT' 80, 'WONK' 1;
     }
     @media (max-width: 720px) {
       body.case .hero-proof { grid-template-columns: 1fr; gap: var(--space-6); }
@@ -127,7 +125,7 @@ const next = slate[(idx + 1) % slate.length];
           <div class="hp">
             <div class="label">Practice built</div>
             <div class="figure">$4.4M</div>
-            <div class="desc">Conservative UX/UI book of business, 2016 — 2026.</div>
+            <div class="desc">Est. UX/UI book of business, 2016 — 2026.</div>
           </div>
         </div>
       </div>
@@ -445,9 +443,6 @@ const next = slate[(idx + 1) % slate.length];
       </div>
     </div>
 
-    <div class="back-all">
-      <a href="/work">Back to all {slate.length} selected pieces</a>
-    </div>
   </div>
 
   <div class="lightbox" data-lightbox aria-hidden="true">
