@@ -1,11 +1,9 @@
 ---
-import Base from '../../layouts/Base.astro';
-import MoreArticles from '../../components/MoreArticles.astro';
+import Base from "../../layouts/Base.astro";
+import MoreArticles from "../../components/MoreArticles.astro";
 ---
-<Base title="Hey UI: Say What You Mean · uxward" bodyClass="essay">
-  <style>
-  </style>
 
+<Base title="Hey UI: Say What You Mean · uxward" bodyClass="essay">
   <div class="read-bar" id="read-bar" aria-hidden="true"></div>
 
   <div class="reading-column essay-top">
@@ -26,70 +24,211 @@ import MoreArticles from '../../components/MoreArticles.astro';
       Hey UI: <em>Say What You Mean,</em> and Mean What You Said
     </h1>
     <p class="essay-deck">
-      A UX critique of Redbox Instant's confusing interface — and the simple fixes that could have saved users from disappointment.
+      A UX critique of Redbox Instant's confusing interface — and the simple
+      fixes that could have saved users from disappointment.
     </p>
     <div class="essay-byline">By Brandon E. B. Ward</div>
   </div>
 
   <article class="reading-column essay-body">
-
     <figure>
-    <img src="/images/writing/redbox.jpeg" alt="Redbox kiosk" />
+      <img src="/images/writing/redbox.jpeg" alt="Redbox kiosk" />
     </figure>
 
-    <p>Anything to satisfy my wanton desire for massive amounts of&nbsp;media…</p><p>Around March of last year, I played around with Redbox Instant. There was a lot I thought they did well — namely, make it enough like Netflix that it’s easy for lots of people to start exploring, but different enough to be, well, different.</p><p>One of the things Redbox has going for it as a key differentiator is the they have kiosks everywhere. In fact, one of my favorite locations (at the time) in Coeur d’Alene, ID had 2 kiosks, and I could see a third one across the street.</p><p>So I’m a fan. That said, as with all things, there are some things I wish could be just a little more this or a little less that. Or just changed. Case-in-point:</p>
+    <p>
+      Anything to satisfy my wanton desire for massive amounts of media…
+    </p>
+    <p>
+      Around March of last year, I played around with Redbox Instant. There was
+      a lot I thought they did well — namely, make it enough like Netflix that
+      it’s easy for lots of people to start exploring, but different enough to
+      be, well, different.
+    </p>
+    <p>
+      One of the things Redbox has going for it as a key differentiator is the
+      they have kiosks everywhere. In fact, one of my favorite locations (at the
+      time) in Coeur d’Alene, ID had 2 kiosks, and I could see a third one
+      across the street.
+    </p>
+    <p>
+      So I’m a fan. That said, as with all things, there are some things I wish
+      could be just a little more this or a little less that. Or just changed.
+      Case-in-point:
+    </p>
 
+    <p>
+      This is the screen I was greeted with when I visited <a
+        href="https://www.redbox.com/ondemand-movies/featured"
+        target="_blank">redboxinstant.com</a
+      > (ca. March, 2013, now just <a
+        href="https://www.redbox.com/ondemand-movies/featured"
+        target="_blank">redbox.com</a
+      >). With a quick scan, I saw there were some menu items, some featured
+      movies, 3 grey buttons I’m not going to bother reading just yet, and then
+      movies I can browse (not sure if that’s instant or kiosk or both yet).
+      Then I saw there’s a search bar at the upper-right.
+    </p>
+    <p>
+      I scanned the carousel then below it to check out those 3 buttons since
+      they looked important:
+    </p>
+    <h2>Subscription, At Kiosk, Rent / Buy.</h2>
+    <blockquote>
+      Ok — so I can change my subscription features. Did I order a magazine? No,
+      that’s probably the subscription to Redbox Instant. I can view what’s in
+      the kiosks or I can rent and/or buy. Cool. But where do I see the
+      streaming, instant movies?
+    </blockquote>
+    <p>I started scanning again — top-left corner:</p>
+    <blockquote>
+      “Redbox Instant” … hmm, okay. I didn’t accidentally go to <a
+        href="http://redbox.com/"
+        target="_blank">redbox.com</a
+      > which is a totally different site altogether. This IS where the instant movies
+      are. So that must be them there in the first row of browsable movies there.
+      It must be the default.
+    </blockquote>
 
+    <p>I moused over Thor.</p>
+    <p>
+      Yep. Big red ‘WATCH NOW’ button. These all seamed to be instant. Great.
+      They got the defaults right. Thing is — why did I have to check? Why
+      didn’t I just KNOW?
+    </p>
+    <p>So I scrolled down to see what else they had.</p>
 
+    <p>
+      Oh snap! They had Wreck-It Ralph, The Man With the Iron Fists, Taken 2,
+      Flight and Dredd — all on instant! These had just dropped on DVD/Blu-Ray
+      and were months from being released on Netflix. I thought
+    </p>
+    <blockquote>
+      Props to Redbox — If they can keep up w/ releasing their streaming at the
+      same time as their Kiosks Netflix has some serious catch-up to do! I’m
+      gonna watch Taken 2.
+    </blockquote>
 
+    <p>So I hovered over Taken 2…</p>
+    <p>
+      Wait — Blu-Ray? Must be a screenshot, I thought. Perhaps it means it’s a
+      higher-quality stream ala Vudu’s HDX…
+    </p>
+    <p>
+      Hey — where did the Watch Now button go? I hovered over the rest — it was
+      gone from all of them. Then I noticed the header, just above <em
+        >The Baytown Outlaws</em
+      >. Oooooh, Popular at Kiosk. Okay, so now I could see all of these were at
+      the kiosk. Got it.
+    </p>
+    <p>
+      So initially, when I got to redboxinstant.com, I thought I was viewing
+      streaming movies by default — otherwise, I’d have gone to <a
+        href="http://redbox.com/"
+        target="_blank">redbox.com</a
+      >. So then I saw they’d started to merge their content — okay, I guess,
+      eventually I suppose it’d all be merged at redbox.com. Fine. But right
+      then, I wanted to watch an instant movie, got excited to see all the
+      instant movies available, and ended up disappointed.
+    </p>
+    <p>
+      So in about 10 seconds, here’s the gamut of emotions I felt when I hit the
+      home page:
+    </p>
+    <ul>
+      <li>Satisfaction (happy to have this service!)</li>
+      <li>Confusion (not sure what I’m looking at)</li>
+      <li>Understanding (I’m looking at instant movies)</li>
+      <li>Excitement (I’m gonna watch Taken 2 right now!)</li>
+      <li>Confusion (why can’t I watch it right now?)</li>
+      <li>Disappointment (oh — I’m viewing kiosk movies too)</li>
+      <li>
+        Indifference (ah — I see they have trouble getting great streaming
+        content quickly, just like Netflix)
+      </li>
+    </ul>
+    <p>
+      Back to those 3 buttons…maybe there was something I missed. My stream of
+      thoughts went something like this:
+    </p>
+    <blockquote>
+      To their left I took the time to actually <em>read</em> the text I’d purposefully
+      skipped earlier: “Browse More”. Browse More — Subscription. What the heck does
+      that mean? I haven’t subscribed to anything, no magazines, no RSS feeds, no
+      services…oh, redbox instant could be considered a service, is that what they
+      mean by Subscription? If so, why isn’t it selected to show that I am, in fact,
+      viewing instant, er, I mean subscription movies? I guess I’m viewing both, maybe?
+      There is nothing to indicate what the list of movies I’m seeing is or where
+      they can be found. I have to guess and check. My guessing and checking leads
+      to understanding, excitement and ultimately confusion, disappointment and indifference.
+      Now I have to click those 3 buttons to see exactly what they do. Oh — they take
+      you to a set of pages that functions how I thought THIS page would function
+      in the bloody first place.
+    </blockquote>
+    <p>
+      Some <em>very</em> simple things can be done in about 15 minutes to save me,
+      and thousands like me the 10 seconds of mental effort it took to get through
+      all that and then generate a blog post:
+    </p>
+    <ol>
+      <li>
+        Subscription? <strong><em>Really</em></strong>? Say Instant. Say
+        Streaming. Say Online. Lots of other words to use. Subscription is
+        just…wrong and means something else.
+      </li>
+      <li>Indicate what the rows of movies below are.</li>
+      <li>
+        Change the 3 buttons to something more indicative of page navigation
+        links.
+      </li>
+    </ol>
+    <p>
+      When you click on those buttons you actually navigate to another page
+      entirely. The current style doesn’t make that very clear. So don’t make
+      them look like a broken toggle/selected skin for an AJAX refresh, give me
+      some other indicator that I’m viewing movies available for streaming AND
+      at the kiosk.
+    </p>
+    <p>Here are some simple ways we could address these issues:</p>
 
-    <p>This is the screen I was greeted with when I visited <a href="https://www.redbox.com/ondemand-movies/featured" target="_blank">redboxinstant.com</a> (ca. March, 2013, now just <a href="https://www.redbox.com/ondemand-movies/featured" target="_blank">redbox.com</a>). With a quick scan, I saw there were some menu items, some featured movies, 3 grey buttons I’m not going to bother reading just yet, and then movies I can browse (not sure if that’s instant or kiosk or both yet). Then I saw there’s a search bar at the upper-right.</p><p>I scanned the carousel then below it to check out those 3 buttons since they looked important:</p><h2>Subscription, At Kiosk, Rent /&nbsp;Buy.</h2><blockquote>Ok — so I can change my subscription features. Did I order a magazine? No, that’s probably the subscription to Redbox Instant. I can view what’s in the kiosks or I can rent and/or buy. Cool. But where do I see the streaming, instant movies?</blockquote><p>I started scanning again — top-left corner:</p><blockquote>“Redbox Instant”&nbsp;… hmm, okay. I didn’t accidentally go to <a href="http://redbox.com/" target="_blank">redbox.com</a> which is a totally different site altogether. This IS where the instant movies are. So that must be them there in the first row of browsable movies there. It must be the default.</blockquote>
-
-
-
-
-
-    <p>I moused over Thor.</p><p>Yep. Big red ‘WATCH NOW’ button. These all seamed to be instant. Great. They got the defaults right. Thing is — why did I have to check? Why didn’t I just KNOW?</p><p>So I scrolled down to see what else they had.</p>
-
-
-
-
-
-    <p>Oh snap! They had Wreck-It Ralph, The Man With the Iron Fists, Taken 2, Flight and Dredd — all on instant! These had just dropped on DVD/Blu-Ray and were months from being released on Netflix. I thought</p><blockquote>Props to Redbox — If they can keep up w/ releasing their streaming at the same time as their Kiosks Netflix has some serious catch-up to do! I’m gonna watch Taken 2.</blockquote>
-
-
-
-
-
-    <p>So I hovered over Taken 2…</p><p>Wait — Blu-Ray? Must be a screenshot, I thought. Perhaps it means it’s a higher-quality stream ala Vudu’s HDX…</p><p>Hey — where did the Watch Now button go? I hovered over the rest — it was gone from all of them. Then I noticed the header, just above <em>The Baytown Outlaws</em>. Oooooh, Popular at Kiosk. Okay, so now I could see all of these were at the kiosk. Got it.</p><p>So initially, when I got to redboxinstant.com, I thought I was viewing streaming movies by default — otherwise, I’d have gone to <a href="http://redbox.com/" target="_blank">redbox.com</a>. So then I saw they’d started to merge their content — okay, I guess, eventually I suppose it’d all be merged at redbox.com. Fine. But right then, I wanted to watch an instant movie, got excited to see all the instant movies available, and ended up disappointed.</p><p>So in about 10 seconds, here’s the gamut of emotions I felt when I hit the home page:</p><ul><li>Satisfaction (happy to have this service!)</li><li>Confusion (not sure what I’m looking at)</li><li>Understanding (I’m looking at instant movies)</li><li>Excitement (I’m gonna watch Taken 2 right now!)</li><li>Confusion (why can’t I watch it right now?)</li><li>Disappointment (oh — I’m viewing kiosk movies too)</li><li>Indifference (ah — I see they have trouble getting great streaming content quickly, just like Netflix)</li></ul><p>Back to those 3 buttons…maybe there was something I missed. My stream of thoughts went something like this:</p><blockquote>To their left I took the time to actually <em>read</em> the text I’d purposefully skipped earlier: “Browse More”. Browse More — Subscription. What the heck does that mean? I haven’t subscribed to anything, no magazines, no RSS feeds, no services…oh, redbox instant could be considered a service, is that what they mean by Subscription? If so, why isn’t it selected to show that I am, in fact, viewing instant, er, I mean subscription movies? I guess I’m viewing both, maybe? There is nothing to indicate what the list of movies I’m seeing is or where they can be found. I have to guess and check. My guessing and checking leads to understanding, excitement and ultimately confusion, disappointment and indifference. Now I have to click those 3 buttons to see exactly what they do. Oh — they take you to a set of pages that functions how I thought THIS page would function in the bloody first place.</blockquote><p>Some <em>very</em> simple things can be done in about 15 minutes to save me, and thousands like me the 10 seconds of mental effort it took to get through all that and then generate a blog post:</p><ol><li>Subscription? <strong><em>Really</em></strong>? Say Instant. Say Streaming. Say Online. Lots of other words to use. Subscription is just…wrong and means something else.</li><li>Indicate what the rows of movies below are.</li><li>Change the 3 buttons to something more indicative of page navigation links.</li></ol><p>When you click on those buttons you actually navigate to another page entirely. The current style doesn’t make that very clear. So don’t make them look like a broken toggle/selected skin for an AJAX refresh, give me some other indicator that I’m viewing movies available for streaming AND at the kiosk.</p><p>Here are some simple ways we could address these issues:</p>
-
-
-
-
-
-    <p>I used the ‘Instant’ and ‘Kiosk’ icons already in use above in the featured movies (I didn’t even notice those until I started looking for how Redbox might have already differentiated instant from the kiosk). So they’ve already made the icons — just label each row what it’s full of and you’re good! This doesn’t affect the page size or layout at all and I think things are a lot clearer.</p><p>But even if you don’t do numbers 2 and 3, please Redbox, please, change the ‘Subscription’ to something that makes sense.</p>
+    <p>
+      I used the ‘Instant’ and ‘Kiosk’ icons already in use above in the
+      featured movies (I didn’t even notice those until I started looking for
+      how Redbox might have already differentiated instant from the kiosk). So
+      they’ve already made the icons — just label each row what it’s full of and
+      you’re good! This doesn’t affect the page size or layout at all and I
+      think things are a lot clearer.
+    </p>
+    <p>
+      But even if you don’t do numbers 2 and 3, please Redbox, please, change
+      the ‘Subscription’ to something that makes sense.
+    </p>
 
     <div class="essay-end">
-    <div class="author">Brandon E. B. Ward · Dallas, TX</div>
+      <div class="author">Brandon E. B. Ward · Dallas, TX</div>
     </div>
-
   </article>
 
   <MoreArticles currentSlug="hey-ui-say-what-you-mean" />
 
   <script>
     (function () {
-      var bar = document.getElementById('read-bar');
+      var bar = document.getElementById("read-bar");
       if (!bar) return;
       function update() {
         var doc = document.documentElement;
-        var max = (doc.scrollHeight - doc.clientHeight);
-        var pct = max > 0 ? Math.min(100, Math.max(0, (doc.scrollTop || window.scrollY) / max * 100)) : 0;
-        bar.style.width = pct + '%';
+        var max = doc.scrollHeight - doc.clientHeight;
+        var pct =
+          max > 0
+            ? Math.min(
+                100,
+                Math.max(0, ((doc.scrollTop || window.scrollY) / max) * 100),
+              )
+            : 0;
+        bar.style.width = pct + "%";
       }
       update();
-      window.addEventListener('scroll', update, { passive: true });
-      window.addEventListener('resize', update);
+      window.addEventListener("scroll", update, { passive: true });
+      window.addEventListener("resize", update);
     })();
   </script>
 </Base>

@@ -1,11 +1,12 @@
 ---
-import Base from '../../layouts/Base.astro';
-import MoreArticles from '../../components/MoreArticles.astro';
+import Base from "../../layouts/Base.astro";
+import MoreArticles from "../../components/MoreArticles.astro";
 ---
-<Base title="Don't die with your music still in you. · uxward" bodyClass="essay">
-  <style>
-  </style>
 
+<Base
+  title="Don't die with your music still in you. · uxward"
+  bodyClass="essay"
+>
   <div class="read-bar" id="read-bar" aria-hidden="true"></div>
 
   <div class="reading-column essay-top">
@@ -26,40 +27,106 @@ import MoreArticles from '../../components/MoreArticles.astro';
       Don't die with your <em>music still in you.</em>
     </h1>
     <p class="essay-deck">
-      A reflection on Dr. Wayne Dyer's challenge not to leave your passions and ideas unexpressed.
+      A reflection on Dr. Wayne Dyer's challenge not to leave your passions and
+      ideas unexpressed.
     </p>
     <div class="essay-byline">By Brandon E. B. Ward</div>
   </div>
 
   <article class="reading-column essay-body">
-
     <figure>
-    <img src="/images/writing/typing.jpeg" alt="Person at a typewriter" />
+      <img src="/images/writing/typing.jpeg" alt="Person at a typewriter" />
     </figure>
 
-    <blockquote><strong>Don’t die with your music still in you.</strong></p><p><em>— Dr. Wayne Dyer</em></blockquote><p>I heard this quoted in a religious context the other day and it has been ringing in my ears ever since.</p><p>As a singer and composer who doesn’t get to use those skills very often, and even then, very rarely to their full extent, it’s got me thinking about ways and means I can get all of the <em>literal</em> music welling up inside of me <strong>out</strong>. Maybe I should audition for more groups or shows. Maybe I should set aside some time to just write or record my music. Lots of potential there.</p><p>As a designer and developer, there are always little solutions, ideas, affordances, improvements, etc. milling about in my head. Everywhere I go I see ways to improve and enhance, to increase performance, usability, perception, and efficiency. That’s largely why I’m keeping this blog — It gives me a voice — a way for me to take action on the random bits in my head and not just grumble about crappy UX in the POS PoS machines. It gets them out of me so that they may live (or die) and benefit others.</p><p>So let’s abstract this quote a little bit.</p><blockquote><em>Don’t die with your X still in&nbsp;you.</em></blockquote><p>What are some other things we should get OUT before we’re reaped grimly? Here are the first things that came to my mind:</p><p><strong>Don’t die with your&nbsp;…</strong></p><p>family</p><p>potential</p><p>ideas</p><p>best</p><p>worst</p><p>failures</p><p>successes</p><p>anger</p><p>love</p><p>life</p><p>passions</p><p>fears</p><p>designs</p><p>solutions</p><p>observations</p><p>skills</p><p>knowledge</p><p>emotions</p><p>jokes</p><p>faith</p><p>history</p><p>story</p><p>stories</p><p><strong>… still inside you.</strong></p><p>I’m sure there are a ton more that would work really well and speak volumes to us. What do <em>you</em> think you should ensure gets out of you before you die — either to be rooted out and expunged or to be released for the world to enjoy (or mock, or critique or…)?</p>
+    <blockquote>
+      <p><strong>Don’t die with your music still in you.</strong></p>
+      <p><em>— Dr. Wayne Dyer</em></p>
+    </blockquote>
+    <p>
+      I heard this quoted in a religious context the other day and it has been
+      ringing in my ears ever since.
+    </p>
+    <p>
+      As a singer and composer who doesn’t get to use those skills very often,
+      and even then, very rarely to their full extent, it’s got me thinking
+      about ways and means I can get all of the <em>literal</em> music welling up
+      inside of me <strong>out</strong>. Maybe I should audition for more groups
+      or shows. Maybe I should set aside some time to just write or record my
+      music. Lots of potential there.
+    </p>
+    <p>
+      As a designer and developer, there are always little solutions, ideas,
+      affordances, improvements, etc. milling about in my head. Everywhere I go
+      I see ways to improve and enhance, to increase performance, usability,
+      perception, and efficiency. That’s largely why I’m keeping this blog — It
+      gives me a voice — a way for me to take action on the random bits in my
+      head and not just grumble about crappy UX in the POS PoS machines. It gets
+      them out of me so that they may live (or die) and benefit others.
+    </p>
+    <p>So let’s abstract this quote a little bit.</p>
+    <blockquote><em>Don’t die with your X still in you.</em></blockquote>
+    <p>
+      What are some other things we should get OUT before we’re reaped grimly?
+      Here are the first things that came to my mind:
+    </p>
+    <p><strong>Don’t die with your …</strong></p>
+    <p>family</p>
+    <p>potential</p>
+    <p>ideas</p>
+    <p>best</p>
+    <p>worst</p>
+    <p>failures</p>
+    <p>successes</p>
+    <p>anger</p>
+    <p>love</p>
+    <p>life</p>
+    <p>passions</p>
+    <p>fears</p>
+    <p>designs</p>
+    <p>solutions</p>
+    <p>observations</p>
+    <p>skills</p>
+    <p>knowledge</p>
+    <p>emotions</p>
+    <p>jokes</p>
+    <p>faith</p>
+    <p>history</p>
+    <p>story</p>
+    <p>stories</p>
+    <p><strong>… still inside you.</strong></p>
+    <p>
+      I’m sure there are a ton more that would work really well and speak
+      volumes to us. What do <em>you</em> think you should ensure gets out of you
+      before you die — either to be rooted out and expunged or to be released for
+      the world to enjoy (or mock, or critique or…)?
+    </p>
 
     <div class="essay-end">
-    <div class="author">Brandon E. B. Ward · Dallas, TX</div>
+      <div class="author">Brandon E. B. Ward · Dallas, TX</div>
     </div>
-
   </article>
 
   <MoreArticles currentSlug="dont-die-with-your-music-still-in-you" />
 
   <script>
     (function () {
-      var bar = document.getElementById('read-bar');
+      var bar = document.getElementById("read-bar");
       if (!bar) return;
       function update() {
         var doc = document.documentElement;
-        var max = (doc.scrollHeight - doc.clientHeight);
-        var pct = max > 0 ? Math.min(100, Math.max(0, (doc.scrollTop || window.scrollY) / max * 100)) : 0;
-        bar.style.width = pct + '%';
+        var max = doc.scrollHeight - doc.clientHeight;
+        var pct =
+          max > 0
+            ? Math.min(
+                100,
+                Math.max(0, ((doc.scrollTop || window.scrollY) / max) * 100),
+              )
+            : 0;
+        bar.style.width = pct + "%";
       }
       update();
-      window.addEventListener('scroll', update, { passive: true });
-      window.addEventListener('resize', update);
+      window.addEventListener("scroll", update, { passive: true });
+      window.addEventListener("resize", update);
     })();
   </script>
 </Base>

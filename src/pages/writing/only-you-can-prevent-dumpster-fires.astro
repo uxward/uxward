@@ -1,9 +1,9 @@
 ---
-import Base from '../../layouts/Base.astro';
-import MoreArticles from '../../components/MoreArticles.astro';
+import Base from "../../layouts/Base.astro";
+import MoreArticles from "../../components/MoreArticles.astro";
 ---
-<Base title="Only You Can Prevent Dumpster Fires · uxward" bodyClass="essay">
 
+<Base title="Only You Can Prevent Dumpster Fires · uxward" bodyClass="essay">
   <div class="read-bar" id="read-bar" aria-hidden="true"></div>
 
   <div class="reading-column essay-top">
@@ -24,40 +24,161 @@ import MoreArticles from '../../components/MoreArticles.astro';
       Only You Can Prevent <em>Dumpster Fires</em>
     </h1>
     <p class="essay-deck">
-      A design ethics manifesto in five parts. The fires are preventable. The choice to prevent them is yours.
+      A design ethics manifesto in five parts. The fires are preventable. The
+      choice to prevent them is yours.
     </p>
     <div class="essay-byline">By Brandon E. B. Ward</div>
   </div>
 
   <article class="reading-column essay-body">
-
     <figure>
-    <img src="/images/writing/dumpster-fires.png" alt="Dumpster on fire — the preventable disasters of bad design" />
+      <img
+        src="/images/writing/dumpster-fires.png"
+        alt="Dumpster on fire — the preventable disasters of bad design"
+      />
     </figure>
 
-    <p>We all know there are piles of annoying things in the world. Many people I've encountered across my sojourn on this tiny blue dot have suggested (not without evidence) that I am one of them. Fair cop.</p><p>Even so, I'd argue it's our moral imperative, as people who build and design things, to not make them worse. To not add to the pile. Our job, if we actually care about doing it well, is to wring clarity, joy, and meaning out of chaos rather than stir it up.</p><h2><em>So. How do we actually do this?</em></h2><h2><strong>Design for the edges, not the average.</strong></h2><p>There is no such thing as an average user. The moment you design for some imaginary, able-bodied, native-speaking, high-bandwidth, well-lit, emotionally regulated person in the middle of the bell curve, you've already failed everyone else, which turns out to be most people, most of the time.</p><p>Accessible-first isn't a constraint. It's a forcing function for clarity. When something works for someone navigating with a keyboard, dealing with low vision, using a phone in bright sunlight with one hand, or reading in their second language, it works better for everyone. Full stop.</p><p>Accessibility isn't a feature you add at the end. It's a commitment you make at the beginning and hold throughout. If no one in your organization is owning it, congratulations: that's you now.</p><h2><strong>Have mercy on our weary eyes and brains.</strong></h2><p>The single most underrated act of design generosity is restraint. K.I.S.S. doesn’t have to be a lazy heuristic: it's a discipline. Every option you add is a decision you're forcing on someone who already has too many. Every label you leave out is a small act of cruelty. Every interface that requires a database engineer to interpret is a failure of imagination, not a failure of the user.</p><p>Build information architectures that meet people where they are, not where you are. You will always be the single least-representative person in the room for evaluating your own work. You know too much. You've been too close to it. You're likely to never be the target user for anything you will ever design, and the sooner you make peace with that, the better your work will get.</p><p>Healthcare software. TV remotes. Airline booking flows at 11 PM when you're exhausted. These things didn't get bad because no one cared. They got bad because someone stopped asking <em>"what does this person, in this moment, actually need?"</em></p><h2><strong>Don't be the Earl Scheib of your industry.</strong></h2><p>Deceptive design is a choice. Dark patterns, anti-patterns, whatever you want to call them, it's a choice to treat your users as marks instead of people. And even when it's not intentional, when it's just sloppy defaults or inherited patterns nobody questioned, it's still your problem. Ignorance isn't an excuse; it's an invitation to do better.</p><p>Brand loyalty isn't built through clever manipulation. It's built through trust. It’s built through the accumulating experience of using something that behaves like it's on your side. Every confusing confirmation dialog, every pre-checked opt-in, every deliberately obscured unsubscribe link is a small withdrawal from that account. Eventually, the balance hits zero.</p><p>Protect people's privacy. Be honest about how their data is used. Own your mistakes publicly and with specificity, integrity, and humility. Then fix them.</p><h2><strong>Test your stuff. For real.</strong></h2><p>Something that seems perfect to you is probably a raging annoyance to everyone else. This isn't an insult, it's physics. You have context your users don't have. You have assumptions baked in so deep you've forgotten they're assumptions.</p><p>Do the research. Talk to actual humans. Watch them use the thing you made. Sit on your hands and don't explain it to them. The silence when they're confused? That's data. The sigh? Also data. The moment they give up? That's the most important data of all.</p><p>If you can't be bothered to empathize, test, or think critically about the people you're designing for, do everyone a favor and don't design anything. Perhaps consider a walkabout.</p><h2><strong>Give a damn.</strong></h2><p>Ultimately, reducing annoyance comes down to one thing: caring. Not performatively, not in a mission-statement way. Actually caring about the cumulative impact of your choices on a stranger's day.</p><p>If you wouldn't want to use the thing you're making, that shows. If you're more interested in what's flashy than what's useful, that shows too. The people on the other side of your interfaces aren't metrics. They're people with limited time, divided attention, and finite patience. They deserve better than thoughtlessness.</p><p>So do the right thing. Make the extra effort. Build something that feels like a small act of grace in someone's day.</p><p>You'll sleep better. And somewhere out there, a person you'll never meet will silently bless your kind, unannoying soul.</p><h2><strong><em>Only you can prevent dumpster fires.</em></strong></h2>
+    <p>
+      We all know there are piles of annoying things in the world. Many people
+      I've encountered across my sojourn on this tiny blue dot have suggested
+      (not without evidence) that I am one of them. Fair cop.
+    </p>
+    <p>
+      Even so, I'd argue it's our moral imperative, as people who build and
+      design things, to not make them worse. To not add to the pile. Our job, if
+      we actually care about doing it well, is to wring clarity, joy, and
+      meaning out of chaos rather than stir it up.
+    </p>
+    <h2><em>So. How do we actually do this?</em></h2>
+    <h2><strong>Design for the edges, not the average.</strong></h2>
+    <p>
+      There is no such thing as an average user. The moment you design for some
+      imaginary, able-bodied, native-speaking, high-bandwidth, well-lit,
+      emotionally regulated person in the middle of the bell curve, you've
+      already failed everyone else, which turns out to be most people, most of
+      the time.
+    </p>
+    <p>
+      Accessible-first isn't a constraint. It's a forcing function for clarity.
+      When something works for someone navigating with a keyboard, dealing with
+      low vision, using a phone in bright sunlight with one hand, or reading in
+      their second language, it works better for everyone. Full stop.
+    </p>
+    <p>
+      Accessibility isn't a feature you add at the end. It's a commitment you
+      make at the beginning and hold throughout. If no one in your organization
+      is owning it, congratulations: that's you now.
+    </p>
+    <h2><strong>Have mercy on our weary eyes and brains.</strong></h2>
+    <p>
+      The single most underrated act of design generosity is restraint. K.I.S.S.
+      doesn’t have to be a lazy heuristic: it's a discipline. Every option you
+      add is a decision you're forcing on someone who already has too many.
+      Every label you leave out is a small act of cruelty. Every interface that
+      requires a database engineer to interpret is a failure of imagination, not
+      a failure of the user.
+    </p>
+    <p>
+      Build information architectures that meet people where they are, not where
+      you are. You will always be the single least-representative person in the
+      room for evaluating your own work. You know too much. You've been too
+      close to it. You're likely to never be the target user for anything you
+      will ever design, and the sooner you make peace with that, the better your
+      work will get.
+    </p>
+    <p>
+      Healthcare software. TV remotes. Airline booking flows at 11 PM when
+      you're exhausted. These things didn't get bad because no one cared. They
+      got bad because someone stopped asking <em
+        >"what does this person, in this moment, actually need?"</em>
+    </p>
+    <h2><strong>Don't be the Earl Scheib of your industry.</strong></h2>
+    <p>
+      Deceptive design is a choice. Dark patterns, anti-patterns, whatever you
+      want to call them, it's a choice to treat your users as marks instead of
+      people. And even when it's not intentional, when it's just sloppy defaults
+      or inherited patterns nobody questioned, it's still your problem.
+      Ignorance isn't an excuse; it's an invitation to do better.
+    </p>
+    <p>
+      Brand loyalty isn't built through clever manipulation. It's built through
+      trust. It’s built through the accumulating experience of using something
+      that behaves like it's on your side. Every confusing confirmation dialog,
+      every pre-checked opt-in, every deliberately obscured unsubscribe link is
+      a small withdrawal from that account. Eventually, the balance hits zero.
+    </p>
+    <p>
+      Protect people's privacy. Be honest about how their data is used. Own your
+      mistakes publicly and with specificity, integrity, and humility. Then fix
+      them.
+    </p>
+    <h2><strong>Test your stuff. For real.</strong></h2>
+    <p>
+      Something that seems perfect to you is probably a raging annoyance to
+      everyone else. This isn't an insult, it's physics. You have context your
+      users don't have. You have assumptions baked in so deep you've forgotten
+      they're assumptions.
+    </p>
+    <p>
+      Do the research. Talk to actual humans. Watch them use the thing you made.
+      Sit on your hands and don't explain it to them. The silence when they're
+      confused? That's data. The sigh? Also data. The moment they give up?
+      That's the most important data of all.
+    </p>
+    <p>
+      If you can't be bothered to empathize, test, or think critically about the
+      people you're designing for, do everyone a favor and don't design
+      anything. Perhaps consider a walkabout.
+    </p>
+    <h2><strong>Give a damn.</strong></h2>
+    <p>
+      Ultimately, reducing annoyance comes down to one thing: caring. Not
+      performatively, not in a mission-statement way. Actually caring about the
+      cumulative impact of your choices on a stranger's day.
+    </p>
+    <p>
+      If you wouldn't want to use the thing you're making, that shows. If you're
+      more interested in what's flashy than what's useful, that shows too. The
+      people on the other side of your interfaces aren't metrics. They're people
+      with limited time, divided attention, and finite patience. They deserve
+      better than thoughtlessness.
+    </p>
+    <p>
+      So do the right thing. Make the extra effort. Build something that feels
+      like a small act of grace in someone's day.
+    </p>
+    <p>
+      You'll sleep better. And somewhere out there, a person you'll never meet
+      will silently bless your kind, unannoying soul.
+    </p>
+    <h2><strong><em>Only you can prevent dumpster fires.</em></strong></h2>
 
     <div class="essay-end">
-    <div class="author">Brandon E. B. Ward · Dallas, TX</div>
+      <div class="author">Brandon E. B. Ward · Dallas, TX</div>
     </div>
-
   </article>
 
   <MoreArticles currentSlug="only-you-can-prevent-dumpster-fires" />
 
   <script>
     (function () {
-      var bar = document.getElementById('read-bar');
+      var bar = document.getElementById("read-bar");
       if (!bar) return;
       function update() {
         var doc = document.documentElement;
-        var max = (doc.scrollHeight - doc.clientHeight);
-        var pct = max > 0 ? Math.min(100, Math.max(0, (doc.scrollTop || window.scrollY) / max * 100)) : 0;
-        bar.style.width = pct + '%';
+        var max = doc.scrollHeight - doc.clientHeight;
+        var pct =
+          max > 0
+            ? Math.min(
+                100,
+                Math.max(0, ((doc.scrollTop || window.scrollY) / max) * 100),
+              )
+            : 0;
+        bar.style.width = pct + "%";
       }
       update();
-      window.addEventListener('scroll', update, { passive: true });
-      window.addEventListener('resize', update);
+      window.addEventListener("scroll", update, { passive: true });
+      window.addEventListener("resize", update);
     })();
   </script>
 </Base>

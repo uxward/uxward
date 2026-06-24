@@ -30,7 +30,7 @@ body.essay .essay-body p { font-weight: 400; font-size: 18px; line-height: 1.7; 
 body.essay .essay-body p strong { font-weight: 700; color: var(--ink); }
 body.essay .essay-body p em { font-style: italic; }
 body.essay .essay-body p:first-of-type::first-letter { font-weight: 900; font-size: 4.2em; line-height: 0.82; float: left; padding: 8px 14px 0 0; color: var(--ink); }
-body.essay .essay-body h2 { font-weight: 800; font-size: 28px; line-height: 1.2; letter-spacing: -0.02em; color: var(--ink); margin: var(--space-10) 0 var(--space-6); max-width: 660px; }
+body.essay .essay-body h2 { font-weight: 800; font-size: 28px; line-height: 1.2; letter-spacing: -0.02em; color: var(--ink); margin: var(--space-10) 0 var(--space-6); max-width: 660px; text-wrap: balance; }
 body.essay .essay-body h2 em { font-style: normal; }
 body.essay .essay-body blockquote { font-weight: 700; font-size: 26px; line-height: 1.25; letter-spacing: -0.02em; color: var(--ink); border-left: 4px solid var(--signature); padding: 4px 0 4px var(--space-7); margin: var(--space-9) 0; max-width: 620px; }
 body.essay .essay-body blockquote em { font-style: italic; }

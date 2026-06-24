@@ -1,9 +1,12 @@
 ---
-import Base from '../../layouts/Base.astro';
-import MoreArticles from '../../components/MoreArticles.astro';
+import Base from "../../layouts/Base.astro";
+import MoreArticles from "../../components/MoreArticles.astro";
 ---
-<Base title="Human-Centered, Robot-Driven: Ethical Considerations for AI in Design · uxward" bodyClass="essay">
 
+<Base
+  title="Human-Centered, Robot-Driven: Ethical Considerations for AI in Design · uxward"
+  bodyClass="essay"
+>
   <div class="read-bar" id="read-bar" aria-hidden="true"></div>
 
   <div class="reading-column essay-top">
@@ -24,88 +27,364 @@ import MoreArticles from '../../components/MoreArticles.astro';
       Human-Centered, <em>Robot-Driven:</em> Ethical Considerations for AI in Design
     </h1>
     <p class="essay-deck">
-      Machine learning is reshaping how we build products. The ethical obligations that come with that power belong to designers as much as anyone.
+      Machine learning is reshaping how we build products. The ethical
+      obligations that come with that power belong to designers as much as
+      anyone.
     </p>
     <div class="essay-byline">By Brandon E. B. Ward</div>
   </div>
 
   <article class="reading-column essay-body">
-
     <figure>
-    <img src="/images/writing/ai-ethics-header.jpg" alt="AI ethics concept illustration" />
+      <img
+        src="/images/writing/ai-ethics-header.jpg"
+        alt="AI ethics concept illustration"
+      />
     </figure>
 
-    <p><em>UPDATE 2.6.23—I’ve decided to correctly refer to these systems using their actual technologies (i.e. ML—Machine Learning) rather than the market-speak and false narrative of AI (Artificial Intelligence). The article has been updated accordingly.</em></p><p>Modern ML systems like <a href="https://chat.openai.com/auth/login" target="_blank">ChatGPT</a> and <a href="https://midjourney.com/" target="_blank">Midjourney</a> changing how we design, and how we think about design today and in the future. This comes at a cost. If we’re not willing to play this game right we have no business playing it at all. Below I discuss some of the tools used today, some of the issues we’ve seen with these systems, and how we can work together to have our ML-generated cake and consume it too.</p><p>At the end of the article, I’ve listed just a few of these systems already in play today.</p><h2>What are these ML thingamabobs anyway?</h2>
+    <p>
+      <em
+        >UPDATE 2.6.23—I’ve decided to correctly refer to these systems using
+        their actual technologies (i.e. ML—Machine Learning) rather than the
+        market-speak and false narrative of AI (Artificial Intelligence). The
+        article has been updated accordingly.</em>
+    </p>
+    <p>
+      Modern ML systems like <a
+        href="https://chat.openai.com/auth/login"
+        target="_blank">ChatGPT</a
+      > and <a href="https://midjourney.com/" target="_blank">Midjourney</a> changing
+      how we design, and how we think about design today and in the future. This comes
+      at a cost. If we’re not willing to play this game right we have no business
+      playing it at all. Below I discuss some of the tools used today, some of the
+      issues we’ve seen with these systems, and how we can work together to have our
+      ML-generated cake and consume it too.
+    </p>
+    <p>
+      At the end of the article, I’ve listed just a few of these systems already
+      in play today.
+    </p>
+    <h2>What are these ML thingamabobs anyway?</h2>
 
+    <p>
+      In a nutshell, systems like ChatGPT and Midjourney can generate human-like
+      output (e.g. text and images respectively). Their models are trained on
+      large amounts of existing data and can generate new, derivative content
+      based on said data.
+    </p>
+    <p>
+      While these models have the potential to enhance the design process, they
+      also raise several ethical, moral, and practical issues.
+    </p>
+    <h2>Bad actors</h2>
 
+    <p>
+      One of the main concerns with ML-generated content is the potential for
+      the proliferation of propaganda and misleading information. These systems
+      can also be used to impersonate real people and organizations, not only
+      spreading falsehoods but also violating privacy with the potential to
+      cause real harm. Additionally, it raises questions about the authenticity
+      of any and all content, and the ability to trace it back to its original
+      author.
+    </p>
+    <h2>Bias</h2>
 
+    <p>
+      Additionally, ML-generated content can perpetuate bias and discrimination.
+      ML models are only as unbiased as the data they are trained on, and if the
+      data is biased, the generated designs will also be biased. This could lead
+      to designs that exclude or marginalize certain groups of people, which is
+      a major ethical concern. A good example of this is using ML to recommend
+      people for a promotion to management. Sounds brilliant right? Remove any
+      notion of gender, race, physical attributes, or ability…perfectly
+      objective yeah? <a
+        href="https://www.businessinsider.com/amazon-built-ai-to-hire-people-discriminated-against-women-2018-10?op=1"
+        target="_blank"
+        ><span style="text-decoration:underline"
+          >Amazon discovered this isn’t so</span
+        ></a
+      >. Their system was trained on résumés of the people who’d historically
+      done well in those positions in the large tech company. Care to guess
+      which gender dominated at the tech giant? So even without the system being
+      aware of gender, the bias was built into the training models simply
+      because of how things worked in the past. Bias has found its way into our <a
+        href="https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing"
+        target="_blank"
+        ><span style="text-decoration:underline">judicial system</span></a
+      >, <a
+        href="https://www.forbes.com/sites/korihale/2021/09/02/ai-bias-caused-80-of-black-mortgage-applicants-to-be-denied/?sh=3812127b36fe"
+        target="_blank"
+        ><span style="text-decoration:underline">mortgage lending</span></a
+      >, <a
+        href="https://www.nbcnews.com/tech/tech-news/tenant-screening-software-faces-national-reckoning-n1260975"
+        target="_blank"
+        ><span style="text-decoration:underline">resident screening</span></a
+      >, and more affecting real people’s lives—and generally not for the
+      better.
+    </p>
+    <h2>Theft</h2>
 
+    <p>
+      Some artists have gone so far as to launch a <a
+        href="https://www.ghacks.net/2023/01/17/stability-ai-midjourney-deviantart-sued-by-artists/"
+        target="_blank"
+        ><span style="text-decoration:underline">lawsuit</span></a
+      > against some of the ML generators like Stability AI and Midjourney. They claim
+      their rights were infringed upon by having their work (and likely millions of
+      others) scraped illegally by these companies to train their models. 
+    </p>
+    <p>
+      Without the billions of pieces of work generated by these artists, the
+      models would not be able to function and there would be no tool, but not a
+      single artist has been attributed let alone compensated for the billions
+      of hours taken to produce the original work.
+    </p>
+    <h2>Recognizing the problems</h2>
 
-    <p>In a nutshell, systems like ChatGPT and Midjourney can generate human-like output (e.g. text and images respectively). Their models are trained on large amounts of existing data and can generate new, derivative content based on said data.</p><p>While these models have the potential to enhance the design process, they also raise several ethical, moral, and practical issues.</p><h2>Bad actors</h2>
+    <p>
+      In "<a
+        href="https://www.amazon.com/Weapons-Math-Destruction-Increases-Inequality/dp/0553418831/ref=tmm_pap_swatch_0?_encoding=UTF8&qid=1674165603&sr=8-1"
+        target="_blank"
+        ><span style="text-decoration:underline"
+          >Weapons of Math Destruction</span
+        ></a
+      >", Cathy O'Neil describes three checks to identify "Weapons of Math
+      Destruction" (WMDs) which are any systems, technologies, or models used in
+      harmful ways, often to marginalized groups. The three checks are:
+    </p>
+    <ol>
+      <li>
+        <strong>Opacity</strong>: A WMD is opaque if it is hard to understand
+        how it works, and if its creators are unwilling or unable to explain it.
+        This makes it difficult for people to question, investigate, or validate
+        the model's assumptions, biases, or decisions.
+      </li>
+      <li>
+        <strong>Scale</strong>: The more people the tool has access to, and the
+        more it's used, (the bigger the scale) the bigger the risk of the tool
+        harming large groups of people.
+      </li>
+      <li>
+        <strong>Damage</strong>: A WMD causes damage if it’s used to make
+        decisions with a negative impact on people's lives and if the people who
+        are most affected by the model are not the ones who are best positioned
+        to understand or challenge it. This makes it difficult for people to
+        fight back against the model's decisions or to change the model itself.
+      </li>
+    </ol>
 
+    <p>
+      Sara Wachter-Boettcher's "<a
+        href="https://www.amazon.com/Technically-Wrong-Sexist-Algorithms-Threats/dp/0393634639/ref=tmm_hrd_swatch_0?_encoding=UTF8&qid=&sr="
+        target="_blank">Technically Wrong</a
+      >" also highlights the importance of considering the ethical, moral, and
+      societal implications of technology.
+    </p>
+    <p>
+      One of the key points they both make is the importance of using diverse
+      and unbiased data sets when training ML models to reduce the potential for
+      bias and discrimination in ML-generated designs. They both emphasize the
+      importance of transparency and accountability when using ML, by being
+      transparent about the technologies being used, and by monitoring and
+      evaluating the ML-generated content to ensure they’re inclusive, unbiased,
+      and not harmful.
+    </p>
+    <p>
+      O'Neil's WMD model highlights the importance of addressing the root causes
+      of bias, such as the use of biased data sets, and the lack of diversity in
+      tech companies. Wachter-Boettcher emphasizes the importance of designing
+      technology with a human-centered approach, considering the potential
+      consequences and impact on society when using technology, and the need to
+      be transparent and accountable for the products they create.
+    </p>
+    <h2>What can we do?</h2>
 
+    <p>
+      Much like the monstrosity that is the image above, humans and machines
+      alike have a lot of work to do to ensure we don’t make a giant mess of
+      everything. Several actions can be taken today when leveraging ML in our
+      work to avoid ethical, moral, and practical problems.
+    </p>
+    <p>If you’re a data scientist or leader:</p>
+    <ul>
+      <li>
+        <strong>Use diverse and unbiased data sets</strong>: When training ML
+        models, use diverse and unbiased data sets. This will help to reduce the
+        potential for bias. This. Must. Be. Done.
+      </li>
+      <li>
+        <strong>Consider the social and ethical implications</strong>: Consider
+        any potential consequences and impact when building generative systems.
+        Ask yourself how a bad actor might use this for nefarious purposes.
+      </li>
+      <li>
+        <strong>Encourage ethical guidelines for ML usage</strong>: Work with
+        industry groups and organizations to establish ethical guidelines for
+        the use of ML.
+      </li>
+    </ul>
+    <p>If you’re a designer:</p>
+    <ul>
+      <li>
+        <strong>Be transparent about the use of ML</strong>: Clearly disclose
+        when ML is being used in your process and the specific ML technologies
+        being used. This will help to promote transparency and accountability.
+      </li>
+      <li>
+        <strong>Continuously monitor and evaluate generated content</strong>:
+        Regularly monitor and evaluate the generated content to ensure they are
+        inclusive, unbiased, and not harmful.
+      </li>
+      <li>
+        <strong>Consult with experts</strong>: Seek advice from experts in ML
+        ethics, privacy, and legal issues when implementing ML in design work.
+      </li>
+      <li>
+        <strong>Invest in your education and professional development</strong>:
+        Stay current on the latest developments and best practices in ML-based
+        design to stay informed about the ethical and practical issues
+        surrounding ML-based design.
+      </li>
+    </ul>
+    <h2>Elevate artists and designers, don’t exploit them</h2>
 
-
-
-    <p>One of the main concerns with ML-generated content is the potential for the proliferation of propaganda and misleading information. These systems can also be used to impersonate real people and organizations, not only spreading falsehoods but also violating privacy with the potential to cause real harm. Additionally, it raises questions about the authenticity of any and all content, and the ability to trace it back to its original author.</p><h2>Bias</h2>
-
-
-
-
-
-    <p>Additionally, ML-generated content can perpetuate bias and discrimination. ML models are only as unbiased as the data they are trained on, and if the data is biased, the generated designs will also be biased. This could lead to designs that exclude or marginalize certain groups of people, which is a major ethical concern. A good example of this is using ML to recommend people for a promotion to management. Sounds brilliant right? Remove any notion of gender, race, physical attributes, or ability…perfectly objective yeah? <a href="https://www.businessinsider.com/amazon-built-ai-to-hire-people-discriminated-against-women-2018-10?op=1" target="_blank"><span style="text-decoration:underline">Amazon discovered this isn’t so</span></a>. Their system was trained on résumés of the people who’d historically done well in those positions in the large tech company. Care to guess which gender dominated at the tech giant? So even without the system being aware of gender, the bias was built into the training models simply because of how things worked in the past. Bias has found its way into our <a href="https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing" target="_blank"><span style="text-decoration:underline">judicial system</span></a>, <a href="https://www.forbes.com/sites/korihale/2021/09/02/ai-bias-caused-80-of-black-mortgage-applicants-to-be-denied/?sh=3812127b36fe" target="_blank"><span style="text-decoration:underline">mortgage lending</span></a>, <a href="https://www.nbcnews.com/tech/tech-news/tenant-screening-software-faces-national-reckoning-n1260975" target="_blank"><span style="text-decoration:underline">resident screening</span></a>, and more affecting real people’s lives—and generally not for the better.</p><h2>Theft</h2>
-
-
-
-
-
-    <p>Some artists have gone so far as to launch a <a href="https://www.ghacks.net/2023/01/17/stability-ai-midjourney-deviantart-sued-by-artists/" target="_blank"><span style="text-decoration:underline">lawsuit</span></a> against some of the ML generators like Stability AI and Midjourney. They claim their rights were infringed upon by having their work (and likely millions of others) scraped illegally by these companies to train their models.&nbsp;</p><p>Without the billions of pieces of work generated by these artists, the models would not be able to function and there would be no tool, but not a single artist has been attributed let alone compensated for the billions of hours taken to produce the original work.</p><h2>Recognizing the problems</h2>
-
-
-
-
-
-    <p>In "<a href="https://www.amazon.com/Weapons-Math-Destruction-Increases-Inequality/dp/0553418831/ref=tmm_pap_swatch_0?_encoding=UTF8&amp;qid=1674165603&amp;sr=8-1" target="_blank"><span style="text-decoration:underline">Weapons of Math Destruction</span></a>", Cathy O'Neil describes three checks to identify "Weapons of Math Destruction" (WMDs) which are any systems, technologies, or models used in harmful ways, often to marginalized groups. The three checks are:</p><ol><li><strong>Opacity</strong>: A WMD is opaque if it is hard to understand how it works, and if its creators are unwilling or unable to explain it. This makes it difficult for people to question, investigate, or validate the model's assumptions, biases, or decisions.</li><li><strong>Scale</strong>: The more people the tool has access to, and the more it's used, (the bigger the scale) the bigger the risk of the tool harming large groups of people.</li><li><strong>Damage</strong>: A WMD causes damage if it’s used to make decisions with a negative impact on people's lives and if the people who are most affected by the model are not the ones who are best positioned to understand or challenge it. This makes it difficult for people to fight back against the model's decisions or to change the model itself.</li></ol>
-
-
-
-
-
-    <p>Sara Wachter-Boettcher's "<a href="https://www.amazon.com/Technically-Wrong-Sexist-Algorithms-Threats/dp/0393634639/ref=tmm_hrd_swatch_0?_encoding=UTF8&amp;qid=&amp;sr=" target="_blank">Technically Wrong</a>" also highlights the importance of considering the ethical, moral, and societal implications of technology.</p><p>One of the key points they both make is the importance of using diverse and unbiased data sets when training ML models to reduce the potential for bias and discrimination in ML-generated designs. They both emphasize the importance of transparency and accountability when using ML, by being transparent about the technologies being used, and by monitoring and evaluating the ML-generated content to ensure they’re inclusive, unbiased, and not harmful.</p><p>O'Neil's WMD model highlights the importance of addressing the root causes of bias, such as the use of biased data sets, and the lack of diversity in tech companies. Wachter-Boettcher emphasizes the importance of designing technology with a human-centered approach, considering the potential consequences and impact on society when using technology, and the need to be transparent and accountable for the products they create.</p><h2>What can we do?</h2>
-
-
-
-
-
-    <p>Much like the monstrosity that is the image above, humans and machines alike have a lot of work to do to ensure we don’t make a giant mess of everything. Several actions can be taken today when leveraging ML in our work to avoid ethical, moral, and practical problems.</p><p>If you’re a data scientist or leader:</p><ul><li><strong>Use diverse and unbiased data sets</strong>: When training ML models, use diverse and unbiased data sets. This will help to reduce the potential for bias. This. Must. Be. Done.</li><li><strong>Consider the social and ethical implications</strong>: Consider any potential consequences and impact when building generative systems. Ask yourself how a bad actor might use this for nefarious purposes.</li><li><strong>Encourage ethical guidelines for ML usage</strong>: Work with industry groups and organizations to establish ethical guidelines for the use of ML.</li></ul><p>If you’re a designer:</p><ul><li><strong>Be transparent about the use of ML</strong>: Clearly disclose when ML is being used in your process and the specific ML technologies being used. This will help to promote transparency and accountability.</li><li><strong>Continuously monitor and evaluate generated content</strong>: Regularly monitor and evaluate the generated content to ensure they are inclusive, unbiased, and not harmful.</li><li><strong>Consult with experts</strong>: Seek advice from experts in ML ethics, privacy, and legal issues when implementing ML in design work.</li><li><strong>Invest in your education and professional development</strong>: Stay current on the latest developments and best practices in ML-based design to stay informed about the ethical and practical issues surrounding ML-based design.</li></ul><h2>Elevate artists and designers, don’t exploit them</h2>
-
-
-
-
-
-    <ul><li><strong>Implement clear attribution and copyright policies</strong>: Clearly state how ML-generated content will be attributed and ensure that the original creator is credited for their work.</li><li><strong>Use ML to augment, not replace, human creativity</strong>: ML should be used to assist designers in the creative process, not replace them. This will ensure human creativity and artistic expression are still valued, and keep humans centric in the process.</li><li><strong>Educate artists and creators about ML</strong>: Educate artists and creators about the capabilities and limitations of ML so they can make informed decisions about how they want to use it in their work.</li><li><strong>Encourage collaboration between artists and ML experts</strong>: Encourage collaboration between artists and ML experts to ensure that ML is used in a way that supports and enhances the artist's vision.</li><li><strong>Encourage Fair Use and Open-source policies</strong>: Encourage the usage of open-source ML technologies to ensure accessibility and fairness. Transparency into the algorithms will help prevent them from being maliciously used.</li><li><strong>Protect intellectual property and provide compensation</strong>: Provide artists and creators with attribution and compensation for the use of their work in training models.</li></ul><p>ML has the potential to enhance the design process, but it raises several ethical, moral, and practical issues. It’s paramount that everyone, designers, developers, leaders, and end-users alike, is aware of these issues and actively takes steps to mitigate them. This includes being transparent about how the ML models work, being accountable for the generated content, and being aware of and addressing bias in the data and generated content. Additionally, it's important to consider how ML-generated content may impact artists and creators and to work towards fair compensation and attribution for their work. By taking these steps, we can ensure ML is used responsibly and ethically, while still reaping the benefits of this powerful technology.</p><p><strong>Sidenote</strong>: Not for nothing, the courts are literally still out on <a href="https://www.forbes.com/sites/joemckendrick/2022/12/21/who-ultimately-owns-content-generated-by-chatgpt-and-other-ai-platforms" target="_blank">who exactly owns</a> the output from generative systems. While <a href="https://openai.com/terms/" target="_blank">OpenAI’s terms</a> seem to indicate users own their output, the law is a lot more divided at the moment in terms of actual copyright.</p><p>And finally, it’s up to the technologists to take a bigger role in <a href="https://www.npr.org/sections/money/2023/01/17/1149206188/this-22-year-old-is-trying-to-save-us-from-chatgpt-before-it-changes-writing-for" target="_blank">policing ourselves</a>, and asking whether something <em>should</em> be done as often as we ask if it <em>can</em> be done, as well as <a href="https://time.com/6247678/openai-chatgpt-kenya-workers/" target="_blank">how we do it</a>.</p><p><br><em>Author’s note: This article was written with the assistance of ChatGPT and has a GPTZero score of 268.4: “text is likely human-generated”.</em></p><hr /><p><strong>Some existing ML design and content systems:</strong></p><p><a href="https://chat.openai.com/" target="_blank"><span style="text-decoration:underline"><strong>GPT-3 (Generative Pre-trained Transformer 3)</strong></span></a>: A language model developed by OpenAI, it can be used for NLP (natural language processing) tasks such as text generation, language translation, and language understanding.</p><p><a href="https://www.autodesk.com/research/projects/project-dreamcatcher?us_oa=dotcom-us&amp;us_si=26fbf9e9-5d23-45ab-ba49-4946c1f97945&amp;us_st=dreamcatcher" target="_blank"><strong>Autodesk Dreamcatcher</strong></a>: A generative design tool that uses algorithms to generate design solutions based on design constraints and goals. It allows designers to explore a wide range of design possibilities, leading to more innovative and unique solutions.</p><p><a href="https://www.microsoft.com/en-us/ai/ai-lab-sketch2code" target="_blank"><strong>Microsoft Sketch2Code</strong></a>: An ML-powered design tool that can turn a hand-drawn wireframe into a functional website. It uses ML (machine learning) to understand the design and automatically generate the corresponding code.</p><p><a href="https://www.midjourney.com/" target="_blank"><strong>Midjourney</strong></a><strong>:</strong> An ML-based generative design tool that can generate images and videos based on input like text prompts, or other images or videos. It's used to generate new and unique designs and art.</p>
+    <ul>
+      <li>
+        <strong>Implement clear attribution and copyright policies</strong>:
+        Clearly state how ML-generated content will be attributed and ensure
+        that the original creator is credited for their work.
+      </li>
+      <li>
+        <strong>Use ML to augment, not replace, human creativity</strong>: ML
+        should be used to assist designers in the creative process, not replace
+        them. This will ensure human creativity and artistic expression are
+        still valued, and keep humans centric in the process.
+      </li>
+      <li>
+        <strong>Educate artists and creators about ML</strong>: Educate artists
+        and creators about the capabilities and limitations of ML so they can
+        make informed decisions about how they want to use it in their work.
+      </li>
+      <li>
+        <strong>Encourage collaboration between artists and ML experts</strong>:
+        Encourage collaboration between artists and ML experts to ensure that ML
+        is used in a way that supports and enhances the artist's vision.
+      </li>
+      <li>
+        <strong>Encourage Fair Use and Open-source policies</strong>: Encourage
+        the usage of open-source ML technologies to ensure accessibility and
+        fairness. Transparency into the algorithms will help prevent them from
+        being maliciously used.
+      </li>
+      <li>
+        <strong>Protect intellectual property and provide compensation</strong>:
+        Provide artists and creators with attribution and compensation for the
+        use of their work in training models.
+      </li>
+    </ul>
+    <p>
+      ML has the potential to enhance the design process, but it raises several
+      ethical, moral, and practical issues. It’s paramount that everyone,
+      designers, developers, leaders, and end-users alike, is aware of these
+      issues and actively takes steps to mitigate them. This includes being
+      transparent about how the ML models work, being accountable for the
+      generated content, and being aware of and addressing bias in the data and
+      generated content. Additionally, it's important to consider how
+      ML-generated content may impact artists and creators and to work towards
+      fair compensation and attribution for their work. By taking these steps,
+      we can ensure ML is used responsibly and ethically, while still reaping
+      the benefits of this powerful technology.
+    </p>
+    <p>
+      <strong>Sidenote</strong>: Not for nothing, the courts are literally still
+      out on <a
+        href="https://www.forbes.com/sites/joemckendrick/2022/12/21/who-ultimately-owns-content-generated-by-chatgpt-and-other-ai-platforms"
+        target="_blank">who exactly owns</a
+      > the output from generative systems. While <a
+        href="https://openai.com/terms/"
+        target="_blank">OpenAI’s terms</a
+      > seem to indicate users own their output, the law is a lot more divided at
+      the moment in terms of actual copyright.
+    </p>
+    <p>
+      And finally, it’s up to the technologists to take a bigger role in <a
+        href="https://www.npr.org/sections/money/2023/01/17/1149206188/this-22-year-old-is-trying-to-save-us-from-chatgpt-before-it-changes-writing-for"
+        target="_blank">policing ourselves</a
+      >, and asking whether something <em>should</em> be done as often as we ask if
+      it <em>can</em> be done, as well as <a
+        href="https://time.com/6247678/openai-chatgpt-kenya-workers/"
+        target="_blank">how we do it</a
+      >.
+    </p>
+    <p>
+      <br /><em
+        >Author’s note: This article was written with the assistance of ChatGPT
+        and has a GPTZero score of 268.4: “text is likely human-generated”.</em>
+    </p>
+    <hr />
+    <p><strong>Some existing ML design and content systems:</strong></p>
+    <p>
+      <a href="https://chat.openai.com/" target="_blank"
+        ><span style="text-decoration:underline"
+          ><strong>GPT-3 (Generative Pre-trained Transformer 3)</strong></span
+        ></a
+      >: A language model developed by OpenAI, it can be used for NLP (natural
+      language processing) tasks such as text generation, language translation,
+      and language understanding.
+    </p>
+    <p>
+      <a
+        href="https://www.autodesk.com/research/projects/project-dreamcatcher?us_oa=dotcom-us&us_si=26fbf9e9-5d23-45ab-ba49-4946c1f97945&us_st=dreamcatcher"
+        target="_blank"><strong>Autodesk Dreamcatcher</strong></a
+      >: A generative design tool that uses algorithms to generate design
+      solutions based on design constraints and goals. It allows designers to
+      explore a wide range of design possibilities, leading to more innovative
+      and unique solutions.
+    </p>
+    <p>
+      <a
+        href="https://www.microsoft.com/en-us/ai/ai-lab-sketch2code"
+        target="_blank"><strong>Microsoft Sketch2Code</strong></a
+      >: An ML-powered design tool that can turn a hand-drawn wireframe into a
+      functional website. It uses ML (machine learning) to understand the design
+      and automatically generate the corresponding code.
+    </p>
+    <p>
+      <a href="https://www.midjourney.com/" target="_blank"
+        ><strong>Midjourney</strong></a
+      ><strong>:</strong> An ML-based generative design tool that can generate images
+      and videos based on input like text prompts, or other images or videos. It's
+      used to generate new and unique designs and art.
+    </p>
 
     <div class="essay-end">
-    <div class="author">Brandon E. B. Ward · Dallas, TX</div>
+      <div class="author">Brandon E. B. Ward · Dallas, TX</div>
     </div>
-
   </article>
 
-  <MoreArticles currentSlug="human-centered-robot-driven-ethical-considerations-for-ai-in-design" />
+  <MoreArticles
+    currentSlug="human-centered-robot-driven-ethical-considerations-for-ai-in-design"
+  />
 
   <script>
     (function () {
-      var bar = document.getElementById('read-bar');
+      var bar = document.getElementById("read-bar");
       if (!bar) return;
       function update() {
         var doc = document.documentElement;
-        var max = (doc.scrollHeight - doc.clientHeight);
-        var pct = max > 0 ? Math.min(100, Math.max(0, (doc.scrollTop || window.scrollY) / max * 100)) : 0;
-        bar.style.width = pct + '%';
+        var max = doc.scrollHeight - doc.clientHeight;
+        var pct =
+          max > 0
+            ? Math.min(
+                100,
+                Math.max(0, ((doc.scrollTop || window.scrollY) / max) * 100),
+              )
+            : 0;
+        bar.style.width = pct + "%";
       }
       update();
-      window.addEventListener('scroll', update, { passive: true });
-      window.addEventListener('resize', update);
+      window.addEventListener("scroll", update, { passive: true });
+      window.addEventListener("resize", update);
     })();
   </script>
 </Base>
