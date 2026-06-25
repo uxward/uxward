@@ -31,7 +31,6 @@ const { title, description = "Brandon E. B. Ward — senior design leadership. B
           var root = document.documentElement;
           root.classList.add('cyber');
           var F = {
-            fraunces:  { css: '"Fraunces", Georgia, serif' },
             jetbrains: { css: '"JetBrains Mono", ui-monospace, monospace' },
             rocksalt:  { css: '"Rock Salt", cursive', href: 'https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap' },
             orbitron:  { css: '"Orbitron", sans-serif', href: 'https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap' },
@@ -141,7 +140,7 @@ const { title, description = "Brandon E. B. Ward — senior design leadership. B
         <button type="button" data-font="sixtyfour"  style="font-family:'Sixtyfour',monospace">Sixtyfour</button>
         <button type="button" data-font="bitcount"   style="font-family:'Bitcount Single',monospace">Bitcount</button>
         <button type="button" data-font="jetbrains"  style="font-family:'JetBrains Mono',monospace">JetBrains</button>
-        <button type="button" data-font="fraunces"   style="font-family:'Fraunces',serif">Fraunces</button>
+
       </div>
     </div>
     <div class="cfl-group">
@@ -154,14 +153,14 @@ const { title, description = "Brandon E. B. Ward — senior design leadership. B
         <button type="button" data-font="sixtyfour"  style="font-family:'Sixtyfour',monospace">Sixtyfour</button>
         <button type="button" data-font="bitcount"   style="font-family:'Bitcount Single',monospace">Bitcount</button>
         <button type="button" data-font="jetbrains"  style="font-family:'JetBrains Mono',monospace">JetBrains</button>
-        <button type="button" data-font="fraunces"   style="font-family:'Fraunces',serif">Fraunces</button>
+
       </div>
     </div>
     <div class="cfl-group">
       <div class="cfl-label">Body</div>
       <div class="cfl-row" data-slot="body">
         <button type="button" data-font="jetbrains"  style="font-family:'JetBrains Mono',monospace">JetBrains</button>
-        <button type="button" data-font="fraunces"   style="font-family:'Fraunces',serif">Fraunces</button>
+
         <button type="button" data-font="orbitron"  style="font-family:'Orbitron',sans-serif">Orbitron</button>
         <button type="button" data-font="doto"       style="font-family:'Doto',monospace">Doto</button>
         <button type="button" data-font="pixelify"   style="font-family:'Pixelify Sans',sans-serif">Pixelify</button>
@@ -174,7 +173,7 @@ const { title, description = "Brandon E. B. Ward — senior design leadership. B
       <div class="cfl-label">Nav</div>
       <div class="cfl-row" data-slot="nav">
         <button type="button" data-font="jetbrains"  style="font-family:'JetBrains Mono',monospace">JetBrains</button>
-        <button type="button" data-font="fraunces"   style="font-family:'Fraunces',serif">Fraunces</button>
+
         <button type="button" data-font="orbitron"  style="font-family:'Orbitron',sans-serif">Orbitron</button>
         <button type="button" data-font="doto"       style="font-family:'Doto',monospace">Doto</button>
         <button type="button" data-font="pixelify"   style="font-family:'Pixelify Sans',sans-serif">Pixelify</button>
@@ -267,7 +266,6 @@ const { title, description = "Brandon E. B. Ward — senior design leadership. B
          slots, each driving a CSS var on <html>: logo→--cf-logo,
          head→--cf-head, body→--cf-body, nav→--cf-nav. Picks lazy-load + persist. */
       var FONTS = {
-        fraunces:  { css: '"Fraunces", Georgia, serif' },
         jetbrains: { css: '"JetBrains Mono", ui-monospace, monospace' },
         rocksalt:  { css: '"Rock Salt", cursive',        href: 'https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap' },
         orbitron:  { css: '"Orbitron", sans-serif',      href: 'https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap' },
@@ -413,7 +411,7 @@ const { title, description = "Brandon E. B. Ward — senior design leadership. B
       function exitCyber() {
         root.classList.remove('cyber');
         root.classList.remove('fontlab-open');
-        // Drop the inline role vars so normal light/dark returns to Fraunces.
+        // Drop the inline role vars so normal light/dark restores the default faces.
         ['logo', 'head', 'body', 'nav'].forEach(function (s) { root.style.removeProperty('--cf-' + s); });
         try { localStorage.removeItem('uxward-cyber'); } catch (e) {}
         var t = document.querySelector('.cyber-toast');

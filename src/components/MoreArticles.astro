@@ -1,6 +1,6 @@
 ---
 import { essaysNewestFirst } from '../data/essays.js';
-const { currentSlug } = Astro.props;
+const currentSlug = Astro.url.pathname.replace(/\/$/, '').split('/').at(-1);
 const moreArticles = essaysNewestFirst.filter(e => e.slug !== currentSlug).slice(0, 3);
 ---
 <section class="container">

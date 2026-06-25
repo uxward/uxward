@@ -3,7 +3,7 @@
    Colors, type, tokens. Source of truth.
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,30..100,0..1;1,9..144,300..700,30..100,0..1&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
 
 /* ---------- Tokens: Light ---------- */
 :root {
@@ -46,24 +46,15 @@
   --gutter-x-sm:  20px;
   --gutter-mark:  100px;
 
-  /* The site is set in Archivo (a grotesque). --font-serif is retained as a
-     token name only (lots of legacy rules reference it) but now resolves to
-     the grotesque — Fraunces is fully retired from the live site. --font-mono
-     is kept for the cyber easter egg. */
   --font-sans:  "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-serif: var(--font-sans);
   --font-mono:  "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
-  /* Faint divider — 10% ink, reads in both themes. The new system's rules. */
-  --rule-faint: color-mix(in srgb, var(--ink) 10%, transparent);
+  /* Faint divider — static rgba, no color-mix() for universal compat. */
+  --rule-faint: rgba(4, 4, 4, 0.10);
 
-  /* Semantic role tokens stay on the serif so not-yet-migrated pages (cases,
-     essays) remain fully in the old design. Migrated pages use --font-sans
-     directly; each page flips cleanly when its turn comes. Cyber repoints
-     these (see :root.cyber). */
-  --font-logo: var(--font-serif);
-  --font-head: var(--font-serif);
-  --font-body: var(--font-serif);
+  --font-logo: var(--font-sans);
+  --font-head: var(--font-sans);
+  --font-body: var(--font-sans);
   --font-nav:  var(--font-mono);
 
   --t-fast: 150ms;
@@ -73,24 +64,26 @@
 /* ---------- Tokens: Dark ---------- */
 :root[data-theme="dark"],
 .theme-dark {
-  --canvas:    #121212;
-  --ink:       #E7E7E7;
-  --body:      #E8E6E1;
-  --tertiary:  #9A958C;
-  --rule:      #2A2A2A;
-  --paper:     #1A1A1A;
-  --signature: #E5263A;
+  --canvas:     #121212;
+  --ink:        #E7E7E7;
+  --body:       #E8E6E1;
+  --tertiary:   #9A958C;
+  --rule:       #2A2A2A;
+  --paper:      #1A1A1A;
+  --signature:  #E5263A;
+  --rule-faint: rgba(231, 231, 231, 0.15);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --canvas:    #121212;
-    --ink:       #E7E7E7;
-    --body:      #E8E6E1;
-    --tertiary:  #9A958C;
-    --rule:      #2A2A2A;
-    --paper:     #1A1A1A;
-    --signature: #E5263A;
+    --canvas:     #121212;
+    --ink:        #E7E7E7;
+    --body:       #E8E6E1;
+    --tertiary:   #9A958C;
+    --rule:       #2A2A2A;
+    --paper:      #1A1A1A;
+    --signature:  #E5263A;
+    --rule-faint: rgba(231, 231, 231, 0.15);
   }
 }
 
@@ -115,21 +108,19 @@
 
   /* Cyber typography — four independent role slots, each overridable live by
      the Font Lab panel (inline --cf-* vars on <html>). Body is the default:
-     pointing --font-serif at --cf-body means every serif slot site-wide
-     follows the Body picker for free; logo/headings/nav are pulled out below. */
+     --font-body → --cf-body means every body-role element follows the Body
+     picker; logo/headings/nav are pulled out below. */
   --cf-logo: "Rock Salt", cursive;
   --cf-head: "Rock Salt", cursive;
   --cf-body: "Orbitron", sans-serif;
   --cf-nav:  "Sixtyfour", monospace;
 
   /* Repoint the semantic role tokens at the cyber slots so hoisted/global
-     rules (e.g. essay.css) follow the Font Lab without per-page overrides.
-     --font-serif also points at body for any page not yet tokenized. */
+     rules (e.g. essay.css) follow the Font Lab without per-page overrides. */
   --font-logo: var(--cf-logo);
   --font-head: var(--cf-head);
   --font-body: var(--cf-body);
   --font-nav:  var(--cf-nav);
-  --font-serif: var(--cf-body);
 }
 
 /* ============================================================
@@ -142,7 +133,7 @@ html, body {
   padding: 0;
   background: var(--canvas);
   color: var(--body);
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: 18px;
   line-height: 1.68;
   letter-spacing: 0.005em;
@@ -279,7 +270,7 @@ nav.hdr-nav { display: flex; gap: 28px; align-items: baseline; }
 }
 .hdr-nav a:hover { color: var(--signature); }
 .toggle {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: 20px;
   color: var(--ink);
   line-height: 1;
@@ -360,7 +351,7 @@ nav.hdr-nav { display: flex; gap: 28px; align-items: baseline; }
   border-bottom: 1px solid var(--rule);
 }
 .menu-close {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: 28px;
   line-height: 1;
   background: none;
@@ -456,7 +447,7 @@ footer.foot {
   color: var(--tertiary);
 }
 .colophon-line .fleuron {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: 18px;
   color: var(--tertiary);
   letter-spacing: 0;
@@ -475,14 +466,13 @@ footer.foot {
    ============================================================ */
 
 /* ── Four font roles ──
-   Body is the default (via --font-serif → --cf-body in the tokens above), so
-   every scoped serif element follows the Body picker automatically — no
-   per-page edits. The rules below pull the other three roles out. The
-   `html.cyber` prefix out-specifies Astro's per-page scoped selectors; the
-   doubled class (e.g. `.fold.fold h1`) bumps specificity past descendant
-   scoped selectors without having to touch ~30 page files. */
+   Body is the default (--font-body → --cf-body in cyber tokens), so every
+   body-role element follows the Body picker automatically — no per-page edits.
+   The rules below pull the other three roles out. The `html.cyber` prefix
+   out-specifies Astro's per-page scoped selectors; the doubled class (e.g.
+   `.fold.fold h1`) bumps specificity past descendant scoped selectors. */
 
-/* Swiss homepage (.sys) hardcodes Archivo — repoint body font in cyber.
+/* Swiss homepage (.sys) — repoint body font to cyber slot.
    Doubled class beats Astro's scoped [data-astro-cid-*] specificity. */
 html.cyber .sys.sys { font-family: var(--cf-body); }
 

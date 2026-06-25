@@ -1,16 +1,19 @@
 ---
 import Base from "../../layouts/Base.astro";
 import MoreArticles from "../../components/MoreArticles.astro";
+import { essays, plainTitle } from "../../data/essays.js";
+const slug = Astro.url.pathname.replace(/\/$/, '').split('/').at(-1);
+const essay = essays.find(e => e.slug === slug);
 ---
 
-<Base title="Flight of the Buffalo · uxward" bodyClass="essay">
+<Base title={`${plainTitle(essay.title)} · uxward`} bodyClass="essay">
   <div class="read-bar" id="read-bar" aria-hidden="true"></div>
 
   <div class="reading-column essay-top">
     <div class="row">
       <a class="back" href="/writing">Back to writing</a>
       <div class="meta">
-        <span>Q4 2014</span>
+        <span>{essay.quarter}</span>
         <span class="sep">·</span>
         <span>Essay</span>
         <span class="sep">·</span>
@@ -20,13 +23,8 @@ import MoreArticles from "../../components/MoreArticles.astro";
   </div>
 
   <div class="reading-column essay-title-block">
-    <h1 class="essay-title">
-      Flight of the <em>Buffalo</em>
-    </h1>
-    <p class="essay-deck">
-      When users fail, the designer failed them first. A lesson from leadership
-      on taking ownership of the experience you create.
-    </p>
+    <h1 class="essay-title" set:html={essay.title} />
+    <p class="essay-deck">{essay.deck}</p>
     <div class="essay-byline">By Brandon E. B. Ward</div>
   </div>
 
@@ -126,7 +124,7 @@ import MoreArticles from "../../components/MoreArticles.astro";
     </div>
   </article>
 
-  <MoreArticles currentSlug="flight-of-the-buffalo" />
+  <MoreArticles />
 
   <script>
     (function () {

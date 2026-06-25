@@ -1,9 +1,12 @@
 ---
 import Base from "../../layouts/Base.astro";
 import MoreArticles from "../../components/MoreArticles.astro";
+import { essays, plainTitle } from "../../data/essays.js";
+const slug = Astro.url.pathname.replace(/\/$/, '').split('/').at(-1);
+const essay = essays.find(e => e.slug === slug);
 ---
 
-<Base title="The Race · uxward" bodyClass="essay">
+<Base title={`${plainTitle(essay.title)} · uxward`} bodyClass="essay">
   <style>
     .poem {
       font-family: var(--font-body);
@@ -30,7 +33,7 @@ import MoreArticles from "../../components/MoreArticles.astro";
     <div class="row">
       <a class="back" href="/writing">Back to writing</a>
       <div class="meta">
-        <span>Q2 2021</span>
+        <span>{essay.quarter}</span>
         <span class="sep">·</span>
         <span>Poem</span>
         <span class="sep">·</span>
@@ -40,12 +43,8 @@ import MoreArticles from "../../components/MoreArticles.astro";
   </div>
 
   <div class="reading-column essay-title-block">
-    <h1 class="essay-title">
-      <em>The Race</em>
-    </h1>
-    <p class="essay-deck">
-      A poem by Dr. D. H. Groberg, shared here because it matters.
-    </p>
+    <h1 class="essay-title" set:html={essay.title} />
+    <p class="essay-deck">{essay.deck}</p>
     <div class="essay-byline">Shared by Brandon E. B. Ward</div>
   </div>
 
@@ -204,7 +203,7 @@ import MoreArticles from "../../components/MoreArticles.astro";
 
   </article>
 
-  <MoreArticles currentSlug="the-race" />
+  <MoreArticles />
 
   <script>
     (function () {

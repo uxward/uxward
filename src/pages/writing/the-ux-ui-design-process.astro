@@ -1,9 +1,12 @@
 ---
 import Base from "../../layouts/Base.astro";
 import MoreArticles from "../../components/MoreArticles.astro";
+import { essays, plainTitle } from "../../data/essays.js";
+const slug = Astro.url.pathname.replace(/\/$/, '').split('/').at(-1);
+const essay = essays.find(e => e.slug === slug);
 ---
 
-<Base title="The UX / UI Design Process · uxward" bodyClass="essay">
+<Base title={`${plainTitle(essay.title)} · uxward`} bodyClass="essay">
   <style>
     .essay-body p .pull-emphasis {
       font-style: italic;
@@ -17,7 +20,7 @@ import MoreArticles from "../../components/MoreArticles.astro";
     <div class="row">
       <a class="back" href="/writing">Back to writing</a>
       <div class="meta">
-        <span>Q4 2014</span>
+        <span>{essay.quarter}</span>
         <span class="sep">·</span>
         <span>Essay</span>
         <span class="sep">·</span>
@@ -27,13 +30,8 @@ import MoreArticles from "../../components/MoreArticles.astro";
   </div>
 
   <div class="reading-column essay-title-block">
-    <h1 class="essay-title">
-      The UX / UI <em>Design Process</em>
-    </h1>
-    <p class="essay-deck">
-      A ground-up walkthrough of the full experience design process, from
-      stakeholder interviews to hi-fidelity comps.
-    </p>
+    <h1 class="essay-title" set:html={essay.title} />
+    <p class="essay-deck">{essay.deck}</p>
     <div class="essay-byline">By Brandon E. B. Ward</div>
   </div>
 
@@ -302,7 +300,7 @@ import MoreArticles from "../../components/MoreArticles.astro";
     </div>
   </article>
 
-  <MoreArticles currentSlug="the-ux-ui-design-process" />
+  <MoreArticles />
 
   <script>
     (function () {

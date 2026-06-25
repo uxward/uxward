@@ -1,19 +1,19 @@
 ---
 import Base from "../../layouts/Base.astro";
 import MoreArticles from "../../components/MoreArticles.astro";
+import { essays, plainTitle } from "../../data/essays.js";
+const slug = Astro.url.pathname.replace(/\/$/, '').split('/').at(-1);
+const essay = essays.find(e => e.slug === slug);
 ---
 
-<Base
-  title="The Triforce of UX: Part II — Curiosity · uxward"
-  bodyClass="essay"
->
+<Base title={`${plainTitle(essay.title)} · uxward`} bodyClass="essay">
   <div class="read-bar" id="read-bar" aria-hidden="true"></div>
 
   <div class="reading-column essay-top">
     <div class="row">
       <a class="back" href="/writing">Back to writing</a>
       <div class="meta">
-        <span>Q1 2016</span>
+        <span>{essay.quarter}</span>
         <span class="sep">·</span>
         <span>Essay</span>
         <span class="sep">·</span>
@@ -23,13 +23,8 @@ import MoreArticles from "../../components/MoreArticles.astro";
   </div>
 
   <div class="reading-column essay-title-block">
-    <h1 class="essay-title">
-      The Triforce of UX: Part II — <em>Curiosity</em>
-    </h1>
-    <p class="essay-deck">
-      Three qualities to seek in your next UX designer. Part two: why curiosity
-      is the engine of great design, and three questions to test for it.
-    </p>
+    <h1 class="essay-title" set:html={essay.title} />
+    <p class="essay-deck">{essay.deck}</p>
     <div class="essay-byline">By Brandon E. B. Ward</div>
   </div>
 
@@ -40,13 +35,13 @@ import MoreArticles from "../../components/MoreArticles.astro";
 
     <h2>3 Qualities To Seek In Your Next UX Designer</h2>
     <div>
-      <a href="the-triforce-of-ux-part-i-empathy">Read Part I here</a>. <a
-        href="the-triforce-of-ux-part-iii-humility">Read Part III here</a
+      <a href="/writing/the-triforce-of-ux-part-i-empathy">Read Part I here</a>. <a
+        href="/writing/the-triforce-of-ux-part-iii-humility">Read Part III here</a
       >.
     </div>
     <br />
     <p>
-      When <a href="the-triforce-of-ux-part-i-empathy"
+      When <a href="/writing/the-triforce-of-ux-part-i-empathy"
         >last we saw our intrepid hero</a
       >, he had unearthed the first foundational Triforce of UX: <strong
         >Empathy</strong
@@ -394,8 +389,8 @@ import MoreArticles from "../../components/MoreArticles.astro";
       What separates the good designers from the great?
     </blockquote>
     <div>
-      <a href="the-triforce-of-ux-part-i-empathy">Read Part I here</a>. <a
-        href="the-triforce-of-ux-part-iii-humility">Read Part III here</a
+      <a href="/writing/the-triforce-of-ux-part-i-empathy">Read Part I here</a>. <a
+        href="/writing/the-triforce-of-ux-part-iii-humility">Read Part III here</a
       >.
     </div>
     <div class="essay-end">
@@ -403,7 +398,7 @@ import MoreArticles from "../../components/MoreArticles.astro";
     </div>
   </article>
 
-  <MoreArticles currentSlug="the-triforce-of-ux-part-ii-curiosity" />
+  <MoreArticles />
 
   <script
     is:inline
