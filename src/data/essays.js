@@ -63,7 +63,7 @@ export const essays = [
     title: 'Delivering <em>Quality Experiences.</em>',
     deck: 'Most design processes look good on paper. The road to destruction is paved with good intentions — and HiPPO feedback.' },
   { slug: 'how-to-curate-arte-5-steps-to-agile-repeated-testing-enhanced', section: 'craft', quarter: 'Q2 2021',
-    title: 'Creating ARTE: <em>5 Steps to Agile Repeated Testing for Enhancement.</em>',
+    title: 'How To Curate ARTE: <em>5 Steps to Agile Repeated Testing for Enhancement.</em>',
     deck: 'A lightweight usability testing framework that fits inside sprints. Five steps to running it.' },
   { slug: 'the-service-design-of-nest', section: 'craft', quarter: 'Q4 2014',
     title: 'The Service Design <em>of Nest.</em>',
