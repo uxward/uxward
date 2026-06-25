@@ -15,6 +15,8 @@ import { essaysNewestFirst } from '../data/essays.js';
        One grotesque (Archivo), exposed rules, big tight display, catalog
        numbers, a full-bleed color field.
        ============================================================ */
+    .hero-bg { display: none; }
+
     .sys {
       font-family: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
       padding-bottom: 0;
@@ -227,6 +229,10 @@ import { essaysNewestFirst } from '../data/essays.js';
 
     <!-- Hero -->
     <div class="hero">
+      <!-- Cyber-only animated city backdrop. Source attached lazily by script below. -->
+      <div class="hero-bg" aria-hidden="true">
+        <video class="hero-bg-video" muted loop playsinline preload="none" data-src="/videos/cybercity-sm.mp4"></video>
+      </div>
       <div class="container">
         <h1>Design practice, built from scratch. Now in the AI era.</h1>
         <p class="lede">
@@ -355,4 +361,27 @@ import { essaysNewestFirst } from '../data/essays.js';
       </div>
     </section>
   </div>
+
+  <script>
+    // Hero backdrop video: load + play only in cyber mode so non-cyber visitors never fetch the clip.
+    (function () {
+      var root = document.documentElement;
+      var video = document.querySelector('.hero-bg-video');
+      if (!video) return;
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+      function sync() {
+        var on = root.classList.contains('cyber') && !reduce.matches;
+        if (on) {
+          if (!video.src) video.src = video.dataset.src;
+          var p = video.play();
+          if (p && p.catch) p.catch(function () {});
+        } else {
+          video.pause();
+        }
+      }
+      new MutationObserver(sync).observe(root, { attributes: true, attributeFilter: ['class'] });
+      reduce.addEventListener('change', sync);
+      sync();
+    })();
+  </script>
 </Base>

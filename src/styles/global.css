@@ -482,6 +482,10 @@ footer.foot {
    doubled class (e.g. `.fold.fold h1`) bumps specificity past descendant
    scoped selectors without having to touch ~30 page files. */
 
+/* Swiss homepage (.sys) hardcodes Archivo — repoint body font in cyber.
+   Doubled class beats Astro's scoped [data-astro-cid-*] specificity. */
+html.cyber .sys.sys { font-family: var(--cf-body); }
+
 /* Logo */
 html.cyber .wm {
   font-family: var(--cf-logo);
@@ -539,6 +543,9 @@ html.cyber .bleed.bleed h2 {
 /* Home hero h1 is the largest type on the site (116px) — dial it back in cyber
    so the graffiti face doesn't overpower the page. */
 html.cyber .fold.fold h1 { font-size: clamp(64px, 8.4vw, 94px); }
+/* Swiss hero h1: override scoped letter-spacing (-0.045em) and size (120px)
+   for Rock Salt; doubled class beats Astro scoped specificity. */
+html.cyber .hero.hero h1 { font-size: clamp(46px, 5.5vw, 85px); letter-spacing: 0; }
 
 /* Nav */
 html.cyber .hdr-nav a,
@@ -593,8 +600,11 @@ html.cyber .foot-ext a {
    page's scope attribute — a scoped `.cyber .hero-bg` rule never matches. The
    <video> source is attached lazily by index.astro's script so non-cyber
    visitors never fetch the clip. */
-html.cyber .fold { position: relative; isolation: isolate; }
-html.cyber .fold .container { position: relative; z-index: 1; }
+html.cyber .fold,
+html.cyber .hero { position: relative; isolation: isolate; }
+html.cyber .fold .container,
+html.cyber .hero .container { position: relative; z-index: 1; }
+html.cyber .hero.hero { padding-bottom: calc(var(--space-11) + 1000px); }
 html.cyber .hero-bg {
   display: block;
   position: absolute;
