@@ -20,13 +20,16 @@ public/               Static assets (images, favicon)
 
 ## Commands
 
-| Command           | Action                                       |
-| :---------------- | :------------------------------------------- |
-| `npm install`     | Install dependencies                         |
-| `npm run dev`     | Dev server with hot reload at localhost:4321 |
-| `npm run build`   | Build the static site to `./dist/`           |
-| `npm run preview` | Serve the built `dist/` locally              |
+| Command                  | Action                                       |
+| :----------------------- | :------------------------------------------- |
+| `npm install`            | Install dependencies                         |
+| `npm run dev`            | Dev server with hot reload at localhost:4321 |
+| `npm run build`          | Build for production (site root)             |
+| `npm run build:preview`  | Build for the `/preview` subdirectory        |
+| `npm run preview`        | Serve the built `dist/` locally              |
 
 ## Deploy
 
-`npm run build`, then upload the contents of `dist/` to the webserver root at https://uxward.com.
+**Root (`https://uxward.com`):** `npm run build`, then upload `dist/` to the webserver root.
+
+**Preview (`https://uxward.com/preview`):** `npm run build:preview`, then upload `dist/` to the `/preview` directory.
