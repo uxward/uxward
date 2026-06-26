@@ -79,12 +79,6 @@
     "  ░░░░░ ░░░░░░░░░░░░░░░░░░░░  ░░ ░░    ░░░   ░ ░ ░░░ ░░░░░░░░░░░░░░░    ▒▓▒▒▒▒▒",
   ];
 
-  for (const args of text) {
-    console.log(...args);
-  }
-
-  console.log(
-    "%c" + face.join("\n"),
-    "color: #666666; font-family: monospace; font-size: 9px; line-height: 1.3;",
-  );
+  const all = [...text, ["%c" + face.join("\n"), "color: #666666; font-family: monospace; font-size: 9px; line-height: 1.3;"]];
+  console.log(all.map(p => p[0]).join(""), ...all.flatMap(p => p.slice(1)));
 })();
