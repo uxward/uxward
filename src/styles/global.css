@@ -106,17 +106,16 @@
   --neon-blue: #2b6bff;
   --neon-red:  #ff2e4d;
 
-  /* Cyber typography — four independent role slots, each overridable live by
-     the Font Lab panel (inline --cf-* vars on <html>). Body is the default:
-     --font-body → --cf-body means every body-role element follows the Body
-     picker; logo/headings/nav are pulled out below. */
+  /* Cyber typography — four font role slots driving CSS vars on <html>.
+     Body is the default: --font-body → --cf-body means every body-role element
+     uses the cyber body face; logo/headings/nav are pulled out below. */
   --cf-logo: "Rock Salt", cursive;
   --cf-head: "Rock Salt", cursive;
   --cf-body: "Orbitron", sans-serif;
   --cf-nav:  "Sixtyfour", monospace;
 
   /* Repoint the semantic role tokens at the cyber slots so hoisted/global
-     rules (e.g. essay.css) follow the Font Lab without per-page overrides. */
+     rules (e.g. essay.css) pick up the cyber faces without per-page overrides. */
   --font-logo: var(--cf-logo);
   --font-head: var(--cf-head);
   --font-body: var(--cf-body);
@@ -467,7 +466,7 @@ footer.foot {
 
 /* ── Four font roles ──
    Body is the default (--font-body → --cf-body in cyber tokens), so every
-   body-role element follows the Body picker automatically — no per-page edits.
+   body-role element uses the cyber body face automatically — no per-page edits.
    The rules below pull the other three roles out. The `html.cyber` prefix
    out-specifies Astro's per-page scoped selectors; the doubled class (e.g.
    `.fold.fold h1`) bumps specificity past descendant scoped selectors. */
@@ -863,67 +862,4 @@ html.cyber-arrive-go::after {
   .cyber body::after { animation: none; }
 }
 
-/* ---- Font Lab — hidden secondary easter egg ----
-   Live per-role font picker. Hidden by default in cyber; revealed by typing
-   "font lab" while in cyber mode (toggles .fontlab-open on <html>). */
-.cyber-fontlab { display: none; }
-.cyber.fontlab-open .cyber-fontlab {
-  display: block;
-  position: fixed;
-  left: 16px;
-  bottom: 16px;
-  z-index: 9995;
-  width: 250px;
-  max-height: 80vh;
-  overflow: auto;
-  padding: 12px 14px 14px;
-  background: rgba(7, 6, 15, 0.92);
-  border: 1px solid var(--neon-pink);
-  box-shadow: 0 0 18px rgba(255, 43, 214, 0.5), inset 0 0 18px rgba(25, 240, 255, 0.08);
-  -webkit-backdrop-filter: blur(4px);
-  backdrop-filter: blur(4px);
-  font-family: var(--font-mono);
-}
-.cyber-fontlab .cfl-close {
-  position: absolute;
-  top: 6px;
-  right: 8px;
-  background: none;
-  border: 0;
-  cursor: pointer;
-  color: var(--neon-pink);
-  font-family: var(--font-mono);
-  font-size: 18px;
-  line-height: 1;
-  padding: 2px 5px;
-  transition: color 0.12s ease;
-}
-.cyber-fontlab .cfl-close:hover { color: var(--neon-cyan); }
-.cyber-fontlab .cfl-head {
-  font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
-  color: var(--neon-cyan); margin-bottom: 4px;
-  padding-right: 18px;       /* clear the close button */
-}
-.cyber-fontlab .cfl-head span { color: var(--tertiary); letter-spacing: 0.16em; }
-.cyber-fontlab .cfl-group { margin-top: 12px; }
-.cyber-fontlab .cfl-label {
-  font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--tertiary); margin-bottom: 7px;
-}
-.cyber-fontlab .cfl-row { display: flex; flex-wrap: wrap; gap: 5px; }
-.cyber-fontlab button {
-  font-size: 13px; line-height: 1;
-  color: var(--ink); background: rgba(25, 240, 255, 0.06);
-  border: 1px solid rgba(25, 240, 255, 0.30);
-  padding: 7px 9px; cursor: pointer;
-  transition: color 0.12s ease, background 0.12s ease, border-color 0.12s ease;
-}
-.cyber-fontlab button:hover { border-color: var(--neon-cyan); color: var(--neon-cyan); }
-.cyber-fontlab button[aria-pressed="true"] {
-  background: var(--neon-cyan); color: #07060f; border-color: var(--neon-cyan);
-  box-shadow: 0 0 10px rgba(25, 240, 255, 0.6);
-}
-@media (max-width: 720px) {
-  .cyber .cyber-fontlab { left: 8px; bottom: 8px; width: 188px; padding: 9px 10px 10px; }
-}
 

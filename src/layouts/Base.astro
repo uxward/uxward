@@ -25,32 +25,18 @@ const { title, description = "Brandon E. B. Ward — senior design leadership. B
         if (saved === 'dark' || saved === 'light') {
           document.documentElement.setAttribute('data-theme', saved);
         }
-        // Persisted cyberpunk easter egg: restore the class + chosen fonts here
-        // so pages navigated to while it's active load with no flash / FOUT.
         if (localStorage.getItem('uxward-cyber') === '1') {
           var root = document.documentElement;
           root.classList.add('cyber');
-          var F = {
-            jetbrains: { css: '"JetBrains Mono", ui-monospace, monospace' },
-            rocksalt:  { css: '"Rock Salt", cursive', href: 'https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap' },
-            orbitron:  { css: '"Orbitron", sans-serif', href: 'https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap' },
-            doto:      { css: '"Doto", monospace', href: 'https://fonts.googleapis.com/css2?family=Doto:wght@400;700&display=swap' },
-            pixelify:  { css: '"Pixelify Sans", sans-serif', href: 'https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&display=swap' },
-            sixtyfour: { css: '"Sixtyfour", monospace', href: 'https://fonts.googleapis.com/css2?family=Sixtyfour&display=swap' },
-            bitcount:  { css: '"Bitcount Single", monospace', href: 'https://fonts.googleapis.com/css2?family=Bitcount+Single&display=swap' }
-          };
-          var DEF = { logo: 'rocksalt', head: 'rocksalt', body: 'orbitron', nav: 'sixtyfour' };
-          Object.keys(DEF).forEach(function (slot) {
-            var k = localStorage.getItem('uxward-cyber-' + slot) || DEF[slot];
-            var f = F[k];
-            if (!f) return;
-            if (f.href && !document.querySelector('link[data-cyberfont="' + k + '"]')) {
-              var l = document.createElement('link');
-              l.rel = 'stylesheet'; l.href = f.href;
-              l.setAttribute('data-cyberfont', k);
-              document.head.appendChild(l);
-            }
-            root.style.setProperty('--cf-' + slot, f.css);
+          [
+            ['rocksalt',  'https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap'],
+            ['orbitron',  'https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap'],
+            ['sixtyfour', 'https://fonts.googleapis.com/css2?family=Sixtyfour&display=swap'],
+          ].forEach(function (p) {
+            var l = document.createElement('link');
+            l.rel = 'stylesheet'; l.href = p[1];
+            l.setAttribute('data-cyberfont', p[0]);
+            document.head.appendChild(l);
           });
         }
         // Mid-transition arrival: cover the very first paint so the page
@@ -123,66 +109,6 @@ const { title, description = "Brandon E. B. Ward — senior design leadership. B
       </div>
     </div>
   </footer>
-
-  <!-- Font Lab — only visible in cyber mode (CSS-gated on .cyber). A live
-       picker for experimenting with per-role font combos. Each row controls
-       one role; buttons preview in their own face. -->
-  <div id="cyber-fontlab" class="cyber-fontlab" aria-label="Cyber font lab">
-    <button type="button" class="cfl-close" aria-label="Close Font Lab">×</button>
-    <div class="cfl-head">▚ Font Lab <span>— cyber only —</span></div>
-    <div class="cfl-group">
-      <div class="cfl-label">Logo</div>
-      <div class="cfl-row" data-slot="logo">
-        <button type="button" data-font="rocksalt"  style="font-family:'Rock Salt',cursive">Rock Salt</button>
-        <button type="button" data-font="orbitron"  style="font-family:'Orbitron',sans-serif">Orbitron</button>
-        <button type="button" data-font="doto"       style="font-family:'Doto',monospace">Doto</button>
-        <button type="button" data-font="pixelify"   style="font-family:'Pixelify Sans',sans-serif">Pixelify</button>
-        <button type="button" data-font="sixtyfour"  style="font-family:'Sixtyfour',monospace">Sixtyfour</button>
-        <button type="button" data-font="bitcount"   style="font-family:'Bitcount Single',monospace">Bitcount</button>
-        <button type="button" data-font="jetbrains"  style="font-family:'JetBrains Mono',monospace">JetBrains</button>
-
-      </div>
-    </div>
-    <div class="cfl-group">
-      <div class="cfl-label">Headings</div>
-      <div class="cfl-row" data-slot="head">
-        <button type="button" data-font="rocksalt"  style="font-family:'Rock Salt',cursive">Rock Salt</button>
-        <button type="button" data-font="orbitron"  style="font-family:'Orbitron',sans-serif">Orbitron</button>
-        <button type="button" data-font="doto"       style="font-family:'Doto',monospace">Doto</button>
-        <button type="button" data-font="pixelify"   style="font-family:'Pixelify Sans',sans-serif">Pixelify</button>
-        <button type="button" data-font="sixtyfour"  style="font-family:'Sixtyfour',monospace">Sixtyfour</button>
-        <button type="button" data-font="bitcount"   style="font-family:'Bitcount Single',monospace">Bitcount</button>
-        <button type="button" data-font="jetbrains"  style="font-family:'JetBrains Mono',monospace">JetBrains</button>
-
-      </div>
-    </div>
-    <div class="cfl-group">
-      <div class="cfl-label">Body</div>
-      <div class="cfl-row" data-slot="body">
-        <button type="button" data-font="jetbrains"  style="font-family:'JetBrains Mono',monospace">JetBrains</button>
-
-        <button type="button" data-font="orbitron"  style="font-family:'Orbitron',sans-serif">Orbitron</button>
-        <button type="button" data-font="doto"       style="font-family:'Doto',monospace">Doto</button>
-        <button type="button" data-font="pixelify"   style="font-family:'Pixelify Sans',sans-serif">Pixelify</button>
-        <button type="button" data-font="rocksalt"   style="font-family:'Rock Salt',cursive">Rock Salt</button>
-        <button type="button" data-font="sixtyfour"  style="font-family:'Sixtyfour',monospace">Sixtyfour</button>
-        <button type="button" data-font="bitcount"   style="font-family:'Bitcount Single',monospace">Bitcount</button>
-      </div>
-    </div>
-    <div class="cfl-group">
-      <div class="cfl-label">Nav</div>
-      <div class="cfl-row" data-slot="nav">
-        <button type="button" data-font="jetbrains"  style="font-family:'JetBrains Mono',monospace">JetBrains</button>
-
-        <button type="button" data-font="orbitron"  style="font-family:'Orbitron',sans-serif">Orbitron</button>
-        <button type="button" data-font="doto"       style="font-family:'Doto',monospace">Doto</button>
-        <button type="button" data-font="pixelify"   style="font-family:'Pixelify Sans',sans-serif">Pixelify</button>
-        <button type="button" data-font="rocksalt"   style="font-family:'Rock Salt',cursive">Rock Salt</button>
-        <button type="button" data-font="sixtyfour"  style="font-family:'Sixtyfour',monospace">Sixtyfour</button>
-        <button type="button" data-font="bitcount"   style="font-family:'Bitcount Single',monospace">Bitcount</button>
-      </div>
-    </div>
-  </div>
 
   <script>
     (function () {
@@ -261,65 +187,6 @@ const { title, description = "Brandon E. B. Ward — senior design leadership. B
       var MAXLEN = CODES.reduce(function (n, c) { return Math.max(n, c.keys.length); }, 0);
       var buffer = [];
       var transitioning = false;   // guards against re-triggering mid-cinematic
-
-      /* ── Font Lab ── live per-role font picker (cyber mode only). Four
-         slots, each driving a CSS var on <html>: logo→--cf-logo,
-         head→--cf-head, body→--cf-body, nav→--cf-nav. Picks lazy-load + persist. */
-      var FONTS = {
-        jetbrains: { css: '"JetBrains Mono", ui-monospace, monospace' },
-        rocksalt:  { css: '"Rock Salt", cursive',        href: 'https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap' },
-        orbitron:  { css: '"Orbitron", sans-serif',      href: 'https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap' },
-        doto:      { css: '"Doto", monospace',           href: 'https://fonts.googleapis.com/css2?family=Doto:wght@400;700&display=swap' },
-        pixelify:  { css: '"Pixelify Sans", sans-serif', href: 'https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&display=swap' },
-        sixtyfour: { css: '"Sixtyfour", monospace',      href: 'https://fonts.googleapis.com/css2?family=Sixtyfour&display=swap' },
-        bitcount:  { css: '"Bitcount Single", monospace', href: 'https://fonts.googleapis.com/css2?family=Bitcount+Single&display=swap' }
-      };
-      var SLOT_DEFAULTS = { logo: 'rocksalt', head: 'rocksalt', body: 'orbitron', nav: 'sixtyfour' };
-      var fontlab = document.getElementById('cyber-fontlab');
-
-      function loadFont(key) {
-        var f = FONTS[key];
-        if (!f || !f.href || document.querySelector('link[data-cyberfont="' + key + '"]')) return;
-        var l = document.createElement('link');
-        l.rel = 'stylesheet'; l.href = f.href;
-        l.setAttribute('data-cyberfont', key);
-        document.head.appendChild(l);
-      }
-      function getPref(slot) { try { return localStorage.getItem('uxward-cyber-' + slot); } catch (e) { return null; } }
-      function setPref(slot, key) { try { localStorage.setItem('uxward-cyber-' + slot, key); } catch (e) {} }
-
-      function applyCyberFonts() {
-        Object.keys(SLOT_DEFAULTS).forEach(function (slot) {
-          var key = getPref(slot) || SLOT_DEFAULTS[slot];
-          loadFont(key);                       // load only the active faces
-          if (FONTS[key]) root.style.setProperty('--cf-' + slot, FONTS[key].css);
-          if (fontlab) {
-            fontlab.querySelectorAll('[data-slot="' + slot + '"] [data-font]').forEach(function (b) {
-              b.setAttribute('aria-pressed', String(b.dataset.font === key));
-            });
-          }
-        });
-      }
-
-      // Font Lab is a hidden second easter egg: typing "font lab" while in cyber
-      // toggles it. Opening it lazy-loads every face so the labels preview.
-      function toggleFontLab() {
-        var open = root.classList.toggle('fontlab-open');
-        if (open) Object.keys(FONTS).forEach(loadFont);
-      }
-
-      if (fontlab) {
-        fontlab.querySelectorAll('[data-font]').forEach(function (b) {
-          b.addEventListener('click', function () {
-            setPref(b.parentNode.getAttribute('data-slot'), b.dataset.font);
-            applyCyberFonts();
-          });
-        });
-        var closeBtn = fontlab.querySelector('.cfl-close');
-        if (closeBtn) closeBtn.addEventListener('click', function () {
-          root.classList.remove('fontlab-open');
-        });
-      }
 
       function showToast(text) {
         var prev = document.querySelector('.cyber-toast');
@@ -410,18 +277,11 @@ const { title, description = "Brandon E. B. Ward — senior design leadership. B
 
       function exitCyber() {
         root.classList.remove('cyber');
-        root.classList.remove('fontlab-open');
-        // Drop the inline role vars so normal light/dark restores the default faces.
-        ['logo', 'head', 'body', 'nav'].forEach(function (s) { root.style.removeProperty('--cf-' + s); });
         try { localStorage.removeItem('uxward-cyber'); } catch (e) {}
         var t = document.querySelector('.cyber-toast');
         if (t) t.remove();
         syncGlyph();
       }
-
-      // Persisted cyber page load: the class is already on <html> from the
-      // before-paint script — sync the panel + ensure all faces are loaded.
-      if (root.classList.contains('cyber')) applyCyberFonts();
 
       // Arriving on the home page mid-transition: power on out of the black
       // cover (added at first paint by the before-paint script), land at top.
@@ -432,7 +292,6 @@ const { title, description = "Brandon E. B. Ward — senior design leadership. B
         try { sessionStorage.removeItem('uxward-cyber-arriving'); } catch (e) {}
         try { history.scrollRestoration = 'manual'; } catch (e) {}
         root.classList.add('cyber');           // ensure cyber even if before-paint missed it
-        applyCyberFonts();
         syncGlyph();
         window.scrollTo(0, 0);
         requestAnimationFrame(function () {
@@ -468,20 +327,6 @@ const { title, description = "Brandon E. B. Ward — senior design leadership. B
         if (!k) return;
         buffer.push(k);
         if (buffer.length > MAXLEN) buffer.shift();
-
-        // "font lab" reveals the hidden Font Lab picker — cyber mode only.
-        var FONTLAB = ['f', 'o', 'n', 't', ' ', 'l', 'a', 'b'];
-        // keep the space in "font lab" from scrolling the page mid-sequence
-        if (k === ' ' && root.classList.contains('cyber') && buffer.slice(-5).join('') === 'font ') {
-          e.preventDefault();
-        }
-        if (root.classList.contains('cyber') && buffer.length >= FONTLAB.length) {
-          var fl = true;
-          for (var n = 1; n <= FONTLAB.length; n++) {
-            if (buffer[buffer.length - n] !== FONTLAB[FONTLAB.length - n]) { fl = false; break; }
-          }
-          if (fl) { buffer = []; toggleFontLab(); return; }
-        }
 
         for (var i = 0; i < CODES.length; i++) {
           var keys = CODES[i].keys;
