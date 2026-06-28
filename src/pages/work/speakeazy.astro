@@ -8,8 +8,17 @@ const self = slate[idx];
 const num = String(idx + 1).padStart(2, '0');
 const prev = slate[(idx + slate.length - 1) % slate.length];
 const next = slate[(idx + 1) % slate.length];
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://uxward.com"},
+    {"@type": "ListItem", "position": 2, "name": "Work", "item": "https://uxward.com/work"},
+    {"@type": "ListItem", "position": 3, "name": self.client, "item": `https://uxward.com/work/${self.slug}`}
+  ]
+};
 ---
-<Base title="Speakeazy — the tool that should have existed · uxward" bodyClass="case">
+<Base title="Speakeazy — the tool that should have existed · uxward" description={self.deck} schema={schema} bodyClass="case">
   <style>
     /* speakeazy-only: full-bleed carousel, lightbox, real-image artifacts.
        Shared case-study type/chrome lives in src/styles/case.css. */

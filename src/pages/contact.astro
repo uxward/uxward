@@ -1,7 +1,38 @@
 ---
 import Base from '../layouts/Base.astro';
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What roles are you considering?",
+      "acceptedAnswer": {"@type": "Answer", "text": "Head of Design, VP Design, Chief Design Officer, Chief Experience Officer — the executive leadership tier. Not considering pure individual-contributor roles, design-management roles below Director, or contract work outside Precocity's existing book."}
+    },
+    {
+      "@type": "Question",
+      "name": "Where will you work?",
+      "acceptedAnswer": {"@type": "Answer", "text": "Dallas, hybrid with travel, or fully remote. Relocation is on the table for the right leadership role — international included. Will not relocate for a fast-growth startup whose runway is the recruiter's main selling point."}
+    },
+    {
+      "@type": "Question",
+      "name": "What companies are interesting?",
+      "acceptedAnswer": {"@type": "Answer", "text": "Companies where design has earned a real seat and the CEO can name three things their best designer shipped last quarter. Specifically interested in flagship consumer and tooling companies — LEGO, Netflix, Apple, Airbnb, and equivalents. Also very interested in traditionally non-tech sectors like John Deere, Caterpillar, Maersk."}
+    },
+    {
+      "@type": "Question",
+      "name": "Will you do a take-home?",
+      "acceptedAnswer": {"@type": "Answer", "text": "No. The work on this site is the take-home. Will do a paid, time-boxed advisory engagement at any stage of the process if it helps both sides decide."}
+    },
+    {
+      "@type": "Question",
+      "name": "Are you doing speaking, writing, or advising on the side?",
+      "acceptedAnswer": {"@type": "Answer", "text": "Speaking, occasionally and selectively. Writing, only here. Advisory, only by introduction. Not signing on as a podcast guest unless you've read the work."}
+    }
+  ]
+};
 ---
-<Base title="Contact — uxward">
+<Base title="Contact — uxward" description="Contact Brandon E. B. Ward — executive design leader open to Head of Design, VP Design, CDO, and CXO roles." schema={schema}>
   <style>
     /* contact — Archivo / Swiss system. Quieter caps labels; red bleed kept. */
     .top { padding-top: var(--space-8); padding-bottom: var(--space-6); }

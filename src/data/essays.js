@@ -114,3 +114,11 @@ export const essaysNewestFirst = essays
 export function plainTitle(t) {
   return t.replace(/<[^>]+>/g, '');
 }
+
+// "Q1 2026" → "2026-01-01" (first day of the quarter) for schema datePublished.
+export function quarterToISODate(q) {
+  const m = /Q([1-4])\s+(\d{4})/.exec(q);
+  if (!m) return q;
+  const months = { 1: '01', 2: '04', 3: '07', 4: '10' };
+  return `${m[2]}-${months[parseInt(m[1], 10)]}-01`;
+}

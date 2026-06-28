@@ -1,12 +1,34 @@
 ---
 import Base from "../../layouts/Base.astro";
 import MoreArticles from "../../components/MoreArticles.astro";
-import { essays, plainTitle } from "../../data/essays.js";
+import { essays, plainTitle, quarterToISODate } from "../../data/essays.js";
 const slug = Astro.url.pathname.replace(/\/$/, '').split('/').at(-1);
 const essay = essays.find(e => e.slug === slug);
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": plainTitle(essay.title),
+      "description": essay.deck,
+      "datePublished": quarterToISODate(essay.quarter),
+      "author": {"@type": "Person", "name": "Brandon E. B. Ward", "url": "https://uxward.com/about"},
+      "publisher": {"@type": "Person", "name": "Brandon E. B. Ward", "url": "https://uxward.com"},
+      "url": `https://uxward.com/writing/${essay.slug}`
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://uxward.com"},
+        {"@type": "ListItem", "position": 2, "name": "Writing", "item": "https://uxward.com/writing"},
+        {"@type": "ListItem", "position": 3, "name": plainTitle(essay.title), "item": `https://uxward.com/writing/${essay.slug}`}
+      ]
+    }
+  ]
+};
 ---
 
-<Base title={`${plainTitle(essay.title)} · uxward`} bodyClass="essay">
+<Base title={`${plainTitle(essay.title)} · uxward`} description={essay.deck} schema={schema} bodyClass="essay">
   <style>
     .essay-body p .pull-emphasis {
       font-style: italic;

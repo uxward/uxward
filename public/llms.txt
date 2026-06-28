@@ -1,0 +1,64 @@
+# Brandon E. B. Ward — uxward.com
+
+## Who this is
+
+Brandon E. B. Ward is an executive design leader with 20+ years of experience building UX and design practices from scratch. He is currently Chief Experience Officer at Precocity (Dallas, TX), founder of Speakeazy (a live AI-native product), and co-founder of the Service Design Network Dallas chapter (~5,000 members).
+
+He served as UX expert witness in FTC v. Match.com — one of the most significant UX-related federal regulatory cases in recent history. He co-founded the Service Design Network Dallas chapter and hosted the organization's 2025 global conference.
+
+## This site
+
+uxward.com is Brandon's professional portfolio and writing archive. It is a statically-generated site built with Astro. It is not a marketing site — it is a direct record of the work.
+
+Contact: brandon@uxward.com
+LinkedIn: https://linkedin.com/in/brandonebward
+GitHub: https://github.com/uxward
+
+## Key pages
+
+- / — Homepage. Overview, selected case studies, recent writing, brief bio.
+- /about — Full biography, career timeline, and current status.
+- /contact — Availability, preferred roles, and hiring Q&A.
+- /work — Selected case studies (5 in-depth cases).
+- /writing — Archive of essays on leadership, UX practice, and AI (22 essays, 2014–2026).
+- /colophon — How the site was made; design references and stack.
+
+## Selected work (case studies)
+
+- Speakeazy (/work/speakeazy) — AI-native dialogue attribution and character analysis tool for audiobook narrators. Self-initiated; launched January 2026. Built solo through three prototypes and a ground-up rewrite. Live at speakeazy.pro.
+- Precocity (/work/precocity) — 10-year design practice build. Joined as first UX hire; grew to CXO over a decade. The load-bearing case on this site.
+- Global automaker (/work/autoco) — Director of UX for an independent, bias-free in-house usability practice. 17 studies, 3,500 hours of testing.
+- Porte (/work/porte) — Research-first design for Populous's mobile-only bank. Every layer tested before a line of code was written; shipped at 4.8 stars.
+- Major insurance broker (/work/insurco) — Service-design engagement diagnosing growth failures and surfacing KPI-tied roadmap from Salesforce data.
+
+## Other tools built
+
+- FORGE — AI-powered content-to-site-build tool. Private alpha.
+- Verity — Comprehensive UX research and reporting platform. Private alpha.
+- RAD — Usability testing dashboard. Private.
+- Marksman — macOS Markdown converter built for Precocity's AI workflows. Private.
+- Design Library Showcase Generator — Public Figma plugin for component library documentation.
+
+## Notable credentials
+
+- Expert witness, FTC v. Match.com (UX and usability, federal case)
+- Co-founder, Service Design Network Dallas chapter (~5,000 members)
+- Host, Service Design Network 2025 Global Conference
+- Chief Experience Officer, Precocity (2016–present)
+- Founder, Speakeazy (speakeazy.pro, launched January 2026)
+- Enterprise clients include a global automaker, Match.com, Neiman Marcus, Crash Champions, Deloitte, American Heart Association, Nokia, and others.
+
+## Current availability
+
+Open to executive design leadership roles: Head of Design, VP Design, Chief Design Officer, Chief Experience Officer. Based in Dallas, TX. Open to hybrid, remote, or relocation for the right opportunity. Not considering IC roles or management roles below Director.
+
+## Writing archive (essays)
+
+Essays are grouped in three sections: On Leadership, On Experience Design, and On AI. Range: 2014–2026. Selected titles:
+
+- "Only You Can Prevent Dumpster Fires" — design ethics manifesto
+- "Can Great UX Be Novel and Risky Too?" — on the web's loss of experiential pleasure
+- "Human-Centered, Robot-Driven: Ethical Considerations for ML in Design" — AI ethics in design practice
+- "How to Curate ARTE: 5 Steps to Agile Repeated Testing for Enhancement" — lightweight usability testing framework
+- "Define Success to Achieve It" — on the discipline of defining success criteria before building
+- "The Triforce of UX" (3-part series) — empathy, curiosity, humility as the core designer virtues
