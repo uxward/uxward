@@ -1,35 +1,48 @@
 ---
 import Base from '../layouts/Base.astro';
+
+const faq = [
+  {
+    q: "What roles are you considering?",
+    a: `Head of Design, VP Design, Chief Design Officer, Chief Experience Officer. <em>The executive leadership tier.</em>
+            I am not considering pure individual-contributor roles (unless maybe you're LEGO or a streaming media provider), design-management roles below the
+            Director title, or contract work outside Precocity's existing book.`
+  },
+  {
+    q: "Where will you work?",
+    a: `Dallas (where I live), hybrid with travel, or fully remote. Relocation is on the table for the right leadership role — international included. I will not relocate for a fast-growth startup whose
+            runway is the recruiter's main selling point.`
+  },
+  {
+    q: "What companies are interesting?",
+    a: `Companies where design has earned a real seat and the CEO can name three things
+            their best designer shipped last quarter. I'm specifically interested in flagship
+            consumer and tooling companies — LEGO, Netflix, Apple, Airbnb, and the equivalents.
+            I'm also very interested in opportunities available in traditionally "non-tech" sectors
+            like John Deere, Caterpillar, Maersk, et al.`
+  },
+  {
+    q: "Will you do a take-home?",
+    a: `<em>No.</em> The work on this site is the take-home. I will do a paid, time-boxed
+            advisory engagement at any stage of the process if it helps both sides decide.`
+  },
+  {
+    q: "Are you doing speaking, writing, or advising on the side?",
+    a: `Speaking, occasionally and selectively. Writing, only here. Advisory, only by
+            introduction. I am not signing on as a podcast guest unless you've read the work.`
+  }
+];
+
+function stripHtml(s) { return s.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim(); }
+
 const schema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "What roles are you considering?",
-      "acceptedAnswer": {"@type": "Answer", "text": "Head of Design, VP Design, Chief Design Officer, Chief Experience Officer — the executive leadership tier. Not considering pure individual-contributor roles, design-management roles below Director, or contract work outside Precocity's existing book."}
-    },
-    {
-      "@type": "Question",
-      "name": "Where will you work?",
-      "acceptedAnswer": {"@type": "Answer", "text": "Dallas, hybrid with travel, or fully remote. Relocation is on the table for the right leadership role — international included. Will not relocate for a fast-growth startup whose runway is the recruiter's main selling point."}
-    },
-    {
-      "@type": "Question",
-      "name": "What companies are interesting?",
-      "acceptedAnswer": {"@type": "Answer", "text": "Companies where design has earned a real seat and the CEO can name three things their best designer shipped last quarter. Specifically interested in flagship consumer and tooling companies — LEGO, Netflix, Apple, Airbnb, and equivalents. Also very interested in traditionally non-tech sectors like John Deere, Caterpillar, Maersk."}
-    },
-    {
-      "@type": "Question",
-      "name": "Will you do a take-home?",
-      "acceptedAnswer": {"@type": "Answer", "text": "No. The work on this site is the take-home. Will do a paid, time-boxed advisory engagement at any stage of the process if it helps both sides decide."}
-    },
-    {
-      "@type": "Question",
-      "name": "Are you doing speaking, writing, or advising on the side?",
-      "acceptedAnswer": {"@type": "Answer", "text": "Speaking, occasionally and selectively. Writing, only here. Advisory, only by introduction. Not signing on as a podcast guest unless you've read the work."}
-    }
-  ]
+  "mainEntity": faq.map(item => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": {"@type": "Answer", "text": stripHtml(item.a)}
+  }))
 };
 ---
 <Base title="Contact — uxward" description="Contact Brandon E. B. Ward — executive design leader open to Head of Design, VP Design, CDO, and CXO roles." schema={schema}>
@@ -147,45 +160,12 @@ const schema = {
       <div class="section-eyebrow">Before you write</div>
       <h3 class="section-head">A few honest answers, <em>so the email is shorter.</em></h3>
       <div class="faq">
-        <div class="faq-row">
-          <div class="q">What roles are you considering?</div>
-          <div class="a">
-            Head of Design, VP Design, Chief Design Officer, Chief Experience Officer. <em>The executive leadership tier.</em>
-            I am not considering pure individual-contributor roles (unless maybe you're LEGO or a streaming media provider), design-management roles below the
-            Director title, or contract work outside Precocity's existing book.
+        {faq.map(item => (
+          <div class="faq-row">
+            <div class="q">{item.q}</div>
+            <div class="a" set:html={item.a}></div>
           </div>
-        </div>
-        <div class="faq-row">
-          <div class="q">Where will you work?</div>
-          <div class="a">
-            Dallas (where I live), hybrid with travel, or fully remote. Relocation is on the table for the right leadership role — international included. I will not relocate for a fast-growth startup whose
-            runway is the recruiter's main selling point.
-          </div>
-        </div>
-        <div class="faq-row">
-          <div class="q">What companies are interesting?</div>
-          <div class="a">
-            Companies where design has earned a real seat and the CEO can name three things
-            their best designer shipped last quarter. I'm specifically interested in flagship
-            consumer and tooling companies — LEGO, Netflix, Apple, Airbnb, and the equivalents.
-            I'm also very interested in opportunities available in traditionally "non-tech" sectors
-            like John Deere, Caterpillar, Maersk, et al.
-          </div>
-        </div>
-        <div class="faq-row">
-          <div class="q">Will you do a take-home?</div>
-          <div class="a">
-            <em>No.</em> The work on this site is the take-home. I will do a paid, time-boxed
-            advisory engagement at any stage of the process if it helps both sides decide.
-          </div>
-        </div>
-        <div class="faq-row">
-          <div class="q">Are you doing speaking, writing, advising on the side?</div>
-          <div class="a">
-            Speaking, occasionally and selectively. Writing, only here. Advisory, only by
-            introduction. I am not signing on as a podcast guest unless you've read the work.
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   </section>

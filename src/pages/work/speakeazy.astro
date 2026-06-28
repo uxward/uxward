@@ -5,6 +5,8 @@ import { slate } from '../../data/slate.js';
 // Case number, prev/next, and counts derive from slate order — see src/data/slate.js.
 const idx = slate.findIndex((c) => c.slug === 'speakeazy');
 const self = slate[idx];
+if (!self) throw new Error('No slate entry found for slug: speakeazy');
+const site = import.meta.env.SITE;
 const num = String(idx + 1).padStart(2, '0');
 const prev = slate[(idx + slate.length - 1) % slate.length];
 const next = slate[(idx + 1) % slate.length];
@@ -12,9 +14,9 @@ const schema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://uxward.com"},
-    {"@type": "ListItem", "position": 2, "name": "Work", "item": "https://uxward.com/work"},
-    {"@type": "ListItem", "position": 3, "name": self.client, "item": `https://uxward.com/work/${self.slug}`}
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": site},
+    {"@type": "ListItem", "position": 2, "name": "Work", "item": `${site}/work`},
+    {"@type": "ListItem", "position": 3, "name": self.client, "item": `${site}/work/${self.slug}`}
   ]
 };
 ---
