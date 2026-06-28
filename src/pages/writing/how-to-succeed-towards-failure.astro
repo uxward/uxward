@@ -1,12 +1,36 @@
 ---
 import Base from "../../layouts/Base.astro";
 import MoreArticles from "../../components/MoreArticles.astro";
-import { essays, plainTitle } from "../../data/essays.js";
+import { essays, plainTitle, quarterToISODate } from "../../data/essays.js";
 const slug = Astro.url.pathname.replace(/\/$/, '').split('/').at(-1);
 const essay = essays.find(e => e.slug === slug);
+if (!essay) throw new Error(`No essay data found for slug: ${slug}`);
+const site = import.meta.env.SITE;
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": plainTitle(essay.title),
+      "description": essay.deck,
+      "datePublished": quarterToISODate(essay.quarter),
+      "author": {"@type": "Person", "name": "Brandon E. B. Ward", "url": `${site}/about`},
+      "publisher": {"@type": "Person", "name": "Brandon E. B. Ward", "url": site},
+      "url": `${site}/writing/${essay.slug}`
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": site},
+        {"@type": "ListItem", "position": 2, "name": "Writing", "item": `${site}/writing`},
+        {"@type": "ListItem", "position": 3, "name": plainTitle(essay.title), "item": `${site}/writing/${essay.slug}`}
+      ]
+    }
+  ]
+};
 ---
 
-<Base title={`${plainTitle(essay.title)} · uxward`} bodyClass="essay">
+<Base title={`${plainTitle(essay.title)} · uxward`} description={essay.deck} schema={schema} ogType="article" bodyClass="essay">
   <style>
     .essay-body ol {
       margin: 0 0 var(--space-6);

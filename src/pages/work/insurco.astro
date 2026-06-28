@@ -5,9 +5,20 @@ import { slate } from '../../data/slate.js';
 // Case number, prev/next, and counts derive from slate order — see src/data/slate.js.
 const idx = slate.findIndex((c) => c.slug === 'insurco');
 const self = slate[idx];
+if (!self) throw new Error('No slate entry found for slug: insurco');
+const site = import.meta.env.SITE;
 const num = String(idx + 1).padStart(2, '0');
 const prev = slate[(idx + slate.length - 1) % slate.length];
 const next = slate[(idx + 1) % slate.length];
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": site},
+    {"@type": "ListItem", "position": 2, "name": "Work", "item": `${site}/work`},
+    {"@type": "ListItem", "position": 3, "name": self.client, "item": `${site}/work/${self.slug}`}
+  ]
+};
 ---
 <!--
   ============================================================================
@@ -20,7 +31,7 @@ const next = slate[(idx + 1) % slate.length];
             CSO endorsement kept (attributed by title only) · reflection x3 from your notes.
   ============================================================================
 -->
-<Base title="A major insurance broker — service design at scale · uxward" bodyClass="case">
+<Base title="A major insurance broker — service design at scale · uxward" description={self.deck} schema={schema} bodyClass="case">
   <style>
     .cs-pullquote .attribution { display: block; font-style: normal; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--tertiary); margin-top: var(--space-5); font-variation-settings: normal; }
 

@@ -5,9 +5,20 @@ import { slate } from '../../data/slate.js';
 // Case number, prev/next, and counts derive from slate order — see src/data/slate.js.
 const idx = slate.findIndex((c) => c.slug === 'autoco');
 const self = slate[idx];
+if (!self) throw new Error('No slate entry found for slug: autoco');
+const site = import.meta.env.SITE;
 const num = String(idx + 1).padStart(2, '0');
 const prev = slate[(idx + slate.length - 1) % slate.length];
 const next = slate[(idx + 1) % slate.length];
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": site},
+    {"@type": "ListItem", "position": 2, "name": "Work", "item": `${site}/work`},
+    {"@type": "ListItem", "position": 3, "name": self.client, "item": `${site}/work/${self.slug}`}
+  ]
+};
 ---
 <!--
   ============================================================================
@@ -18,7 +29,7 @@ const next = slate[(idx + 1) % slate.length];
   Optional: anonymize "Rally" → "the design vendor" if you'd rather not name a partner.
   ============================================================================
 -->
-<Base title="A global automaker — usability testing at scale · uxward" bodyClass="case">
+<Base title="A global automaker — usability testing at scale · uxward" description={self.deck} schema={schema} bodyClass="case">
 
   <style>
     /* — Frames that hold a real image fill the 16:9 plate edge to edge. — */

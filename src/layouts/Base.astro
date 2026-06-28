@@ -6,8 +6,32 @@ export interface Props {
   title: string;
   description?: string;
   bodyClass?: string;
+  ogType?: string;
+  ogImage?: string;
+  schema?: Record<string, unknown>;
 }
-const { title, description = "Brandon E. B. Ward — senior design leadership. Building design practice from scratch since 2001.", bodyClass } = Astro.props;
+const { title, description = "Brandon E. B. Ward — senior design leadership. Building design practice from scratch since 2001.", bodyClass, ogType = "website", ogImage, schema } = Astro.props;
+const site = import.meta.env.SITE;
+const siteSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "name": "Brandon E. B. Ward",
+      "url": site,
+      "jobTitle": "Chief Experience Officer",
+      "description": "Executive design leader. 20+ years building design practices from scratch. CXO at Precocity. Founder of Speakeazy. Based in Dallas, Texas.",
+      "sameAs": ["https://linkedin.com/in/brandonebward", "https://github.com/uxward"]
+    },
+    {
+      "@type": "WebSite",
+      "name": "uxward",
+      "url": site,
+      "description": "Portfolio and writing of Brandon E. B. Ward — executive design leader, CXO, and founder.",
+      "author": {"@type": "Person", "name": "Brandon E. B. Ward"}
+    }
+  ]
+});
 ---
 <!doctype html>
 <html lang="en" data-theme="light">
@@ -16,8 +40,21 @@ const { title, description = "Brandon E. B. Ward — senior design leadership. B
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{title}</title>
   <meta name="description" content={description}>
+  <meta name="author" content="Brandon E. B. Ward">
+  <link rel="canonical" href={Astro.url.href}>
+  <meta property="og:site_name" content="uxward">
+  <meta property="og:type" content={ogType}>
+  <meta property="og:url" content={Astro.url.href}>
+  <meta property="og:title" content={title}>
+  <meta property="og:description" content={description}>
+  {ogImage && <meta property="og:image" content={ogImage}>}
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content={title}>
+  <meta name="twitter:description" content={description}>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <script defer src="/white-rabbit.js"></script>
+  <script type="application/ld+json" set:html={siteSchema}></script>
+  {schema && <script type="application/ld+json" set:html={JSON.stringify(schema).replace(/<\//g, '<\\/')}></script>}
   <slot name="head" />
   <script is:inline>
     // Apply saved theme before first paint to prevent flash

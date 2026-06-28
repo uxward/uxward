@@ -5,9 +5,20 @@ import { slate } from '../../data/slate.js';
 // Case number, prev/next, and counts derive from slate order — see src/data/slate.js.
 const idx = slate.findIndex((c) => c.slug === 'porte');
 const self = slate[idx];
+if (!self) throw new Error('No slate entry found for slug: porte');
+const site = import.meta.env.SITE;
 const num = String(idx + 1).padStart(2, '0');
 const prev = slate[(idx + slate.length - 1) % slate.length];
 const next = slate[(idx + 1) % slate.length];
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": site},
+    {"@type": "ListItem", "position": 2, "name": "Work", "item": `${site}/work`},
+    {"@type": "ListItem", "position": 3, "name": self.client, "item": `${site}/work/${self.slug}`}
+  ]
+};
 ---
 <!--
   ============================================================================
@@ -18,7 +29,7 @@ const next = slate[(idx + 1) % slate.length];
             no support-call number, so outcomes lead with ratings + SUS.
   ============================================================================
 -->
-<Base title="Porte — research-first mobile banking · uxward" bodyClass="case">
+<Base title="Porte — research-first mobile banking · uxward" description={self.deck} schema={schema} bodyClass="case">
   <style>
     /* porte-only: real hero image + lightbox. Shared case-study chrome lives in src/styles/case.css. */
     .hero-preview .frame { padding: 0; aspect-ratio: auto; display: block; overflow: hidden; }
