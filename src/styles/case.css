@@ -75,7 +75,7 @@ body.case .artifact .frame .placeholder-label { font-weight: 600; font-size: 11p
 body.case .artifact .frame .placeholder-detail { font-size: 17px; color: var(--body); max-width: 480px; }
 body.case .artifact .caption-grid { display: grid; grid-template-columns: 90px 1fr; gap: var(--space-6); align-items: baseline; margin-top: var(--space-6); }
 body.case .artifact .caption-grid .num { font-weight: 900; font-size: 34px; line-height: 1; color: var(--signature); }
-body.case .artifact .caption-grid h4 { font-weight: 800; font-size: 21px; line-height: 1.2; letter-spacing: -0.01em; color: var(--ink); margin: 0 0 8px 0; }
+body.case .artifact .caption-grid h3 { font-weight: 800; font-size: 21px; line-height: 1.2; letter-spacing: -0.01em; color: var(--ink); margin: 0 0 8px 0; }
 body.case .artifact .caption-grid p.cap { font-size: 16.5px; line-height: 1.5; color: var(--body); margin: 0; }
 
 /* ---------- Outcomes: the bold red field ---------- */
