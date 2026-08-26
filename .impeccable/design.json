@@ -1,0 +1,127 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-25T00:00:00Z",
+  "title": "Design System: uxward.com",
+  "extensions": {
+    "colorMeta": {
+      "signature": { "role": "primary", "displayName": "Signature Red", "canonical": "#CC0006", "tonalRamp": ["#3D0002", "#5C0003", "#7A0004", "#990005", "#B8000A", "#CC0006", "#E5263A", "#F26B78"] },
+      "canvas": { "role": "neutral", "displayName": "Canvas", "canonical": "#E7E7E7", "tonalRamp": ["#1A1A1A", "#333333", "#4D4D4D", "#666666", "#999999", "#CCCCCC", "#E7E7E7", "#F5F5F5"] },
+      "paper": { "role": "neutral", "displayName": "Paper", "canonical": "#FAF8F4", "tonalRamp": ["#1A1911", "#332F22", "#4D4733", "#666045", "#998F68", "#CCC1A0", "#FAF8F4", "#FFFFFF"] },
+      "ink": { "role": "neutral", "displayName": "Ink", "canonical": "#040404", "tonalRamp": ["#000000", "#0A0A0A", "#1A1A1A", "#333333", "#4D4D4D", "#666666", "#808080", "#999999"] },
+      "body": { "role": "neutral", "displayName": "Body", "canonical": "#282828", "tonalRamp": ["#000000", "#141414", "#282828", "#3D3D3D", "#525252", "#666666", "#808080", "#999999"] },
+      "tertiary": { "role": "neutral", "displayName": "Tertiary", "canonical": "#6B6B6B", "tonalRamp": ["#1A1A1A", "#333333", "#4D4D4D", "#6B6B6B", "#858585", "#A0A0A0", "#BABABA", "#D4D4D4"] },
+      "rule-faint": { "role": "neutral", "displayName": "Rule (faint)", "canonical": "rgba(4, 4, 4, 0.10)", "tonalRamp": ["rgba(4,4,4,0.05)", "rgba(4,4,4,0.10)", "rgba(4,4,4,0.15)", "rgba(4,4,4,0.20)"] },
+      "neon-canvas": { "role": "neon-only", "displayName": "Neon Canvas", "canonical": "#07060F", "tonalRamp": ["#000000", "#07060F", "#120F1F", "#1D1833", "#2B2350", "#3C3270", "#4F4394", "#655AB8"], "note": "Overrides --canvas under .cyber. Not present in Light/Dark." },
+      "neon-paper": { "role": "neon-only", "displayName": "Neon Paper", "canonical": "#0E0B1D", "note": "Overrides --paper under .cyber." },
+      "neon-ink": { "role": "neon-only", "displayName": "Neon Ink", "canonical": "#F6F7FF", "note": "Overrides --ink under .cyber." },
+      "neon-body": { "role": "neon-only", "displayName": "Neon Body", "canonical": "#C9D6FF", "note": "Overrides --body under .cyber." },
+      "neon-tertiary": { "role": "neon-only", "displayName": "Neon Tertiary", "canonical": "#8B7FC4", "note": "Overrides --tertiary under .cyber." },
+      "neon-signature": { "role": "neon-only", "displayName": "Neon Signature (Pink)", "canonical": "#FF2BD6", "tonalRamp": ["#4A0038", "#700054", "#970070", "#BD008C", "#E400A8", "#FF2BD6", "#FF6EE3", "#FFA8EF"], "note": "Overrides --signature under .cyber. Unrationed, unlike the Light/Dark signature red." },
+      "neon-cyan": { "role": "neon-accent", "displayName": "Neon Cyan", "canonical": "#19F0FF", "tonalRamp": ["#003A40", "#005966", "#00798D", "#0099B3", "#19C4DB", "#19F0FF", "#6DF5FF", "#B3FAFF"], "note": "Neon-only accent, no Light/Dark equivalent. Glow, selection, link-hover." },
+      "neon-blue": { "role": "neon-accent", "displayName": "Neon Blue", "canonical": "#2B6BFF", "note": "Neon-only accent, no Light/Dark equivalent." },
+      "neon-red": { "role": "neon-accent", "displayName": "Neon Red", "canonical": "#FF2E4D", "note": "Neon-only accent token defined in CSS but not yet visibly wired to a specific UI element." }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Homepage hero H1 only — the single largest type on the site." },
+      "headline": { "displayName": "Headline", "purpose": "Top-of-page H1 on every other page: About, Contact, Colophon, Work index, case-study titles, essay titles." },
+      "title": { "displayName": "Section Title", "purpose": "Section-level heads within a page — case-study section heads, timeline head, CTA h2." },
+      "numeral": { "displayName": "Catalog Numeral", "purpose": "The big red/tertiary numbers heading every numbered section and catalog row." },
+      "label": { "displayName": "Eyebrow / Label", "purpose": "Small caps micro-labels — section eyebrows, meta-strip field labels, timestamps." },
+      "neon-logo-head": { "displayName": "Neon Logo/Heading (Rock Salt)", "purpose": "Replaces Archivo on the wordmark and all h1/h2 under .cyber. Graffiti/handbrush display face, unreadable at body size by design." },
+      "neon-body": { "displayName": "Neon Body (Orbitron)", "purpose": "Replaces Archivo body text under .cyber (--cf-body token). Note: Colophon's own cyber-mode copy currently misattributes this role to JetBrains Mono — the shipped CSS and lazy-loaded fonts in Base.astro say Orbitron; treat code as authoritative." },
+      "neon-nav": { "displayName": "Neon Nav (Sixtyfour)", "purpose": "Replaces Archivo/mono nav links under .cyber (--cf-nav token)." }
+    },
+    "shadows": [],
+    "motion": [
+      { "name": "t-fast", "value": "150ms", "purpose": "Link/hover color transitions, deck reveals, filter fades." },
+      { "name": "t-mode", "value": "200ms", "purpose": "Light/dark theme cross-fade, toggle glyph transform." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "720px" },
+      { "name": "md", "value": "900px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Catalog Item Link",
+      "kind": "card",
+      "refersTo": "catalog-item-title",
+      "description": "A flat, chrome-free row used for work/writing catalog listings. Hairline top border, hover flips the title to signature red.",
+      "html": "<a class=\"ds-cat-item\" href=\"#\"><h3 class=\"ds-cat-title\"><span class=\"ds-cat-n\">Speakeazy</span><span class=\"ds-cat-t\"> — the tool that should have existed</span></h3><span class=\"ds-cat-when\">Founder · 2025–present</span><p class=\"ds-cat-desc\">AI-native dialogue attribution and character analysis for audiobook narrators.</p></a>",
+      "css": ".ds-cat-item { display: grid; grid-template-columns: 1fr auto; column-gap: 32px; row-gap: 12px; padding: 24px 0; border-top: 1px solid rgba(4,4,4,0.10); align-items: baseline; text-decoration: none; color: inherit; font-family: Archivo, sans-serif; } .ds-cat-title { font-weight: 800; font-size: clamp(23px, 2.9vw, 34px); line-height: 1.02; letter-spacing: -0.022em; color: #040404; margin: 0; } .ds-cat-item:hover .ds-cat-title { color: #CC0006; } .ds-cat-n { font-weight: 900; } .ds-cat-t { font-weight: 500; color: #282828; } .ds-cat-when { font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #6B6B6B; white-space: nowrap; text-align: right; } .ds-cat-desc { grid-column: 1 / -1; font-size: 17px; line-height: 1.5; color: #282828; max-width: 66ch; margin: 0; }"
+    },
+    {
+      "name": "Full-Bleed Color Field CTA",
+      "kind": "custom",
+      "refersTo": "bleed-field",
+      "description": "The system's substitute for a primary button — a full-bleed signature-red field carrying a typographic email CTA. There is no filled-button component on the site; this field is the highest-commitment call to action.",
+      "html": "<section class=\"ds-bleed\"><div class=\"ds-bleed-eyebrow\">Open to</div><h2 class=\"ds-bleed-h\">Senior design leadership at companies that take design seriously.</h2><a class=\"ds-bleed-email\" href=\"mailto:brandon@uxward.com\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M10 14l11 -11\"/><path d=\"M21 3l-6.5 18a.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a.55 .55 0 0 1 0 -1l18 -6.5\"/></svg><span class=\"ds-bleed-email-text\">brandon@uxward.com</span></a></section>",
+      "css": ".ds-bleed { background: #CC0006; padding: 96px 32px; font-family: Archivo, sans-serif; } .ds-bleed-eyebrow { font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: rgba(231,231,231,0.85); margin: 0 0 32px; } .ds-bleed-h { font-weight: 900; font-size: clamp(38px, 5.4vw, 80px); line-height: 0.92; letter-spacing: -0.035em; color: #E7E7E7; margin: 0; max-width: 17ch; } .ds-bleed-email { display: inline-flex; align-items: center; gap: 0.45em; margin-top: 48px; font-weight: 800; font-size: clamp(22px, 3vw, 36px); color: #E7E7E7; text-decoration: none; } .ds-bleed-email-text { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; } .ds-bleed-email:hover { color: rgba(231,231,231,0.72); }"
+    },
+    {
+      "name": "Spec-Bar Cell",
+      "kind": "custom",
+      "refersTo": "spec-cell",
+      "description": "A hairline-bordered key/value grid cell, used in the homepage masthead and case-study meta strips.",
+      "html": "<div class=\"ds-spec-bar\"><div class=\"ds-spec-cell\"><span class=\"ds-spec-k\">Currently</span><span class=\"ds-spec-v\">Building Speakeazy</span></div><div class=\"ds-spec-cell\"><span class=\"ds-spec-k\">Based</span><span class=\"ds-spec-v\">Dallas, Texas</span></div></div>",
+      "css": ".ds-spec-bar { display: grid; grid-template-columns: repeat(2, 1fr); border: 1px solid rgba(4,4,4,0.10); font-family: Archivo, sans-serif; } .ds-spec-cell { padding: 16px 20px; border-left: 1px solid rgba(4,4,4,0.10); } .ds-spec-cell:first-child { border-left: 0; } .ds-spec-k { display: block; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.09em; color: #6B6B6B; margin-bottom: 7px; } .ds-spec-v { font-size: 16px; font-weight: 700; color: #040404; line-height: 1.2; }"
+    },
+    {
+      "name": "Numbered Section Head",
+      "kind": "custom",
+      "description": "The catalog-style section divider: a large red numeral beside a caps title, used to open every major section.",
+      "html": "<div class=\"ds-sec-head\"><span class=\"ds-sec-no\">01</span><span class=\"ds-sec-ttl\">Selected work</span></div>",
+      "css": ".ds-sec-head { display: flex; align-items: flex-end; gap: 20px; font-family: Archivo, sans-serif; } .ds-sec-no { font-weight: 900; font-size: clamp(40px, 6vw, 82px); line-height: 0.78; letter-spacing: -0.045em; color: #CC0006; } .ds-sec-ttl { font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em; color: #040404; padding-bottom: 0.5em; }"
+    },
+    {
+      "name": "Pull-Quote",
+      "kind": "custom",
+      "description": "A signature-red left-bordered blockquote for case-study reflections and essay pull-quotes.",
+      "html": "<blockquote class=\"ds-pullquote\">The wit is in the cut, never the punchline.</blockquote>",
+      "css": ".ds-pullquote { font-weight: 700; font-size: clamp(24px, 3vw, 34px); line-height: 1.2; letter-spacing: -0.02em; color: #040404; border-left: 4px solid #CC0006; padding-left: 32px; margin: 0; max-width: 720px; font-family: Archivo, sans-serif; }"
+    },
+    {
+      "name": "Nav Link",
+      "kind": "nav",
+      "refersTo": "link",
+      "description": "The universal link treatment: ink at rest, signature red on hover/focus — applied identically to header nav, footer nav, breadcrumbs, and body links.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#\">Work</a><a href=\"#\">Writing</a><a href=\"#\">About</a><a href=\"#\">Contact</a></nav>",
+      "css": ".ds-nav { display: flex; gap: 28px; font-family: Archivo, sans-serif; } .ds-nav a { font-weight: 600; font-size: 13px; letter-spacing: 0.05em; text-transform: uppercase; color: #040404; text-decoration: none; transition: color 150ms ease; } .ds-nav a:hover { color: #CC0006; } .ds-nav a:focus-visible { outline: 2px solid #CC0006; outline-offset: 3px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Unigrid",
+    "overview": "The site runs on the Unigrid principle, by way of Massimo Vignelli: the grid made visible — structure you can see rather than hide. Everything is one grotesque typeface (Archivo), used across display, body, labels, and numerals without apology or a second voice to lean on. Sections are numbered and bordered like a printed spec sheet or catalog — a 4-column masthead, full-width hairline dividers between sections, and oversized red numerals that behave like catalog entries, not decoration. Where the previous editorial-serif system (Fraunces, a left-gutter marker rail) staged the page as a magazine, this system stages it as a specification: black, white, an off-white field, and one color that doesn't ask permission.",
+    "keyCharacteristics": [
+      "One grotesque (Archivo) for every type role; no serif, no second display face outside the cyber egg.",
+      "Numbered, bordered sections read as a specification sheet, not a magazine layout.",
+      "Flat throughout — no shadows, no rounded corners, anywhere in the primary system.",
+      "Signature red is either an interaction color (link/nav hover) or a full-bleed color field — never a button, divider, or body-text color.",
+      "No stock imagery. The only photograph on the site is Brandon's own portrait."
+    ],
+    "rules": [
+      { "name": "The One Face Rule (Light/Dark)", "body": "Archivo carries every type role in Light and Dark — display, body, labels, numerals alike. A second display typeface is never introduced in these two modes.", "section": "colors" },
+      { "name": "The Two-Register Red Rule (Light/Dark)", "body": "Signature red is either the universal hover/focus color (transient, site-wide) or a full-bleed event field (persistent, high-commitment). Never a button fill, a recurring divider, or body copy. Suspended in Neon, where the signature accent is deliberately unrationed.", "section": "colors" },
+      { "name": "The No-Serif Rule (Light/Dark)", "body": "Nothing in Light or Dark sets in a serif face. Reintroducing one is a deliberate system change, not a per-page choice.", "section": "typography" },
+      { "name": "The Three-Face Exception (Neon only)", "body": "Neon runs three typefaces at once (Rock Salt logo/headings, Orbitron body, Sixtyfour nav) — the one place the system breaks the One Face Rule, by design, so the mode reads as a genuine override rather than a recolor.", "section": "typography" },
+      { "name": "The Flat-By-Default Rule (Light/Dark)", "body": "Surfaces never lift in Light or Dark. A hairline border or a full-bleed color change is the only vocabulary for separating regions. Neon is the named exception, using glow and blend-mode effects instead.", "section": "elevation" },
+      { "name": "The No-Radius Rule (all three modes)", "body": "Zero border-radius anywhere in the codebase, including Neon. The one geometric rule that holds across all three versions.", "section": "shapes" }
+    ],
+    "dos": [
+      "Do run every type role — display, body, numerals, labels — in Archivo, in Light and Dark.",
+      "Do open a major section with a large red numeral + caps title, followed by a full-width hairline divider.",
+      "Do treat signature red as either the universal hover/focus color or a full-bleed event field in Light/Dark.",
+      "Do keep every divider a 1px hairline in Light/Dark; never substitute a shadow or filled panel for separation.",
+      "Do treat Neon as a fully documented third version — update its color/type/depth tables the same way a Light/Dark change would, not as a throwaway easter egg.",
+      "Do keep Neon's tokens, fonts, and effects scoped to the .cyber / .cyber-* classes in both directions — never leaking into Light/Dark, and never assuming Light/Dark rules constrain Neon."
+    ],
+    "donts": [
+      "Don't add border-radius anywhere, in any of the three modes.",
+      "Don't introduce a filled button component in Light/Dark — CTAs are typographic links, often inside a full-bleed red field.",
+      "Don't reintroduce the retired left-gutter §-marker rail.",
+      "Don't use signature red for body copy or as a static, decorative divider in Light/Dark (Neon's unrationed neon-pink signature is the documented exception).",
+      "Don't treat JetBrains Mono as a general meta-text voice for new Light/Dark components, and don't assume it's part of the Neon font set either — Neon's three faces are Rock Salt / Orbitron / Sixtyfour.",
+      "Don't add stock photography, illustration, or thumbnails in Light/Dark."
+    ]
+  }
+}
