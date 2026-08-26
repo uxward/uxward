@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "side-tab",
+        "value": "border-left: 4px solid var(--signature)",
+        "files": [
+          "src/pages/work/index.astro"
+        ],
+        "createdAt": "2026-08-26T03:06:52.635Z",
+        "reason": "documented pull-quote pattern (.hero-pullout matches .cs-pullquote/blockquote exactly: italic em, same weight/size/border) — DESIGN.md sanctions a 4px signature-red left border for pull-quotes and blockquotes"
+      }
+    ]
+  }
+}

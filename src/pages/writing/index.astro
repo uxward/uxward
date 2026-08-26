@@ -41,7 +41,7 @@ const tagLabel = Object.fromEntries(essaySections.map((s) => [s.key, s.title.rep
     /* ---------- Featured pull ---------- */
     .featured { padding: var(--space-10) 0; border-bottom: 1px solid var(--rule-faint); }
     .featured-grid { display: grid; grid-template-columns: var(--gutter-mark) 1fr; gap: var(--space-7); }
-    .featured-mark { font-weight: 700; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--signature); padding-top: 0; border-left: 3px solid var(--signature); padding-left: var(--space-5); }
+    .featured-mark { font-weight: 700; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--signature); }
     .featured-eyebrow { font-weight: 700; font-size: 13px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); margin-bottom: var(--space-6); }
     .featured-eyebrow .dot { color: var(--signature); padding: 0 6px; }
     a.featured-link { text-decoration: none; color: inherit; display: block; }
@@ -83,24 +83,21 @@ const tagLabel = Object.fromEntries(essaySections.map((s) => [s.key, s.title.rep
 
     /* ---------- Row — table-of-contents line ---------- */
     a.essay {
-      display: block;
+      display: grid;
+      grid-template-rows: 1fr;
       text-decoration: none;
       color: inherit;
-      padding: var(--space-5) 0;
-      max-height: 400px;
-      overflow: hidden;
       opacity: 1;
       visibility: visible;
-      transition: max-height 150ms ease, padding 150ms ease, opacity 150ms ease 150ms, visibility 0s;
+      transition: grid-template-rows 150ms ease, opacity 150ms ease 150ms, visibility 0s;
     }
+    a.essay .essay-collapse { overflow: hidden; min-height: 0; padding: var(--space-5) 0; }
     a.essay.filtered-out {
       opacity: 0;
-      max-height: 0;
-      padding-top: 0;
-      padding-bottom: 0;
+      grid-template-rows: 0fr;
       pointer-events: none;
       visibility: hidden;
-      transition: opacity 150ms ease, max-height 150ms ease 150ms, padding 150ms ease 150ms, visibility 0s 300ms;
+      transition: opacity 150ms ease, grid-template-rows 150ms ease 150ms, visibility 0s 300ms;
     }
     .essay-line { display: flex; align-items: baseline; }
     .essay-title { flex: 0 1 auto; font-weight: 700; font-size: 22px; line-height: 1.2; letter-spacing: -0.018em; color: var(--ink); transition: color var(--t-fast) ease; }
@@ -248,12 +245,14 @@ const tagLabel = Object.fromEntries(essaySections.map((s) => [s.key, s.title.rep
                 <a class="essay" href={`/writing/${e.slug}`}
                    data-title={plainTitle(e.title)}
                    data-deck={e.deck}>
+                  <div class="essay-collapse">
                   <span class="essay-line">
                     <span class="essay-title" set:html={e.title} />
                     <span class="essay-lead" aria-hidden="true"></span>
                     <span class="essay-quarter">{e.quarter}</span>
                   </span>
                   <span class="essay-deck">{e.deck}</span>
+                  </div>
                 </a>
               ))}
             </div>
@@ -272,12 +271,14 @@ const tagLabel = Object.fromEntries(essaySections.map((s) => [s.key, s.title.rep
             <a class="essay" href={`/writing/${e.slug}`}
                data-title={plainTitle(e.title)}
                data-deck={e.deck}>
+              <div class="essay-collapse">
               <span class="essay-line">
                 <span class="essay-title" set:html={e.title} />
                 <span class="essay-lead" aria-hidden="true"></span>
                 <span class="essay-quarter">{tagLabel[e.section]} · {e.quarter}</span>
               </span>
               <span class="essay-deck">{e.deck}</span>
+              </div>
             </a>
           ))}
         </div>

@@ -258,8 +258,8 @@ const schema = {
         <span class="case-num">{num}</span>
         <h1 class="case-title" set:html={self.title} />
         <p class="case-deck">
-          I narrate audiobooks and hated the hours of character prep before every recording —
-          so I went looking for a tool to do it, found that none existed, and built one myself:
+          I narrate audiobooks and hated the hours of character prep before every recording.
+          So I went looking for a tool to do it, found that none existed, and built one myself:
           through three abandoned prototypes and a two-week ground-up rewrite, launched to real
           users in January 2026.
         </p>
@@ -287,7 +287,7 @@ const schema = {
           </div>
           <div class="cell">
             <div class="label">Timeframe</div>
-            <div class="value">2025 — Present</div>
+            <div class="value">2025–Present</div>
           </div>
           <div class="cell">
             <div class="label">Capacity</div>
@@ -307,21 +307,21 @@ const schema = {
           <h2 class="cs-head">A narrator's <em>unpaid</em> first act.</h2>
           <div class="cs-prose">
             <p>
-              I record and audition for audiobooks. Every project begins the same way — long
-              before the microphone — with prereading: working through the whole manuscript,
+              I record and audition for audiobooks. Every project begins the same way, long
+              before the microphone, with prereading: working through the whole manuscript,
               sometimes more than once, to learn every character, how they relate, and how each
               one changes across the book. I need all of it to make voice decisions as an actor.
             </p>
             <p>
               That work is heavier for narrators than for any other kind of performer. In film
               or television you play one character and go deep on that one. An audiobook
-              narrator plays <em>everyone</em> — every character, every background, every
-              relationship — and has to hold them consistent for hundreds of pages.
+              narrator plays <em>everyone</em>: every character, every background, every
+              relationship, and has to hold them consistent for hundreds of pages.
             </p>
             <p>
               The brief was as open-ended as it gets: I was the client, the user, and the
               engineer. <strong>I wanted the prep done for me so I could get to the part I
-              actually do this for — the performance.</strong>
+              actually do this for: the performance.</strong>
             </p>
           </div>
         </div>
@@ -339,7 +339,7 @@ const schema = {
           <div class="cs-prose">
             <p>
               Audiobook narrators are paid by the finished hour, not the hours worked.
-              Prereading is critical — especially in fiction — and it is entirely unbilled.
+              Prereading is critical, especially in fiction, and it is entirely unbilled.
               Every hour spent mapping characters is an hour of margin gone before a single
               line is recorded.
             </p>
@@ -351,12 +351,12 @@ const schema = {
               You can't learn on page 200 that the character you've voiced <em>en français</em> for 199 pages is from Paris, Texas.
             </blockquote>
             <p>
-              I went looking for something to carry the load. It was 2025 — surely a tool
+              I went looking for something to carry the load. It was 2025: surely a tool
               existed. It didn't. Not one product did what I needed, and nothing came close.
             </p>
             <p>
               <strong>The problem: the most critical prep in audiobook narration is also the
-              most tedious and the least paid — and in 2025 no tool existed to do it.</strong>
+              most tedious and the least paid, and in 2025 no tool existed to do it.</strong>
             </p>
           </div>
         </div>
@@ -373,14 +373,14 @@ const schema = {
           <h2 class="cs-head">Prove it cheap, then build it <em>tight.</em></h2>
           <div class="cs-prose">
             <p>
-              The instinctive move was to build the app first. I didn't — I had no proof AI
-              could actually attribute dialogue and track characters across a full book. So I
+              The instinctive move was to build the app first. I didn't, because I had no proof
+              AI could actually attribute dialogue and track characters across a full book. So I
               tested the idea before committing to it.
             </p>
             <p>
               I built a proof of concept in ChatGPT and confirmed the core was possible. I made
               two or three more versions on Hugging Face using Llama models, then a full app in
-              React on an early AI-assisted build stack. It ran — until I tried to deploy.
+              React on an early AI-assisted build stack. It ran until I tried to deploy.
               Vercel fought me at every turn.
             </p>
             <p>
@@ -394,15 +394,15 @@ const schema = {
           <div class="choices">
             <div class="choice-row">
               <div class="key">Chose to</div>
-              <div class="val"><strong>Build it for myself first.</strong> The only user I had to satisfy at the start was me — a real narrator with a specific problem.</div>
+              <div class="val"><strong>Build it for myself first.</strong> The only user I had to satisfy at the start was me, a real narrator with a specific problem.</div>
             </div>
             <div class="choice-row">
               <div class="key">Chose to</div>
-              <div class="val">Validate with a throwaway PoC in ChatGPT before writing an app — prove AI could do the job before betting weeks on it.</div>
+              <div class="val">Validate with a throwaway PoC in ChatGPT before writing an app: prove AI could do the job before betting weeks on it.</div>
             </div>
             <div class="choice-row">
               <div class="key">Chose to</div>
-              <div class="val">Design to the value lever, not the pain. Because narrators earn by finished hour, the job wasn't "organize a script" — it was <strong>"give billable time back."</strong></div>
+              <div class="val">Design to the value lever, not the pain. Because narrators earn by finished hour, the job wasn't "organize a script." It was <strong>"give billable time back."</strong></div>
             </div>
             <div class="choice-row">
               <div class="key">Chose <strong>not</strong> to</div>
@@ -431,7 +431,7 @@ const schema = {
           <h2 class="cs-head">Three versions to get to <em>one.</em></h2>
           <div class="cs-prose" style="margin-bottom: var(--space-9);">
             <p>
-              No single screen is the hero here. The build itself is the story — three
+              No single screen is the hero here. The build itself is the story: three
               prototypes and a rewrite, each one teaching what the next had to be.
             </p>
           </div>
@@ -447,7 +447,7 @@ const schema = {
                   <h3>The ChatGPT proof of concept</h3>
                   <p class="cap">
                     The cheapest possible test of the riskiest assumption. It proved AI could
-                    identify characters and attribute dialogue reliably enough to build on —
+                    identify characters and attribute dialogue reliably enough to build on,
                     before I wrote a line of product code.
                   </p>
                 </div>
@@ -464,7 +464,7 @@ const schema = {
                   <h3>The over-architected first app</h3>
                   <p class="cap">
                     A working-on-my-machine app that couldn't be deployed. It cost months and
-                    never launched — but it defined exactly what "too clever" looked like,
+                    never launched. But it defined exactly what "too clever" looked like,
                     which made the rewrite fast.
                   </p>
                 </div>
@@ -522,7 +522,7 @@ const schema = {
             <div class="stat">
               <div class="label">First user</div>
               <div class="figure">Days</div>
-              <div class="desc">After launch — found Speakeazy by asking ChatGPT whether such a tool existed.</div>
+              <div class="desc">After launch, found Speakeazy by asking ChatGPT whether such a tool existed.</div>
             </div>
           </div>
           <div class="cs-prose">
@@ -531,7 +531,7 @@ const schema = {
               that track across an entire series, and persistent color codes so the villain
               and the hero keep their colors across every project. On performance: a short
               story analyzes in minutes, a novel like <em>The Great Gatsby</em> in about
-              20–25, and even the longest books finish in a few hours — set-and-forget.
+              20–25, and even the longest books finish in a few hours, set-and-forget.
             </p>
           </div>
           <a class="live-cta" href="https://speakeazy.pro" target="_blank" rel="noopener">See it live · speakeazy.pro<svg class="chevron-ico" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
@@ -551,12 +551,12 @@ const schema = {
             <p>
               <strong>The decision I'd reverse:</strong> the over-architecture. I let an early
               build get far more complex than the problem deserved, and it cost me months and
-              a deployment I could never make work. The tell was there early — I just didn't
+              a deployment I could never make work. The tell was there early. I just didn't
               have the discipline yet to keep it simple.
             </p>
             <p>
               <strong>The surprise:</strong> that the gap was total. I assumed that in 2025
-              someone had built this; the real surprise was that no one had — and that the
+              someone had built this; the real surprise was that no one had, and that the
               first person to find my version was sent there by an AI.
             </p>
             <p>
