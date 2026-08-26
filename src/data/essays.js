@@ -112,7 +112,12 @@ export const essaysNewestFirst = essays
 
 // Plain-text title (strip <em>) for search/data-* attributes.
 export function plainTitle(t) {
-  return t.replace(/<[^>]+>/g, '');
+  let prev;
+  do {
+    prev = t;
+    t = t.replace(/<[^>]+>/g, '');
+  } while (t !== prev);
+  return t;
 }
 
 // "Q1 2026" → "2026-01-01" (first day of the quarter) for schema datePublished.
