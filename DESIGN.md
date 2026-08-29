@@ -133,7 +133,7 @@ This is a full redesign, not a refinement of the site's earlier direction — th
 - Numbered, bordered sections read as a specification sheet, not a magazine layout, in Light/Dark.
 - Flat throughout in Light/Dark — no shadows, no rounded corners. Neon is intentionally not flat (glow, blend modes, animated backdrops).
 - Signature red is either an interaction color (link/nav hover) or a full-bleed color field in Light/Dark — never a button, divider, or body-text color. Neon replaces it with a wider neon accent set used far more liberally.
-- No stock imagery in Light/Dark. Photography is limited to Brandon's own portraits (home fold, About) and real artifacts from the case studies; both are framed as hairline plates with specimen captions. Neon adds one video asset (homepage hero backdrop) that never loads outside Neon mode.
+- No stock imagery on the core pages in Light/Dark. Photography there is limited to Brandon's own portraits (home fold, About) and real artifacts from the case studies, both framed as hairline plates with specimen captions. Essay bodies carry editorial illustration and are the documented exception. Neon adds one video asset (homepage hero backdrop) that never loads outside Neon mode.
 
 ## Colors
 
@@ -300,7 +300,7 @@ Square everywhere — there is no `border-radius` usage anywhere in the codebase
 - **Don't** reintroduce the retired left-gutter `§`-marker rail (`.grid > .marker`) — it is explicitly hidden site-wide (`display: none`) and superseded by the full-width Unigrid layout.
 - **Don't** use signature red for body copy or as a static, decorative divider in Light/Dark — it fails contrast at body size and dilutes its two-register meaning. (Neon's unrationed neon-pink signature is the documented exception.)
 - **Don't** treat JetBrains Mono as a general meta-text voice for new Light/Dark components; it's scoped to the mobile nav overlay and system-level toast/glitch UI only. It is not part of the Neon font set either — Neon's three faces are Rock Salt / Orbitron / Sixtyfour.
-- **Don't** add stock photography, illustration, or thumbnails in Light/Dark. The one confirmed photographic asset is Brandon's own portrait; Neon's one additional asset is the homepage hero video, which never loads outside Neon mode.
+- **Don't** add stock photography, illustration, or thumbnails to the core pages in Light/Dark (Home, Work, About, Contact, Colophon). Essay bodies are the documented exception: they carry editorial illustration — generated art, a handful of Unsplash photographs, stills and diagrams — which is decoration for reading, not evidence. On the core pages the only photographic assets are Brandon's own portraits; Neon's one additional asset is the homepage hero video, which never loads outside Neon mode.
 
 ---
 

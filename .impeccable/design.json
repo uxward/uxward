@@ -380,7 +380,7 @@
       "Numbered, bordered sections read as a specification sheet, not a magazine layout.",
       "Flat throughout \u2014 no shadows, no rounded corners, anywhere in the primary system.",
       "Signature red is either an interaction color (link/nav hover) or a full-bleed color field \u2014 never a button, divider, or body-text color.",
-      "No stock imagery. Photography is limited to Brandon's own portraits and real artifacts from the case studies, both framed as hairline plates with specimen captions."
+      "No stock imagery on the core pages. Photography there is Brandon's own portraits and real artifacts from the case studies, framed as hairline plates. Essay bodies carry editorial illustration and are the documented exception."
     ],
     "rules": [
       {
@@ -440,7 +440,7 @@
       "Don't reintroduce the retired left-gutter \u00a7-marker rail.",
       "Don't use signature red for body copy or as a static, decorative divider in Light/Dark (Neon's unrationed neon-pink signature is the documented exception).",
       "Don't treat JetBrains Mono as a general meta-text voice for new Light/Dark components, and don't assume it's part of the Neon font set either \u2014 Neon's three faces are Rock Salt / Orbitron / Sixtyfour.",
-      "Don't add stock photography, illustration, or thumbnails in Light/Dark."
+      "Don't add stock photography, illustration, or thumbnails to the core pages in Light/Dark. Essay bodies are the documented exception: they carry editorial illustration, which is decoration for reading, not evidence."
     ]
   }
 }

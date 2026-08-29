@@ -14,6 +14,22 @@ WDS strategic process log. Most recent at top.
 
 ## Current
 
+**Precocity promoted to hero of the slate; a false claim removed (2026-08-29, sixth pass).**
+
+*The colophon overclaimed.* The decision-log row "Chose not to — Fabricate a single image. Every screenshot here is real work" was **not true**, and the owner caught it. The 87 files in `public/images/writing/` are editorial illustration: generated art, six Unsplash photographs, pop-culture stills, diagrams. Replaced with a row that is true and checkable — *"Leave out the parts that went wrong"* — since four of five case studies carry an explicit "What I'd reverse" and the fifth (Precocity) names the lesson it learned the expensive way.
+
+The same overclaim sat one layer down: `PRODUCT.md` and `DESIGN.md` both stated "no stock photography, illustration, or thumbnails" as a site-wide rule. It is true of the core pages and false of the essays. Both corrected to scope the rule to Home / Work / About / Contact / Colophon and to name the essay exception explicitly. **Lesson: an absolute claim in a design system is a liability unless someone has actually counted.**
+
+*Precocity is now slate[0].* Owner's call. `eyebrow` and `pullout` are hero-only fields and lived on Speakeazy; Precocity's were sourced from its own case page (meta strip and §02 pullquote), not invented. Case numbering, prev/next wiring, "See all N", and the work-index hero all derive from slate order and updated themselves — verified 01 Precocity → 05 insurco.
+
+Two things did **not** derive and needed hand-fixing:
+1. **The masthead's LAST SHIP cell read `slate[0].shipped`.** The new hero is a ten-year engagement with no ship date, so the cell would have gone blank. It now finds the entry that actually has a `shipped` field, which is the honest reading anyway — "last ship" is a fact about shipping, not about slate position.
+2. **"The load-bearing one"** appeared on the work-index lede naming Speakeazy, and in the home §01 deck. Both moved to Precocity. Worth noting the swap *resolved an existing contradiction*: About had already said Precocity's case study "is the load-bearing piece on this site" while the Work index said Speakeazy. The site had been arguing with itself.
+
+*Also:* the hero title broke across its hyphen at display size ("ten-" / "year build"). U+2011 non-breaking hyphen in `slate.js`.
+
+*Verified:* 24 page/width/theme combinations, zero overflow, zero horizontal scroll. Build clean, doctor clean.
+
 **Colophon decision log (2026-08-29, fifth pass).** The open half of the owner's "decision logs where they matter" question. Case studies already had theirs; the site did not.
 
 Six rows added to the Colophon, between Build and the acknowledgements: no availability language, the masthead wired to the repository, twenty-nine shown of more than a hundred, no client logos, no fabricated imagery, two reds in dark mode. Three "chose to" and three "chose not to", matching the balance the case studies use. Every row states a decision actually made in this work — nothing invented to fill the pattern.
