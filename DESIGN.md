@@ -219,6 +219,10 @@ In its place, the Swiss system composes from:
 - **Numbered catalog sections**: each major section opens with a large red numeral + caps title (`.sec-head` / `.cs-eyebrow`), then a full-width `border-top` hairline divider above it — dividers run edge-to-edge at the section level, not indented to the content column.
 - **Catalog list rows** (`.cat .item`, work-index `.case`, archive `.arch-card`): flat rows separated by 1px hairlines, no card chrome, hover flips the title to signature red.
 
+**Two breakpoints, and only two.** `720px` is the mobile switch (header collapses to the full-screen overlay, multi-column grids go single) and `900px` is the tablet switch (three-column grids go to two, wide rows stack). Nothing else. The site previously carried five — 600, 640, 720, 880, 900 — where 600 and 640 were one-file inventions and 880 sat 20px off the real tablet switch for no reason.
+
+**Media queries go last in every file.** A base rule declared after a media block overrides it on source order at equal specificity, which is silent and easy to miss. `.arch-grid` had been declared after the 900px block, so the work archive stayed at three columns from 721px down instead of collapsing to two — for as long as the rule had existed.
+
 Vertical rhythm runs on the `--space-1` … `--space-11` scale (4px–128px); major section padding sits at `--space-9`/`--space-10`/`--space-11` (64/96/128px). Responsive breakpoints: multi-column grids collapse at 900px, and the header/nav switches to a full-screen mobile overlay at 720px.
 
 ## Elevation & Depth

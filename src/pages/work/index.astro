@@ -90,8 +90,8 @@ const clientCount = new Set(archive.map(a => a.client)).size;
     a.hero .hero-meta .stamps { font-weight: 600; font-size: var(--fs-11); letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); }
     a.hero .hero-meta .stamps span + span::before { content: " · "; color: var(--rule-faint); padding: 0 8px; }
     a.hero .hero-meta .open { font-weight: 700; font-size: var(--fs-14); color: var(--ink); text-decoration: none; }
-    @media (hover: hover) { a.hero:hover h2.hero-title { color: var(--signature); } }
-    @media (hover: hover) { a.hero:hover .open { color: var(--signature); } }
+    
+    
 
     a.case { display: block; text-decoration: none; color: inherit; padding: var(--space-8) 0; border-bottom: 1px solid var(--rule-faint); transition: opacity var(--t-fast) ease; }
     a.case .row { display: grid; grid-template-columns: 140px 200px 1fr 200px; gap: var(--space-7); align-items: start; }
@@ -110,9 +110,9 @@ const clientCount = new Set(archive.map(a => a.client)).size;
     a.hero .hero-shot img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border: 1px solid var(--rule-faint); }
     a.case .shot { margin: 0; padding-top: 6px; }
     a.case .shot img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border: 1px solid var(--rule-faint); }
-    @media (hover: hover) { a.case:hover h3.case-title { color: var(--signature); } }
-    @media (hover: hover) { a.case:hover .num { color: var(--signature); } }
-    @media (hover: hover) { a.case:hover .open { color: var(--signature); } }
+    
+    
+    
 
     .pivot { padding: var(--space-10) 0 var(--space-9); border-top: 1px solid var(--rule-faint); }
     .pivot-eyebrow { font-weight: 700; font-size: var(--fs-13); letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); margin-bottom: var(--space-7); }
@@ -122,25 +122,11 @@ const clientCount = new Set(archive.map(a => a.client)).size;
     .pivot-card .label { font-weight: 800; font-size: var(--fs-30); line-height: 1.1; letter-spacing: -0.025em; color: var(--ink); }
     .pivot-card .label em { font-style: normal; }
     .pivot-card .why { font-weight: 400; font-size: var(--fs-16); line-height: 1.5; color: var(--body); margin: var(--space-4) 0 0; max-width: 460px; }
-    @media (hover: hover) { .pivot-card:hover .label { color: var(--signature); } }
+    
 
-    @media (max-width: 900px) {
-      a.case .row { grid-template-columns: 80px 160px 1fr; }
-      a.case .meta { text-align: left; padding-top: var(--space-5); grid-column: 1 / -1; }
-      a.hero .hero-head { grid-template-columns: 1fr; }
-      a.hero .hero-meta { grid-template-columns: 1fr; }
-      a.hero .hero-meta .stamps span { display: block; }
-      a.hero .hero-meta .stamps span + span::before { display: none; }
-      .pivot-grid { grid-template-columns: 1fr; }
-      .arch-grid { grid-template-columns: 1fr 1fr; }
-    }
+    
 
-    @media (max-width: 720px) {
-      a.case .row { grid-template-columns: 72px 1fr; }
-      a.case .shot { grid-column: 1 / -1; grid-row: 2; max-width: 320px; }
-      a.case .body { grid-column: 1 / -1; grid-row: 3; }
-      a.case .meta { grid-row: 4; }
-    }
+    
 
     /* The wider archive */
     .archive { padding: var(--space-10) 0; border-top: 1px solid var(--rule-faint); }
@@ -171,27 +157,17 @@ const clientCount = new Set(archive.map(a => a.client)).size;
     .reg-row .reg-what em { font-style: normal; }
     .reg-row .reg-out { font-size: var(--fs-16); line-height: 1.5; color: var(--tertiary); margin: 0; }
     .reg-row .reg-link { justify-self: end; font-weight: 700; font-size: var(--fs-11); letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 2px; white-space: nowrap; }
-    @media (hover: hover) { .reg-row .reg-link:hover { color: var(--signature); } }
+    
 
-    @media (max-width: 900px) {
-      .arch-spec { grid-template-columns: 1fr 1fr; }
-      .arch-spec .cell:nth-child(3) { border-left: 0; }
-      .arch-spec .cell:nth-child(3), .arch-spec .cell:nth-child(4) { border-top: 1px solid var(--rule-faint); }
-      .reg-row { grid-template-columns: minmax(0, 1fr) 4.5rem; }
-      .reg-row .reg-out { grid-column: 1 / -1; }
-    }
-    @media (max-width: 600px) {
-      .reg-row { grid-template-columns: minmax(0, 1fr); }
-      .reg-row .reg-link { justify-self: start; }
-      .reg-row .reg-link.is-none { display: none; }
-    }
+    
+    
     .arch-card { border-top: 1px solid var(--rule-faint); padding-top: var(--space-5); }
     .arch-card .tag { font-weight: 700; font-size: var(--fs-11); letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); margin-bottom: var(--space-4); }
     .arch-card .arch-title { font-weight: 700; font-size: var(--fs-20); line-height: 1.2; letter-spacing: -0.015em; color: var(--ink); margin: 0; }
     .arch-card .arch-title em { font-style: normal; font-weight: 400; color: var(--body); }
     .arch-card .arch-out { font-weight: 400; font-size: var(--fs-16); line-height: 1.5; color: var(--body); margin: var(--space-4) 0 0; }
     .arch-card .arch-link { display: inline-flex; align-items: center; gap: 2px; margin-top: var(--space-4); font-weight: 700; font-size: var(--fs-11); letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
-    @media (hover: hover) { .arch-card .arch-link:hover { text-decoration: underline; } }
+    
     .arch-link .chevron-ico { display: inline-block; flex: none; }
     .arch-link:hover .chevron-ico { animation: chevron-slide 0.8s ease-in-out; }
     @keyframes chevron-slide {
@@ -199,7 +175,62 @@ const clientCount = new Set(archive.map(a => a.client)).size;
       50%  { transform: translateX(6px); }
       100% { transform: translateX(0); }
     }
-    @media (max-width: 600px) {
+
+    /* ── Responsive ────────────────────────────────────────────
+       All media queries live at the end so a base rule declared
+       later in the file can never override them on source order.
+       That is exactly what had been happening: .arch-grid was
+       declared after the 900px block, so the archive stayed at
+       three columns from 721px down instead of collapsing to two. */
+@media (hover: hover) { a.hero:hover h2.hero-title { color: var(--signature); } }
+
+@media (hover: hover) { a.hero:hover .open { color: var(--signature); } }
+
+@media (hover: hover) { a.case:hover h3.case-title { color: var(--signature); } }
+
+@media (hover: hover) { a.case:hover .num { color: var(--signature); } }
+
+@media (hover: hover) { a.case:hover .open { color: var(--signature); } }
+
+@media (hover: hover) { .pivot-card:hover .label { color: var(--signature); } }
+
+@media (max-width: 900px) {
+      a.case .row { grid-template-columns: 80px 160px 1fr; }
+      a.case .meta { text-align: left; padding-top: var(--space-5); grid-column: 1 / -1; }
+      a.hero .hero-head { grid-template-columns: 1fr; }
+      a.hero .hero-meta { grid-template-columns: 1fr; }
+      a.hero .hero-meta .stamps span { display: block; }
+      a.hero .hero-meta .stamps span + span::before { display: none; }
+      .pivot-grid { grid-template-columns: 1fr; }
+      .arch-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+@media (max-width: 720px) {
+      a.case .row { grid-template-columns: 72px 1fr; }
+      a.case .shot { grid-column: 1 / -1; grid-row: 2; max-width: 320px; }
+      a.case .body { grid-column: 1 / -1; grid-row: 3; }
+      a.case .meta { grid-row: 4; }
+    }
+
+@media (hover: hover) { .reg-row .reg-link:hover { color: var(--signature); } }
+
+@media (max-width: 900px) {
+      .arch-spec { grid-template-columns: 1fr 1fr; }
+      .arch-spec .cell:nth-child(3) { border-left: 0; }
+      .arch-spec .cell:nth-child(3), .arch-spec .cell:nth-child(4) { border-top: 1px solid var(--rule-faint); }
+      .reg-row { grid-template-columns: minmax(0, 1fr) 4.5rem; }
+      .reg-row .reg-out { grid-column: 1 / -1; }
+    }
+
+@media (max-width: 720px) {
+      .reg-row { grid-template-columns: minmax(0, 1fr); }
+      .reg-row .reg-link { justify-self: start; }
+      .reg-row .reg-link.is-none { display: none; }
+    }
+
+@media (hover: hover) { .arch-card .arch-link:hover { text-decoration: underline; } }
+
+@media (max-width: 720px) {
       .arch-grid { grid-template-columns: 1fr; }
     }
   </style>

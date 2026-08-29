@@ -14,6 +14,18 @@ WDS strategic process log. Most recent at top.
 
 ## Current
 
+**Breakpoints consolidated; a silent responsive bug found (2026-08-29, seventh pass).** The last item on the list.
+
+Five breakpoints down to two. 600 and 640 were single-file inventions (the work archive and the drawing toy); 880 sat 20px off the real tablet switch on the writing index for no reason. All folded into **720** (mobile: header overlay, multi-column to single) and **900** (tablet: three columns to two). Nineteen media queries, two breakpoints.
+
+Note for anyone expecting tokens: **breakpoints cannot be tokenised in plain CSS** — custom properties are not valid inside a media query's condition. The fix is consolidation plus documentation, not `var()`.
+
+*The bug the verification found.* Sweeping widths across the boundary showed the work archive rendering **three columns from 721px down** instead of collapsing to two. Cause: `.arch-grid` is declared *after* the `max-width: 900px` block, so at equal specificity the base rule wins on source order and the media rule never applied. Pre-existing — as old as the rule itself — and invisible without measuring at a boundary width, because the layout still *looked* plausible.
+
+Checked whether it was systemic with a script that finds any selector declared inside a media block and redeclared after it: exactly one collision site-wide. Fixed structurally rather than locally — all thirteen media blocks in `work/index.astro` (including the `@media (hover: hover)` wrappers) moved to the end of the style, relative order preserved. DESIGN.md now carries the rule: **media queries go last in every file.**
+
+*Verified:* the 1 → 2 → 3 column progression lands exactly on 720 and 900; 35 page/width combinations across the boundary widths (599 / 640 / 719 / 721 / 880 / 899 / 901) with zero overflow and zero horizontal scroll.
+
 **Precocity promoted to hero of the slate; a false claim removed (2026-08-29, sixth pass).**
 
 *The colophon overclaimed.* The decision-log row "Chose not to — Fabricate a single image. Every screenshot here is real work" was **not true**, and the owner caught it. The 87 files in `public/images/writing/` are editorial illustration: generated art, six Unsplash photographs, pop-culture stills, diagrams. Replaced with a row that is true and checkable — *"Leave out the parts that went wrong"* — since four of five case studies carry an explicit "What I'd reverse" and the fifth (Precocity) names the lesson it learned the expensive way.
