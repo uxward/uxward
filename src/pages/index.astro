@@ -93,20 +93,20 @@ const building = [
     .sys .spec-bar .cell:first-child { border-left: 0; }
     .sys .spec-bar .k {
       display: block;
-      font-size: 11px;
+      font-size: var(--fs-11);
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.09em;
       color: var(--tertiary);
       margin-bottom: 7px;
     }
-    .sys .spec-bar .v { font-size: 16px; font-weight: 700; color: var(--ink); line-height: 1.2; }
+    .sys .spec-bar .v { font-size: var(--fs-16); font-weight: 700; color: var(--ink); line-height: 1.2; }
     .sys .spec-bar a.v { text-decoration: none; }
     /* Datelines sit on a shared bottom edge across all four cells. */
     .sys .spec-bar .d {
       margin-top: auto;
       padding-top: var(--space-4);
-      font-size: 11px;
+      font-size: var(--fs-11);
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.08em;
@@ -124,7 +124,7 @@ const building = [
       grid-column: 1 / -1;
       grid-row: 1;
       font-weight: 900;
-      font-size: clamp(46px, 7.6vw, 120px);
+      font-size: var(--fs-d8);
       line-height: 0.94;
       letter-spacing: -0.045em;
       /* Negative tracking closes word spaces as well as letter spaces; put the
@@ -138,7 +138,7 @@ const building = [
       grid-column: 1;
       grid-row: 2;
       margin-top: var(--space-8);
-      font-size: clamp(18px, 2vw, 23px);
+      font-size: var(--fs-lede);
       font-weight: 400;
       line-height: 1.45;
       text-wrap: pretty;
@@ -161,7 +161,7 @@ const building = [
     }
     .sys .plate figcaption {
       margin-top: var(--space-3);
-      font-size: 11px;
+      font-size: var(--fs-11);
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.09em;
@@ -180,14 +180,15 @@ const building = [
     }
     .sys .sec-head .no {
       font-weight: 900;
-      font-size: clamp(40px, 6vw, 82px);
+      font-size: var(--fs-d6);
       line-height: 0.78;
       letter-spacing: -0.045em;
       color: var(--signature);
     }
     .sys .sec-head .ttl {
+      margin: 0;
       font-weight: 700;
-      font-size: 14px;
+      font-size: var(--fs-14);
       text-transform: uppercase;
       letter-spacing: 0.05em;
       color: var(--ink);
@@ -208,7 +209,7 @@ const building = [
     .sys .cat a { color: inherit; text-decoration: none; }
     .sys .cat .c-title {
       font-weight: 800;
-      font-size: clamp(23px, 2.9vw, 34px);
+      font-size: var(--fs-d1);
       line-height: 1.02;
       letter-spacing: -0.022em;
       word-spacing: 0.04em;
@@ -220,7 +221,7 @@ const building = [
     .sys .cat .c-title .t { font-weight: 500; color: var(--body); }
     .sys .cat .c-when {
       font-weight: 600;
-      font-size: 12px;
+      font-size: var(--fs-12);
       text-transform: uppercase;
       letter-spacing: 0.05em;
       color: var(--tertiary);
@@ -229,7 +230,7 @@ const building = [
     }
     .sys .cat .c-desc {
       grid-column: 1 / -1;
-      font-size: 17px;
+      font-size: var(--fs-16);
       line-height: 1.5;
       text-wrap: pretty;
       color: var(--body);
@@ -257,7 +258,7 @@ const building = [
       display: inline-block;
       margin-top: var(--space-7);
       font-weight: 700;
-      font-size: 13px;
+      font-size: var(--fs-13);
       text-transform: uppercase;
       letter-spacing: 0.05em;
       color: var(--ink);
@@ -268,12 +269,12 @@ const building = [
     /* Building variant: name / desc / status. Two of these ship; four don't,
        and the difference has to be legible before the cursor arrives. */
     .sys .cat.build .item { grid-template-columns: 250px minmax(0, 1fr) auto; }
-    .sys .cat.build .b-name { font-weight: 700; font-size: 19px; letter-spacing: -0.01em; color: var(--ink); }
+    .sys .cat.build .b-name { font-weight: 700; font-size: var(--fs-18); letter-spacing: -0.01em; color: var(--ink); }
     .sys .cat.build .b-ext { font-weight: 400; }
-    .sys .cat.build .b-desc { font-size: 16px; line-height: 1.45; color: var(--body); }
+    .sys .cat.build .b-desc { font-size: var(--fs-16); line-height: 1.45; color: var(--body); }
     .sys .cat.build .b-desc a { color: var(--ink); }
     .sys .cat.build .b-status {
-      font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em;
+      font-weight: 700; font-size: var(--fs-12); text-transform: uppercase; letter-spacing: 0.06em;
       color: var(--tertiary); text-align: right; white-space: nowrap;
     }
     .sys .cat.build .is-live .b-status { color: var(--signature); }
@@ -281,19 +282,21 @@ const building = [
     .sys .cat.build .is-private .b-name { font-weight: 600; color: var(--body); }
 
     /* ---------- About ---------- */
-    .sys .about p { font-size: 19px; line-height: 1.6; text-wrap: pretty; color: var(--body); max-width: 60ch; }
+    .sys .about p { font-size: var(--fs-18); line-height: 1.6; text-wrap: pretty; color: var(--body); max-width: 60ch; }
     .sys .about .more { margin-top: var(--space-6); }
 
     /* ---------- CTA: the bold color field (used, not rationed) ----------
        Everything on the red field runs at full offwhite: #E7E7E7 on #CC0006 is
        4.76:1, so there is no contrast headroom left to spend on opacity. */
-    .sys .cta { background: var(--signature); padding: var(--space-11) 0; }
+    .sys .cta { background: var(--signature-field); padding: var(--space-11) 0; }
     .sys .cta .sec-head { border-top-color: #e7e7e7; }
     .sys .cta .sec-head .no { color: #e7e7e7; }
     .sys .cta .sec-head .ttl { color: #e7e7e7; }
-    .sys .cta h2 {
+    /* :not(.ttl) — the section label is an h2 too, and must not inherit
+       the headline's measure, tracking, or balancing. */
+    .sys .cta h2:not(.ttl) {
       font-weight: 900;
-      font-size: clamp(38px, 5.4vw, 80px);
+      font-size: var(--fs-d6);
       line-height: 0.96;
       letter-spacing: -0.035em;
       word-spacing: 0.06em;
@@ -307,7 +310,7 @@ const building = [
       gap: 0.45em;
       margin-top: var(--space-8);
       font-weight: 800;
-      font-size: clamp(22px, 3vw, 36px);
+      font-size: var(--fs-d2);
       color: #e7e7e7;
     }
     .sys .cta .email .email-text {
@@ -317,7 +320,7 @@ const building = [
     }
     .sys .cta .email .send-ico { width: 0.82em; height: 0.82em; }
     .sys .cta .note {
-      font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em;
+      font-weight: 600; font-size: var(--fs-13); text-transform: uppercase; letter-spacing: 0.05em;
       color: #e7e7e7; margin-top: var(--space-6);
     }
 
@@ -422,7 +425,7 @@ const building = [
     <!-- 01 Work -->
     <section>
       <div class="container">
-        <div class="sec-head"><span class="no">01</span><span class="ttl">Selected work</span></div>
+        <div class="sec-head"><span class="no">01</span><h2 class="ttl">Selected work</h2></div>
         <div class="cat slate">
           {featured.map((f) => (
             <a class="item" href={`/work/${f.slug}`}>
@@ -443,7 +446,7 @@ const building = [
     <!-- 02 Building -->
     <section>
       <div class="container">
-        <div class="sec-head"><span class="no">02</span><span class="ttl">Building now</span></div>
+        <div class="sec-head"><span class="no">02</span><h2 class="ttl">Building now</h2></div>
         <div class="cat build">
           {building.map((b) => (
             b.href
@@ -470,7 +473,7 @@ const building = [
     <!-- 03 Writing -->
     <section>
       <div class="container">
-        <div class="sec-head"><span class="no">03</span><span class="ttl">Writing</span></div>
+        <div class="sec-head"><span class="no">03</span><h2 class="ttl">Writing</h2></div>
         <div class="cat">
           {essaysNewestFirst.slice(0, 3).map((e) => (
             <a class="item" href={`/writing/${e.slug}`}>
@@ -487,7 +490,7 @@ const building = [
     <!-- 04 About -->
     <section class="about-sec">
       <div class="container">
-        <div class="sec-head"><span class="no">04</span><span class="ttl">About</span></div>
+        <div class="sec-head"><span class="no">04</span><h2 class="ttl">About</h2></div>
         <div class="about">
           <p>
             I'm Brandon. I've spent years building and running design practices: at four startups,
@@ -503,7 +506,7 @@ const building = [
     <!-- 05 CTA — the color field -->
     <section class="cta">
       <div class="container">
-        <div class="sec-head"><span class="no">05</span><span class="ttl">Contact</span></div>
+        <div class="sec-head"><span class="no">05</span><h2 class="ttl">Contact</h2></div>
         <h2>Everything above is the argument. This is the address.</h2>
         <a class="email" href="mailto:brandon@uxward.com">
           <svg class="send-ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g class="send-icon"><path d="M10 14l11 -11" /><path d="M21 3l-6.5 18a.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a.55 .55 0 0 1 0 -1l18 -6.5" /></g></svg>

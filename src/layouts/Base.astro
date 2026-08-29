@@ -204,6 +204,62 @@ const siteSchema = JSON.stringify({
         });
       });
 
+      /* ── Code hint ─────────────────────────────────────────────
+         Hold the theme toggle for 5s (hover or keyboard focus) and the
+         codes leak, flickering, in Night City's own palette. Never while
+         cyber is already on. Decorative: aria-hidden, and the modes are
+         documented on the colophon, so nothing is gated behind a hover. */
+      (function () {
+        var toggle = document.getElementById('theme-toggle');
+        var host = toggle && toggle.parentElement;
+        if (!toggle || !host) return;
+
+        // Name the mode, not the keystrokes: the two famous ones are a
+        // knowledge check, the three word-codes give themselves away.
+        var CODE_LABELS = [
+          'GOD MODE',
+          'KONAMI CODE',
+          'CHONK',
+          'BRAWNDO',
+          'WHOAH'
+        ];
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+        var timer = null, cycle = null, el = null, i = 0;
+
+        function paint() {
+          el.textContent = reduce.matches
+            ? CODE_LABELS.join('  ·  ')
+            : CODE_LABELS[i % CODE_LABELS.length];
+        }
+
+        function show() {
+          if (el || root.classList.contains('cyber')) return;
+          el = document.createElement('div');
+          el.className = 'code-hint';
+          el.setAttribute('aria-hidden', 'true');
+          i = 0; paint();
+          host.appendChild(el);
+          if (!reduce.matches) {
+            cycle = setInterval(function () { i++; paint(); }, 1100);
+          }
+        }
+
+        function hide() {
+          clearTimeout(timer); timer = null;
+          clearInterval(cycle); cycle = null;
+          if (el) { el.remove(); el = null; }
+        }
+
+        function arm() { if (!timer && !el) timer = setTimeout(show, 5000); }
+
+        toggle.addEventListener('mouseenter', arm);
+        toggle.addEventListener('focus', arm);
+        toggle.addEventListener('mouseleave', hide);
+        toggle.addEventListener('blur', hide);
+        toggle.addEventListener('click', hide);
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') hide(); });
+      })();
+
       var menuToggle = document.getElementById('menu-toggle');
       var menuClose = document.getElementById('menu-close');
       var overlay = document.getElementById('nav-overlay');

@@ -5,28 +5,33 @@ import { essays } from '../data/essays.js';
 ---
 <Base title="Not found · uxward">
   <style>
+    /* A redacted code in the stamp: blacked out at rest, legible when you
+       select the line — the kind of thing only someone poking around finds. */
+    .stamp .redacted { background: var(--ink); color: var(--ink); border-radius: 0; padding: 0 3px; transition: color var(--t-fast) ease; }
+    .stamp .redacted::selection { background: var(--signature); color: var(--offwhite); }
+    @media (hover: hover) { .stamp .redacted:hover { color: var(--canvas); } }
     .middle { display: flex; align-items: center; padding: var(--space-10) 0; min-height: calc(100vh - 300px); }
     .stage { width: 100%; padding: var(--space-10) 0; }
-    .eyebrow { font-weight: 700; font-size: 13px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); margin-bottom: var(--space-8); }
-    h1.title { word-spacing: 0.06em; text-wrap: balance; font-weight: 900; font-size: clamp(56px, 8.4vw, 124px); line-height: 0.94; letter-spacing: -0.045em; color: var(--ink); margin: 0; max-width: 14ch; }
-    .subhead { font-weight: 800; font-size: clamp(28px, 3.4vw, 44px); line-height: 1.1; letter-spacing: -0.025em; color: var(--body); margin: var(--space-7) 0 0; }
+    .eyebrow { font-weight: 700; font-size: var(--fs-13); letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); margin-bottom: var(--space-8); }
+    h1.title { word-spacing: 0.06em; text-wrap: balance; font-weight: 900; font-size: var(--fs-d8); line-height: 0.94; letter-spacing: -0.045em; color: var(--ink); margin: 0; max-width: 14ch; }
+    .subhead { font-weight: 800; font-size: var(--fs-d2); line-height: 1.1; letter-spacing: -0.025em; color: var(--body); margin: var(--space-7) 0 0; }
     .subhead .red { color: var(--signature); }
 
     .meant { margin-top: var(--space-10); padding-top: var(--space-8); border-top: 1px solid var(--rule-faint); max-width: 720px; }
-    .meant-eyebrow { font-weight: 700; font-size: 13px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); margin-bottom: var(--space-7); }
+    .meant-eyebrow { font-weight: 700; font-size: var(--fs-13); letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); margin-bottom: var(--space-7); }
     .meant-list { border-top: 1px solid var(--rule-faint); }
     .meant-row { display: grid; grid-template-columns: 80px 1fr auto; column-gap: var(--space-7); align-items: baseline; padding: var(--space-5) 0; border-bottom: 1px solid var(--rule-faint); }
-    .meant-row .num { font-weight: 700; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--signature); }
-    .meant-row .where { font-weight: 700; font-size: 22px; line-height: 1.35; color: var(--ink); text-decoration: none; }
+    .meant-row .num { font-weight: 700; font-size: var(--fs-12); letter-spacing: 0.05em; text-transform: uppercase; color: var(--signature); }
+    .meant-row .where { font-weight: 700; font-size: var(--fs-22); line-height: 1.35; color: var(--ink); text-decoration: none; }
     .meant-row .where em { font-style: italic; font-weight: 400; color: var(--body); }
-    .meant-row a.go { font-weight: 700; font-size: 16px; color: var(--ink); text-decoration: none; text-align: right; }
+    .meant-row a.go { font-weight: 700; font-size: var(--fs-16); color: var(--ink); text-decoration: none; text-align: right; }
     .meant-row a.go:hover { color: var(--signature); }
     .meant-row:hover .where { color: var(--signature); }
 
     .footnote { padding: var(--space-9) 0 var(--space-8); border-top: 1px solid var(--rule-faint); }
     .footnote .row { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-7); flex-wrap: wrap; }
-    .footnote .apology, .footnote .stamp { font-weight: 600; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); }
-    .footnote .fleuron { font-size: 18px; color: var(--tertiary); }
+    .footnote .apology, .footnote .stamp { font-weight: 600; font-size: var(--fs-11); letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); }
+    .footnote .fleuron { font-size: var(--fs-18); color: var(--tertiary); }
   </style>
 
   <div class="middle">
@@ -75,7 +80,7 @@ import { essays } from '../data/essays.js';
       <div class="row">
         <span class="apology">If you typed the URL by hand, my apologies for the labyrinth</span>
         <span class="fleuron" aria-hidden="true">❦</span>
-        <span class="stamp">404 · uxward.com</span>
+        <span class="stamp">404 · uxward.com · <span class="redacted" title="">iddqd</span></span>
       </div>
     </div>
   </div>

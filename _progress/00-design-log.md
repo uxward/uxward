@@ -14,6 +14,56 @@ WDS strategic process log. Most recent at top.
 
 ## Current
 
+**The shared type scale (2026-08-29, fourth pass).** The item logged three times and deferred twice.
+
+*The audit.* 47 distinct font-size values across 180 fixed declarations, plus **35 distinct `clamp()` declarations** for roughly eight conceptual roles. The clamps were the real sprawl: eight different page-H1 sizes, three different deck sizes that were the same role, seven near-duplicate pull-quote/large-link sizes.
+
+*The ramp.* 19 fixed steps (`--fs-11` … `--fs-152`) for the label/body band; 10 fluid steps (`--fs-lede`, `--fs-d1` … `--fs-d8`, `--fs-num`) for display. The fluid maxima deliberately mirror the fixed ramp — 34 / 40 / 48 / 56 / 64 / 80 / 96 / 120 — so a display step and a fixed step never disagree about what the next size up is. Declared in `global.css` as tokens and in `DESIGN.md` as `typography.scale`, which is the key the detector actually reads.
+
+*Migration.* All 217 declarations moved to `var(--fs-*)`. Near-duplicates collapsed (10.5/11/11.5 → 11; 15.5/16/16.5 → 16; 17 → 16; 19 → 18; 21 → 20; 25 → 26; 32 → 30; 36 → 34). Individual size changes were held under ~12% and dry-run with a printed delta table before anything was written. Remaining literals: the essay drop-cap (`4.2em`, deliberately relative), two print-only `9pt` rules, and three Neon values — Neon is a separate art direction and forcing its headline onto the primary ramp would have cost 25% at mobile.
+
+*Two regressions caught in verification, both mine:*
+1. The outcomes-band stat figures wrapped at 80px in a one-third column. Fixed by inserting a 64px fluid step (`--fs-d5`) and renumbering upward — which is also what made the fluid maxima line up with the fixed ramp, so the fix improved the system rather than patching around it.
+2. **`.frame.carousel { overflow: visible }` — introduced in the earlier frame-unification pass and not caught then.** Its 3396px track spilled and gave every Speakeazy visit a horizontal scrollbar. Reverted to `hidden`. The frame unification had been verified on Precocity only; the one page with a carousel went unchecked.
+
+*Also caught:* turning the numbered-section labels into `<h2>` (heading-order pass) made `.sys .cta h2` match the eyebrow too, leaking the headline's `max-width`, `word-spacing` and `text-wrap` onto it. Scoped to `h2:not(.ttl)`.
+
+*A false alarm worth recording.* The Speakeazy carousel appeared blank in a screenshot taken immediately after scrolling; measuring the geometry showed it was correct and the images were simply still lazy-loading. **Measure before diagnosing** — the same lesson as the throttled iframe and the stale dev server earlier in this session.
+
+*Verification.* Detector font-size findings 38 → 0 across the whole project. 42 page/width/theme combinations (13 routes × 390/1440 × light/dark) checked programmatically for text overflow and horizontal document scroll: zero of each.
+
+**Archive rebuild, print fidelity, and Night City hints (2026-08-29, third pass).**
+
+*Archive — option C.* The data explained the problem: 29 entries carried 26 distinct category tags, so the eyebrows were captions, not a taxonomy, and nothing could group. Collapsed to five disciplines and split into 8 featured cards + a 21-row register, with a spec plate above stating `SHIPPED 100+ · SHOWN HERE 29 · CLIENTS 20 · SPAN 2000–2026`. Owner ruled out client logos; the automaker stays anonymised. The "100+" is the owner's own figure, rendered literally.
+
+*Decision logs — already done.* Item 3 turned out to need no work: all five case studies already carry a six-row `Chose to / Chose not to` log. The earlier critique described it as a distinctive Speakeazy format, which led to an assumption it was a one-off; a grep of all five files disproved it before any content was drafted. The open half of the owner's question — "perhaps some other places?" — is proposed as a Colophon decision log for the site itself, drafted but not shipped, because it is first-person claims about the owner's decisions.
+
+*Print.* `@media print` added to global.css: screen furniture hidden, the red fields inverted to ruled blocks rather than solid fills, `break-inside: avoid` on artifacts/plates/stats/choice-rows/register-rows, link destinations emitted after their text, `@page` margins.
+
+*Night City hints.* Theme toggle held 5s (hover or focus) opens a flickering tooltip in Night City's palette, `aria-hidden`, reduced-motion-aware, suppressed while cyber is already on. It cycles the five modes by **name** — GOD MODE / KONAMI CODE / CHONK / BRAWNDO / WHOAH — not by keystroke, and carries no "type this" instruction (owner's call, 2026-08-29). The two famous codes are left as a knowledge check; the three invented words are their own answer. Footer fleuron goes magenta on hover. The 404 stamp carries a redacted `iddqd`. The Colophon build spec gains a "Night City" row marked *undocumented*.
+
+*Process note — the dev server lies.* `.reg-lede` rendered unstyled in the browser while the production bundle contained the rule correctly; the dev server's CSS HMR had gone stale for that file and a cache-busted reload did not fix it. Confirmed by checking `dist/_astro/*.css` directly, then restarting dev. **When a style is verifiably in the build but not in the browser, restart the dev server before touching the code.** An earlier contrast audit in this session was similarly invalidated by a render-throttled iframe — live-DOM measurement in this setup needs a sanity check against a static source of truth before its results are trusted.
+
+**Owner triage of DESIGN-TODOs + implementation (2026-08-29, second pass).** Owner ruled on every open item. See `DESIGN-TODOs.md` for the decision record.
+
+*Corrected premise, not a deferral.* The top item — "get real imagery into Precocity and one other case" — was wrong. All imagery in all five case studies is real work; there are no placeholders anywhere. Confirmed in code: every `.frame` contains a real `<img>`, and the shared `.placeholder-label`/`.placeholder-detail` styling had no matching markup on any page. Those styles are now deleted.
+
+*Frames unified.* Five case studies were running three different treatments: Speakeazy bled its artifacts `calc(100% + 60px)` with `background:none; border:0`; precocity/autoco/insurco letterboxed real screenshots onto a 16:9 `--paper` field via `object-fit: contain`; porte had a third variant for its hero. All now use the one plate documented in DESIGN.md — hairline directly around the image, no fill, no aspect lock, no bleed. Checked every case image first: all landscape, 1.55–1.78, so natural height is safe. Speakeazy's carousel keeps its full-viewport bleed and drops the border, since boxing a full-bleed strip makes no sense.
+
+*Back links removed* from About, Contact, Colophon, Work index and Writing index, along with the emptied wrappers and their dead CSS. Those wrappers were carrying 72px of the 104px gap under the header, so each page's first block moved from `--space-7` to `--space-9` to keep the rhythm. Breadcrumbs kept only where a real parent exists: `Back to all work` on 5 cases, `Back to writing` on 23 essays. `ink.astro` keeps `Back to the colophon` — it is the only route to that page, so removing it would strand the visitor; flagged for the owner rather than decided silently.
+
+*Contrast, both themes — the substantive find.* A live per-node audit was attempted first and **abandoned**: the measuring iframe was render-throttled (rAF never fired), so `getComputedStyle` returned stale colours and the first run produced impossible results (light canvas with dark-mode ink). Redone as a deterministic token matrix instead. Ten failing pairs.
+
+**Dark mode provably cannot use a single red.** Red text on `#121212` needs luminance ≥ 0.2022; offwhite on a red field needs ≤ 0.1387. No value satisfies both. Light mode holds one red only because its canvas and its on-field text are both `#E7E7E7`, so both registers impose the same ceiling — `#CC0006` sits just under it at 0.1285. So `--signature` split into `--signature` (interaction) and `--signature-field` (event), which is the split DESIGN.md already described in prose. Dark: `#E5263A` → `#F03C4E` for text (4.17 → 4.87) and `#C4001C` for the field (3.64 → 5.05). Light unchanged at `#CC0006` for both. Also fixed four de-opacified foregrounds on the case outcomes band — the same defect fixed on Home and Contact in the first pass but missed here. Both themes now show zero failing pairs.
+
+**The dark palette was written twice** (attribute selector + `prefers-color-scheme`) and the media copy silently won on source order at equal specificity — it reverted the first signature fix, which is how the duplication was caught. Values now live once as `--dk-*`; each selector only remaps. This was flagged as harmless in the first pass and turned out not to be.
+
+*Heading order* audited across all 36 built pages. The homepage's five numbered sections had no heading at all (the label was a `<span>`, so the page ran h1 → h3 into the catalog rows) — now `h2`. Contact's section heads h3 → h2. Four cases used `h4` for artifact captions where Speakeazy uses `h3`. `MoreArticles` had no heading, so essays with no body h2 jumped h1 → h3 — its eyebrow is now an `h2`, which fixes every essay at once. `who-are-you` had a decorative "?" marked up as a second `<h1>`, now an `aria-hidden` paragraph. All 36 clean. The colophon still reports two `h1`s to a naive scan; they are the light and cyber title variants and the inactive one is `display:none`, so assistive tech ignores it — not a defect.
+
+*Declined by owner, closed:* curating the Writing index; the em-dash pass on essays; line-length/leading; client-anonymisation consistency.
+
+*Open, awaiting owner input:* Work-archive curation (wants design options; note the archive holds 29, not the "100+" the framing implies) and the one-memorable-moment question (owner's read: Floating Ink is unrelated to the work and not original; suggested hinting at Night City elsewhere on the site).
+
 **Impeccable — polish pass: posture, the fold, and the craft floor (2026-08-29).** Triggered by three peer reviews (`~/Desktop/portfolio review notes.txt`, Charlie Pratt / Charlie Trotter / Justin Williams), which converged on two things the owner had already suspected.
 
 *Posture — the ask is gone.* The site declared availability in four places (masthead `Status: Open to the right conversation`, the Home §04 closing clause, the Home §05 CTA headline, and Contact's `OPEN TO / The right senior design leadership role`), plus a hiring FAQ and "recruiter-deep" as a link descriptor in three places. Owner's call: **remove the ask entirely.** The Contact FAQ survives, re-framed from interest to terms ("What tier do you work at?", "What makes a company worth the conversation?"); the take-home answer is kept verbatim because it was already the right register. The About page's `Currently → Considering` row is gone and the bio's recruiter framing with it. Contact's red field moved from opening the page to closing it, so the page reads notes-first and ends on the address. Home §05 is now *"Everything above is the argument. This is the address."*

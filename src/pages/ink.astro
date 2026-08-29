@@ -6,7 +6,7 @@ import Base from '../layouts/Base.astro';
     .ink-top { padding-top: var(--space-8); padding-bottom: 0; }
     .ink-top a.back {
       font-weight: 600;
-      font-size: 12px;
+      font-size: var(--fs-12);
       letter-spacing: 0.05em;
       text-transform: uppercase;
       color: var(--tertiary);
@@ -40,7 +40,7 @@ import Base from '../layouts/Base.astro';
     }
     .ink-caption .eyebrow {
       font-weight: 700;
-      font-size: 12px;
+      font-size: var(--fs-12);
       letter-spacing: 0.05em;
       text-transform: uppercase;
       color: var(--tertiary);
@@ -48,7 +48,7 @@ import Base from '../layouts/Base.astro';
     }
     .ink-caption h1 {
       font-weight: 900;
-      font-size: clamp(40px, 6vw, 84px);
+      font-size: var(--fs-d6);
       line-height: 0.96;
       letter-spacing: -0.04em;
       color: #040404;
@@ -56,7 +56,7 @@ import Base from '../layouts/Base.astro';
     }
     .ink-caption h1 em { font-style: normal; }
     .ink-caption p {
-      font-size: 18px;
+      font-size: var(--fs-18);
       line-height: 1.5;
       color: #282828;
       margin: var(--space-5) 0 0;
@@ -76,7 +76,7 @@ import Base from '../layouts/Base.astro';
       padding: 0;
       cursor: pointer;
       font-weight: 600;
-      font-size: 12px;
+      font-size: var(--fs-12);
       letter-spacing: 0.05em;
       text-transform: uppercase;
       color: var(--tertiary);
@@ -109,7 +109,7 @@ import Base from '../layouts/Base.astro';
       padding: 10vw;
       font-family: var(--font-sans);
       font-style: italic;
-      font-size: 20px;
+      font-size: var(--fs-20);
       color: #56544c;
       text-align: center;
     }
@@ -119,7 +119,7 @@ import Base from '../layouts/Base.astro';
     .ink-credit { padding-bottom: var(--space-10); }
     .ink-credit p {
       font-family: var(--font-sans);
-      font-size: 16px;
+      font-size: var(--fs-16);
       line-height: 1.6;
       color: var(--tertiary);
       max-width: 640px;

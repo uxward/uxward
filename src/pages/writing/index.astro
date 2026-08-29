@@ -6,22 +6,19 @@ const tagLabel = Object.fromEntries(essaySections.map((s) => [s.key, s.title.rep
 ---
 <Base title="Writing · uxward" description="Essays on UX leadership, experience design, and AI by Brandon E. B. Ward. Published 2014–2026.">
   <style>
-    .writing-top { padding-top: var(--space-8); padding-bottom: var(--space-6); }
-    .writing-top a.back { font-weight: 600; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); text-decoration: none; }
-    .writing-top a.back:hover { color: var(--signature); }
 
-    .head { padding-top: var(--space-7); padding-bottom: var(--space-8); border-bottom: 1px solid var(--rule-faint); }
-    .head-eyebrow { font-weight: 700; font-size: 13px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); margin-bottom: var(--space-7); }
-    .head-h { font-weight: 900; font-size: clamp(48px, 6.4vw, 84px); line-height: 0.96; letter-spacing: -0.04em; color: var(--ink); margin: 0; max-width: 18ch; }
+    .head { padding-top: var(--space-9); padding-bottom: var(--space-8); border-bottom: 1px solid var(--rule-faint); }
+    .head-eyebrow { font-weight: 700; font-size: var(--fs-13); letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); margin-bottom: var(--space-7); }
+    .head-h { font-weight: 900; font-size: var(--fs-d6); line-height: 0.96; letter-spacing: -0.04em; color: var(--ink); margin: 0; max-width: 18ch; }
     .head-h em { font-style: normal; }
-    .head-intro { font-weight: 400; font-size: 21px; line-height: 1.5; color: var(--body); max-width: 60ch; margin: var(--space-6) 0 0; }
+    .head-intro { font-weight: 400; font-size: var(--fs-20); line-height: 1.5; color: var(--body); max-width: 60ch; margin: var(--space-6) 0 0; }
 
     /* ---------- Controls band (toggle left · filter right) ---------- */
     .controls { padding: var(--space-9) 0 var(--space-4); }
     .controls-row { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-7); }
     .viewtoggle { display: flex; align-items: baseline; gap: var(--space-4); white-space: nowrap; }
-    .vt-label { font-weight: 600; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); }
-    .vt-btn { background: none; border: 0; padding: 0; cursor: pointer; font-weight: 600; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); transition: color var(--t-fast) ease; }
+    .vt-label { font-weight: 600; font-size: var(--fs-11); letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); }
+    .vt-btn { background: none; border: 0; padding: 0; cursor: pointer; font-weight: 600; font-size: var(--fs-12); letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); transition: color var(--t-fast) ease; }
     .vt-btn.is-active { color: var(--ink); text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
     .vt-btn:hover { color: var(--signature); }
     .vt-div { color: var(--rule-faint); }
@@ -29,27 +26,27 @@ const tagLabel = Object.fromEntries(essaySections.map((s) => [s.key, s.title.rep
     .search { width: 320px; max-width: 100%; padding-bottom: 10px; border-bottom: 1px solid var(--ink); transition: border-color var(--t-fast) ease; }
     .search:focus-within { border-bottom-color: var(--signature); }
     .search-row { display: grid; grid-template-columns: auto 1fr auto; align-items: baseline; gap: 14px; }
-    .search-label { font-weight: 600; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); }
-    .search-input { border: 0; outline: 0; background: transparent; font-size: 18px; color: var(--ink); padding: 4px 0; width: 100%; }
+    .search-label { font-weight: 600; font-size: var(--fs-11); letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); }
+    .search-input { border: 0; outline: 0; background: transparent; font-size: var(--fs-18); color: var(--ink); padding: 4px 0; width: 100%; }
     .search-input::placeholder { color: var(--tertiary); opacity: 0.6; transition: opacity var(--t-fast) ease; }
     .search-input:focus::placeholder { opacity: 0; }
-    .search-clear { background: none; border: 0; cursor: pointer; font-size: 18px; color: var(--tertiary); line-height: 1; padding: 0 2px; visibility: hidden; }
+    .search-clear { background: none; border: 0; cursor: pointer; font-size: var(--fs-18); color: var(--tertiary); line-height: 1; padding: 0 2px; visibility: hidden; }
     .search.has-text .search-clear { visibility: visible; }
     .search-clear:hover { color: var(--signature); }
-    .search-hint { margin-top: 10px; font-weight: 600; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); min-height: 14px; text-align: right; }
+    .search-hint { margin-top: 10px; font-weight: 600; font-size: var(--fs-11); letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); min-height: 14px; text-align: right; }
 
     /* ---------- Featured pull ---------- */
     .featured { padding: var(--space-10) 0; border-bottom: 1px solid var(--rule-faint); }
     .featured-grid { display: grid; grid-template-columns: var(--gutter-mark) 1fr; gap: var(--space-7); }
-    .featured-mark { font-weight: 700; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--signature); }
-    .featured-eyebrow { font-weight: 700; font-size: 13px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); margin-bottom: var(--space-6); }
+    .featured-mark { font-weight: 700; font-size: var(--fs-11); letter-spacing: 0.05em; text-transform: uppercase; color: var(--signature); }
+    .featured-eyebrow { font-weight: 700; font-size: var(--fs-13); letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); margin-bottom: var(--space-6); }
     .featured-eyebrow .dot { color: var(--signature); padding: 0 6px; }
     a.featured-link { text-decoration: none; color: inherit; display: block; }
-    a.featured-link h2 { font-weight: 900; font-size: clamp(40px, 4.8vw, 60px); line-height: 1.0; letter-spacing: -0.035em; color: var(--ink); margin: 0; max-width: 880px; transition: color var(--t-fast) ease; }
+    a.featured-link h2 { font-weight: 900; font-size: var(--fs-d4); line-height: 1.0; letter-spacing: -0.035em; color: var(--ink); margin: 0; max-width: 880px; transition: color var(--t-fast) ease; }
     a.featured-link h2 em { font-style: normal; }
-    .featured-deck { font-weight: 400; font-size: 22px; line-height: 1.5; color: var(--body); max-width: 700px; margin: var(--space-6) 0 0; }
-    .featured-excerpt { font-style: italic; font-weight: 400; font-size: 18px; line-height: 1.65; color: var(--tertiary); max-width: 640px; margin: var(--space-7) 0 0; padding-left: var(--space-5); border-left: 1px solid var(--rule-faint); }
-    .featured-cta { display: inline-block; margin-top: var(--space-7); font-weight: 700; font-size: 14px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+    .featured-deck { font-weight: 400; font-size: var(--fs-22); line-height: 1.5; color: var(--body); max-width: 700px; margin: var(--space-6) 0 0; }
+    .featured-excerpt { font-style: italic; font-weight: 400; font-size: var(--fs-18); line-height: 1.65; color: var(--tertiary); max-width: 640px; margin: var(--space-7) 0 0; padding-left: var(--space-5); border-left: 1px solid var(--rule-faint); }
+    .featured-cta { display: inline-block; margin-top: var(--space-7); font-weight: 700; font-size: var(--fs-14); letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
     a.featured-link:hover h2 { color: var(--signature); }
     a.featured-link:hover .featured-cta { color: var(--signature); }
 
@@ -66,13 +63,13 @@ const tagLabel = Object.fromEntries(essaySections.map((s) => [s.key, s.title.rep
     .section { padding: var(--space-9) 0 var(--space-8); }
     .section + .section { border-top: 1px solid var(--rule-faint); }
     .section-head { display: grid; grid-template-columns: var(--gutter-mark) 1fr; gap: var(--space-7); align-items: baseline; }
-    .section-mark { font-weight: 900; font-size: 22px; letter-spacing: -0.02em; color: var(--signature); padding-top: 8px; font-feature-settings: 'tnum' 1; }
-    .section-title h2 { font-weight: 800; font-size: 36px; line-height: 1.1; letter-spacing: -0.025em; color: var(--ink); margin: 0; }
-    .section-descriptor { font-weight: 400; font-size: 16px; line-height: 1.5; color: var(--tertiary); margin: var(--space-3) 0 0; max-width: 580px; }
+    .section-mark { font-weight: 900; font-size: var(--fs-22); letter-spacing: -0.02em; color: var(--signature); padding-top: 8px; font-feature-settings: 'tnum' 1; }
+    .section-title h2 { font-weight: 800; font-size: var(--fs-34); line-height: 1.1; letter-spacing: -0.025em; color: var(--ink); margin: 0; }
+    .section-descriptor { font-weight: 400; font-size: var(--fs-16); line-height: 1.5; color: var(--tertiary); margin: var(--space-3) 0 0; max-width: 580px; }
     .section-rule { border: 0; border-top: 1px solid var(--rule-faint); margin: var(--space-7) 0 0; }
     .section-body { display: grid; grid-template-columns: var(--gutter-mark) 1fr; gap: var(--space-7); }
     .essays { grid-column: 2; padding-top: var(--space-6); }
-    .section-empty-msg, .flat-empty-msg { grid-column: 2; font-weight: 600; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); display: none; }
+    .section-empty-msg, .flat-empty-msg { grid-column: 2; font-weight: 600; font-size: var(--fs-12); letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); display: none; }
     .section.no-matches .essays { display: none; }
     .section.no-matches .section-empty-msg { display: block; padding-top: var(--space-5); }
 
@@ -100,7 +97,7 @@ const tagLabel = Object.fromEntries(essaySections.map((s) => [s.key, s.title.rep
       transition: opacity 150ms ease, grid-template-rows 150ms ease 150ms, visibility 0s 300ms;
     }
     .essay-line { display: flex; align-items: baseline; }
-    .essay-title { flex: 0 1 auto; font-weight: 700; font-size: 22px; line-height: 1.2; letter-spacing: -0.018em; color: var(--ink); transition: color var(--t-fast) ease; }
+    .essay-title { flex: 0 1 auto; font-weight: 700; font-size: var(--fs-22); line-height: 1.2; letter-spacing: -0.018em; color: var(--ink); transition: color var(--t-fast) ease; }
     .essay-title em { font-style: normal; }
     .essay-lead {
       flex: 1 1 auto;
@@ -115,10 +112,10 @@ const tagLabel = Object.fromEntries(essaySections.map((s) => [s.key, s.title.rep
       position: relative;
       top: -0.22em;
     }
-    .essay-quarter { flex: 0 0 auto; white-space: nowrap; font-weight: 600; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); }
+    .essay-quarter { flex: 0 0 auto; white-space: nowrap; font-weight: 600; font-size: var(--fs-11); letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); }
     .essay-deck {
       display: block;
-      font-size: 16px;
+      font-size: var(--fs-16);
       line-height: 1.5;
       color: var(--body);
       margin: 8px 0 0;
@@ -134,11 +131,11 @@ const tagLabel = Object.fromEntries(essaySections.map((s) => [s.key, s.title.rep
 
     .pivot { padding: var(--space-9) 0; border-top: 1px solid var(--rule-faint); }
     .pivot-grid { display: grid; grid-template-columns: var(--gutter-mark) 1fr; gap: var(--space-7); }
-    .pivot-mark { font-weight: 700; font-size: 13px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); padding-top: 14px; }
+    .pivot-mark { font-weight: 700; font-size: var(--fs-13); letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); padding-top: 14px; }
     a.pivot-link { display: block; text-decoration: none; color: inherit; }
-    .pivot-link .label { font-weight: 800; font-size: 36px; line-height: 1.1; letter-spacing: -0.025em; color: var(--ink); }
+    .pivot-link .label { font-weight: 800; font-size: var(--fs-34); line-height: 1.1; letter-spacing: -0.025em; color: var(--ink); }
     .pivot-link .label em { font-style: normal; }
-    .pivot-link .why { font-weight: 400; font-size: 17px; color: var(--body); margin: var(--space-4) 0 0; max-width: 520px; }
+    .pivot-link .why { font-weight: 400; font-size: var(--fs-16); color: var(--body); margin: var(--space-4) 0 0; max-width: 520px; }
     .pivot-link:hover .label,
     .pivot-link:focus-visible .label { color: var(--signature); }
 
@@ -161,12 +158,6 @@ const tagLabel = Object.fromEntries(essaySections.map((s) => [s.key, s.title.rep
       .essay-quarter { flex-basis: 100%; margin-top: 6px; }
     }
   </style>
-
-  <div class="container writing-top">
-    <div class="grid">
-      <div><a class="back" href="/">Back home</a></div>
-    </div>
-  </div>
 
   <section class="head">
     <div class="container">
