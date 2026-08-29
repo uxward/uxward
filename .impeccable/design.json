@@ -362,6 +362,14 @@
       "description": "The system's only image treatment: a 1px hairline directly around the image with a specimen caption below. No radius, no shadow, no padding, no fill. Because the HTML width/height attributes map to presentational CSS, the plate needs height: auto or its aspect-ratio is inert and object-fit does nothing.",
       "html": "<figure class=\"ds-plate\"><img alt=\"\" width=\"1200\" height=\"946\" src=\"data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 5 4%22%3E%3Crect width=%225%22 height=%224%22 fill=%22%23282828%22/%3E%3C/svg%3E\"><figcaption>Fig. 01 \u2014 B.E.B.W., Dallas, 2026</figcaption></figure>",
       "css": ".ds-plate { margin: 0; font-family: Archivo, sans-serif; } .ds-plate img { display: block; width: 100%; height: auto; aspect-ratio: 5 / 4; object-fit: cover; object-position: 50% 26%; border: 1px solid rgba(4,4,4,0.10); } .ds-plate figcaption { margin-top: 12px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: #646464; }"
+    },
+    {
+      "name": "Decision Log Row",
+      "kind": "list",
+      "refersTo": "choice-row",
+      "description": "A decision and its reason. Hairline-separated rows, caps key against a capped-measure value. Used on every case study and on the Colophon, where the site documents its own decisions. Refusals carry the same weight as choices.",
+      "html": "<div class=\"ds-choices\"><div class=\"ds-choice-row\"><div class=\"ds-key\">Chose to</div><div class=\"ds-val\"><strong>Wire the masthead to the repository.</strong> None of it is typed by hand, so none of it can quietly go stale.</div></div><div class=\"ds-choice-row\"><div class=\"ds-key\">Chose <strong>not</strong> to</div><div class=\"ds-val\"><strong>Fabricate a single image.</strong> Where there was nothing real to show, there is nothing.</div></div></div>",
+      "css": ".ds-choices { font-family: Archivo, sans-serif; } .ds-choice-row { display: grid; grid-template-columns: 200px 1fr; gap: 32px; padding: 20px 0; border-top: 1px solid rgba(4,4,4,0.10); } .ds-key { font-weight: 700; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: #646464; padding-top: 4px; } .ds-val { font-size: 18px; line-height: 1.55; color: #282828; max-width: 600px; } .ds-val strong { font-weight: 700; color: #040404; } @media (max-width: 720px) { .ds-choice-row { grid-template-columns: 1fr; } }"
     }
   ],
   "narrative": {

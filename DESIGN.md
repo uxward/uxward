@@ -273,6 +273,11 @@ Square everywhere — there is no `border-radius` usage anywhere in the codebase
 - **Mobile (≤720px):** collapses to a hamburger that opens a full-screen overlay; overlay nav links are the one place JetBrains Mono still leads — 11px uppercase, 0.2em tracking, full-width rows with hairline dividers.
 - **Footer:** three-column grid (wordmark / nav links / external links), all uppercase Archivo, red on hover, with a mono-style colophon credit line beneath (note: even the colophon line now sets in `--font-sans`, not mono).
 
+### Decision Log ("Chose to / Chose not to")
+- **Style:** hairline-separated rows, a 200px caps key column (`--fs-12`, tertiary) against a `--fs-18` value column capped at 600px. Collapses to one column at 720px. No fill, no border beyond the row rules.
+- **Where used:** all five case studies (six rows each) and the Colophon, where the site documents its own decisions. It lives in `global.css`, not `case.css` — it is a site pattern, not a case-study one.
+- **Content rule:** a decision and the reason for it, in that order, first person. The bolded lead sentence is the decision; the rest is why. "Chose not to" rows carry as much weight as "Chose to" — the refusals are the point.
+
 ### Pull-Quote / Blockquote
 - **Style:** weight 700, tight letter-spacing (-0.02em), 4px solid signature-red left border, generous left padding.
 - **Where used:** case-study reflections, essay body blockquotes, work-index hero pullouts.
