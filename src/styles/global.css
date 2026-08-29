@@ -938,6 +938,20 @@ html.cyber-arrive-go::after {
 
 
 /* ============================================================
+   Decision log — "Chose to / Chose not to". Started on the case
+   studies; it is a site pattern, so it lives here rather than in
+   case.css. Used wherever a decision and its reason are the point.
+   ============================================================ */
+.choices { margin: var(--space-8) 0 var(--space-7); border-top: 0; }
+.choice-row { display: grid; grid-template-columns: 200px 1fr; gap: var(--space-7); padding: var(--space-5) 0; border-top: 1px solid var(--rule-faint); border-bottom: 0; }
+.choice-row .key { font-weight: 700; font-size: var(--fs-12); letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); padding-top: 4px; }
+.choice-row .val { font-size: var(--fs-18); line-height: 1.55; color: var(--body); max-width: 600px; }
+.choice-row .val strong { font-weight: 700; color: var(--ink); }
+@media (max-width: 720px) {
+  .choice-row { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
    Code hint — hold the theme toggle (hover or focus) for 5s and
    Night City leaks a little: the codes, flickering, in its own
    palette. Decorative only; the modes are documented on the

@@ -14,6 +14,12 @@ WDS strategic process log. Most recent at top.
 
 ## Current
 
+**Colophon decision log (2026-08-29, fifth pass).** The open half of the owner's "decision logs where they matter" question. Case studies already had theirs; the site did not.
+
+Six rows added to the Colophon, between Build and the acknowledgements: no availability language, the masthead wired to the repository, twenty-nine shown of more than a hundred, no client logos, no fabricated imagery, two reds in dark mode. Three "chose to" and three "chose not to", matching the balance the case studies use. Every row states a decision actually made in this work — nothing invented to fill the pattern.
+
+`.choices` / `.choice-row` promoted from `case.css` (where it was scoped to `body.case`) into `global.css` as a real shared component, since the Colophon is not a case page. Verified the five case studies render identically after the move: same six rows, same `200px 1fr` grid, same single-column collapse at 720px, no overflow in either theme.
+
 **The shared type scale (2026-08-29, fourth pass).** The item logged three times and deferred twice.
 
 *The audit.* 47 distinct font-size values across 180 fixed declarations, plus **35 distinct `clamp()` declarations** for roughly eight conceptual roles. The clamps were the real sprawl: eight different page-H1 sizes, three different deck sizes that were the same role, seven near-duplicate pull-quote/large-link sizes.

@@ -47,7 +47,7 @@ While fixing this, the dark palette was **de-duplicated**. It had been written t
 
 ## Open — needs your input
 
-- [ ] **Decision logs "in some other places."** Case studies are already covered — all five carry a six-row `Chose to / Chose not to` log, so nothing was needed there (the earlier critique framed it as a Speakeazy one-off; it wasn't). The open question is where else. Proposal in the accompanying message: the Colophon, a decision log for the site itself. Draft copy is there for approval — it's first-person claims about your own decisions, so it isn't shipping without your sign-off.
+- [x] **~~Decision logs "in some other places."~~ Done 2026-08-29.** Case studies already carried one each (six rows, all five). Added a sixth section to the **Colophon** — the site documenting its own decisions: no availability language, the masthead wired to the repo, 29 shown of 100+, no client logos, no fabricated imagery, two reds after dark. The `.choices` pattern moved from `case.css` to `global.css` in the process, since it is a site component rather than a case-study one.
 - [ ] **The "100+" figure.** Currently rendered literally as `100+` in the archive spec plate, using your words. If you'd defend a tighter number in an interview, say so and I'll set it.
 
 ## Declined — closed by owner decision

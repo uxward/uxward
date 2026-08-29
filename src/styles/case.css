@@ -58,11 +58,6 @@ body.case .cs-pullquote { font-weight: 700; font-size: var(--fs-d1); line-height
 body.case .cs-pullquote em { font-style: italic; }
 
 /* ---------- Choices ---------- */
-body.case .choices { margin: var(--space-8) 0 var(--space-7); border-top: 0; }
-body.case .choice-row { display: grid; grid-template-columns: 200px 1fr; gap: var(--space-7); padding: var(--space-5) 0; border-top: 1px solid var(--rule-faint); border-bottom: 0; }
-body.case .choice-row .key { font-weight: 700; font-size: var(--fs-12); letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); padding-top: 4px; }
-body.case .choice-row .val { font-size: var(--fs-18); line-height: 1.55; color: var(--body); max-width: 600px; }
-body.case .choice-row .val strong { font-weight: 700; color: var(--ink); }
 
 /* ---------- Artifacts ---------- */
 body.case .artifacts { margin-top: var(--space-7); display: grid; gap: var(--space-10); }
@@ -104,5 +99,4 @@ body.case .pn-cell.next { text-align: right; }
   body.case .outcomes-stats { grid-template-columns: 1fr; }
   body.case .prevnext { grid-template-columns: 1fr; }
   body.case .pn-cell.next { text-align: left; }
-  body.case .choice-row { grid-template-columns: 1fr; }
 }
