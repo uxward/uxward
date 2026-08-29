@@ -36,13 +36,13 @@ This is deliberately chosen over a generic "senior strategist with receipts" pos
 
 Eight surfaces, each earning its place with no hamburger menu on desktop (the footer carries the full sitemap; mobile gets a full-screen overlay nav): Home, Work (index + case studies), Writing (index + essays), About, Contact, Colophon, plus a 404 page. The visitor journey is: scan → click through to the hero case study (Speakeazy) → inbound email. The "deal cycle" is a hiring process; the site's one job is to earn the first reply.
 
-Current inventory: 5 curated case studies in the slate (`src/data/slate.js`, Speakeazy leads as hero-of-the-slate) plus a wider archive grid of prior client work; 23 published essays (`src/data/essays.js`) across four editorial sections (On Leadership, On Experience Design, On Research, On AI); quarterly essay cadence, with every long-form page date-stamped "Last revised Q_ 2026."
+Current inventory: 5 curated case studies in the slate (`src/data/slate.js`, Precocity leads as hero-of-the-slate (swapped with Speakeazy 2026-08-29)) plus a wider archive grid of prior client work; 23 published essays (`src/data/essays.js`) across four editorial sections (On Leadership, On Experience Design, On Research, On AI); quarterly essay cadence, with every long-form page date-stamped "Last revised Q_ 2026."
 
 ## Capabilities and Constraints
 
 - **Founding rule, governs everything:** *Fewer things, executed better.* Confirmed still in force post-redesign — one signature accent color, one typeface family carrying the whole site, no button component, minimal imagery.
 - **No CMS / no database** — content changes are Git commits.
-- **No stock photography or illustration.** Photography is limited to Brandon's own portraits (home fold and About) and real artifacts from the case studies, surfaced as small plates on the home and work lists. Nothing is fabricated: every preview points at an image that already appears on its case page.
+- **No stock photography or illustration on the core pages.** Home, Work, About, Contact and Colophon carry only Brandon's own portraits and real artifacts from the case studies; every list preview points at an image that already appears on its case page. **The essays are a different rule** — the ~87 files in `public/images/writing/` are editorial illustration: generated art, six Unsplash photographs, pop-culture stills, and diagrams. That is decoration for long-form reading, not evidence, and the site should not claim otherwise.
 - **Single language:** English (US). No localization planned.
 - **SEO is deliberately low-priority.** Not a search-acquisition site; the audience arrives by name, referral, or a forwarded link. The one discoverability goal is Brandon's name resolving cleanly to this site over LinkedIn and his separate acting site (brandonebward.com).
 - **Deliberately absent, not to be added without re-discussion:** a Services/Hire-Me page, newsletter signup, a Manifesto/Design-Philosophy page, a Speaking page (talks live inside About), or any acting-career content.
@@ -60,9 +60,9 @@ Wordmark: "Brandon" renders in the signature red permanently (`.wm-given`); "E.B
 
 ## Evidence on Hand
 
-- **Speakeazy** — a live, solo-built SaaS product (speakeazy.pro) for AI-native dialogue attribution in audiobook narration; shipped to real users since January 2026. The load-bearing proof point on the site.
-- **Precocity** — a decade-long case (CXO, first UX hire to executive), the "ten-year build."
-- **Four other slate cases** (global automaker, Porte, and the wider archive of ~28 prior client engagements listed in brief on the Work page).
+- **Precocity** — a decade-long case (CXO, first UX hire to executive), the "ten-year build." **The load-bearing case on the site** (promoted to hero-of-the-slate 2026-08-29; About had already called it that while the Work index still named Speakeazy, so the swap resolved an existing contradiction).
+- **Speakeazy** — a live, solo-built SaaS product (speakeazy.pro) for AI-native dialogue attribution in audiobook narration; shipped to real users since January 2026. The proof that the practice still ships, and the only slate entry with a ship date — it feeds the homepage masthead's LAST SHIP cell.
+- **Four other slate cases** (global automaker, Porte, and the wider archive of 29 prior client engagements listed in brief on the Work page).
 - **23 published essays** across four sections, with a public GitHub repo as the site's own evidence of ongoing craft.
 - **Portrait** — a real, commissioned photo of Brandon (previously a placeholder; now live in both About and Home).
 - No case-study artifact imagery yet for most cases beyond Speakeazy (placeholder frames remain on several `/work/*` pages per the design log) — do not fabricate screenshots or product imagery for these.

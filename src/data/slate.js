@@ -5,7 +5,7 @@
 //
 // Adding a case: create src/pages/work/<slug>.astro, then add one entry here
 // in slate position — everything else derives. slate[0] is the hero of the
-// slate; `eyebrow`, `pullout`, and `stamps` beyond the first entry are used
+// slate (currently Precocity); `eyebrow`, `pullout`, and `stamps` beyond the first entry are used
 // by the work-index listing only. `title` and `pullout` may contain <em>
 // markup (rendered with set:html).
 //
@@ -15,28 +15,28 @@
 // only) feeds the homepage masthead's LAST SHIP cell.
 export const slate = [
   {
+    slug: 'precocity',
+    client: 'Precocity',
+    title: 'Precocity — the <em>ten\u2011year</em> build.',
+    deck: "Joining as Precocity's first-ever UX hire, I built the practice, made it the tip of the spear on every engagement, a multimillion-dollar book of business, and a path from Director of UX to Chief Experience Officer.",
+    eyebrow: '2016 — Present · Director of UX → CXO · Built the practice',
+    pullout: "Precocity could build almost anything. What it couldn't yet do was prove it was <em>building the right thing.</em>",
+    stamps: ['CXO', '2016 — Present'],
+    preview: {
+      src: '/images/thumbs/precocity.webp',
+      alt: 'Four service-design journey maps produced by the Precocity practice.',
+    },
+  },
+  {
     slug: 'speakeazy',
     client: 'Speakeazy',
     title: 'Speakeazy — the tool that <em>should have existed.</em>',
     deck: 'AI-native dialogue attribution and character analysis for audiobook narrators. I went looking for a tool to do the unpaid prep, found that none existed, and built one myself — three abandoned prototypes, a two-week ground-up rewrite, launched to real users in January 2026.',
-    eyebrow: '2025 — Present · Designer & developer · Solo',
-    pullout: "You can't learn on page 200 that the character you've voiced <em>en français</em> for 199 pages is from Paris, Texas.",
     stamps: ['Solo build', 'Live January 2026'],
     shipped: '2026-01-01',
     preview: {
       src: '/images/thumbs/speakeazy.webp',
       alt: 'The shipped Speakeazy app — a book open for analysis, dialogue attributed by character.',
-    },
-  },
-  {
-    slug: 'precocity',
-    client: 'Precocity',
-    title: 'Precocity — the <em>ten-year</em> build.',
-    deck: "Joining as Precocity's first-ever UX hire, I built the practice, made it the tip of the spear on every engagement, a multimillion-dollar book of business, and a path from Director of UX to Chief Experience Officer.",
-    stamps: ['CXO', '2016 — Present'],
-    preview: {
-      src: '/images/thumbs/precocity.webp',
-      alt: 'Four service-design journey maps produced by the Precocity practice.',
     },
   },
   {

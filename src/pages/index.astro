@@ -5,7 +5,10 @@ import { essaysNewestFirst, plainTitle } from '../data/essays.js';
 import { build, shortDate, REPO } from '../data/build-info.js';
 
 // Masthead: every cell is derived, so none of them can go quietly stale.
-const hero = slate[0];
+// LAST SHIP looks for the entry that actually has a ship date rather than
+// assuming it is the hero of the slate — the hero is Precocity, a ten-year
+// engagement with no single ship.
+const lastShip = slate.find((c) => c.shipped);
 const latestEssay = essaysNewestFirst[0];
 
 // The home rows carry their own shorter decks; imagery comes from the slate,
@@ -13,18 +16,18 @@ const latestEssay = essaysNewestFirst[0];
 const bySlug = Object.fromEntries(slate.map((c) => [c.slug, c]));
 const featured = [
   {
-    slug: 'speakeazy',
-    name: 'Speakeazy',
-    tag: ' — the tool that should have existed',
-    when: 'Founder · 2025–present',
-    desc: 'AI-native dialogue attribution and character analysis for audiobook narrators. Built solo; live to real users since January 2026. The load-bearing case on the site.',
-  },
-  {
     slug: 'precocity',
     name: 'Precocity',
     tag: ' — the ten-year build',
     when: 'CXO · 2016–present',
-    desc: 'First design hire; grew the practice over a decade from a two-person discipline into the team that ships against eight-figure enterprise contracts.',
+    desc: 'First design hire; grew the practice over a decade from a two-person discipline into the team that ships against eight-figure enterprise contracts. The load-bearing case on the site.',
+  },
+  {
+    slug: 'speakeazy',
+    name: 'Speakeazy',
+    tag: ' — the tool that should have existed',
+    when: 'Founder · 2025–present',
+    desc: 'AI-native dialogue attribution and character analysis for audiobook narrators. Built solo; live to real users since January 2026.',
   },
   {
     slug: 'autoco',
@@ -375,8 +378,8 @@ const building = [
         <div class="spec-bar">
           <div class="cell">
             <span class="k">Last ship</span>
-            <a class="v" href={`/work/${hero.slug}`}>{hero.client}</a>
-            <span class="d">{shortDate(hero.shipped)}</span>
+            <a class="v" href={`/work/${lastShip.slug}`}>{lastShip.client}</a>
+            <span class="d">{shortDate(lastShip.shipped)}</span>
           </div>
           <div class="cell">
             <span class="k">Last essay</span>
