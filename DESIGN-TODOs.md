@@ -1,5 +1,11 @@
 # Design — Remaining TODOs
 
+> **Status note — 2026-08-29 (Impeccable polish pass).** Several items below are now closed; see `_progress/00-design-log.md` for the full entry.
+> - **Closed:** no skip-to-content link; the "signature moment" gap (the fold now carries a build-derived masthead + portrait plate in default Light/Dark); Contact's red CTA moved to close rather than open the page; `404.astro`'s "seven selected pieces" (now derives from `slate.length`); the Colophon palette hex divergence.
+> - **Corrected premise:** the "4 of 5 cases run on placeholder frames" item was wrong — every `.frame` on every case page already contains a real image, and the shared `.placeholder-label` markup is unused site-wide. What was actually missing was imagery on the *list* pages; that is now shipped.
+> - **Still open:** curating `/work` (29 archive items) and the Writing index; the em-dash pass across the 23 essays; contrast/heading re-verification on those 23; inconsistent client anonymisation (named clients vs. "a global automaker").
+> - **Newly logged:** no shared type-scale tokens (every small size is a literal); five different mobile breakpoints across page-scoped styles; `--signature` has no contrast headroom on the red field (4.76:1).
+
 Baseline after the 2026-08-25 `/impeccable critique` + fix pass: **25/32 (Good, 78%)**, before this pass's fixes (typo, Precocity employment-status ambiguity, contrast, heading order, side-tab/layout-thrash cleanup, sitewide em-dash pass on the 10 core pages).
 
 **Verdict: not top-tier yet, but closer than most.** The site has a real governing idea ("the work is the brand," source public on GitHub as literal proof), one genuinely distinctive content format (Speakeazy's "CHOSE TO / CHOSE NOT TO" decision log), and a disciplined, non-templated visual system. That's a real floor most design-leader portfolios never clear. What's below closes the specific gap to best-in-class, ranked by how much each one matters.

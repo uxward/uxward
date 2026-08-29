@@ -11,6 +11,30 @@
         ],
         "createdAt": "2026-08-26T03:06:52.635Z",
         "reason": "documented pull-quote pattern (.hero-pullout matches .cs-pullquote/blockquote exactly: italic em, same weight/size/border) — DESIGN.md sanctions a 4px signature-red left border for pull-quotes and blockquotes"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "rock salt",
+        "createdAt": "2026-08-29T15:29:25.606Z",
+        "reason": "DESIGN.md Typography > Neon Mode documents Rock Salt as one of the three Neon-only faces (The Three-Face Exception)."
+      },
+      {
+        "rule": "design-system-font",
+        "value": "orbitron",
+        "createdAt": "2026-08-29T15:29:25.690Z",
+        "reason": "DESIGN.md Typography > Neon Mode documents Orbitron as the Neon body face."
+      },
+      {
+        "rule": "design-system-font",
+        "value": "sixtyfour",
+        "createdAt": "2026-08-29T15:29:25.775Z",
+        "reason": "DESIGN.md Typography > Neon Mode documents Sixtyfour as the Neon nav face."
+      },
+      {
+        "rule": "design-system-font",
+        "value": "jetbrains mono",
+        "createdAt": "2026-08-29T15:29:25.864Z",
+        "reason": "DESIGN.md Typography declares JetBrains Mono as the site's Supporting Face (mobile nav overlay, system toast)."
       }
     ]
   }

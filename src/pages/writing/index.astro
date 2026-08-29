@@ -164,7 +164,6 @@ const tagLabel = Object.fromEntries(essaySections.map((s) => [s.key, s.title.rep
 
   <div class="container writing-top">
     <div class="grid">
-      <div class="marker">↩</div>
       <div><a class="back" href="/">Back home</a></div>
     </div>
   </div>
@@ -226,7 +225,7 @@ const tagLabel = Object.fromEntries(essaySections.map((s) => [s.key, s.title.rep
     </div>
   </section>
 
-  <main class="list" data-view="topic">
+  <div class="list" data-view="topic">
     <div id="view-topic">
       {essaySections.map((s, i) => (
         <section class="section" data-section={s.key}>
@@ -286,7 +285,7 @@ const tagLabel = Object.fromEntries(essaySections.map((s) => [s.key, s.title.rep
       </div>
       </div>
     </div>
-  </main>
+  </div>
 
   <section class="pivot">
     <div class="container">
@@ -294,7 +293,7 @@ const tagLabel = Object.fromEntries(essaySections.map((s) => [s.key, s.title.rep
         <div class="pivot-mark">↗</div>
         <a class="pivot-link" href="/about">
           <div class="label">More <em>about me</em></div>
-          <p class="why">The longer recruiter-deep version. Twenty-five years told plainly, with a timeline.</p>
+          <p class="why">The longer version. Twenty-five years told plainly, with a timeline.</p>
         </a>
       </div>
     </div>

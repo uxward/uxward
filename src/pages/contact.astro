@@ -3,23 +3,22 @@ import Base from '../layouts/Base.astro';
 
 const faq = [
   {
-    q: "What roles are you considering?",
+    q: "What tier do you work at?",
     a: `Head of Design, VP Design, Chief Design Officer, Chief Experience Officer. <em>The executive leadership tier.</em>
-            I am not considering pure individual-contributor roles (unless maybe you're LEGO or a streaming media provider), design-management roles below the
-            Director title, or contract work outside Precocity's existing book.`
+            Not pure individual-contributor work (unless maybe you're LEGO or a streaming media provider), not design management below the
+            Director title, and not contract work outside Precocity's existing book.`
   },
   {
-    q: "Where will you work?",
+    q: "Where do you work from?",
     a: `Dallas (where I live), hybrid with travel, or fully remote. Relocation is on the table for the right leadership role, international included. I will not relocate for a fast-growth startup whose
             runway is the recruiter's main selling point.`
   },
   {
-    q: "What companies are interesting?",
-    a: `Companies where design has earned a real seat and the CEO can name three things
-            their best designer shipped last quarter. I'm specifically interested in flagship
-            consumer and tooling companies: LEGO, Netflix, Apple, Airbnb, and the equivalents.
-            I'm also very interested in opportunities available in traditionally "non-tech" sectors
-            like John Deere, Caterpillar, Maersk, et al.`
+    q: "What makes a company worth the conversation?",
+    a: `Design has earned a real seat, and the CEO can name three things their best designer
+            shipped last quarter. Flagship consumer and tooling companies clear that bar —
+            LEGO, Netflix, Apple, Airbnb and their equivalents — and so do traditionally
+            "non-tech" operators like John Deere, Caterpillar, and Maersk.`
   },
   {
     q: "Will you do a take-home?",
@@ -27,7 +26,7 @@ const faq = [
             advisory engagement at any stage of the process if it helps both sides decide.`
   },
   {
-    q: "Are you doing speaking, writing, or advising on the side?",
+    q: "Do you speak, write, or advise on the side?",
     a: `I speak occasionally and selectively, write only here, and advise only by
             introduction. I am not signing on as a podcast guest unless you've read the work.`
   }
@@ -45,35 +44,34 @@ const schema = {
   }))
 };
 ---
-<Base title="Contact — uxward" description="Contact Brandon E. B. Ward — executive design leader open to Head of Design, VP Design, CDO, and CXO roles." schema={schema}>
+<Base title="Contact — uxward" description="How to reach Brandon E. B. Ward — executive design leader, CXO at Precocity, founder of Speakeazy. Email, read daily." schema={schema}>
   <style>
     /* contact — Archivo / Swiss system. Quieter caps labels; red bleed kept. */
     .top { padding-top: var(--space-8); padding-bottom: var(--space-6); }
     .top a.back { font-weight: 600; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); text-decoration: none; }
-    .top a.back:hover { color: var(--signature); }
+    @media (hover: hover) { .top a.back:hover { color: var(--signature); } }
 
     .name-eyebrow, .section-eyebrow { font-weight: 700; font-size: 13px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); margin-bottom: var(--space-7); }
 
     .name-block { padding-top: var(--space-7); padding-bottom: var(--space-9); }
-    h1.name { font-weight: 900; font-size: clamp(44px, 6vw, 88px); line-height: 0.98; letter-spacing: -0.035em; color: var(--ink); margin: 0; max-width: 18ch; }
+    h1.name { font-weight: 900; font-size: clamp(44px, 6vw, 88px); line-height: 0.98; letter-spacing: -0.035em; word-spacing: 0.06em; text-wrap: balance; color: var(--ink); margin: 0; max-width: 18ch; }
     h1.name em { font-style: normal; }
     .deck { font-weight: 400; font-size: clamp(19px, 2.2vw, 22px); line-height: 1.5; color: var(--body); margin: var(--space-7) 0 0; max-width: 64ch; }
 
     /* Red bleed CTA */
-    .bleed { background: var(--signature); color: var(--offwhite); padding: 120px 0 112px; margin-top: var(--space-9); }
-    .bleed .eyebrow { font-weight: 600; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(231,231,231,0.82); margin-bottom: var(--space-8); }
-    .bleed h2 { font-weight: 900; font-size: clamp(40px, 6vw, 80px); line-height: 0.95; letter-spacing: -0.035em; color: var(--offwhite); margin: 0; max-width: 18ch; }
+    .bleed { background: var(--signature); color: var(--offwhite); padding: 120px 0 112px; }
+    .bleed .eyebrow { font-weight: 600; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--offwhite); margin-bottom: var(--space-8); }
+    .bleed h2 { font-weight: 900; font-size: clamp(40px, 6vw, 80px); line-height: 0.98; letter-spacing: -0.035em; word-spacing: 0.06em; text-wrap: balance; color: var(--offwhite); margin: 0; max-width: 18ch; }
     .bleed h2 em { font-style: normal; }
     .bleed a.email { margin-top: var(--space-9); display: inline-flex; align-items: center; gap: 0.45em; font-weight: 800; font-size: clamp(26px, 3.4vw, 40px); line-height: 1.1; letter-spacing: -0.02em; color: var(--offwhite); }
     .bleed a.email .email-text { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
     .bleed a.email .send-ico { width: 0.82em; height: 0.82em; }
-    .bleed a.email:hover { color: rgba(231,231,231,0.78); }
     .bleed a.email:hover .send-icon,
     .bleed a.email:focus-visible .send-icon { animation: send-fly 0.5s ease; }
-    .bleed .kicker { font-weight: 600; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(231,231,231,0.82); margin-top: var(--space-5); }
+    .bleed .kicker { font-weight: 600; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--offwhite); margin-top: var(--space-5); }
 
     .section { padding: var(--space-10) 0; border-top: 1px solid var(--rule-faint); }
-    .section-head { font-weight: 900; font-size: clamp(28px, 3.4vw, 40px); line-height: 1.04; letter-spacing: -0.025em; color: var(--ink); margin: 0 0 var(--space-8) 0; max-width: 22ch; }
+    .section-head { font-weight: 900; font-size: clamp(28px, 3.4vw, 40px); line-height: 1.04; letter-spacing: -0.025em; word-spacing: 0.04em; text-wrap: balance; color: var(--ink); margin: 0 0 var(--space-8) 0; max-width: 22ch; }
     .section-head em { font-style: normal; }
 
     .channels, .elsewhere-list, .faq { border-top: 1px solid var(--rule-faint); }
@@ -81,13 +79,13 @@ const schema = {
     .channel-row .where { font-weight: 600; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); }
     .channel-row .what { font-size: 17px; line-height: 1.55; color: var(--body); }
     .channel-row a.go { font-weight: 700; font-size: 14px; color: var(--ink); text-decoration: none; text-align: right; }
-    .channel-row a.go:hover { color: var(--signature); }
+    @media (hover: hover) { .channel-row a.go:hover { color: var(--signature); } }
 
     .elsewhere-row { display: grid; grid-template-columns: 140px 1fr max-content; gap: var(--space-7); padding: var(--space-5) 0; border-bottom: 1px solid var(--rule-faint); align-items: baseline; }
     .elsewhere-row .where { font-weight: 600; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); }
     .elsewhere-row .what { font-size: 17.5px; line-height: 1.5; color: var(--body); }
     .elsewhere-row a.go { font-weight: 700; font-size: 14px; color: var(--ink); text-decoration: none; text-align: right; white-space: nowrap; }
-    .elsewhere-row a.go:hover { color: var(--signature); }
+    @media (hover: hover) { .elsewhere-row a.go:hover { color: var(--signature); } }
 
     .faq-row { display: grid; grid-template-columns: 280px 1fr; gap: var(--space-8); padding: var(--space-7) 0; border-bottom: 1px solid var(--rule-faint); align-items: baseline; }
     .faq-row .q { font-weight: 700; font-size: 19px; line-height: 1.3; color: var(--ink); }
@@ -118,18 +116,6 @@ const schema = {
       a friend of the work and want to write: even briefer than a cold email is fine.
     </p>
   </div>
-
-  <section class="bleed">
-    <div class="container">
-      <div class="eyebrow">Open to</div>
-      <h2>The right senior design leadership role. <em>Direct line below.</em></h2>
-      <a class="email" href="mailto:brandon@uxward.com">
-        <svg class="send-ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g class="send-icon"><path d="M10 14l11 -11" /><path d="M21 3l-6.5 18a.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a.55 .55 0 0 1 0 -1l18 -6.5" /></g></svg>
-        <span class="email-text">brandon@uxward.com</span>
-      </a>
-      <div class="kicker">Read daily · Reply within two business days</div>
-    </div>
-  </section>
 
   <section class="section">
     <div class="container">
@@ -178,7 +164,19 @@ const schema = {
         including the ones I'm declining. Declining is also a response. If you do not hear
         back inside a week, the email did not arrive; resend.
       </p>
-      <div class="stamp">Last revised Q1 2026 · Updated quarterly</div>
+      <div class="stamp">Last revised Q2 2026 · Updated quarterly</div>
+    </div>
+  </section>
+
+  <section class="bleed">
+    <div class="container">
+      <div class="eyebrow">The direct line</div>
+      <h2>You've read the notes. <em>Here's the line.</em></h2>
+      <a class="email" href="mailto:brandon@uxward.com">
+        <svg class="send-ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g class="send-icon"><path d="M10 14l11 -11" /><path d="M21 3l-6.5 18a.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a.55 .55 0 0 1 0 -1l18 -6.5" /></g></svg>
+        <span class="email-text">brandon@uxward.com</span>
+      </a>
+      <div class="kicker">Read daily · Reply within two business days</div>
     </div>
   </section>
 </Base>

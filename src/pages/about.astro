@@ -16,14 +16,15 @@ import Base from '../layouts/Base.astro';
     }
 
     .name-block { padding-top: var(--space-7); padding-bottom: var(--space-10); }
-    h1.name { font-weight: 900; font-size: clamp(52px, 7vw, 104px); line-height: 0.94; letter-spacing: -0.04em; color: var(--ink); margin: 0; max-width: 16ch; }
+    h1.name { word-spacing: 0.06em; text-wrap: balance; font-weight: 900; font-size: clamp(52px, 7vw, 104px); line-height: 0.94; letter-spacing: -0.04em; color: var(--ink); margin: 0; max-width: 16ch; }
     h1.name em { font-style: normal; }
     .name-deck { font-weight: 400; font-size: clamp(19px, 2.2vw, 24px); line-height: 1.45; color: var(--body); margin: var(--space-8) 0 0; max-width: 64ch; }
 
-    .portrait-section { padding: var(--space-9) 0 0; border-top: 1px solid var(--rule-faint); }
+    .portrait-section { padding: var(--space-9) 0; border-top: 1px solid var(--rule-faint); }
     .portrait-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-10); align-items: end; }
     .portrait { max-width: 520px; width: 100%; margin-left: auto; }
-    .portrait img { display: block; width: 100%; height: auto; }
+    .portrait img { display: block; width: 100%; height: auto; aspect-ratio: 5 / 4; object-fit: cover; border: 1px solid var(--rule-faint); }
+    .portrait figcaption { margin-top: var(--space-3); font-weight: 700; font-size: 11px; letter-spacing: 0.09em; text-transform: uppercase; color: var(--tertiary); }
     .portrait-caption { font-size: 18px; line-height: 1.5; color: var(--body); max-width: 380px; margin: 0; padding-bottom: var(--space-6); }
     .portrait-caption .source { display: block; margin-top: var(--space-4); font-weight: 600; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); }
 
@@ -77,14 +78,12 @@ import Base from '../layouts/Base.astro';
 
   <div class="container about-top">
     <div class="grid">
-      <div class="marker">§ ↩</div>
       <div><a class="back" href="/">Back home</a></div>
     </div>
   </div>
 
   <div class="container name-block">
     <div class="grid">
-      <div class="marker">§ 00</div>
       <div>
         <div class="name-eyebrow">About</div>
         <h1 class="name">Brandon E. B. <em>Ward.</em></h1>
@@ -99,7 +98,6 @@ import Base from '../layouts/Base.astro';
   <section class="portrait-section">
     <div class="container">
       <div class="grid">
-        <div class="marker">§ 01</div>
         <div class="portrait-row">
           <div>
             <p class="portrait-caption">
@@ -110,14 +108,14 @@ import Base from '../layouts/Base.astro';
             </p>
             <p class="portrait-caption">
               You know you want to...
-              <span class="source">B.E.B.W., Dallas, March 2026</span>
             </p>
           </div>
-          <div class="portrait">
-            <img src="/images/BrandonEBWard-006.png"
+          <figure class="portrait">
+            <img src="/images/BrandonEBWard-006-full.webp"
                  alt="Portrait of Brandon E. B. Ward"
-                 width="1000" height="833" />
-          </div>
+                 width="1200" height="922" loading="lazy" decoding="async" />
+            <figcaption>Fig. 02 — B.E.B.W., Dallas, 2026</figcaption>
+          </figure>
         </div>
       </div>
     </div>
@@ -126,7 +124,6 @@ import Base from '../layouts/Base.astro';
   <section class="bio-section">
     <div class="container">
       <div class="grid">
-        <div class="marker">§ 02</div>
         <div>
           <div class="bio-eyebrow">The longer version</div>
           <div class="bio-prose">
@@ -138,26 +135,26 @@ import Base from '../layouts/Base.astro';
               same sentence: <strong>there is no UX/SD/design practice yet; build one.</strong>
             </p>
             <p>
-              The first startup was an e-learning organization I salvaged from dillution when the
+              The first startup was an e-learning organization I salvaged from dilution when the
               Director of Production abruptly quit, building the team, bringing everything in-house.
               The second was a small e-commerce platform where I learned to ship in a small room with
               engineers who outranked me and a CEO who wanted to sue me to stay when I left. The third
-              was an early-to-market video search platform with all the promise and a scrupulous CEO. 
+              was an early-to-market video search platform with all the promise and an unscrupulous CEO.
+              
               The fourth taught me that products that lead with great design with the users in mind backed up by
               quality software is worth millions.
             </p>
             <p>
               The agency years were the years I learned to run a creative team. The
-              consulting years after were the ones where I learned to run a creative team
-              <strong>inside a business that didn't think of itself as a creative one.</strong>
-              At Precocity I joined as the first UX hire and spent ten years growing the
+              consulting years after were the ones where I learned to run a creative team <strong
+              >inside a business that didn't think of itself as a creative one.</strong> At
+              Precocity I joined as the first UX hire and spent ten years growing the
               practice into the discipline that closes the firm's enterprise contracts. That
               case study is the load-bearing piece on this site. <a href="../work/precocity">Read it</a> if you read nothing
               else.
             </p>
             <p>
-              During that run I was retained as the UX and user-research expert witness in
-              <em>FTC v. Match.com</em>. That's the kind of work that only exists when the practice
+              During that run I was retained as the UX and user-research expert witness in <em>FTC v. Match.com</em>. That's the kind of work that only exists when the practice
               is taken seriously. Alongside the day job I co-founded the Dallas chapter of the
               Service Design Network, which has grown to roughly 5,000 members, and won the bid to host its
               2025 global conference.
@@ -181,10 +178,10 @@ import Base from '../layouts/Base.astro';
               isn't.
             </p>
             <p>
-              The summary version, for recruiters who scan: <strong>I build design practices
-              from scratch, or take existing teams, turn them up to 11, and run them across every mode</strong>. That means strategy, creative
+              The short version: <strong>I build design practices from scratch, or take existing
+              teams, turn them up to 11, and run them across every mode</strong>. That means strategy, creative
               direction, hands-on production. Unlike most leaders at my level, I'm still
-              shipping in the new tools every week. When the right executive design leadership opportunity comes along, I'm listening.
+              shipping in the new tools every week.
             </p>
             <p>
               I live in Dallas. I write here periodically. I love kung fu, classic cars, singing, acting, teaching, traveling, husbanding, and fathering.
@@ -198,7 +195,6 @@ import Base from '../layouts/Base.astro';
   <section class="timeline-section">
     <div class="container">
       <div class="grid">
-        <div class="marker">§ 03</div>
         <div>
           <div class="timeline-eyebrow">Career, in years</div>
           <h2 class="timeline-head">The years, told <em>plainly.</em></h2>
@@ -263,14 +259,9 @@ import Base from '../layouts/Base.astro';
   <section class="currently-section">
     <div class="container">
       <div class="grid">
-        <div class="marker">§ 04</div>
         <div>
           <div class="currently-eyebrow">Currently</div>
           <div class="currently-list">
-            <div class="currently-row">
-              <span class="key">Considering</span>
-              <span class="val">Executive design leadership at companies that take design seriously. <em>Head of Design, VP, CDO, CXO</em></span>
-            </div>
             <div class="currently-row">
               <span class="key">Building</span>
               <div class="vals">
@@ -297,7 +288,6 @@ import Base from '../layouts/Base.astro';
   <section class="elsewhere-section">
     <div class="container">
       <div class="grid">
-        <div class="marker">§ 05</div>
         <div>
           <div class="elsewhere-eyebrow">Elsewhere</div>
           <div class="elsewhere-list">

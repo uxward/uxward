@@ -6,7 +6,7 @@ colors:
   paper: "#FAF8F4"
   ink: "#040404"
   body: "#282828"
-  tertiary: "#6B6B6B"
+  tertiary: "#646464"
   rule: "#E4E1DC"
   rule-faint: "rgba(4, 4, 4, 0.10)"
   signature: "#CC0006"
@@ -104,7 +104,7 @@ This is a full redesign, not a refinement of the site's earlier direction — th
 - Numbered, bordered sections read as a specification sheet, not a magazine layout, in Light/Dark.
 - Flat throughout in Light/Dark — no shadows, no rounded corners. Neon is intentionally not flat (glow, blend modes, animated backdrops).
 - Signature red is either an interaction color (link/nav hover) or a full-bleed color field in Light/Dark — never a button, divider, or body-text color. Neon replaces it with a wider neon accent set used far more liberally.
-- No stock imagery in Light/Dark. The only photograph on the site is Brandon's own portrait. Neon adds one video asset (homepage hero backdrop) that never loads outside Neon mode.
+- No stock imagery in Light/Dark. Photography is limited to Brandon's own portraits (home fold, About) and real artifacts from the case studies; both are framed as hairline plates with specimen captions. Neon adds one video asset (homepage hero backdrop) that never loads outside Neon mode.
 
 ## Colors
 
@@ -118,7 +118,7 @@ Five tokens do the work in Light and Dark; the palette is deliberately narrow an
 - **Paper** (`#FAF8F4` light / `#1A1A1A` dark) — a lightly tinted surface reserved for the rare framed/inset moment (case-study artifact placeholder frames).
 - **Ink** (`#040404` light / `#E7E7E7` dark) — headlines, wordmark, primary body color role; near-black by choice, never pure black.
 - **Body** (`#282828` light / `#E8E6E1` dark) — running body copy and secondary text.
-- **Tertiary** (`#6B6B6B` light / `#9A958C` dark) — labels, timestamps, captions, the faint hairline rules. Quiet by design.
+- **Tertiary** (`#646464` light / `#9A958C` dark) — labels, timestamps, captions, the faint hairline rules. Quiet by design.
 - **Rule / Rule-faint** (`#E4E1DC` hairline, or `rgba(ink, 10%)` in the Swiss system's section dividers) — the graphic vocabulary is 1px hairlines, not boxes or shadows.
 - **Offwhite** (`#E7E7E7`) — the white-on-color value: text set on a signature-red field.
 
@@ -148,7 +148,7 @@ Effects layered on top of the palette: a fixed radial-gradient "wet street" back
 
 ## Typography
 
-**Type Family:** Archivo (grotesque sans, weights 400–900) — the only typeface in the primary system. Loaded via the Google Fonts CDN.
+**Type Family:** Archivo (grotesque sans, variable 400–900) — the only typeface in the primary system. Linked from `Base.astro` with `preconnect` to both Google Fonts hosts; requested as a variable axis (`wght@400..900`) rather than six static weights. Never `@import`-ed from a stylesheet — that serialises the font request behind the stylesheet's own download.
 **Supporting Face:** JetBrains Mono — its role has narrowed since the earlier serif system: it now appears only in the mobile full-screen nav overlay, the theme-toggle glyph context, and system-level UI (the cyberpunk activation toast). It is not the site's general "meta-text" voice; on desktop, caption/label text sets in Archivo at small size and heavy weight instead.
 
 **Character:** One voice, deliberately. Heaviest weights (800–900) carry titles and numerals at very tight tracking (-0.02em to -0.045em) and near-1.0 or sub-1.0 line-height, so headlines read as dense, confident blocks rather than airy display type. Body copy sits at a comfortable 400-weight, 1.45–1.7 line-height for long-form reading.
@@ -170,9 +170,11 @@ Typography is the single biggest thing Neon changes — this is a three-font swa
 - **Body text** → **Orbitron**. This is what `--font-body` actually resolves to under `.cyber` (`global.css`, cyber token block).
 - **Nav** → **Sixtyfour** (a pixel/monospace display face) for header/footer/mobile-overlay nav links.
 
-**Divergence worth fixing:** the Colophon page's own Neon-mode copy currently claims JetBrains Mono "carries the body text in Night City, because handpainted letters don't survive real reading" — but the shipped CSS token (`--cf-body: "Orbitron", sans-serif`) and the fonts actually lazy-loaded in `Base.astro` (`rocksalt`, `orbitron`, `sixtyfour`) show Orbitron carries the body, not JetBrains Mono. JetBrains Mono isn't part of the Neon font set at all. Treat the code as authoritative and correct the colophon copy to match, the same way the earlier light-mode color-value bug there was flagged and fixed.
+The Colophon's Neon-mode copy correctly names Orbitron as the body face, matching the shipped `--cf-body` token and the fonts lazy-loaded in `Base.astro`. JetBrains Mono is not part of the Neon set.
 
 ### Named Rules
+**The Word-Space Rule.** Every display role runs at negative tracking (−0.02em to −0.045em), which closes word spaces along with letter spaces and welds headlines into single long words at large sizes. Any type set at −0.02em or tighter carries a compensating `word-spacing` (0.04–0.06em). Display headlines also take `text-wrap: balance`; ledes and decks take `text-wrap: pretty`.
+
 **The No-Serif Rule (Light/Dark).** Nothing in Light or Dark mode sets in a serif face. If a serif treatment is ever needed again, that is a deliberate system change requiring the same weight of decision as the original Fraunces→Archivo redesign — not a per-page choice.
 
 **The Three-Face Exception (Neon only).** Neon mode is the one place the system runs more than one typeface at once (Rock Salt / Orbitron / Sixtyfour) — by design, to make the mode feel like a genuine "override," not a recolor. This exception does not extend to Light or Dark.
@@ -225,8 +227,15 @@ Square everywhere — there is no `border-radius` usage anywhere in the codebase
 - **This is the closest thing the system has to a "primary button"** — there is no filled button component anywhere on the site. Calls to action are always typographic links (an email address with an underline, an inline-flex send icon) set inside this red field, never a pill or rectangle with a background.
 
 ### Spec-Bar / Meta Strip
-- **Style:** a hairline-bordered grid of cells (4 columns desktop, collapsing at 900px), each cell holding a small caps label (tertiary, 11px) over a bold value (ink, 16px).
-- **Where used:** the homepage masthead ("Currently / Discipline / Based / Status") and every case-study's meta strip (role, timeline, tools, live link).
+- **Style:** a hairline-bordered grid of cells (collapsing to 2-up at 900px), each cell holding a small caps label (tertiary, 11px) over a bold value (ink, 16px), and optionally a bottom-aligned dateline (tertiary, 11px caps) that shares a baseline across every cell in the row.
+- **Where used:** the homepage masthead and every case-study's meta strip (client, role, timeframe, capacity).
+- **The homepage masthead is derived, not written.** Its four cells — `Last ship` / `Last essay` / `Source` / `Based` — come from `slate[0].shipped`, `essaysNewestFirst[0]`, and a build-time `git log -1` (`src/data/build-info.js`), with the commit hash linked to the public repo. Columns are deliberately unequal (`1fr 1.5fr 1fr 0.8fr`): the Unigrid allocates columns to content rather than dividing them evenly. Nothing in this bar is a claim a reader can't check, and nothing in it can go stale between builds.
+
+### Plates (portrait and artifact)
+- **Style:** a 1px `--rule-faint` hairline directly around the image — no radius, no shadow, no padding, no fill. `object-fit: cover` with an explicit `aspect-ratio`; because the HTML `width`/`height` attributes map to presentational CSS, every plate also needs `height: auto` or the ratio is inert.
+- **Caption:** the label role (11px / 700 / 0.09em / uppercase / tertiary), set below the frame. Portraits use a specimen caption (`Fig. 01 — B.E.B.W., Dallas, 2026`).
+- **Where used:** the homepage fold portrait, the About portrait, the work-index hero artifact, and the small artifact previews on the home and work lists.
+- **Previews stay a catalog, not a card grid.** No lift, no scale, no shadow on hover — only the row's title flips red, exactly as a text-only row does. Every preview points at an image that already appears on its case page; nothing is fabricated.
 
 ### Navigation
 - **Desktop header:** wordmark left ("Brandon" always signature red; "E.B. Ward" flips red on hover), horizontal nav links right, set in Archivo (not mono), uppercase, 13px, weight 600, letter-spacing 0.05em. A light/dark theme toggle (an animated sun glyph) sits beside the nav.
@@ -242,7 +251,9 @@ Square everywhere — there is no `border-radius` usage anywhere in the codebase
 ### Do:
 - **Do** run every type role — display, body, numerals, labels — in Archivo. One typeface is a stated system commitment, not an oversight.
 - **Do** open a major section with a large red numeral + caps title, followed by a full-width hairline divider.
-- **Do** treat signature red as either the universal hover/focus color or a full-bleed event field — those are its only two jobs.
+- **Do** treat signature red as either the universal hover/focus color or a full-bleed event field — those are its only two jobs. (The `/work` archive category tags were demoted from red to tertiary for exactly this reason: thirty static red labels spent the colour as decoration.)
+- **Do** run foreground text on the red field at full `--offwhite`. `#E7E7E7` on `#CC0006` is 4.76:1, so there is no contrast headroom left to spend on opacity — any `rgba(231,231,231,0.8)` treatment fails AA.
+- **Do** wrap every `:hover` rule in `@media (hover: hover)`. Ungated, they stick after a tap on touch. `:focus-visible` gets the same colour change, unconditionally.
 - **Do** keep every divider a 1px hairline (`--rule` or `--rule-faint`) in Light/Dark; never substitute a shadow or a filled panel for separation.
 - **Do** treat Neon as a fully documented third version when changing it — update its color/type/depth tables here the same way a Light/Dark change would update the primary tables, rather than treating it as a throwaway easter egg not worth documenting.
 - **Do** keep Neon's tokens, fonts, and effects scoped to the `.cyber` / `.cyber-*` classes — it should never leak into Light/Dark, and Light/Dark rules (flat-by-default, one typeface, rationed red) should never be assumed to constrain Neon.

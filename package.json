@@ -7,8 +7,8 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
-    "build:preview": "astro build --config astro.config.preview.mjs",
+    "build": "astro build && find dist -name '.DS_Store' -delete",
+    "build:preview": "astro build --config astro.config.preview.mjs && find dist -name '.DS_Store' -delete",
     "preview": "astro preview",
     "astro": "astro",
     "wireframes:png": "for f in D-UX-Design/wireframes/*.excalidraw; do excalidraw-brute-export-cli -i \"$f\" -o \"${f%.excalidraw}.png\" -f png -b true -s 2; done"

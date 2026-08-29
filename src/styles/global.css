@@ -3,7 +3,8 @@
    Colors, type, tokens. Source of truth.
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+/* Fonts are linked (with preconnect) from Base.astro — an @import here
+   serialised the font request behind this stylesheet's own download. */
 
 /* ---------- Tokens: Light ---------- */
 :root {
@@ -16,15 +17,6 @@
   --signature: #CC0006;
   --offwhite:  #E7E7E7;   /* the white-on-color value (red fields, dark text) */
 
-  --bg:        var(--canvas);
-  --fg:        var(--ink);
-  --fg-body:   var(--body);
-  --fg-mute:   var(--tertiary);
-  --line:      var(--rule);
-  --surface:   var(--paper);
-  --accent:    var(--signature);
-
-  --space-1:  4px;
   --space-2:  8px;
   --space-3:  12px;
   --space-4:  16px;
@@ -35,11 +27,6 @@
   --space-9:  64px;
   --space-10: 96px;
   --space-11: 128px;
-
-  --w-prose:    720px;
-  --w-display:  1100px;
-  --w-quote:    600px;
-  --w-caption:  420px;
 
   --container:    1180px;
   --gutter-x:     32px;
@@ -62,8 +49,7 @@
 }
 
 /* ---------- Tokens: Dark ---------- */
-:root[data-theme="dark"],
-.theme-dark {
+:root[data-theme="dark"] {
   --canvas:     #121212;
   --ink:        #E7E7E7;
   --body:       #E8E6E1;
@@ -141,7 +127,7 @@ html, body {
   text-rendering: optimizeLegibility;
 }
 
-::selection { background: var(--signature); color: #fff; }
+::selection { background: var(--signature); color: var(--offwhite); }
 
 /* ============================================================
    Links
@@ -153,7 +139,9 @@ a, .link {
   text-underline-offset: 3px;
   transition: color var(--t-fast) ease;
 }
-a:hover, .link:hover { color: var(--signature); }
+@media (hover: hover) {
+  a:hover, .link:hover { color: var(--signature); }
+}
 a:focus-visible, .link:focus-visible {
   outline: 2px solid var(--signature);
   outline-offset: 3px;
@@ -171,6 +159,31 @@ ul > li::before {
   position: absolute;
   left: -1.2em;
   color: var(--signature);
+}
+
+/* ============================================================
+   Skip link — first in the tab order, invisible until focused
+   ============================================================ */
+.skip-link {
+  position: absolute;
+  left: var(--gutter-x);
+  top: 0;
+  z-index: 100;
+  transform: translateY(-120%);
+  padding: var(--space-3) var(--space-5);
+  background: var(--canvas);
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  text-decoration: none;
+}
+.skip-link:focus {
+  transform: translateY(0);
+  outline: 2px solid var(--signature);
+  outline-offset: 2px;
 }
 
 /* ============================================================
@@ -221,18 +234,6 @@ ul > li::before {
 /* The §-marker rail is retired site-wide — content runs full width inside
    .container. (The new Archivo/Swiss system has no rail.) */
 .grid { display: block; }
-.grid > .marker { display: none; }
-/* Case-study hero number sits beside the 132px case number (no label to
-   baseline against) — keep its optical nudge. */
-.title-block .marker { padding-top: 10px; }
-/* Back-home / breadcrumb bars: the label is an inline link sitting in an
-   18px-strut line box (no 11px block to match the marker), so baseline-align
-   the marker to the link rather than top-align it. */
-.grid:has(> div > a:only-child) { align-items: baseline; }
-@media (max-width: 720px) {
-  .grid { grid-template-columns: 1fr; }
-  .grid > .marker { padding-top: 0; }
-}
 
 /* ============================================================
    Header
@@ -255,7 +256,10 @@ ul > li::before {
   white-space: nowrap;
 }
 .wm .wm-given { color: var(--signature); }   /* "Brandon" — always red */
-.wm:hover { color: var(--signature); }        /* hover highlights "E.B. Ward" red (Brandon already is) */
+.wm:focus-visible { color: var(--signature); }
+@media (hover: hover) {
+  .wm:hover { color: var(--signature); }
+}        /* hover highlights "E. B. Ward" red (Brandon already is) */
 .hdr-controls { display: flex; align-items: center; gap: 20px; }
 nav.hdr-nav { display: flex; gap: 28px; align-items: baseline; }
 .hdr-nav a {
@@ -267,7 +271,10 @@ nav.hdr-nav { display: flex; gap: 28px; align-items: baseline; }
   color: var(--ink);
   text-decoration: none;
 }
-.hdr-nav a:hover { color: var(--signature); }
+.hdr-nav a:focus-visible { color: var(--signature); }
+@media (hover: hover) {
+  .hdr-nav a:hover { color: var(--signature); }
+}
 .toggle {
   font-family: var(--font-sans);
   font-size: 20px;
@@ -280,7 +287,9 @@ nav.hdr-nav { display: flex; gap: 28px; align-items: baseline; }
   transition: color var(--t-fast) ease;
   display: inline-block;
 }
-.toggle:hover { color: var(--signature); }
+@media (hover: hover) {
+  .toggle:hover { color: var(--signature); }
+}
 .toggle-glyph {
   display: inline-block;
   width: 20px;
@@ -320,7 +329,9 @@ nav.hdr-nav { display: flex; gap: 28px; align-items: baseline; }
   background: var(--ink);
   transition: opacity var(--t-fast) ease;
 }
-.menu-toggle:hover span { opacity: 0.5; }
+@media (hover: hover) {
+  .menu-toggle:hover span { opacity: 0.5; }
+}
 
 /* Full-screen mobile nav overlay */
 .nav-overlay {
@@ -359,7 +370,9 @@ nav.hdr-nav { display: flex; gap: 28px; align-items: baseline; }
   color: var(--ink);
   padding: 0 4px;
 }
-.menu-close:hover { color: var(--signature); }
+@media (hover: hover) {
+  .menu-close:hover { color: var(--signature); }
+}
 .nav-overlay-menu {
   display: flex;
   flex-direction: column;
@@ -375,7 +388,10 @@ nav.hdr-nav { display: flex; gap: 28px; align-items: baseline; }
   padding: var(--space-5) 0;
   border-bottom: 1px solid var(--rule);
 }
-.nav-overlay-menu a:hover { color: var(--signature); }
+.nav-overlay-menu a:focus-visible { color: var(--signature); }
+@media (hover: hover) {
+  .nav-overlay-menu a:hover { color: var(--signature); }
+}
 
 @media (max-width: 720px) {
   nav.hdr-nav { display: none; }
@@ -431,7 +447,10 @@ footer.foot {
   color: var(--ink);
   text-decoration: none;
 }
-.foot-nav a:hover, .foot-ext a:hover { color: var(--signature); }
+.foot-nav a:focus-visible, .foot-ext a:focus-visible { color: var(--signature); }
+@media (hover: hover) {
+  .foot-nav a:hover, .foot-ext a:hover { color: var(--signature); }
+}
 .foot-ext { display: flex; gap: 18px; justify-content: flex-end; }
 .colophon-line {
   margin-top: var(--space-8);

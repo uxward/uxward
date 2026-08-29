@@ -43,7 +43,7 @@ import Base from '../layouts/Base.astro';
       font-size: 12px;
       letter-spacing: 0.05em;
       text-transform: uppercase;
-      color: #6B6B6B;
+      color: var(--tertiary);
       margin-bottom: var(--space-5);
     }
     .ink-caption h1 {
@@ -79,7 +79,7 @@ import Base from '../layouts/Base.astro';
       font-size: 12px;
       letter-spacing: 0.05em;
       text-transform: uppercase;
-      color: #6B6B6B;
+      color: var(--tertiary);
       transition: color 0.15s ease;
     }
     .ink-controls .act:hover,
@@ -178,7 +178,6 @@ import Base from '../layouts/Base.astro';
 
   <div class="container ink-top">
     <div class="grid">
-      <div class="marker">§ ❦</div>
       <div><a class="back" href="/colophon">Back to the colophon</a></div>
     </div>
   </div>
@@ -206,7 +205,6 @@ import Base from '../layouts/Base.astro';
 
   <div class="container ink-credit">
     <div class="grid">
-      <div class="marker">§ ※</div>
       <p>
         <em>Suminagashi</em> (墨流し) — ink floated on still water, here as a real-time fluid
         simulation. After <a href="https://suminagashi-fjdbyyqi.manus.space/" target="_blank" rel="noopener">an interactive version</a>

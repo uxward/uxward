@@ -1,12 +1,14 @@
 ---
 import Base from '../layouts/Base.astro';
+import { slate } from '../data/slate.js';
+import { essays } from '../data/essays.js';
 ---
 <Base title="Not found · uxward">
   <style>
     .middle { display: flex; align-items: center; padding: var(--space-10) 0; min-height: calc(100vh - 300px); }
     .stage { width: 100%; padding: var(--space-10) 0; }
     .eyebrow { font-weight: 700; font-size: 13px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); margin-bottom: var(--space-8); }
-    h1.title { font-weight: 900; font-size: clamp(56px, 8.4vw, 124px); line-height: 0.94; letter-spacing: -0.045em; color: var(--ink); margin: 0; max-width: 14ch; }
+    h1.title { word-spacing: 0.06em; text-wrap: balance; font-weight: 900; font-size: clamp(56px, 8.4vw, 124px); line-height: 0.94; letter-spacing: -0.045em; color: var(--ink); margin: 0; max-width: 14ch; }
     .subhead { font-weight: 800; font-size: clamp(28px, 3.4vw, 44px); line-height: 1.1; letter-spacing: -0.025em; color: var(--body); margin: var(--space-7) 0 0; }
     .subhead .red { color: var(--signature); }
 
@@ -27,7 +29,7 @@ import Base from '../layouts/Base.astro';
     .footnote .fleuron { font-size: 18px; color: var(--tertiary); }
   </style>
 
-  <main class="middle">
+  <div class="middle">
     <div class="container">
       <div class="stage">
         <div class="eyebrow">A small administrative note</div>
@@ -44,17 +46,17 @@ import Base from '../layouts/Base.astro';
             </div>
             <div class="meant-row">
               <span class="num">02</span>
-              <a class="where" href="/work">Work — <em>seven selected pieces, ten years apiece.</em></a>
+              <a class="where" href="/work">Work — <em>{slate.length} selected pieces, ten years apiece.</em></a>
               <a class="go" href="/work">→</a>
             </div>
             <div class="meant-row">
               <span class="num">03</span>
-              <a class="where" href="/writing">Writing — <em>quarterly essays, no newsletter.</em></a>
+              <a class="where" href="/writing">Writing — <em>{essays.length} essays, no newsletter.</em></a>
               <a class="go" href="/writing">→</a>
             </div>
             <div class="meant-row">
               <span class="num">04</span>
-              <a class="where" href="/about">About — <em>the longer version, recruiter-deep.</em></a>
+              <a class="where" href="/about">About — <em>the longer version, told plainly.</em></a>
               <a class="go" href="/about">→</a>
             </div>
             <div class="meant-row">
@@ -66,7 +68,7 @@ import Base from '../layouts/Base.astro';
         </section>
       </div>
     </div>
-  </main>
+  </div>
 
   <div class="footnote">
     <div class="container">

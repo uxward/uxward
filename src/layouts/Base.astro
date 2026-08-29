@@ -10,8 +10,11 @@ export interface Props {
   ogImage?: string;
   schema?: Record<string, unknown>;
 }
-const { title, description = "Brandon E. B. Ward — senior design leadership. Building design practice from scratch since 2001.", bodyClass, ogType = "website", ogImage, schema } = Astro.props;
+const { title, description = "Brandon E. B. Ward — senior design leadership. 25 years building design practice from scratch.", bodyClass, ogType = "website", ogImage, schema } = Astro.props;
 const site = import.meta.env.SITE;
+// Every share needs a card. Pages pass their own (a case study's hero shot);
+// everything else falls back to the system plate.
+const ogImageUrl = new URL(ogImage ?? '/og-default.png', Astro.url).href;
 const siteSchema = JSON.stringify({
   "@context": "https://schema.org",
   "@graph": [
@@ -20,7 +23,7 @@ const siteSchema = JSON.stringify({
       "name": "Brandon E. B. Ward",
       "url": site,
       "jobTitle": "Chief Experience Officer",
-      "description": "Executive design leader. 20+ years building design practices from scratch. CXO at Precocity. Founder of Speakeazy. Based in Dallas, Texas.",
+      "description": "Executive design leader. 25 years building design practices from scratch. CXO at Precocity. Founder of Speakeazy. Based in Dallas, Texas.",
       "sameAs": ["https://linkedin.com/in/brandonebward", "https://github.com/uxward"]
     },
     {
@@ -34,7 +37,7 @@ const siteSchema = JSON.stringify({
 });
 ---
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -47,11 +50,16 @@ const siteSchema = JSON.stringify({
   <meta property="og:url" content={Astro.url.href}>
   <meta property="og:title" content={title}>
   <meta property="og:description" content={description}>
-  {ogImage && <meta property="og:image" content={ogImage}>}
-  <meta name="twitter:card" content="summary">
+  <meta property="og:image" content={ogImageUrl}>
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content={title}>
   <meta name="twitter:description" content={description}>
+  <meta name="twitter:image" content={ogImageUrl}>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400..900&family=JetBrains+Mono:wght@400..700&display=swap">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <script defer src="/white-rabbit.js"></script>
   <script type="application/ld+json" set:html={siteSchema}></script>
   {schema && <script type="application/ld+json" set:html={JSON.stringify(schema).replace(/<\//g, '<\\/')}></script>}
@@ -88,10 +96,11 @@ const siteSchema = JSON.stringify({
   </script>
 </head>
 <body class={bodyClass}>
+  <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="hdr">
     <div class="container hdr-row">
-      <a href="/" class="wm" aria-label="Brandon E.B. Ward"><span class="wm-given">Brandon</span> E.B. Ward</a>
+      <a href="/" class="wm" aria-label="Brandon E. B. Ward"><span class="wm-given">Brandon</span> E. B. Ward</a>
       <div class="hdr-controls">
         <nav class="hdr-nav" aria-label="Main navigation">
           <a href="/work">Work</a>
@@ -110,7 +119,7 @@ const siteSchema = JSON.stringify({
   <div id="nav-overlay" class="nav-overlay" aria-hidden="true">
     <div class="nav-overlay-inner">
       <div class="nav-overlay-top">
-        <a href="/" class="wm" aria-label="Brandon E.B. Ward"><span class="wm-given">Brandon</span> E.B. Ward</a>
+        <a href="/" class="wm" aria-label="Brandon E. B. Ward"><span class="wm-given">Brandon</span> E. B. Ward</a>
         <button id="menu-close" class="menu-close" aria-label="Close menu">×</button>
       </div>
       <nav class="nav-overlay-menu" aria-label="Mobile navigation">
@@ -118,17 +127,20 @@ const siteSchema = JSON.stringify({
         <a href="/writing">Writing</a>
         <a href="/about">About</a>
         <a href="/contact">Contact</a>
+        <a href="/colophon">Colophon</a>
         <button class="toggle nav-overlay-toggle" title="Toggle theme" aria-label="Toggle theme"><svg class="toggle-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true" focusable="false"><g class="sun-rays"><line x1="12" y1="3.5" x2="12" y2="6"/><line x1="6.2" y1="6.2" x2="7.9" y2="7.9"/><line x1="17.8" y1="6.2" x2="16.1" y2="7.9"/><line x1="3.5" y1="12" x2="6" y2="12"/><line x1="20.5" y1="12" x2="18" y2="12"/></g><circle class="sun-orb" cx="12" cy="12" r="3.8"/><rect class="sun-cover" x="0" y="18" width="24" height="8" stroke="none"/><line class="sun-horizon" x1="3" y1="18" x2="21" y2="18"/></svg><svg class="cyber-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10.6"/><g class="rad-blades" fill="currentColor" stroke="none"><path d="M9.94 9.17 L7.18 5.37 A8.2 8.2 0 0 1 16.82 5.37 L14.06 9.17 A3.5 3.5 0 0 0 9.94 9.17 Z"/><path d="M15.48 11.63 L20.16 11.14 A8.2 8.2 0 0 1 15.34 19.49 L13.42 15.20 A3.5 3.5 0 0 0 15.48 11.63 Z"/><path d="M10.58 15.20 L8.66 19.49 A8.2 8.2 0 0 1 3.84 11.14 L8.52 11.63 A3.5 3.5 0 0 0 10.58 15.20 Z"/></g><circle cx="12" cy="12" r="1.7" fill="currentColor" stroke="none"/></svg></button>
       </nav>
     </div>
   </div>
 
-  <slot />
+  <main id="main">
+    <slot />
+  </main>
 
   <footer class="foot">
     <div class="container">
       <div class="foot-row">
-        <a href="/" class="wm" aria-label="Brandon E.B. Ward"><span class="wm-given">Brandon</span> E.B. Ward</a>
+        <a href="/" class="wm" aria-label="Brandon E. B. Ward"><span class="wm-given">Brandon</span> E. B. Ward</a>
         <nav class="foot-nav" aria-label="Footer navigation">
           <a href="/work">Work</a>
           <a href="/writing">Writing</a>
@@ -154,8 +166,16 @@ const siteSchema = JSON.stringify({
       var root = document.documentElement;
       var toggles = document.querySelectorAll('.toggle');
 
+      // No data-theme attribute means "follow the OS" — resolve it rather than
+      // reading an attribute that may not be set yet.
+      function currentTheme() {
+        var attr = root.getAttribute('data-theme');
+        if (attr === 'dark' || attr === 'light') return attr;
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+
       function syncGlyph() {
-        var dark = root.getAttribute('data-theme') === 'dark';
+        var dark = currentTheme() === 'dark';
         var cyber = root.classList.contains('cyber');
         toggles.forEach(function (t) {
           t.setAttribute('aria-label',
@@ -177,7 +197,7 @@ const siteSchema = JSON.stringify({
             syncGlyph();
             return;
           }
-          var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+          var next = currentTheme() === 'dark' ? 'light' : 'dark';
           root.setAttribute('data-theme', next);
           try { localStorage.setItem('uxward-theme', next); } catch (e) {}
           syncGlyph();
@@ -188,18 +208,29 @@ const siteSchema = JSON.stringify({
       var menuClose = document.getElementById('menu-close');
       var overlay = document.getElementById('nav-overlay');
 
+      function menuIsOpen() {
+        return !!overlay && overlay.classList.contains('is-open');
+      }
+
+      function focusables() {
+        return [].slice.call(overlay.querySelectorAll('a[href], button:not([disabled])'));
+      }
+
       function openMenu() {
         overlay.classList.add('is-open');
         overlay.setAttribute('aria-hidden', 'false');
         menuToggle.setAttribute('aria-expanded', 'true');
         document.body.style.overflow = 'hidden';
+        if (menuClose) menuClose.focus();
       }
 
       function closeMenu() {
+        if (!menuIsOpen()) return;
         overlay.classList.remove('is-open');
         overlay.setAttribute('aria-hidden', 'true');
         menuToggle.setAttribute('aria-expanded', 'false');
         document.body.style.overflow = '';
+        menuToggle.focus();
       }
 
       if (menuToggle) menuToggle.addEventListener('click', openMenu);
@@ -208,6 +239,16 @@ const siteSchema = JSON.stringify({
       if (overlay) {
         overlay.querySelectorAll('.nav-overlay-menu a').forEach(function (link) {
           link.addEventListener('click', closeMenu);
+        });
+
+        // Keep Tab inside the overlay while it covers the page.
+        overlay.addEventListener('keydown', function (e) {
+          if (e.key !== 'Tab' || !menuIsOpen()) return;
+          var items = focusables();
+          if (!items.length) return;
+          var first = items[0], last = items[items.length - 1];
+          if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+          else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
         });
       }
 
@@ -265,7 +306,7 @@ const siteSchema = JSON.stringify({
       // Tag the visible page elements so they fall / fly off as the signal corrupts.
       function tearDownText() {
         var nodes = [].slice.call(document.querySelectorAll(
-          'h1,h2,h3,h4,h5,p,li,figure,img,blockquote,figcaption,.marker,.eyebrow,.deck,.cap'
+          'h1,h2,h3,h4,h5,p,li,figure,img,blockquote,figcaption,.eyebrow,.deck,.cap'
         ));
         var vh = window.innerHeight, picked = [];
         for (var i = 0; i < nodes.length && picked.length < 150; i++) {
@@ -360,6 +401,7 @@ const siteSchema = JSON.stringify({
         if (e.metaKey || e.ctrlKey || e.altKey) return;
         if (transitioning) return;   // ignore input while the enter cinematic runs
 
+        if (e.key === 'Escape' && menuIsOpen()) { closeMenu(); return; }
         if (e.key === 'Escape' && root.classList.contains('cyber')) { exitCyber(); return; }
 
         var k = normKey(e);

@@ -28,7 +28,7 @@ Breaking 80 requires off-site brand presence — no amount of local schema fixes
 - [ ] **`articleBody` field on Article schema** — Currently essays have `headline` + `description` but not `articleBody`. Adding a 50–100 word summary gives AI systems more to quote without crawling the full page.
 - [ ] **`sameAs` expansion on Person schema** in `Base.astro` — currently has LinkedIn and GitHub; add any other authoritative profiles (Twitter/X, Speaker deck, etc.)
 - [ ] **Image alt text audit** — grep for `<img` tags missing `alt` across the work case study pages; descriptive alts are read by AI crawlers.
-- [ ] **Default OG image** — `Base.astro` now has an `ogImage` prop and emits `og:image` when provided, but no fallback image exists yet. Create a 1200×630 static image (even a plain SVG/PNG with name + title) and pass it as the default in `Base.astro`. Per-page overrides are already wired.
+- [x] **Default OG image** — done 2026-08-29. `public/og-default.png` (1200×630, built out of the site's own system: Archivo 900, off-white canvas, signature red, hairline spec bar) is now the fallback in `Base.astro`; `twitter:card` upgraded to `summary_large_image` and `twitter:image` added. Per-page overrides still work — case studies should pass their own hero shot. `apple-touch-icon.png` added at the same time.
 
 ### Lower priority
 

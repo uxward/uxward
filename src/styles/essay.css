@@ -16,11 +16,11 @@ body.essay .reading-column { max-width: 680px; margin: 0 auto; padding: 0 var(--
 body.essay .essay-top { padding: var(--space-8) 0 var(--space-7); }
 body.essay .essay-top .row { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-7); flex-wrap: wrap; }
 body.essay .essay-top a.back, body.essay .essay-top .meta { font-weight: 600; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); text-decoration: none; }
-body.essay .essay-top a.back:hover { color: var(--signature); }
+@media (hover: hover) { body.essay .essay-top a.back:hover { color: var(--signature); } }
 body.essay .essay-top .meta .sep { padding: 0 10px; color: var(--rule-faint); }
 
 body.essay .essay-title-block { padding: var(--space-9) 0 var(--space-9); }
-body.essay .essay-title { font-weight: 900; font-size: clamp(40px, 5.6vw, 76px); line-height: 0.98; letter-spacing: -0.035em; color: var(--ink); margin: 0; max-width: 16ch; }
+body.essay .essay-title { word-spacing: 0.05em; text-wrap: balance; font-weight: 900; font-size: clamp(40px, 5.6vw, 76px); line-height: 0.98; letter-spacing: -0.035em; color: var(--ink); margin: 0; max-width: 16ch; }
 body.essay .essay-title em { font-style: normal; }
 body.essay .essay-deck { font-weight: 400; font-size: 21px; line-height: 1.45; color: var(--body); margin: var(--space-7) 0 0; max-width: 660px; }
 body.essay .essay-byline { font-weight: 600; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); margin-top: var(--space-8); }
@@ -52,9 +52,9 @@ body.essay .more-grid .essay-card { text-decoration: none; color: inherit; displ
 body.essay .more-grid .essay-card .meta { font-weight: 600; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); margin-bottom: var(--space-5); }
 body.essay .more-grid .essay-card .title { font-weight: 800; font-size: 22px; line-height: 1.2; letter-spacing: -0.015em; color: var(--ink); margin: 0 0 var(--space-3); }
 body.essay .more-grid .essay-card .deck { font-size: 16.5px; line-height: 1.5; color: var(--body); margin: 0; }
-body.essay .more-grid .essay-card:hover .title { color: var(--signature); }
+@media (hover: hover) { body.essay .more-grid .essay-card:hover .title { color: var(--signature); } }
 body.essay .all-link { margin-top: var(--space-9); }
 body.essay .all-link a { font-weight: 600; font-size: 13px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
-body.essay .all-link a:hover { color: var(--signature); }
+@media (hover: hover) { body.essay .all-link a:hover { color: var(--signature); } }
 
 @media (max-width: 720px) { body.essay .more-grid { grid-template-columns: 1fr; gap: var(--space-8); } }

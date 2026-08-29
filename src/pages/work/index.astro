@@ -30,10 +30,10 @@ const archive = [
   { tag: "AR",                  client: "NOKIA",                    hook: "just-in-time training for field techs",   out: "Mobile AR tutorials cut training and install time for contractors with little prior experience." },
   { tag: "VR",                  client: "RetailGIS",                hook: "walking a store before it's built",       out: "Turned existing 2D store schematics into multi-user VR walkthroughs in the Meta Quest." },
   { tag: "Usability research",  client: "Global automaker",         hook: "an accident app for people in distress",  out: "A usability study surfaced dealbreaker limitations and the fixes to make it usable under stress." },
-  { tag: "Usability research",  client: "Automaker · Connected",    hook: "catching the flaw that left cars unlocked", out: "Real-world testing caught a return-flow defect that would've left every car unlocked after use." },
+  { tag: "Usability research",  client: "Global automaker",    hook: "catching the flaw that left cars unlocked", out: "Real-world testing caught a return-flow defect that would've left every car unlocked after use." },
   { tag: "Usability research",  client: "Global automaker",         hook: "programming a mirror, in a real car",     out: "In-vehicle testing of a full-display rearview mirror produced clearer controls, icons, and sunlight visibility." },
   { tag: "Adoption study",      client: "Global automaker",         hook: "why a companion app wasn't catching on",  out: "A usability study pinpointed the onboarding and IA fixes to lift the companion app's adoption." },
-  { tag: "Accessibility",       client: "Automaker · Mobility",     hook: "touchscreen controls for power wheelchairs", out: "Live-intercept surveys and two usability rounds (21 users) at the Dallas & LA Abilities Expos validated a touchscreen for Group 2–3 users." },
+  { tag: "Accessibility",       client: "Mobility company",          hook: "touchscreen controls for power wheelchairs", out: "Live-intercept surveys and two usability rounds (21 users) at the Dallas & LA Abilities Expos validated a touchscreen for Group 2–3 users." },
   { tag: "Enterprise UX",       client: "HKS",                      hook: "finding people across 24 offices",        out: "A PoC freed resourcing from a finance-only ERP, letting PMs find and plan talent worldwide." },
   { tag: "Enterprise platform", client: "Milestone",                hook: "paper onboarding, digitized",             out: "A bespoke portal automated onboarding and gave HR and execs real-time performance dashboards." },
   { tag: "Platform strategy",   client: "Success Group Int'l",      hook: "consolidating a fractured platform",      out: "A 6-week MVP definition and phased roadmap cut IT complexity and support costs." },
@@ -49,11 +49,11 @@ const archive = [
   <style>
     .top { padding-top: var(--space-8); padding-bottom: var(--space-6); }
     .top a.back { font-weight: 600; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); text-decoration: none; }
-    .top a.back:hover { color: var(--signature); }
+    @media (hover: hover) { .top a.back:hover { color: var(--signature); } }
 
     .page-title { padding-top: var(--space-7); padding-bottom: var(--space-9); }
     .page-eyebrow { font-weight: 700; font-size: 13px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); margin-bottom: var(--space-7); }
-    .page-h { font-weight: 900; font-size: clamp(48px, 6.4vw, 96px); line-height: 0.96; letter-spacing: -0.04em; color: var(--ink); margin: 0; max-width: 18ch; }
+    .page-h { word-spacing: 0.06em; text-wrap: balance; font-weight: 900; font-size: clamp(48px, 6.4vw, 96px); line-height: 0.96; letter-spacing: -0.04em; color: var(--ink); margin: 0; max-width: 18ch; }
     .page-h em { font-style: normal; }
     .page-intro { font-weight: 400; font-size: clamp(19px, 2.2vw, 22px); line-height: 1.5; color: var(--body); max-width: 64ch; margin: var(--space-7) 0 0; }
 
@@ -67,7 +67,7 @@ const archive = [
     a.hero .num small { display: block; margin-top: var(--space-4); font-weight: 700; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--signature); font-feature-settings: normal; }
     a.hero .hero-body { padding-top: 8px; }
     a.hero .hero-eyebrow { font-weight: 700; font-size: 13px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--signature); margin-bottom: var(--space-6); }
-    a.hero h2.hero-title { font-weight: 900; font-size: clamp(40px, 5.4vw, 72px); line-height: 0.98; letter-spacing: -0.04em; color: var(--ink); margin: 0; max-width: 880px; transition: color var(--t-fast) ease; }
+    a.hero h2.hero-title { word-spacing: 0.05em; text-wrap: pretty; font-weight: 900; font-size: clamp(40px, 5.4vw, 72px); line-height: 0.98; letter-spacing: -0.04em; color: var(--ink); margin: 0; max-width: 880px; transition: color var(--t-fast) ease; }
     a.hero h2.hero-title em { font-style: normal; }
     a.hero .hero-deck { font-weight: 400; font-size: 22px; line-height: 1.45; color: var(--body); max-width: 660px; margin: var(--space-7) 0 0; }
     a.hero .hero-pullout { font-weight: 700; font-size: clamp(24px, 2.8vw, 32px); line-height: 1.2; letter-spacing: -0.02em; color: var(--ink); border-left: 4px solid var(--signature); padding: 4px 0 4px var(--space-6); margin: var(--space-9) 0 0; max-width: 720px; }
@@ -76,11 +76,11 @@ const archive = [
     a.hero .hero-meta .stamps { font-weight: 600; font-size: 11.5px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); }
     a.hero .hero-meta .stamps span + span::before { content: " · "; color: var(--rule-faint); padding: 0 8px; }
     a.hero .hero-meta .open { font-weight: 700; font-size: 14px; color: var(--ink); text-decoration: none; }
-    a.hero:hover h2.hero-title { color: var(--signature); }
-    a.hero:hover .open { color: var(--signature); }
+    @media (hover: hover) { a.hero:hover h2.hero-title { color: var(--signature); } }
+    @media (hover: hover) { a.hero:hover .open { color: var(--signature); } }
 
     a.case { display: block; text-decoration: none; color: inherit; padding: var(--space-8) 0; border-bottom: 1px solid var(--rule-faint); transition: opacity var(--t-fast) ease; }
-    a.case .row { display: grid; grid-template-columns: 200px 1fr 240px; gap: var(--space-7); align-items: start; }
+    a.case .row { display: grid; grid-template-columns: 140px 200px 1fr 200px; gap: var(--space-7); align-items: start; }
     a.case .num { font-weight: 900; font-size: 56px; line-height: 0.82; letter-spacing: -0.04em; color: var(--tertiary); font-feature-settings: 'tnum' 1; padding-top: 6px; }
     a.case .body { padding-top: 4px; }
     a.case h3.case-title { font-weight: 800; font-size: 34px; line-height: 1.08; letter-spacing: -0.025em; color: var(--ink); margin: 0; max-width: 640px; transition: color var(--t-fast) ease; }
@@ -89,9 +89,16 @@ const archive = [
     a.case .meta { padding-top: 22px; text-align: right; }
     a.case .meta .stamps { font-weight: 600; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); line-height: 1.7; }
     a.case .meta .open { margin-top: var(--space-5); font-weight: 700; font-size: 14px; color: var(--ink); text-decoration: none; display: inline-block; }
-    a.case:hover h3.case-title { color: var(--signature); }
-    a.case:hover .num { color: var(--signature); }
-    a.case:hover .open { color: var(--signature); }
+
+    /* Artifact plates: a hairline and nothing else. These stay a catalog list,
+       not a card grid — no radius, no shadow, no lift on hover. */
+    a.hero .hero-shot { margin: var(--space-8) 0 0; max-width: 720px; }
+    a.hero .hero-shot img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border: 1px solid var(--rule-faint); }
+    a.case .shot { margin: 0; padding-top: 6px; }
+    a.case .shot img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border: 1px solid var(--rule-faint); }
+    @media (hover: hover) { a.case:hover h3.case-title { color: var(--signature); } }
+    @media (hover: hover) { a.case:hover .num { color: var(--signature); } }
+    @media (hover: hover) { a.case:hover .open { color: var(--signature); } }
 
     .pivot { padding: var(--space-10) 0 var(--space-9); border-top: 1px solid var(--rule-faint); }
     .pivot-eyebrow { font-weight: 700; font-size: 13px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); margin-bottom: var(--space-7); }
@@ -101,10 +108,10 @@ const archive = [
     .pivot-card .label { font-weight: 800; font-size: 32px; line-height: 1.1; letter-spacing: -0.025em; color: var(--ink); }
     .pivot-card .label em { font-style: normal; }
     .pivot-card .why { font-weight: 400; font-size: 17px; line-height: 1.5; color: var(--body); margin: var(--space-4) 0 0; max-width: 460px; }
-    .pivot-card:hover .label { color: var(--signature); }
+    @media (hover: hover) { .pivot-card:hover .label { color: var(--signature); } }
 
     @media (max-width: 900px) {
-      a.case .row { grid-template-columns: 80px 1fr; }
+      a.case .row { grid-template-columns: 80px 160px 1fr; }
       a.case .meta { text-align: left; padding-top: var(--space-5); grid-column: 1 / -1; }
       a.hero .hero-head { grid-template-columns: 1fr; }
       a.hero .hero-meta { grid-template-columns: 1fr; }
@@ -114,19 +121,26 @@ const archive = [
       .arch-grid { grid-template-columns: 1fr 1fr; }
     }
 
+    @media (max-width: 720px) {
+      a.case .row { grid-template-columns: 72px 1fr; }
+      a.case .shot { grid-column: 1 / -1; grid-row: 2; max-width: 320px; }
+      a.case .body { grid-column: 1 / -1; grid-row: 3; }
+      a.case .meta { grid-row: 4; }
+    }
+
     /* The wider archive */
     .archive { padding: var(--space-10) 0; border-top: 1px solid var(--rule-faint); }
     .arch-eyebrow { font-weight: 700; font-size: 13px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); margin-bottom: var(--space-7); }
-    .arch-h { font-weight: 900; font-size: clamp(36px, 4.4vw, 56px); line-height: 1.0; letter-spacing: -0.03em; color: var(--ink); margin: 0 0 var(--space-9); }
+    .arch-h { word-spacing: 0.05em; text-wrap: balance; font-weight: 900; font-size: clamp(36px, 4.4vw, 56px); line-height: 1.0; letter-spacing: -0.03em; color: var(--ink); margin: 0 0 var(--space-9); }
     .arch-h em { font-style: normal; }
     .arch-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-8) var(--space-7); }
     .arch-card { border-top: 1px solid var(--rule-faint); padding-top: var(--space-5); }
-    .arch-card .tag { font-weight: 700; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--signature); margin-bottom: var(--space-4); }
+    .arch-card .tag { font-weight: 700; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); margin-bottom: var(--space-4); }
     .arch-card .arch-title { font-weight: 700; font-size: 21px; line-height: 1.2; letter-spacing: -0.015em; color: var(--ink); margin: 0; }
     .arch-card .arch-title em { font-style: normal; font-weight: 400; color: var(--body); }
     .arch-card .arch-out { font-weight: 400; font-size: 15.5px; line-height: 1.5; color: var(--body); margin: var(--space-4) 0 0; }
-    .arch-card .arch-link { display: inline-flex; align-items: center; gap: 2px; margin-top: var(--space-4); font-weight: 700; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--signature); text-decoration: none; }
-    .arch-card .arch-link:hover { text-decoration: underline; }
+    .arch-card .arch-link { display: inline-flex; align-items: center; gap: 2px; margin-top: var(--space-4); font-weight: 700; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+    @media (hover: hover) { .arch-card .arch-link:hover { text-decoration: underline; } }
     .arch-link .chevron-ico { display: inline-block; flex: none; }
     .arch-link:hover .chevron-ico { animation: chevron-slide 0.8s ease-in-out; }
     @keyframes chevron-slide {
@@ -141,14 +155,12 @@ const archive = [
 
   <div class="container top">
     <div class="grid">
-      <div class="marker">§ ↩</div>
       <div><a class="back" href="/">Back home</a></div>
     </div>
   </div>
 
   <div class="container page-title">
     <div class="grid">
-      <div class="marker">§ 00</div>
       <div>
         <div class="page-eyebrow">Work · The selected slate</div>
         <h1 class="page-h">The work, <em>arranged by what it proves.</em></h1>
@@ -174,6 +186,10 @@ const archive = [
           <div class="hero-eyebrow">{hero.eyebrow}</div>
           <h2 class="hero-title" set:html={hero.title} />
           <p class="hero-deck">{hero.deck}</p>
+          <figure class="hero-shot">
+            <img src={hero.preview.src} alt={hero.preview.alt}
+                 width="800" height="470" loading="lazy" decoding="async" />
+          </figure>
           <blockquote class="hero-pullout" set:html={hero.pullout} />
           <div class="hero-meta">
             <div class="stamps">
@@ -189,6 +205,10 @@ const archive = [
       <a class="case" href={`/work/${c.slug}`}>
         <div class="row">
           <div class="num">{String(i + 2).padStart(2, '0')}</div>
+          <figure class="shot">
+            <img src={c.preview.src} alt={c.preview.alt}
+                 width="800" height="450" loading="lazy" decoding="async" />
+          </figure>
           <div class="body">
             <h3 class="case-title" set:html={c.title} />
             <p class="case-deck">{c.deck}</p>
@@ -209,7 +229,6 @@ const archive = [
   <section class="archive">
     <div class="container">
     <div class="grid">
-      <div class="marker">§ ✦</div>
       <div>
         <div class="arch-eyebrow">The wider archive · selected {archive.length} projects</div>
         <h2 class="arch-h">The years, <em>in brief.</em></h2>
@@ -233,7 +252,6 @@ const archive = [
   <section class="pivot">
     <div class="container">
       <div class="grid">
-        <div class="marker">§</div>
         <div>
           <div class="pivot-eyebrow">Compelled to explore a bit more?</div>
           <div class="pivot-grid">
@@ -244,8 +262,8 @@ const archive = [
             </a>
             <a class="pivot-card" href="/about">
               <div class="key">About</div>
-              <div class="label">The longer <em>recruiter-deep version.</em></div>
-              <div class="why">Twenty-five years told plainly. The bio, the timeline, the things I'm currently considering.</div>
+              <div class="label">The longer <em>version, told plainly.</em></div>
+              <div class="why">Twenty-five years told plainly. The bio, the timeline, and what I am building right now.</div>
             </a>
           </div>
         </div>

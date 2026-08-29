@@ -8,9 +8,9 @@ web
 
 ## Stack
 
-Astro (static site generator, v6) — no CMS, no database. Essays and case studies hand-authored as Astro/HTML pages in a public Git repo (`github.com/uxward/uxward`); `src/data/slate.js` and `src/data/essays.js` are the single sources of truth for case-study and essay ordering/counts. Fonts (Archivo, JetBrains Mono) load via the Google Fonts CDN `@import` in `global.css`. Hosting is IONOS, built with `npm run build` and the `dist/` output uploaded manually to the webserver root (`/preview` for the preview subdirectory build). No analytics/cookie banner currently wired in.
+Astro (static site generator, v7) — no CMS, no database. Essays and case studies hand-authored as Astro/HTML pages in a public Git repo (`github.com/uxward/uxward`); `src/data/slate.js` and `src/data/essays.js` are the single sources of truth for case-study and essay ordering/counts, and `src/data/build-info.js` reads `git log -1` at build time to feed the homepage masthead. Fonts (Archivo, JetBrains Mono) load from the Google Fonts CDN via `<link>` with `preconnect` in `Base.astro`, requested as variable axes. **Hosting is Cloudflare** (confirmed 2026-08-29; the colophon's own Build row is correct, and an earlier note in this file claiming IONOS was wrong). Built with `npm run build`, which also strips `.DS_Store` files from `dist/`. No analytics/cookie banner currently wired in.
 
-*Divergence from the original strategy brief:* `A-Product-Brief/product-brief.md` records "Cloudflare Pages" hosting and self-hosted (non-CDN) fonts as locked constraints. Neither matches the current implementation — hosting is IONOS and fonts load from the Google Fonts CDN. Flagging for correction rather than silently perpetuating the stale claim; the as-built site is this project's own declared source of truth where the two diverge.
+*Divergence from the original strategy brief:* `A-Product-Brief/product-brief.md` records self-hosted (non-CDN, subset) fonts as a locked constraint; fonts still load from the Google Fonts CDN. The as-built site is this project's own declared source of truth where the two diverge.
 
 ## Users
 
@@ -42,7 +42,7 @@ Current inventory: 5 curated case studies in the slate (`src/data/slate.js`, Spe
 
 - **Founding rule, governs everything:** *Fewer things, executed better.* Confirmed still in force post-redesign — one signature accent color, one typeface family carrying the whole site, no button component, minimal imagery.
 - **No CMS / no database** — content changes are Git commits.
-- **No stock photography, illustration, or thumbnails.** The only photographic image on the site is Brandon's portrait (About page, and the Home "About" block).
+- **No stock photography or illustration.** Photography is limited to Brandon's own portraits (home fold and About) and real artifacts from the case studies, surfaced as small plates on the home and work lists. Nothing is fabricated: every preview points at an image that already appears on its case page.
 - **Single language:** English (US). No localization planned.
 - **SEO is deliberately low-priority.** Not a search-acquisition site; the audience arrives by name, referral, or a forwarded link. The one discoverability goal is Brandon's name resolving cleanly to this site over LinkedIn and his separate acting site (brandonebward.com).
 - **Deliberately absent, not to be added without re-discussion:** a Services/Hire-Me page, newsletter signup, a Manifesto/Design-Philosophy page, a Speaking page (talks live inside About), or any acting-career content.
@@ -77,7 +77,11 @@ Wordmark: "Brandon" renders in the signature red permanently (`.wm-given`); "E.B
 
 ## Accessibility & Inclusion
 
-Confirmed in the current implementation: visible 2px signature-color focus rings on all interactive elements (`:focus-visible`), full `prefers-reduced-motion` handling (including for the cyberpunk easter egg's glitch/scanline effects), semantic heading order per page. The original visual-direction brief asserted a hard AAA (7:1) body-contrast floor and 44×44px touch targets under the retired Fraunces/white-canvas palette — those exact ratios have not been re-verified against the current off-white canvas (`#E7E7E7`) and Archivo type; treat the *principle* (high-contrast body text, no red body copy) as carried forward, not the specific numbers, until re-audited.
+Confirmed in the current implementation: a skip-to-content link first in the tab order on every page; a single `<main id="main">` owned by `Base.astro` (pages must not nest a second one); visible 2px signature-color focus rings on all interactive elements (`:focus-visible`), with nav and footer links also taking the hover colour on focus; a Tab trap and Escape-to-close on the mobile nav overlay, returning focus to its trigger; every `:hover` rule gated behind `@media (hover: hover)` so states don't stick on touch; full `prefers-reduced-motion` handling (including for the cyberpunk easter egg's glitch/scanline effects); semantic heading order per page.
+
+`<html>` carries no `data-theme` attribute until a visitor chooses a theme, so a first visit follows `prefers-color-scheme` (it previously hardcoded `light`, which made the OS-dark path unreachable).
+
+**Measured contrast on the signature-red field (2026-08-29):** `#E7E7E7` on `#CC0006` is **4.76:1** — it passes AA for normal text with no headroom, so foreground text on the red field runs at full opacity. Any de-opacified treatment fails (0.82 → 3.43:1, 0.72 → 2.85:1); all such treatments were removed. The original visual-direction brief asserted a hard AAA (7:1) body-contrast floor and 44×44px touch targets under the retired Fraunces/white-canvas palette; the red field cannot meet AAA at any offwhite value, so treat the *principle* (high-contrast body text, no red body copy) as carried forward, not the specific number. Darkening `--signature` for the field register is the only way to gain headroom and is a brand decision, not a defect fix.
 
 ---
 

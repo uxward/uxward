@@ -1,9 +1,57 @@
 ---
 import Base from '../layouts/Base.astro';
 import { slate } from '../data/slate.js';
-import { essaysNewestFirst } from '../data/essays.js';
+import { essaysNewestFirst, plainTitle } from '../data/essays.js';
+import { build, shortDate, REPO } from '../data/build-info.js';
+
+// Masthead: every cell is derived, so none of them can go quietly stale.
+const hero = slate[0];
+const latestEssay = essaysNewestFirst[0];
+
+// The home rows carry their own shorter decks; imagery comes from the slate,
+// which stays the single source of truth for what each case looks like.
+const bySlug = Object.fromEntries(slate.map((c) => [c.slug, c]));
+const featured = [
+  {
+    slug: 'speakeazy',
+    name: 'Speakeazy',
+    tag: ' — the tool that should have existed',
+    when: 'Founder · 2025–present',
+    desc: 'AI-native dialogue attribution and character analysis for audiobook narrators. Built solo; live to real users since January 2026. The load-bearing case on the site.',
+  },
+  {
+    slug: 'precocity',
+    name: 'Precocity',
+    tag: ' — the ten-year build',
+    when: 'CXO · 2016–present',
+    desc: 'First design hire; grew the practice over a decade from a two-person discipline into the team that ships against eight-figure enterprise contracts.',
+  },
+  {
+    slug: 'autoco',
+    name: 'A global automaker',
+    tag: ' — testing like an outsider',
+    when: 'Director of UX · 2017–2022',
+    desc: 'Built and led the independent, bias-free usability practice that the automaker brought in-house: 17 studies, 3,500 hours of testing.',
+  },
+].map((f) => ({ ...f, preview: bySlug[f.slug].preview }));
+
+const building = [
+  {
+    name: 'Speakeazy',
+    desc: 'AI-native dialogue attribution and character analysis for voice actors. Real users.',
+    href: 'https://speakeazy.pro',
+  },
+  {
+    name: 'Design Library Showcase Generator',
+    desc: 'A Figma plugin to instantly create a showcase of all library components and their variants.',
+    href: 'https://www.figma.com/community/plugin/1355255111922370746/design-library-showcase-generator-by-precocity',
+  },
+  { name: 'FORGE', desc: 'Context-to-complete-site-build via AI. The most ambitious tool of the set.' },
+  { name: 'Verity', desc: 'Foundations of an enterprise UX research and reporting platform.' },
+  { name: 'RAD', desc: 'A usability testing dashboard. A concrete designer-tooling artifact.' },
+];
 ---
-<Base title="uxward — Brandon E. B. Ward" description="Brandon E. B. Ward — executive design leader. 20+ years building design practices from scratch. Founder of Speakeazy. CXO at Precocity. Based in Dallas.">
+<Base title="uxward — Brandon E. B. Ward" description="Brandon E. B. Ward — executive design leader. 25 years building design practices from scratch. Founder of Speakeazy. CXO at Precocity. Based in Dallas.">
 
   <style>
     /* ============================================================
@@ -24,15 +72,21 @@ import { essaysNewestFirst } from '../data/essays.js';
       --alt-rule: color-mix(in srgb, var(--ink) 10%, transparent);
     }
     .sys h1, .sys h2, .sys h3, .sys p { margin: 0; }
+    .sys figure { margin: 0; }
 
-    /* ---------- Masthead: a Unigrid spec bar ---------- */
+    /* ---------- Masthead: a Unigrid spec bar, wired to real data ----------
+       Column widths are unequal on purpose: the essay title needs the room,
+       "Based" needs almost none. Vignelli's Unigrid allocates columns to
+       content, it doesn't divide them evenly. */
     .sys .mast { padding: var(--space-8) 0 0; }
     .sys .spec-bar {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: 1fr 1.5fr 1fr 0.8fr;
       border: 1px solid var(--alt-rule);
     }
     .sys .spec-bar .cell {
+      display: flex;
+      flex-direction: column;
       padding: var(--space-4) var(--space-5);
       border-left: 1px solid var(--alt-rule);
     }
@@ -47,26 +101,72 @@ import { essaysNewestFirst } from '../data/essays.js';
       margin-bottom: 7px;
     }
     .sys .spec-bar .v { font-size: 16px; font-weight: 700; color: var(--ink); line-height: 1.2; }
+    .sys .spec-bar a.v { text-decoration: none; }
+    /* Datelines sit on a shared bottom edge across all four cells. */
+    .sys .spec-bar .d {
+      margin-top: auto;
+      padding-top: var(--space-4);
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--tertiary);
+    }
 
-    /* ---------- Hero: big, tight, heavy ---------- */
-    .sys .hero { padding: var(--space-10) 0 var(--space-11); }
+    /* ---------- Hero: the display runs full measure, then the grid splits ---------- */
+    .sys .hero { padding: var(--space-9) 0 var(--space-10); }
+    .sys .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+      column-gap: var(--space-9);
+    }
     .sys .hero h1 {
+      grid-column: 1 / -1;
+      grid-row: 1;
       font-weight: 900;
       font-size: clamp(46px, 7.6vw, 120px);
-      line-height: 0.9;
+      line-height: 0.94;
       letter-spacing: -0.045em;
+      /* Negative tracking closes word spaces as well as letter spaces; put the
+         word space back so display lines don't read as one long word. */
+      word-spacing: 0.06em;
+      text-wrap: balance;
       color: var(--ink);
       max-width: 15ch;
     }
     .sys .hero .lede {
+      grid-column: 1;
+      grid-row: 2;
+      margin-top: var(--space-8);
       font-size: clamp(18px, 2vw, 23px);
       font-weight: 400;
       line-height: 1.45;
+      text-wrap: pretty;
       color: var(--body);
       max-width: 58ch;
-      margin-top: var(--space-8);
     }
     .sys .hero .lede a { color: var(--ink); text-underline-offset: 3px; }
+
+    /* The portrait as a catalog plate: a hairline, a specimen caption, and
+       nothing else. The site's one photograph, treated like every other
+       element in the system. */
+    .sys .plate { grid-column: 2; grid-row: 2; margin-top: var(--space-8); }
+    .sys .plate img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 5 / 4;
+      object-fit: cover;
+      border: 1px solid var(--alt-rule);
+    }
+    .sys .plate figcaption {
+      margin-top: var(--space-3);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--tertiary);
+    }
 
     /* ---------- Catalog section header (big red number + caps title) ---------- */
     /* Full-bleed section dividers (edge-to-edge); the red field needs none. */
@@ -97,7 +197,7 @@ import { essaysNewestFirst } from '../data/essays.js';
     /* ---------- Catalog list (work, writing) ---------- */
     .sys .cat .item {
       display: grid;
-      grid-template-columns: 1fr auto;
+      grid-template-columns: minmax(0, 1fr) auto;
       column-gap: var(--space-7);
       row-gap: var(--space-3);
       padding: var(--space-6) 0;
@@ -111,9 +211,10 @@ import { essaysNewestFirst } from '../data/essays.js';
       font-size: clamp(23px, 2.9vw, 34px);
       line-height: 1.02;
       letter-spacing: -0.022em;
+      word-spacing: 0.04em;
+      text-wrap: pretty;
       color: var(--ink);
     }
-    .sys .cat .item:hover .c-title { color: var(--signature); }
     /* Titular name leads heavy (Archivo 900); the tagline after it sits back. */
     .sys .cat .c-title .n { font-weight: 900; }
     .sys .cat .c-title .t { font-weight: 500; color: var(--body); }
@@ -130,10 +231,28 @@ import { essaysNewestFirst } from '../data/essays.js';
       grid-column: 1 / -1;
       font-size: 17px;
       line-height: 1.5;
+      text-wrap: pretty;
       color: var(--body);
       max-width: 66ch;
     }
     .sys .cat .c-desc a { color: var(--ink); }
+    .sys .cat .item:focus-visible { outline: 2px solid var(--signature); outline-offset: 4px; }
+
+    /* Slate variant: a real artifact from the case, at index scale. */
+    .sys .cat.slate .item { grid-template-columns: 148px minmax(0, 1fr) auto; }
+    .sys .cat.slate .c-shot { grid-column: 1; grid-row: 1 / span 2; align-self: start; }
+    .sys .cat.slate .c-shot img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      border: 1px solid var(--alt-rule);
+    }
+    .sys .cat.slate .c-title { grid-column: 2; grid-row: 1; }
+    .sys .cat.slate .c-when  { grid-column: 3; grid-row: 1; }
+    .sys .cat.slate .c-desc  { grid-column: 2 / -1; grid-row: 2; }
+
     .sys .more {
       display: inline-block;
       margin-top: var(--space-7);
@@ -145,38 +264,40 @@ import { essaysNewestFirst } from '../data/essays.js';
       border-bottom: 2px solid var(--signature);
       padding-bottom: 2px;
     }
-    .sys .more:hover { color: var(--signature); }
 
-    /* Building variant: name / desc / status */
-    .sys .cat.build .item { grid-template-columns: 250px 1fr auto; }
+    /* Building variant: name / desc / status. Two of these ship; four don't,
+       and the difference has to be legible before the cursor arrives. */
+    .sys .cat.build .item { grid-template-columns: 250px minmax(0, 1fr) auto; }
     .sys .cat.build .b-name { font-weight: 700; font-size: 19px; letter-spacing: -0.01em; color: var(--ink); }
+    .sys .cat.build .b-ext { font-weight: 400; }
     .sys .cat.build .b-desc { font-size: 16px; line-height: 1.45; color: var(--body); }
     .sys .cat.build .b-desc a { color: var(--ink); }
     .sys .cat.build .b-status {
       font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em;
       color: var(--tertiary); text-align: right; white-space: nowrap;
     }
-    .sys .cat.build .b-status a { color: var(--signature); }
+    .sys .cat.build .is-live .b-status { color: var(--signature); }
+    /* Unlinked rows recede at rest, and never light up. */
+    .sys .cat.build .is-private .b-name { font-weight: 600; color: var(--body); }
 
     /* ---------- About ---------- */
-    /* Drop the bottom padding so the portrait's base meets the red field below. */
-    .sys section.about-sec { padding-bottom: 0; }
-    .sys .about { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-9); align-items: start; }
-    .sys .about p { font-size: 19px; line-height: 1.6; color: var(--body); max-width: 56ch; }
+    .sys .about p { font-size: 19px; line-height: 1.6; text-wrap: pretty; color: var(--body); max-width: 60ch; }
     .sys .about .more { margin-top: var(--space-6); }
-    .sys .portrait { align-self: start; }
-    .sys .portrait img { display: block; width: 100%; height: auto; }
 
-    /* ---------- CTA: the bold color field (used, not rationed) ---------- */
+    /* ---------- CTA: the bold color field (used, not rationed) ----------
+       Everything on the red field runs at full offwhite: #E7E7E7 on #CC0006 is
+       4.76:1, so there is no contrast headroom left to spend on opacity. */
     .sys .cta { background: var(--signature); padding: var(--space-11) 0; }
     .sys .cta .sec-head { border-top-color: #e7e7e7; }
     .sys .cta .sec-head .no { color: #e7e7e7; }
-    .sys .cta .sec-head .ttl { color: rgba(231,231,231,0.85); }
+    .sys .cta .sec-head .ttl { color: #e7e7e7; }
     .sys .cta h2 {
       font-weight: 900;
       font-size: clamp(38px, 5.4vw, 80px);
-      line-height: 0.92;
+      line-height: 0.96;
       letter-spacing: -0.035em;
+      word-spacing: 0.06em;
+      text-wrap: balance;
       color: #e7e7e7;
       max-width: 17ch;
     }
@@ -195,34 +316,81 @@ import { essaysNewestFirst } from '../data/essays.js';
       text-underline-offset: 6px;
     }
     .sys .cta .email .send-ico { width: 0.82em; height: 0.82em; }
-    .sys .cta .email:hover { color: rgba(231,231,231,0.72); }
-    .sys .cta .email:hover .send-icon,
-    .sys .cta .email:focus-visible .send-icon { animation: send-fly 0.5s ease; }
     .sys .cta .note {
       font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em;
-      color: rgba(231,231,231,0.8); margin-top: var(--space-6);
+      color: #e7e7e7; margin-top: var(--space-6);
     }
+
+    /* Hover is a pointer affordance; on touch it only leaves stuck states. */
+    @media (hover: hover) {
+      .sys .cat .item:hover .c-title { color: var(--signature); }
+      .sys .cat.build a.item:hover .b-name { color: var(--signature); }
+      .sys .more:hover { color: var(--signature); }
+      /* The red field has no contrast to give away, so hover thickens the
+         rule instead of fading the text. */
+      .sys .cta .email:hover .email-text { text-decoration-thickness: 4px; }
+    }
+    .sys .cta .email:hover .send-icon,
+    .sys .cta .email:focus-visible .send-icon { animation: send-fly 0.5s ease; }
 
     @media (max-width: 900px) {
       .sys .spec-bar { grid-template-columns: 1fr 1fr; }
       .sys .spec-bar .cell:nth-child(3) { border-left: 0; }
-      .sys .spec-bar .cell:nth-child(3), .sys .spec-bar .cell:nth-child(4) { border-top: 1px solid var(--ink); }
-      .sys .about { grid-template-columns: 1fr; gap: var(--space-8); }
-      .sys .portrait { order: -1; }
-      .sys .cat.build .item { grid-template-columns: 1fr; }
+      .sys .spec-bar .cell:nth-child(3), .sys .spec-bar .cell:nth-child(4) { border-top: 1px solid var(--alt-rule); }
+
+      /* Headline first (it's the strongest thing on the page), then the face,
+         then the lede — so the portrait lands inside the first screen. */
+      .sys .hero-grid { grid-template-columns: minmax(0, 1fr); }
+      .sys .hero .lede { grid-column: 1; grid-row: 3; margin-top: var(--space-7); }
+      .sys .plate { grid-column: 1; grid-row: 2; margin-top: var(--space-7); max-width: 460px; }
+
+      .sys .cat.build .item { grid-template-columns: minmax(0, 1fr); }
       .sys .cat.build .b-status { text-align: left; }
+    }
+
+    @media (max-width: 720px) {
+      /* The date column was squeezing titles into four and five lines. Give
+         it its own row and let the title have the full measure. */
+      .sys .cat .item { grid-template-columns: minmax(0, 1fr); row-gap: var(--space-2); }
+      .sys .cat .c-when { text-align: left; }
+      .sys .cat .c-desc { margin-top: var(--space-2); }
+
+      .sys .cat.slate .item { grid-template-columns: 88px minmax(0, 1fr); column-gap: var(--space-5); }
+      .sys .cat.slate .c-shot  { grid-column: 1; grid-row: 1 / span 2; }
+      .sys .cat.slate .c-title { grid-column: 2; grid-row: 1; }
+      .sys .cat.slate .c-when  { grid-column: 2; grid-row: 2; }
+      /* The deck takes the full measure rather than the narrow column beside
+         the thumbnail — 30 characters a line is not a reading width. */
+      .sys .cat.slate .c-desc  { grid-column: 1 / -1; grid-row: 3; }
     }
   </style>
 
   <div class="sys">
-    <!-- Masthead -->
+    <!-- Masthead — every cell derived at build time, so none of them can lie. -->
     <div class="mast">
       <div class="container">
         <div class="spec-bar">
-          <div class="cell"><span class="k">Currently</span><span class="v">Building Speakeazy</span></div>
-          <div class="cell"><span class="k">Discipline</span><span class="v">Design leadership</span></div>
-          <div class="cell"><span class="k">Based</span><span class="v">Dallas, Texas</span></div>
-          <div class="cell"><span class="k">Status</span><span class="v">Open to the right conversation</span></div>
+          <div class="cell">
+            <span class="k">Last ship</span>
+            <a class="v" href={`/work/${hero.slug}`}>{hero.client}</a>
+            <span class="d">{shortDate(hero.shipped)}</span>
+          </div>
+          <div class="cell">
+            <span class="k">Last essay</span>
+            <a class="v" href={`/writing/${latestEssay.slug}`}>{plainTitle(latestEssay.title)}</a>
+            <span class="d">{latestEssay.quarter}</span>
+          </div>
+          <div class="cell">
+            <span class="k">Source</span>
+            {build
+              ? <a class="v" href={`${REPO}/commit/${build.sha}`} target="_blank" rel="noopener">{build.sha}</a>
+              : <a class="v" href={REPO} target="_blank" rel="noopener">uxward/uxward</a>}
+            {build && <span class="d">{shortDate(build.iso)}</span>}
+          </div>
+          <div class="cell">
+            <span class="k">Based</span>
+            <span class="v">Dallas, Texas</span>
+          </div>
         </div>
       </div>
     </div>
@@ -234,11 +402,20 @@ import { essaysNewestFirst } from '../data/essays.js';
         <video class="hero-bg-video" muted loop playsinline preload="none" data-src="/videos/cybercity-sm.mp4"></video>
       </div>
       <div class="container">
-        <h1>Design practice, built from scratch. Now in the AI era.</h1>
-        <p class="lede">
-          I shipped <a href="/work/speakeazy">Speakeazy</a> solo, live to real users since January 2026,
-          while running design practice as CXO at Precocity, on top of years earlier standing up practice at four startups and two agencies.
-        </p>
+        <div class="hero-grid">
+          <h1>Design practice, built from scratch. Now in the AI era.</h1>
+          <p class="lede">
+            I shipped <a href="/work/speakeazy">Speakeazy</a> solo, live to real users since January 2026,
+            while running design practice as CXO at Precocity, on top of years earlier standing up practice at four startups and two agencies.
+          </p>
+          <figure class="plate">
+            <img src="/images/BrandonEBWard-003-full.webp"
+                 alt="Brandon E. B. Ward"
+                 width="1200" height="946"
+                 fetchpriority="high" decoding="async" />
+            <figcaption>Fig. 01 — B.E.B.W., Dallas, 2026</figcaption>
+          </figure>
+        </div>
       </div>
     </div>
 
@@ -246,22 +423,18 @@ import { essaysNewestFirst } from '../data/essays.js';
     <section>
       <div class="container">
         <div class="sec-head"><span class="no">01</span><span class="ttl">Selected work</span></div>
-        <div class="cat">
-          <a class="item" href="/work/speakeazy">
-            <h3 class="c-title"><span class="n">Speakeazy</span><span class="t"> — the tool that should have existed</span></h3>
-            <span class="c-when">Founder · 2025–present</span>
-            <p class="c-desc">AI-native dialogue attribution and character analysis for audiobook narrators. Built solo; live to real users since January 2026. The load-bearing case on the site.</p>
-          </a>
-          <a class="item" href="/work/precocity">
-            <h3 class="c-title"><span class="n">Precocity</span><span class="t"> — the ten-year build</span></h3>
-            <span class="c-when">CXO · 2016–present</span>
-            <p class="c-desc">First design hire; grew the practice over a decade from a two-person discipline into the team that ships against eight-figure enterprise contracts.</p>
-          </a>
-          <a class="item" href="/work/autoco">
-            <h3 class="c-title"><span class="n">A global automaker</span><span class="t"> — testing like an outsider</span></h3>
-            <span class="c-when">Director of UX · 2017–2022</span>
-            <p class="c-desc">Built and led the independent, bias-free usability practice that the automaker brought in-house: 17 studies, 3,500 hours of testing.</p>
-          </a>
+        <div class="cat slate">
+          {featured.map((f) => (
+            <a class="item" href={`/work/${f.slug}`}>
+              <span class="c-shot">
+                <img src={f.preview.src} alt={f.preview.alt}
+                     width="800" height="450" loading="lazy" decoding="async" />
+              </span>
+              <h3 class="c-title"><span class="n">{f.name}</span><span class="t">{f.tag}</span></h3>
+              <span class="c-when">{f.when}</span>
+              <p class="c-desc">{f.desc}</p>
+            </a>
+          ))}
         </div>
         <a class="more" href="/work">See all {slate.length} pieces</a>
       </div>
@@ -272,34 +445,22 @@ import { essaysNewestFirst } from '../data/essays.js';
       <div class="container">
         <div class="sec-head"><span class="no">02</span><span class="ttl">Building now</span></div>
         <div class="cat build">
-          <div class="item">
-            <span class="b-name">Speakeazy</span>
-            <span class="b-desc">AI-native dialogue attribution and character analysis for voice actors. Real users.</span>
-            <span class="b-status"><a href="https://speakeazy.pro" target="_blank" rel="noopener">Live</a></span>
-          </div>
-          <div class="item">
-            <span class="b-name">Design Library Showcase Generator</span>
-            <span class="b-desc">A Figma plugin to instantly create a showcase of all library components and their variants.</span>
-            <span class="b-status"><a href="https://www.figma.com/community/plugin/1355255111922370746/design-library-showcase-generator-by-precocity" target="_blank" rel="noopener">Live</a></span>
-          </div>
-          <div class="item">
-            <span class="b-name">FORGE</span>
-            <span class="b-desc">Context-to-complete-site-build via AI. The most ambitious tool of the set.</span>
-            <span class="b-status">Private</span>
-          </div>
-          <div class="item">
-            <span class="b-name">Verity</span>
-            <span class="b-desc">Foundations of an enterprise UX research and reporting platform.</span>
-            <span class="b-status">Private</span>
-          </div>
-          <div class="item">
-            <span class="b-name">RAD</span>
-            <span class="b-desc">A usability testing dashboard. A concrete designer-tooling artifact.</span>
-            <span class="b-status">Private</span>
-          </div>
-          <div class="item">
+          {building.map((b) => (
+            b.href
+              ? <a class="item is-live" href={b.href} target="_blank" rel="noopener">
+                  <span class="b-name">{b.name} <span class="b-ext" aria-hidden="true">↗</span></span>
+                  <span class="b-desc">{b.desc}</span>
+                  <span class="b-status">Live</span>
+                </a>
+              : <div class="item is-private">
+                  <span class="b-name">{b.name}</span>
+                  <span class="b-desc">{b.desc}</span>
+                  <span class="b-status">Private</span>
+                </div>
+          ))}
+          <div class="item is-private">
             <span class="b-name">Marksman</span>
-            <span class="b-desc">An in-house macOS markdown converter, built with <a href="https://github.com/microsoft/markitdown">Markitdown</a> at Precocity.</span>
+            <span class="b-desc">An in-house macOS markdown converter, built with <a href="https://github.com/microsoft/markitdown" target="_blank" rel="noopener">Markitdown</a> at Precocity.</span>
             <span class="b-status">Private</span>
           </div>
         </div>
@@ -328,22 +489,13 @@ import { essaysNewestFirst } from '../data/essays.js';
       <div class="container">
         <div class="sec-head"><span class="no">04</span><span class="ttl">About</span></div>
         <div class="about">
-          <div>
-            <p>
-              I'm Brandon. I've spent years building and running design practices: at four startups,
-              two agencies, a senior consulting run, and at Precocity for the last decade. I've shipped
-              Speakeazy, FORGE, and a handful of smaller AI-era tools as their solo builder. I write here
-              periodically. I'm based in Dallas, and currently considering executive design leadership
-              roles at companies that take design seriously.
-            </p>
-            <a class="more" href="/about">More about me</a>
-          </div>
-          <div class="portrait">
-            <img src="/images/BrandonEBWard-002.png"
-                 alt="Portrait of Brandon E. B. Ward"
-                 loading="lazy" decoding="async"
-                 width="1000" height="851" />
-          </div>
+          <p>
+            I'm Brandon. I've spent years building and running design practices: at four startups,
+            two agencies, a senior consulting run, and at Precocity for the last decade. I've shipped
+            Speakeazy, FORGE, and a handful of smaller AI-era tools as their solo builder. I write here
+            periodically. I'm based in Dallas, and I'm still in the tools every week.
+          </p>
+          <a class="more" href="/about">More about me</a>
         </div>
       </div>
     </section>
@@ -352,7 +504,7 @@ import { essaysNewestFirst } from '../data/essays.js';
     <section class="cta">
       <div class="container">
         <div class="sec-head"><span class="no">05</span><span class="ttl">Contact</span></div>
-        <h2>Senior design leadership at companies that take design seriously.</h2>
+        <h2>Everything above is the argument. This is the address.</h2>
         <a class="email" href="mailto:brandon@uxward.com">
           <svg class="send-ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g class="send-icon"><path d="M10 14l11 -11" /><path d="M21 3l-6.5 18a.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a.55 .55 0 0 1 0 -1l18 -6.5" /></g></svg>
           <span class="email-text">brandon@uxward.com</span>

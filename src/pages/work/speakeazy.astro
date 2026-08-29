@@ -34,7 +34,7 @@ const schema = {
 
     /* Stop the full-bleed carousel from forcing the 1fr column (and the
        standalone images that share it) wider via min-content. */
-    .grid > div:not(.marker) { min-width: 0; }
+    .grid > div { min-width: 0; }
 
     .artifact { min-width: 0; }
 
@@ -246,14 +246,12 @@ const schema = {
 
   <div class="container breadcrumb">
     <div class="grid">
-      <div class="marker">§ ↩</div>
       <div><a href="/work">Back to all work</a></div>
     </div>
   </div>
 
   <div class="container title-block">
     <div class="grid">
-      <div class="marker">§ 00</div>
       <div>
         <span class="case-num">{num}</span>
         <h1 class="case-title" set:html={self.title} />
@@ -275,7 +273,6 @@ const schema = {
   <div class="container">
     <div class="meta-strip">
       <div class="grid">
-        <div class="marker">§ ✻</div>
         <div class="meta-row">
           <div class="cell">
             <div class="label">Client</div>
@@ -301,7 +298,6 @@ const schema = {
   <section class="cs">
     <div class="container">
       <div class="grid">
-        <div class="marker">§ 01</div>
         <div>
           <div class="cs-eyebrow"><span class="num">01</span>Context</div>
           <h2 class="cs-head">A narrator's <em>unpaid</em> first act.</h2>
@@ -332,7 +328,6 @@ const schema = {
   <section class="cs">
     <div class="container">
       <div class="grid">
-        <div class="marker">§ 02</div>
         <div>
           <div class="cs-eyebrow"><span class="num">02</span>The problem, named clearly</div>
           <h2 class="cs-head">Prep is the work you <em>don't get paid for.</em></h2>
@@ -367,7 +362,6 @@ const schema = {
   <section class="cs">
     <div class="container">
       <div class="grid">
-        <div class="marker">§ 03</div>
         <div>
           <div class="cs-eyebrow"><span class="num">03</span>The approach</div>
           <h2 class="cs-head">Prove it cheap, then build it <em>tight.</em></h2>
@@ -425,7 +419,6 @@ const schema = {
   <section class="cs">
     <div class="container">
       <div class="grid">
-        <div class="marker">§ 04</div>
         <div>
           <div class="cs-eyebrow"><span class="num">04</span>How I built it</div>
           <h2 class="cs-head">Three versions to get to <em>one.</em></h2>
@@ -456,7 +449,7 @@ const schema = {
 
             <div class="artifact">
               <div class="frame">
-                <img src="/images/speakeazy/home-dec-2025.png" loading="lazy" decoding="async" alt="The original React build's file structure or a Vercel deploy-error screen — visual evidence of complexity that wouldn't ship." />
+                <img src="/images/speakeazy/home-dec-2025.png" loading="lazy" decoding="async" alt="The December 2025 React build's home screen — the version that worked locally and would never deploy." />
               </div>
               <div class="caption-grid">
                 <span class="num">02</span>
@@ -502,7 +495,6 @@ const schema = {
   <section class="cs outcomes-bleed">
     <div class="container">
       <div class="grid">
-        <div class="marker" style="color: rgba(255,255,255,0.78);">§ 05</div>
         <div>
           <div class="cs-eyebrow"><span class="num">05</span>Outcomes</div>
           <h2 class="cs-head">
@@ -543,7 +535,6 @@ const schema = {
   <section class="cs">
     <div class="container">
       <div class="grid">
-        <div class="marker">§ 06</div>
         <div>
           <div class="cs-eyebrow"><span class="num">06</span>Reflection</div>
           <h2 class="cs-head">What I'd reverse. What I <em>carried forward.</em></h2>
