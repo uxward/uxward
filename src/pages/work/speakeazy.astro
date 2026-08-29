@@ -38,35 +38,15 @@ const schema = {
 
     .artifact { min-width: 0; }
 
-    .artifact .frame {
-      display: block;
-      position: relative;
-      overflow: hidden;
-      width: calc(100% + 60px);
-      margin-left: -30px;
-      padding: 0;
-      aspect-ratio: auto;
-      background: none;
-      border: 0;
-    }
-
-    .artifact .frame img {
-      display: block;
-      width: 100%;
-      height: auto;
-    }
-
-    .artifact .frame:not(.carousel) img { cursor: zoom-in; }
-
-    /* Hero fills the column exactly (no bleed) like the Porte hero. */
-    .hero-preview .frame {
-      width: 100%;
-      margin-left: 0;
-    }
-
-    /* Carousel — breaks out to full viewport width; width/margin/offset set by JS. */
+    /* Carousel — breaks out to full viewport width; width/margin/offset set by
+       JS. It is the one artifact that isn't a hairline plate, so it drops the
+       shared border rather than boxing a full-bleed strip. */
     .artifact .frame.carousel {
       margin-left: 0;
+      border: 0;
+      /* The track is wider than the viewport by design; it has to clip, or the
+         whole page picks up a horizontal scrollbar. */
+      overflow: hidden;
     }
 
     .artifact .frame.carousel .track {
@@ -91,7 +71,7 @@ const schema = {
       border: 0;
       background: transparent;
       color: #fff;
-      font-size: 34px;
+      font-size: var(--fs-34);
       line-height: 1;
       cursor: pointer;
       display: flex;
@@ -170,9 +150,9 @@ const schema = {
 
     .lb-close:hover, .lb-nav:hover { opacity: 1; color: var(--signature); }
 
-    .lb-close { top: var(--space-6); right: var(--space-7); font-size: 40px; color: #fff; }
+    .lb-close { top: var(--space-6); right: var(--space-7); font-size: var(--fs-40); color: #fff; }
 
-    .lb-nav { top: 50%; transform: translateY(-50%); font-size: 56px; padding: 0 var(--space-5); }
+    .lb-nav { top: 50%; transform: translateY(-50%); font-size: var(--fs-56); padding: 0 var(--space-5); }
 
     .lb-nav.prev { left: var(--space-5); }
 
@@ -206,7 +186,7 @@ const schema = {
     .lightbox[data-count="1"] .lb-nav,
     .lightbox[data-count="1"] .lb-dots { display: none; }
 
-    .outcomes-bleed .cs-prose p { color: rgba(255,255,255,0.92); }
+    .outcomes-bleed .cs-prose p { color: var(--offwhite); }
 
     .outcomes-bleed .cs-prose { margin-top: var(--space-9); }
 
@@ -215,17 +195,21 @@ const schema = {
       margin-top: var(--space-9);
       font-family: var(--font-head);
       font-weight: 300;
-      font-size: clamp(22px, 2.6vw, 32px);
+      font-size: var(--fs-d1);
       line-height: 1.1;
       letter-spacing: -0.015em;
-      color: #FFFFFF;
+      color: var(--offwhite);
       text-decoration: underline;
       text-decoration-thickness: 1px;
       text-underline-offset: 6px;
 
     }
 
-    .outcomes-bleed .live-cta:hover { color: rgba(255,255,255,0.82); }
+    @media (hover: hover) {
+      /* The field has no contrast to spare, so hover thickens the rule
+         rather than fading the text. */
+      .outcomes-bleed .live-cta:hover { text-decoration-thickness: 3px; }
+    }
 
     .live-cta .chevron-ico {
       display: inline-block;

@@ -32,12 +32,6 @@ const schema = {
 <Base title="Porte — research-first mobile banking · uxward" description={self.deck} schema={schema} bodyClass="case">
   <style>
     /* porte-only: real hero image + lightbox. Shared case-study chrome lives in src/styles/case.css. */
-    .hero-preview .frame { padding: 0; aspect-ratio: auto; display: block; overflow: hidden; }
-    .hero-preview .frame img { display: block; width: 100%; height: auto; cursor: zoom-in; }
-
-    /* Real artifact images — mirrors the precocity pattern. */
-    body.case .artifact .frame:has(img) { padding: 0; overflow: hidden; }
-    body.case .artifact .frame img { display: block; width: 100%; height: 100%; object-fit: contain; cursor: zoom-in; }
 
     .lightbox {
       position: fixed;
@@ -65,7 +59,7 @@ const schema = {
       color: #fff;
       cursor: pointer;
       line-height: 1;
-      font-size: 40px;
+      font-size: var(--fs-40);
       opacity: 0.7;
       transition: opacity 0.2s, color 0.2s;
     }
@@ -264,7 +258,7 @@ const schema = {
               <div class="caption-grid">
                 <span class="num">01</span>
                 <div class="body">
-                  <h4>The bank, designed before it was built</h4>
+                  <h3>The bank, designed before it was built</h3>
                   <p class="cap">
                     The product real customers tested before any code: a home that surfaces savings, the
                     charity you support, and how far under budget you are at a glance, and a spending
@@ -282,7 +276,7 @@ const schema = {
               <div class="caption-grid">
                 <span class="num">02</span>
                 <div class="body">
-                  <h4>Tools that grow money, not just hold it</h4>
+                  <h3>Tools that grow money, not just hold it</h3>
                   <p class="cap">
                     Up close, the depth behind the dashboard: debt-payoff projections that count the years
                     and interest you'd save, spending broken down by category, linked outside accounts, a
@@ -299,7 +293,7 @@ const schema = {
               <div class="caption-grid">
                 <span class="num">03</span>
                 <div class="body">
-                  <h4>The brand, the card, and the launch</h4>
+                  <h3>The brand, the card, and the launch</h3>
                   <p class="cap">
                     The identity that tied it together: the black-and-gold Porte card, the onboarding,
                     and the marketing site, each researched and tested for imagery, tone, and message so

@@ -7,7 +7,7 @@ const moreArticles = essaysNewestFirst.filter(e => e.slug !== currentSlug).slice
   <div class="more">
     <div class="grid">
       <div>
-        <div class="more-eyebrow">More from the writing</div>
+        <h2 class="more-eyebrow">More from the writing</h2>
         <div class="more-grid">
           {moreArticles.map(essay => (
             <a class="essay-card" href={`/writing/${essay.slug}`}>

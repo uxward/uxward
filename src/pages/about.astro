@@ -5,66 +5,63 @@ import Base from '../layouts/Base.astro';
   <style>
     /* about — Archivo / Swiss system. Quieter caps section labels (the big red
        numbers are reserved for the homepage + case studies). */
-    .about-top { padding-top: var(--space-8); padding-bottom: var(--space-6); }
-    .about-top a.back { font-weight: 600; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); text-decoration: none; }
-    .about-top a.back:hover { color: var(--signature); }
 
     /* Shared section label */
     .name-eyebrow, .bio-eyebrow, .timeline-eyebrow, .currently-eyebrow, .elsewhere-eyebrow {
-      font-weight: 700; font-size: 13px; letter-spacing: 0.05em; text-transform: uppercase;
+      font-weight: 700; font-size: var(--fs-13); letter-spacing: 0.05em; text-transform: uppercase;
       color: var(--ink); margin-bottom: var(--space-7);
     }
 
-    .name-block { padding-top: var(--space-7); padding-bottom: var(--space-10); }
-    h1.name { word-spacing: 0.06em; text-wrap: balance; font-weight: 900; font-size: clamp(52px, 7vw, 104px); line-height: 0.94; letter-spacing: -0.04em; color: var(--ink); margin: 0; max-width: 16ch; }
+    .name-block { padding-top: var(--space-9); padding-bottom: var(--space-10); }
+    h1.name { word-spacing: 0.06em; text-wrap: balance; font-weight: 900; font-size: var(--fs-d7); line-height: 0.94; letter-spacing: -0.04em; color: var(--ink); margin: 0; max-width: 16ch; }
     h1.name em { font-style: normal; }
-    .name-deck { font-weight: 400; font-size: clamp(19px, 2.2vw, 24px); line-height: 1.45; color: var(--body); margin: var(--space-8) 0 0; max-width: 64ch; }
+    .name-deck { font-weight: 400; font-size: var(--fs-lede); line-height: 1.45; color: var(--body); margin: var(--space-8) 0 0; max-width: 64ch; }
 
     .portrait-section { padding: var(--space-9) 0; border-top: 1px solid var(--rule-faint); }
     .portrait-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-10); align-items: end; }
     .portrait { max-width: 520px; width: 100%; margin-left: auto; }
     .portrait img { display: block; width: 100%; height: auto; aspect-ratio: 5 / 4; object-fit: cover; border: 1px solid var(--rule-faint); }
-    .portrait figcaption { margin-top: var(--space-3); font-weight: 700; font-size: 11px; letter-spacing: 0.09em; text-transform: uppercase; color: var(--tertiary); }
-    .portrait-caption { font-size: 18px; line-height: 1.5; color: var(--body); max-width: 380px; margin: 0; padding-bottom: var(--space-6); }
-    .portrait-caption .source { display: block; margin-top: var(--space-4); font-weight: 600; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); }
+    .portrait figcaption { margin-top: var(--space-3); font-weight: 700; font-size: var(--fs-11); letter-spacing: 0.09em; text-transform: uppercase; color: var(--tertiary); }
+    .portrait-caption { font-size: var(--fs-18); line-height: 1.5; color: var(--body); max-width: 380px; margin: 0; padding-bottom: var(--space-6); }
+    .portrait-caption .source { display: block; margin-top: var(--space-4); font-weight: 600; font-size: var(--fs-11); letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); }
 
     .bio-section { padding: var(--space-10) 0; border-top: 1px solid var(--rule-faint); }
-    .bio-prose p { font-weight: 400; font-size: 19px; line-height: 1.65; color: var(--body); max-width: 660px; margin: 0 0 var(--space-6); text-wrap: pretty; }
+    .bio-prose p { font-weight: 400; font-size: var(--fs-18); line-height: 1.65; color: var(--body); max-width: 660px; margin: 0 0 var(--space-6); text-wrap: pretty; }
     .bio-prose p strong { font-weight: 700; color: var(--ink); }
     .bio-prose p em { font-style: italic; }
     .bio-prose a { color: var(--ink); }
     .bio-prose a:hover { color: var(--signature); }
-    .bio-prose ul { font-size: 19px; line-height: 1.65; color: var(--body); max-width: 660px; margin: 0 0 var(--space-6); padding-left: 1.4em; }
+    .bio-prose ul { font-size: var(--fs-18); line-height: 1.65; color: var(--body); max-width: 660px; margin: 0 0 var(--space-6); padding-left: 1.4em; }
     .bio-prose li { margin-bottom: var(--space-3); }
 
     .timeline-section { padding: var(--space-10) 0; border-top: 1px solid var(--rule-faint); }
-    .timeline-head { font-weight: 900; font-size: clamp(30px, 3.6vw, 46px); line-height: 1.02; letter-spacing: -0.025em; color: var(--ink); margin: 0 0 var(--space-8) 0; max-width: 20ch; }
+    .timeline-head { font-weight: 900; font-size: var(--fs-d3); line-height: 1.02; letter-spacing: -0.025em; color: var(--ink); margin: 0 0 var(--space-8) 0; max-width: 20ch; }
     .timeline-head em { font-style: normal; }
     .tl { border-top: 1px solid var(--rule-faint); }
     .tl-row { display: grid; grid-template-columns: 160px 1fr 200px; gap: var(--space-7); padding: var(--space-5) 0; border-bottom: 1px solid var(--rule-faint); align-items: baseline; }
-    .tl-row .years { font-weight: 600; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); }
-    .tl-row .role { font-size: 19px; line-height: 1.4; color: var(--ink); }
+    .tl-row .years { font-weight: 600; font-size: var(--fs-12); letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); }
+    .tl-row .role { font-size: var(--fs-18); line-height: 1.4; color: var(--ink); }
     .tl-row .role em { font-style: italic; color: var(--body); }
-    .tl-row .place { font-weight: 600; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); text-align: right; }
+    .tl-row .place { font-weight: 600; font-size: var(--fs-11); letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); text-align: right; }
 
     .currently-section { padding: var(--space-10) 0; border-top: 1px solid var(--rule-faint); }
     .currently-list { display: grid; gap: var(--space-6); max-width: 720px; }
     .currently-row { display: grid; grid-template-columns: 140px 1fr; gap: var(--space-7); padding-bottom: var(--space-5); border-bottom: 1px solid var(--rule-faint); align-items: baseline; }
     .currently-row:last-child { border-bottom: 0; }
-    .currently-row .key { font-weight: 600; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); }
+    .currently-row .key { font-weight: 600; font-size: var(--fs-11); letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); }
     .currently-row .vals { display: grid; gap: var(--space-4); }
-    .currently-row .val { font-size: 20px; line-height: 1.45; color: var(--ink); }
+    .currently-row .val { font-size: var(--fs-20); line-height: 1.45; color: var(--ink); }
     .currently-row .val em { font-style: italic; color: var(--body); }
     .currently-row .val a { color: var(--ink); }
     .currently-row .val a:hover { color: var(--signature); }
-    .currently-stamp { font-weight: 600; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); margin-top: var(--space-7); }
+    .currently-stamp { font-weight: 600; font-size: var(--fs-11); letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); margin-top: var(--space-7); }
 
     .elsewhere-section { padding: var(--space-10) 0; border-top: 1px solid var(--rule-faint); }
     .elsewhere-list { border-top: 1px solid var(--rule-faint); }
     .elsewhere-row { display: grid; grid-template-columns: 140px 1fr max-content; gap: var(--space-7); padding: var(--space-5) 0; border-bottom: 1px solid var(--rule-faint); align-items: baseline; }
-    .elsewhere-row .where { font-weight: 600; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); }
-    .elsewhere-row .what { font-size: 17.5px; line-height: 1.5; color: var(--body); }
-    .elsewhere-row a.go { font-weight: 700; font-size: 14px; color: var(--ink); text-decoration: none; text-align: right; white-space: nowrap; }
+    .elsewhere-row .where { font-weight: 600; font-size: var(--fs-11); letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); }
+    .elsewhere-row .what { font-size: var(--fs-18); line-height: 1.5; color: var(--body); }
+    .elsewhere-row a.go { font-weight: 700; font-size: var(--fs-14); color: var(--ink); text-decoration: none; text-align: right; white-space: nowrap; }
     .elsewhere-row a.go:hover { color: var(--signature); }
 
     @media (max-width: 900px) {
@@ -75,12 +72,6 @@ import Base from '../layouts/Base.astro';
       .elsewhere-row a.go { text-align: left; }
     }
   </style>
-
-  <div class="container about-top">
-    <div class="grid">
-      <div><a class="back" href="/">Back home</a></div>
-    </div>
-  </div>
 
   <div class="container name-block">
     <div class="grid">

@@ -10,29 +10,58 @@ colors:
   rule: "#E4E1DC"
   rule-faint: "rgba(4, 4, 4, 0.10)"
   signature: "#CC0006"
+  signature-field: "#CC0006"
   offwhite: "#E7E7E7"
 typography:
+  # The enumerated ramp. Every size on the site is one of these; nothing is a
+  # literal any more. Fixed steps carry the label/body band, the d1–d7 fluid
+  # steps carry display type. Neon (.cyber) keeps its own display sizes.
+  scale:
+    fs-11: "11px"
+    fs-12: "12px"
+    fs-13: "13px"
+    fs-14: "14px"
+    fs-16: "16px"
+    fs-18: "18px"
+    fs-20: "20px"
+    fs-22: "22px"
+    fs-26: "26px"
+    fs-30: "30px"
+    fs-34: "34px"
+    fs-40: "40px"
+    fs-48: "48px"
+    fs-56: "56px"
+    fs-64: "64px"
+    fs-80: "80px"
+    fs-96: "96px"
+    fs-120: "120px"
+    fs-152: "152px"
+    cyber-fold: "94px"
+    cyber-hero-min: "46px"
+    cyber-hero: "85px"
+    cyber-toast-min: "13px"
+    cyber-toast-max: "26px"
   display:
     fontFamily: "Archivo, system-ui, -apple-system, \"Segoe UI\", sans-serif"
-    fontSize: "clamp(46px, 7.6vw, 120px)"
+    fontSize: "clamp(48px, 7.6vw, 120px)"   # --fs-d8
     fontWeight: 900
     lineHeight: 0.9
     letterSpacing: "-0.045em"
   headline:
     fontFamily: "Archivo, system-ui, -apple-system, \"Segoe UI\", sans-serif"
-    fontSize: "clamp(44px, 6.4vw, 104px)"
+    fontSize: "clamp(48px, 7vw, 96px)"      # --fs-d7
     fontWeight: 900
     lineHeight: 0.96
     letterSpacing: "-0.04em"
   title:
     fontFamily: "Archivo, system-ui, -apple-system, \"Segoe UI\", sans-serif"
-    fontSize: "clamp(28px, 3.6vw, 56px)"
+    fontSize: "clamp(34px, 4.6vw, 56px)"    # --fs-d4
     fontWeight: 900
     lineHeight: 1.02
     letterSpacing: "-0.025em"
   numeral:
     fontFamily: "Archivo, system-ui, -apple-system, \"Segoe UI\", sans-serif"
-    fontSize: "clamp(40px, 6vw, 96px)"
+    fontSize: "clamp(40px, 5.6vw, 80px)"    # --fs-d6
     fontWeight: 900
     lineHeight: 0.8
     letterSpacing: "-0.045em"
@@ -44,7 +73,7 @@ typography:
     letterSpacing: "0.005em"
   lede:
     fontFamily: "Archivo, system-ui, -apple-system, \"Segoe UI\", sans-serif"
-    fontSize: "clamp(18px, 2.2vw, 24px)"
+    fontSize: "clamp(19px, 2.2vw, 24px)"    # --fs-lede
     fontWeight: 400
     lineHeight: 1.45
   label:
@@ -144,7 +173,7 @@ Effects layered on top of the palette: a fixed radial-gradient "wet street" back
 ### Named Rules
 **The One Face Rule (Light/Dark).** Archivo carries every type role — display, body, labels, numerals alike. A second display typeface is never introduced in Light or Dark mode.
 
-**The Two-Register Red Rule (Light/Dark).** Signature red is either the universal hover/focus color (transient, site-wide) or a full-bleed event field (persistent, high-commitment). It is never a button fill, a recurring divider, or body copy — it fails contrast at body size, which is precisely why it's reserved for these two registers. **This rule is explicitly suspended in Neon mode**, where the signature accent (now neon pink) is deliberately unrationed.
+**The Two-Register Red Rule (Light/Dark).** Signature red is either the universal hover/focus color (transient, site-wide) or a full-bleed event field (persistent, high-commitment). **The two registers are two tokens** — `--signature` and `--signature-field` — because in dark mode they provably cannot share a value: red text on the dark canvas needs luminance ≥ 0.2022, offwhite on a red field needs ≤ 0.1387. Light mode holds one value for both only because its canvas and its on-field text are both `#E7E7E7`, so both registers impose the same ceiling. Dark ships `#F03C4E` for interaction and `#C4001C` for the field; light ships `#CC0006` for both. It is never a button fill, a recurring divider, or body copy — it fails contrast at body size, which is precisely why it's reserved for these two registers. **This rule is explicitly suspended in Neon mode**, where the signature accent (now neon pink) is deliberately unrationed.
 
 ## Typography
 
@@ -173,6 +202,8 @@ Typography is the single biggest thing Neon changes — this is a three-font swa
 The Colophon's Neon-mode copy correctly names Orbitron as the body face, matching the shipped `--cf-body` token and the fonts lazy-loaded in `Base.astro`. JetBrains Mono is not part of the Neon set.
 
 ### Named Rules
+**The One Ramp Rule.** Every size on the site is a step on the declared ramp — `--fs-11` … `--fs-152` for the fixed label/body band, `--fs-d1` … `--fs-d8` plus `--fs-lede` and `--fs-num` for display. No literal `font-size` in px anywhere. This replaced 47 ad-hoc values and 35 distinct `clamp()` declarations. The fluid maxima mirror the fixed ramp exactly (34 / 40 / 48 / 56 / 64 / 80 / 96 / 120), so a display step and a fixed step never disagree about what "the next size up" means. Adding a size means adding a step here first. Documented exceptions, all Neon-only: the two `.cyber` headline overrides and the activation toast keep their own values, because Neon is a separate art direction with its own type.
+
 **The Word-Space Rule.** Every display role runs at negative tracking (−0.02em to −0.045em), which closes word spaces along with letter spaces and welds headlines into single long words at large sizes. Any type set at −0.02em or tighter carries a compensating `word-spacing` (0.04–0.06em). Display headlines also take `text-wrap: balance`; ledes and decks take `text-wrap: pretty`.
 
 **The No-Serif Rule (Light/Dark).** Nothing in Light or Dark mode sets in a serif face. If a serif treatment is ever needed again, that is a deliberate system change requiring the same weight of decision as the original Fraunces→Archivo redesign — not a per-page choice.
@@ -234,7 +265,7 @@ Square everywhere — there is no `border-radius` usage anywhere in the codebase
 ### Plates (portrait and artifact)
 - **Style:** a 1px `--rule-faint` hairline directly around the image — no radius, no shadow, no padding, no fill. `object-fit: cover` with an explicit `aspect-ratio`; because the HTML `width`/`height` attributes map to presentational CSS, every plate also needs `height: auto` or the ratio is inert.
 - **Caption:** the label role (11px / 700 / 0.09em / uppercase / tertiary), set below the frame. Portraits use a specimen caption (`Fig. 01 — B.E.B.W., Dallas, 2026`).
-- **Where used:** the homepage fold portrait, the About portrait, the work-index hero artifact, and the small artifact previews on the home and work lists.
+- **Where used:** the homepage fold portrait, the About portrait, the work-index hero artifact, the small artifact previews on the home and work lists, and **every artifact on every case study**. One treatment, no per-page variants — the case pages previously ran three (a 60px bleed with no frame, a 16:9 `--paper` letterbox, and a third hero variant).
 - **Previews stay a catalog, not a card grid.** No lift, no scale, no shadow on hover — only the row's title flips red, exactly as a text-only row does. Every preview points at an image that already appears on its case page; nothing is fabricated.
 
 ### Navigation

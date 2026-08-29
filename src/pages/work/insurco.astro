@@ -33,11 +33,9 @@ const schema = {
 -->
 <Base title="A major insurance broker — service design at scale · uxward" description={self.deck} schema={schema} bodyClass="case">
   <style>
-    .cs-pullquote .attribution { display: block; font-style: normal; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--tertiary); margin-top: var(--space-5); font-variation-settings: normal; }
+    .cs-pullquote .attribution { display: block; font-style: normal; font-family: var(--font-mono); font-size: var(--fs-11); letter-spacing: 0.18em; text-transform: uppercase; color: var(--tertiary); margin-top: var(--space-5); font-variation-settings: normal; }
 
     /* — Frames that hold a real image fill the 16:9 plate edge to edge. — */
-    body.case .artifact .frame:has(img) { padding: 0; overflow: hidden; }
-    body.case .artifact .frame img { display: block; width: 100%; height: 100%; object-fit: contain; cursor: zoom-in; }
 
     /* Lightbox — click any artifact image to expand. Mirrors the precocity/porte pattern. */
     .lightbox {
@@ -66,7 +64,7 @@ const schema = {
       color: #fff;
       cursor: pointer;
       line-height: 1;
-      font-size: 40px;
+      font-size: var(--fs-40);
       opacity: 0.7;
       transition: opacity 0.2s, color 0.2s;
     }
@@ -265,7 +263,7 @@ const schema = {
               <div class="caption-grid">
                 <span class="num">01</span>
                 <div class="body">
-                  <h4>The service-design diagnostic</h4>
+                  <h3>The service-design diagnostic</h3>
                   <p class="cap">
                     SIPOCs, service blueprints, VoC and gap analyses, and 20+ current-state process maps:
                     the qualitative picture of exactly where, and why, the service model was breaking.
@@ -281,7 +279,7 @@ const schema = {
               <div class="caption-grid">
                 <span class="num">02</span>
                 <div class="body">
-                  <h4>The data, finally usable</h4>
+                  <h3>The data, finally usable</h3>
                   <p class="cap">
                     With Service data moved from Salesforce into Snowflake, the team built Tableau
                     dashboards that became the standard for every Service report. The analysis shown here
@@ -299,7 +297,7 @@ const schema = {
               <div class="caption-grid">
                 <span class="num">03</span>
                 <div class="body">
-                  <h4>A roadmap leadership could back</h4>
+                  <h3>A roadmap leadership could back</h3>
                   <p class="cap">
                     A multi-quarter plan that tied every project to a Service KPI and required
                     cross-department collaboration, presented to executive leadership and met with

@@ -13,49 +13,63 @@ const [hero, ...cases] = slate;
 // Edit / reorder a card by editing one entry; the count below auto-updates.
 // Optional: add `link: "…"` (read text) + `url: "https://…"` (href) to any
 // still-live project and a link renders at the bottom of its card.
-const archive = [
-  { tag: "AR / sales",          client: "GarageVision",             hook: "seeing the door on your house",           out: "An AR app composites a custom garage door onto a customer's home in real time, with live pricing.", link: "view project", url: "https://www.garagevision.pro" },
-  { tag: "Product strategy",    client: "Generational",             hook: "DealForce, the next-gen M&A platform",    out: "Business-model-canvas work defined the MVP and a roadmap for a best-in-class deal platform.", link: "view project", url: "https://www.dealforce.com" },
-  { tag: "Navigation UX",       client: "Solovis",                  hook: "fixing the nav users got lost in",        out: "Tree-tested IA and usability-validated navigation lifted adoption and engagement.", link: "view project", url: "https://go.solovis.com/portfolio-analytics" },
-  { tag: "Product design",      client: "Solovis",                  hook: "'what-if' modeling for asset managers",   out: "An app to stack unlimited scenarios with live-redrawing charts and a client presentation mode.", link: "view project", url: "https://go.solovis.com/predict"},
-  { tag: "Strategy / UX",            client: "CollateralEdge",           hook: "research when they asked for a website",  out: "Insights and a journey map became the brand and site that pre-empted buyers' questions and doubts.", link: "view project", url: "https://collateraledge.com/"},
-  { tag: "Web & UX",            client: "CDC Small Business Finance", hook: "a mission lender's site that converts", out: "A research-led, CTA-driven redesign lifted traffic, engagement, and conversions for an SMB lender.", link: "view project", url: "https://cdcloans.com/" },
-  { tag: "Creative / games",    client: "American Heart Association", hook: "gamifying stroke awareness",            out: "Nog, an animated-brain game suite for F.A.S.T. — built in ~8 months, then extended to a Spanish R.A.P.I.D.O. edition.", link: "view project", url: "https://www.stroke.org/en/be-fast-experience" },
-  { tag: "UX Legal Expert Witness",client: "Match",                 hook: "FTC vs. Match RE: Subscription cancelation",out: "Seven-hundred hours. Two-hundred usability studies. Over three-hundred pages in reports. A case fit for trial." },
-  { tag: "Data & viz",          client: "Neiman Marcus",            hook: "Flashboard, real-time sales analytics",   out: "Consolidated siloed enterprise data into a responsive tool — drill-down to a single SKU at a single store." },
-  { tag: "Product redesign",    client: "Crash Champions",          hook: "halving CSR call time",                   out: "The Hyperdrive redesign cut call time 50% — doubling call-center capacity — and ended mis-assigned vehicles." },
-  { tag: "Design system",       client: "Deloitte",                 hook: "a dashboard platform in two weeks",       out: "Hi-fi prototype and a reusable style guide in 14 days — then the baseline for other Deloitte platforms." },
-  { tag: "UX / UI",             client: "Deloitte",                 hook: "an acquired app, brought up to standard", out: "A ~4-week uplift aligned a newly-acquired product to brand and fixed its weakest flows." },
-  { tag: "AR / MR",             client: "NOKIA",                    hook: "troubleshooting hardware through a HUD",  out: "A MS Hololens proof of concept identified faulty hardware in unfamiliar rooms and guided just-in-time repairs." },
-  { tag: "AR",                  client: "NOKIA",                    hook: "just-in-time training for field techs",   out: "Mobile AR tutorials cut training and install time for contractors with little prior experience." },
-  { tag: "VR",                  client: "RetailGIS",                hook: "walking a store before it's built",       out: "Turned existing 2D store schematics into multi-user VR walkthroughs in the Meta Quest." },
-  { tag: "Usability research",  client: "Global automaker",         hook: "an accident app for people in distress",  out: "A usability study surfaced dealbreaker limitations and the fixes to make it usable under stress." },
-  { tag: "Usability research",  client: "Global automaker",    hook: "catching the flaw that left cars unlocked", out: "Real-world testing caught a return-flow defect that would've left every car unlocked after use." },
-  { tag: "Usability research",  client: "Global automaker",         hook: "programming a mirror, in a real car",     out: "In-vehicle testing of a full-display rearview mirror produced clearer controls, icons, and sunlight visibility." },
-  { tag: "Adoption study",      client: "Global automaker",         hook: "why a companion app wasn't catching on",  out: "A usability study pinpointed the onboarding and IA fixes to lift the companion app's adoption." },
-  { tag: "Accessibility",       client: "Mobility company",          hook: "touchscreen controls for power wheelchairs", out: "Live-intercept surveys and two usability rounds (21 users) at the Dallas & LA Abilities Expos validated a touchscreen for Group 2–3 users." },
-  { tag: "Enterprise UX",       client: "HKS",                      hook: "finding people across 24 offices",        out: "A PoC freed resourcing from a finance-only ERP, letting PMs find and plan talent worldwide." },
-  { tag: "Enterprise platform", client: "Milestone",                hook: "paper onboarding, digitized",             out: "A bespoke portal automated onboarding and gave HR and execs real-time performance dashboards." },
-  { tag: "Platform strategy",   client: "Success Group Int'l",      hook: "consolidating a fractured platform",      out: "A 6-week MVP definition and phased roadmap cut IT complexity and support costs." },
-  { tag: "UX redesign",         client: "Success Group Int'l",      hook: "a sales scoreboard worth trusting",       out: "Redesign cut data-entry errors and maintenance costs, raising admin and subscriber satisfaction." },
-  { tag: "Brand & 0→1",         client: "REdibs (now SellWhenever)", hook: "launching a novel real-estate model",    out: "Full brand, site, and portals plus a marketing strategy that improved agent conversion." },
-  { tag: "Product design",      client: "FanPlan",                  hook: "a marketing concept made real",           out: "A 3-week discovery sprint defined personas, IA, and full customer + admin prototypes." },
-  { tag: "CX / conversion",     client: "YPO",                      hook: "smoothing the path to membership",        out: "Hotjar and 1:1 research drove content and funnel fixes that sustained higher application rates." },
-  { tag: "UX / engagement",     client: "YPO",                      hook: "a member portal worth returning to",      out: "Continuous-improvement UX work lifted engagement across a global member portal." },
-  { tag: "Mobile",              client: "YPO",                      hook: "standardizing how leaders run forums",    out: "A native iOS/Android app for forum moderators, launched at the 2018 Global Leadership Conference." },
+// The wider archive. `disc` collapses what used to be 26 near-unique tags into
+// five real disciplines so the register below can actually group; `featured`
+// marks the entries that keep the full card treatment above it.
+const DISCIPLINES = [
+  ['research',  'Research & testing'],
+  ['product',   'Product & platform'],
+  ['immersive', 'Immersive'],
+  ['systems',   'Systems & interface'],
+  ['growth',    'Growth & brand'],
 ];
+
+const archive = [
+  { disc: "immersive", featured: true,  tag: "AR / sales",          client: "GarageVision",             hook: "seeing the door on your house",           out: "An AR app composites a custom garage door onto a customer's home in real time, with live pricing.", link: "view project", url: "https://www.garagevision.pro" },
+  { disc: "product",   tag: "Product strategy",    client: "Generational",             hook: "DealForce, the next-gen M&A platform",    out: "Business-model-canvas work defined the MVP and a roadmap for a best-in-class deal platform.", link: "view project", url: "https://www.dealforce.com" },
+  { disc: "systems",   tag: "Navigation UX",       client: "Solovis",                  hook: "fixing the nav users got lost in",        out: "Tree-tested IA and usability-validated navigation lifted adoption and engagement.", link: "view project", url: "https://go.solovis.com/portfolio-analytics" },
+  { disc: "product",   tag: "Product design",      client: "Solovis",                  hook: "'what-if' modeling for asset managers",   out: "An app to stack unlimited scenarios with live-redrawing charts and a client presentation mode.", link: "view project", url: "https://go.solovis.com/predict"},
+  { disc: "growth",    tag: "Strategy / UX",       client: "CollateralEdge",           hook: "research when they asked for a website",  out: "Insights and a journey map became the brand and site that pre-empted buyers' questions and doubts.", link: "view project", url: "https://collateraledge.com/"},
+  { disc: "growth",    tag: "Web & UX",            client: "CDC Small Business Finance", hook: "a mission lender's site that converts", out: "A research-led, CTA-driven redesign lifted traffic, engagement, and conversions for an SMB lender.", link: "view project", url: "https://cdcloans.com/" },
+  { disc: "immersive", featured: true,  tag: "Creative / games",    client: "American Heart Association", hook: "gamifying stroke awareness",            out: "Nog, an animated-brain game suite for F.A.S.T. — built in ~8 months, then extended to a Spanish R.A.P.I.D.O. edition.", link: "view project", url: "https://www.stroke.org/en/be-fast-experience" },
+  { disc: "research",  featured: true,  tag: "UX legal expert witness", client: "Match",                 hook: "FTC vs. Match RE: Subscription cancelation",out: "Seven-hundred hours. Two-hundred usability studies. Over three-hundred pages in reports. A case fit for trial." },
+  { disc: "systems",   featured: true,  tag: "Data & viz",          client: "Neiman Marcus",            hook: "Flashboard, real-time sales analytics",   out: "Consolidated siloed enterprise data into a responsive tool — drill-down to a single SKU at a single store." },
+  { disc: "systems",   featured: true,  tag: "Product redesign",    client: "Crash Champions",          hook: "halving CSR call time",                   out: "The Hyperdrive redesign cut call time 50% — doubling call-center capacity — and ended mis-assigned vehicles." },
+  { disc: "systems",   featured: true,  tag: "Design system",       client: "Deloitte",                 hook: "a dashboard platform in two weeks",       out: "Hi-fi prototype and a reusable style guide in 14 days — then the baseline for other Deloitte platforms." },
+  { disc: "systems",   tag: "UX / UI",             client: "Deloitte",                 hook: "an acquired app, brought up to standard", out: "A ~4-week uplift aligned a newly-acquired product to brand and fixed its weakest flows." },
+  { disc: "immersive", featured: true,  tag: "AR / MR",             client: "NOKIA",                    hook: "troubleshooting hardware through a HUD",  out: "A MS Hololens proof of concept identified faulty hardware in unfamiliar rooms and guided just-in-time repairs." },
+  { disc: "immersive", tag: "AR",                  client: "NOKIA",                    hook: "just-in-time training for field techs",   out: "Mobile AR tutorials cut training and install time for contractors with little prior experience." },
+  { disc: "immersive", tag: "VR",                  client: "RetailGIS",                hook: "walking a store before it's built",       out: "Turned existing 2D store schematics into multi-user VR walkthroughs in the Meta Quest." },
+  { disc: "research",  tag: "Usability research",  client: "Global automaker",         hook: "an accident app for people in distress",  out: "A usability study surfaced dealbreaker limitations and the fixes to make it usable under stress." },
+  { disc: "research",  featured: true,  tag: "Usability research",  client: "Global automaker",    hook: "catching the flaw that left cars unlocked", out: "Real-world testing caught a return-flow defect that would've left every car unlocked after use." },
+  { disc: "research",  tag: "Usability research",  client: "Global automaker",         hook: "programming a mirror, in a real car",     out: "In-vehicle testing of a full-display rearview mirror produced clearer controls, icons, and sunlight visibility." },
+  { disc: "research",  tag: "Adoption study",      client: "Global automaker",         hook: "why a companion app wasn't catching on",  out: "A usability study pinpointed the onboarding and IA fixes to lift the companion app's adoption." },
+  { disc: "research",  tag: "Accessibility",       client: "Mobility company",          hook: "touchscreen controls for power wheelchairs", out: "Live-intercept surveys and two usability rounds (21 users) at the Dallas & LA Abilities Expos validated a touchscreen for Group 2–3 users." },
+  { disc: "product",   tag: "Enterprise UX",       client: "HKS",                      hook: "finding people across 24 offices",        out: "A PoC freed resourcing from a finance-only ERP, letting PMs find and plan talent worldwide." },
+  { disc: "product",   tag: "Enterprise platform", client: "Milestone",                hook: "paper onboarding, digitized",             out: "A bespoke portal automated onboarding and gave HR and execs real-time performance dashboards." },
+  { disc: "product",   tag: "Platform strategy",   client: "Success Group Int'l",      hook: "consolidating a fractured platform",      out: "A 6-week MVP definition and phased roadmap cut IT complexity and support costs." },
+  { disc: "product",   tag: "UX redesign",         client: "Success Group Int'l",      hook: "a sales scoreboard worth trusting",       out: "Redesign cut data-entry errors and maintenance costs, raising admin and subscriber satisfaction." },
+  { disc: "growth",    tag: "Brand & 0→1",         client: "REdibs (now SellWhenever)", hook: "launching a novel real-estate model",    out: "Full brand, site, and portals plus a marketing strategy that improved agent conversion." },
+  { disc: "product",   tag: "Product design",      client: "FanPlan",                  hook: "a marketing concept made real",           out: "A 3-week discovery sprint defined personas, IA, and full customer + admin prototypes." },
+  { disc: "growth",    tag: "CX / conversion",     client: "YPO",                      hook: "smoothing the path to membership",        out: "Hotjar and 1:1 research drove content and funnel fixes that sustained higher application rates." },
+  { disc: "growth",    tag: "UX / engagement",     client: "YPO",                      hook: "a member portal worth returning to",      out: "Continuous-improvement UX work lifted engagement across a global member portal." },
+  { disc: "systems",   tag: "Mobile",              client: "YPO",                      hook: "standardizing how leaders run forums",    out: "A native iOS/Android app for forum moderators, launched at the 2018 Global Leadership Conference." },
+];
+
+const featured = archive.filter(a => a.featured);
+const register = DISCIPLINES
+  .map(([key, title]) => ({ key, title, items: archive.filter(a => a.disc === key && !a.featured) }))
+  .filter(g => g.items.length);
+const clientCount = new Set(archive.map(a => a.client)).size;
 ---
 <Base title="Work · uxward" description="Selected case studies by Brandon E. B. Ward, including Speakeazy, Precocity, a global automaker usability practice, Porte, and a major insurance broker.">
   <style>
-    .top { padding-top: var(--space-8); padding-bottom: var(--space-6); }
-    .top a.back { font-weight: 600; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); text-decoration: none; }
-    @media (hover: hover) { .top a.back:hover { color: var(--signature); } }
 
-    .page-title { padding-top: var(--space-7); padding-bottom: var(--space-9); }
-    .page-eyebrow { font-weight: 700; font-size: 13px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); margin-bottom: var(--space-7); }
-    .page-h { word-spacing: 0.06em; text-wrap: balance; font-weight: 900; font-size: clamp(48px, 6.4vw, 96px); line-height: 0.96; letter-spacing: -0.04em; color: var(--ink); margin: 0; max-width: 18ch; }
+    .page-title { padding-top: var(--space-9); padding-bottom: var(--space-9); }
+    .page-eyebrow { font-weight: 700; font-size: var(--fs-13); letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); margin-bottom: var(--space-7); }
+    .page-h { word-spacing: 0.06em; text-wrap: balance; font-weight: 900; font-size: var(--fs-d7); line-height: 0.96; letter-spacing: -0.04em; color: var(--ink); margin: 0; max-width: 18ch; }
     .page-h em { font-style: normal; }
-    .page-intro { font-weight: 400; font-size: clamp(19px, 2.2vw, 22px); line-height: 1.5; color: var(--body); max-width: 64ch; margin: var(--space-7) 0 0; }
+    .page-intro { font-weight: 400; font-size: var(--fs-lede); line-height: 1.5; color: var(--body); max-width: 64ch; margin: var(--space-7) 0 0; }
 
     /* Section divider above the slate runs page-wide (full-bleed) — the
        border lives on the full-width section, not the inner .container. */
@@ -63,32 +77,32 @@ const archive = [
 
     a.hero { display: block; text-decoration: none; color: inherit; padding: var(--space-9) 0 var(--space-10); border-bottom: 1px solid var(--rule-faint); transition: opacity var(--t-fast) ease; }
     a.hero .hero-head { display: grid; grid-template-columns: 200px 1fr; gap: var(--space-7); align-items: start; }
-    a.hero .num { font-weight: 900; font-size: 96px; line-height: 0.82; letter-spacing: -0.045em; color: var(--signature); font-feature-settings: 'tnum' 1; }
-    a.hero .num small { display: block; margin-top: var(--space-4); font-weight: 700; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--signature); font-feature-settings: normal; }
+    a.hero .num { font-weight: 900; font-size: var(--fs-96); line-height: 0.82; letter-spacing: -0.045em; color: var(--signature); font-feature-settings: 'tnum' 1; }
+    a.hero .num small { display: block; margin-top: var(--space-4); font-weight: 700; font-size: var(--fs-12); letter-spacing: 0.05em; text-transform: uppercase; color: var(--signature); font-feature-settings: normal; }
     a.hero .hero-body { padding-top: 8px; }
-    a.hero .hero-eyebrow { font-weight: 700; font-size: 13px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--signature); margin-bottom: var(--space-6); }
-    a.hero h2.hero-title { word-spacing: 0.05em; text-wrap: pretty; font-weight: 900; font-size: clamp(40px, 5.4vw, 72px); line-height: 0.98; letter-spacing: -0.04em; color: var(--ink); margin: 0; max-width: 880px; transition: color var(--t-fast) ease; }
+    a.hero .hero-eyebrow { font-weight: 700; font-size: var(--fs-13); letter-spacing: 0.05em; text-transform: uppercase; color: var(--signature); margin-bottom: var(--space-6); }
+    a.hero h2.hero-title { word-spacing: 0.05em; text-wrap: pretty; font-weight: 900; font-size: var(--fs-d6); line-height: 0.98; letter-spacing: -0.04em; color: var(--ink); margin: 0; max-width: 880px; transition: color var(--t-fast) ease; }
     a.hero h2.hero-title em { font-style: normal; }
-    a.hero .hero-deck { font-weight: 400; font-size: 22px; line-height: 1.45; color: var(--body); max-width: 660px; margin: var(--space-7) 0 0; }
-    a.hero .hero-pullout { font-weight: 700; font-size: clamp(24px, 2.8vw, 32px); line-height: 1.2; letter-spacing: -0.02em; color: var(--ink); border-left: 4px solid var(--signature); padding: 4px 0 4px var(--space-6); margin: var(--space-9) 0 0; max-width: 720px; }
+    a.hero .hero-deck { font-weight: 400; font-size: var(--fs-22); line-height: 1.45; color: var(--body); max-width: 660px; margin: var(--space-7) 0 0; }
+    a.hero .hero-pullout { font-weight: 700; font-size: var(--fs-d1); line-height: 1.2; letter-spacing: -0.02em; color: var(--ink); border-left: 4px solid var(--signature); padding: 4px 0 4px var(--space-6); margin: var(--space-9) 0 0; max-width: 720px; }
     a.hero .hero-pullout em { font-style: italic; }
     a.hero .hero-meta { display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: var(--space-7); margin-top: var(--space-9); padding-top: var(--space-6); border-top: 1px solid var(--rule-faint); }
-    a.hero .hero-meta .stamps { font-weight: 600; font-size: 11.5px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); }
+    a.hero .hero-meta .stamps { font-weight: 600; font-size: var(--fs-11); letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); }
     a.hero .hero-meta .stamps span + span::before { content: " · "; color: var(--rule-faint); padding: 0 8px; }
-    a.hero .hero-meta .open { font-weight: 700; font-size: 14px; color: var(--ink); text-decoration: none; }
+    a.hero .hero-meta .open { font-weight: 700; font-size: var(--fs-14); color: var(--ink); text-decoration: none; }
     @media (hover: hover) { a.hero:hover h2.hero-title { color: var(--signature); } }
     @media (hover: hover) { a.hero:hover .open { color: var(--signature); } }
 
     a.case { display: block; text-decoration: none; color: inherit; padding: var(--space-8) 0; border-bottom: 1px solid var(--rule-faint); transition: opacity var(--t-fast) ease; }
     a.case .row { display: grid; grid-template-columns: 140px 200px 1fr 200px; gap: var(--space-7); align-items: start; }
-    a.case .num { font-weight: 900; font-size: 56px; line-height: 0.82; letter-spacing: -0.04em; color: var(--tertiary); font-feature-settings: 'tnum' 1; padding-top: 6px; }
+    a.case .num { font-weight: 900; font-size: var(--fs-56); line-height: 0.82; letter-spacing: -0.04em; color: var(--tertiary); font-feature-settings: 'tnum' 1; padding-top: 6px; }
     a.case .body { padding-top: 4px; }
-    a.case h3.case-title { font-weight: 800; font-size: 34px; line-height: 1.08; letter-spacing: -0.025em; color: var(--ink); margin: 0; max-width: 640px; transition: color var(--t-fast) ease; }
+    a.case h3.case-title { font-weight: 800; font-size: var(--fs-34); line-height: 1.08; letter-spacing: -0.025em; color: var(--ink); margin: 0; max-width: 640px; transition: color var(--t-fast) ease; }
     a.case h3.case-title em { font-style: normal; }
-    a.case .case-deck { font-weight: 400; font-size: 18px; line-height: 1.55; color: var(--body); max-width: 580px; margin: var(--space-5) 0 0; }
+    a.case .case-deck { font-weight: 400; font-size: var(--fs-18); line-height: 1.55; color: var(--body); max-width: 580px; margin: var(--space-5) 0 0; }
     a.case .meta { padding-top: 22px; text-align: right; }
-    a.case .meta .stamps { font-weight: 600; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); line-height: 1.7; }
-    a.case .meta .open { margin-top: var(--space-5); font-weight: 700; font-size: 14px; color: var(--ink); text-decoration: none; display: inline-block; }
+    a.case .meta .stamps { font-weight: 600; font-size: var(--fs-11); letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); line-height: 1.7; }
+    a.case .meta .open { margin-top: var(--space-5); font-weight: 700; font-size: var(--fs-14); color: var(--ink); text-decoration: none; display: inline-block; }
 
     /* Artifact plates: a hairline and nothing else. These stay a catalog list,
        not a card grid — no radius, no shadow, no lift on hover. */
@@ -101,13 +115,13 @@ const archive = [
     @media (hover: hover) { a.case:hover .open { color: var(--signature); } }
 
     .pivot { padding: var(--space-10) 0 var(--space-9); border-top: 1px solid var(--rule-faint); }
-    .pivot-eyebrow { font-weight: 700; font-size: 13px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); margin-bottom: var(--space-7); }
+    .pivot-eyebrow { font-weight: 700; font-size: var(--fs-13); letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); margin-bottom: var(--space-7); }
     .pivot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-9); }
     .pivot-card { text-decoration: none; color: inherit; display: block; padding-top: var(--space-5); border-top: 1px solid var(--rule-faint); }
-    .pivot-card .key { font-weight: 600; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); margin-bottom: var(--space-5); }
-    .pivot-card .label { font-weight: 800; font-size: 32px; line-height: 1.1; letter-spacing: -0.025em; color: var(--ink); }
+    .pivot-card .key { font-weight: 600; font-size: var(--fs-11); letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); margin-bottom: var(--space-5); }
+    .pivot-card .label { font-weight: 800; font-size: var(--fs-30); line-height: 1.1; letter-spacing: -0.025em; color: var(--ink); }
     .pivot-card .label em { font-style: normal; }
-    .pivot-card .why { font-weight: 400; font-size: 17px; line-height: 1.5; color: var(--body); margin: var(--space-4) 0 0; max-width: 460px; }
+    .pivot-card .why { font-weight: 400; font-size: var(--fs-16); line-height: 1.5; color: var(--body); margin: var(--space-4) 0 0; max-width: 460px; }
     @media (hover: hover) { .pivot-card:hover .label { color: var(--signature); } }
 
     @media (max-width: 900px) {
@@ -130,16 +144,53 @@ const archive = [
 
     /* The wider archive */
     .archive { padding: var(--space-10) 0; border-top: 1px solid var(--rule-faint); }
-    .arch-eyebrow { font-weight: 700; font-size: 13px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); margin-bottom: var(--space-7); }
-    .arch-h { word-spacing: 0.05em; text-wrap: balance; font-weight: 900; font-size: clamp(36px, 4.4vw, 56px); line-height: 1.0; letter-spacing: -0.03em; color: var(--ink); margin: 0 0 var(--space-9); }
+    .arch-eyebrow { font-weight: 700; font-size: var(--fs-13); letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); margin-bottom: var(--space-7); }
+    .arch-h { word-spacing: 0.05em; text-wrap: balance; font-weight: 900; font-size: var(--fs-d4); line-height: 1.0; letter-spacing: -0.03em; color: var(--ink); margin: 0 0 var(--space-9); }
     .arch-h em { font-style: normal; }
     .arch-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-8) var(--space-7); }
+
+    /* Numbers plate — same construction as the homepage masthead. */
+    .arch-spec { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--rule-faint); margin: 0 0 var(--space-9); }
+    .arch-spec .cell { display: flex; flex-direction: column; padding: var(--space-4) var(--space-5); border-left: 1px solid var(--rule-faint); }
+    .arch-spec .cell:first-child { border-left: 0; }
+    .arch-spec .k { font-weight: 600; font-size: var(--fs-11); letter-spacing: 0.09em; text-transform: uppercase; color: var(--tertiary); margin-bottom: 7px; }
+    .arch-spec .v { font-weight: 700; font-size: var(--fs-20); line-height: 1.1; letter-spacing: -0.02em; color: var(--ink); }
+
+    /* The register — a ruled index, not a card grid. */
+    .reg-lede { margin-top: var(--space-10); padding-top: var(--space-8); border-top: 1px solid var(--rule-faint); font-weight: 900; font-size: var(--fs-26); line-height: 1.1; letter-spacing: -0.025em; color: var(--ink); }
+    .reg-lede em { font-style: normal; font-weight: 400; color: var(--body); }
+    .reg { margin-top: var(--space-8); }
+    .reg-group { margin-top: var(--space-9); }
+    .reg-group:first-child { margin-top: 0; }
+    .reg-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-6); margin: 0 0 var(--space-5); padding-bottom: var(--space-4); border-bottom: 1px solid var(--ink); }
+    .reg-head .reg-title { font-weight: 700; font-size: var(--fs-12); letter-spacing: 0.09em; text-transform: uppercase; color: var(--ink); }
+    .reg-head .reg-count { font-weight: 700; font-size: var(--fs-12); letter-spacing: 0.05em; color: var(--tertiary); font-feature-settings: 'tnum' 1; }
+    .reg-row { display: grid; grid-template-columns: minmax(0, 20rem) minmax(0, 1fr) 4.5rem; gap: var(--space-6); align-items: baseline; padding: var(--space-5) 0; border-bottom: 1px solid var(--rule-faint); }
+    .reg-row .reg-what { font-size: var(--fs-16); line-height: 1.35; color: var(--body); }
+    .reg-row .reg-client { font-weight: 700; color: var(--ink); }
+    .reg-row .reg-what em { font-style: normal; }
+    .reg-row .reg-out { font-size: var(--fs-16); line-height: 1.5; color: var(--tertiary); margin: 0; }
+    .reg-row .reg-link { justify-self: end; font-weight: 700; font-size: var(--fs-11); letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 2px; white-space: nowrap; }
+    @media (hover: hover) { .reg-row .reg-link:hover { color: var(--signature); } }
+
+    @media (max-width: 900px) {
+      .arch-spec { grid-template-columns: 1fr 1fr; }
+      .arch-spec .cell:nth-child(3) { border-left: 0; }
+      .arch-spec .cell:nth-child(3), .arch-spec .cell:nth-child(4) { border-top: 1px solid var(--rule-faint); }
+      .reg-row { grid-template-columns: minmax(0, 1fr) 4.5rem; }
+      .reg-row .reg-out { grid-column: 1 / -1; }
+    }
+    @media (max-width: 600px) {
+      .reg-row { grid-template-columns: minmax(0, 1fr); }
+      .reg-row .reg-link { justify-self: start; }
+      .reg-row .reg-link.is-none { display: none; }
+    }
     .arch-card { border-top: 1px solid var(--rule-faint); padding-top: var(--space-5); }
-    .arch-card .tag { font-weight: 700; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); margin-bottom: var(--space-4); }
-    .arch-card .arch-title { font-weight: 700; font-size: 21px; line-height: 1.2; letter-spacing: -0.015em; color: var(--ink); margin: 0; }
+    .arch-card .tag { font-weight: 700; font-size: var(--fs-11); letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); margin-bottom: var(--space-4); }
+    .arch-card .arch-title { font-weight: 700; font-size: var(--fs-20); line-height: 1.2; letter-spacing: -0.015em; color: var(--ink); margin: 0; }
     .arch-card .arch-title em { font-style: normal; font-weight: 400; color: var(--body); }
-    .arch-card .arch-out { font-weight: 400; font-size: 15.5px; line-height: 1.5; color: var(--body); margin: var(--space-4) 0 0; }
-    .arch-card .arch-link { display: inline-flex; align-items: center; gap: 2px; margin-top: var(--space-4); font-weight: 700; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+    .arch-card .arch-out { font-weight: 400; font-size: var(--fs-16); line-height: 1.5; color: var(--body); margin: var(--space-4) 0 0; }
+    .arch-card .arch-link { display: inline-flex; align-items: center; gap: 2px; margin-top: var(--space-4); font-weight: 700; font-size: var(--fs-11); letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
     @media (hover: hover) { .arch-card .arch-link:hover { text-decoration: underline; } }
     .arch-link .chevron-ico { display: inline-block; flex: none; }
     .arch-link:hover .chevron-ico { animation: chevron-slide 0.8s ease-in-out; }
@@ -152,12 +203,6 @@ const archive = [
       .arch-grid { grid-template-columns: 1fr; }
     }
   </style>
-
-  <div class="container top">
-    <div class="grid">
-      <div><a class="back" href="/">Back home</a></div>
-    </div>
-  </div>
 
   <div class="container page-title">
     <div class="grid">
@@ -230,10 +275,21 @@ const archive = [
     <div class="container">
     <div class="grid">
       <div>
-        <div class="arch-eyebrow">The wider archive · selected {archive.length} projects</div>
+        <div class="arch-eyebrow">The wider archive</div>
         <h2 class="arch-h">The years, <em>in brief.</em></h2>
+
+        {/* The numbers plainly, in the masthead's own spec-bar form. "29 shown
+            of more than 100" is the restraint argument made in figures rather
+            than adjectives. */}
+        <div class="arch-spec">
+          <div class="cell"><span class="k">Shipped</span><span class="v">100+</span></div>
+          <div class="cell"><span class="k">Shown here</span><span class="v">{archive.length}</span></div>
+          <div class="cell"><span class="k">Clients</span><span class="v">{clientCount}</span></div>
+          <div class="cell"><span class="k">Span</span><span class="v">2000–2026</span></div>
+        </div>
+
         <div class="arch-grid">
-          {archive.map((c) => (
+          {featured.map((c) => (
             <div class="arch-card">
               <div class="tag">{c.tag}</div>
               <h3 class="arch-title">{c.client} — <em>{c.hook}</em></h3>
@@ -242,6 +298,25 @@ const archive = [
                 <a class="arch-link" href={c.url} target="_blank" rel="noopener">{c.link}<svg class="chevron-ico" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
               )}
             </div>
+          ))}
+        </div>
+
+        {/* The rest, as a register: same information, a fraction of the weight. */}
+        <div class="reg-lede">The rest, <em>by discipline.</em></div>
+        <div class="reg">
+          {register.map((g) => (
+            <section class="reg-group">
+              <h3 class="reg-head"><span class="reg-title">{g.title}</span><span class="reg-count">{g.items.length}</span></h3>
+              {g.items.map((c) => (
+                <div class="reg-row">
+                  <div class="reg-what"><span class="reg-client">{c.client}</span> — <em>{c.hook}</em></div>
+                  <p class="reg-out">{c.out}</p>
+                  {c.url
+                    ? <a class="reg-link" href={c.url} target="_blank" rel="noopener">Open<svg class="chevron-ico" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
+                    : <span class="reg-link is-none" aria-hidden="true"></span>}
+                </div>
+              ))}
+            </section>
           ))}
         </div>
       </div>

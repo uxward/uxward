@@ -228,14 +228,26 @@
       "dark-signature": {
         "role": "dark-only",
         "displayName": "Dark Signature",
-        "canonical": "#E5263A",
-        "note": "Overrides --signature under [data-theme=\"dark\"]. Not present in Light."
+        "canonical": "#F03C4E",
+        "note": "Overrides --signature under dark. Interaction register: red text on the dark canvas, so lighter than light mode. Not present in Light."
       },
       "dark-rule-faint": {
         "role": "dark-only",
         "displayName": "Dark Rule (faint)",
         "canonical": "rgba(231, 231, 231, 0.15)",
         "note": "Overrides --rule-faint under [data-theme=\"dark\"]. Not present in Light."
+      },
+      "signature-field": {
+        "role": "primary",
+        "displayName": "Signature Red (field)",
+        "canonical": "#CC0006",
+        "note": "The event-field register: offwhite text on a red fill. Same value as --signature in light; diverges in dark."
+      },
+      "dark-signature-field": {
+        "role": "dark-only",
+        "displayName": "Dark Signature (field)",
+        "canonical": "#C4001C",
+        "note": "Overrides --signature-field under dark. Event register: offwhite text on a red fill, so darker. Not present in Light."
       }
     },
     "typographyMeta": {
@@ -369,9 +381,14 @@
         "section": "colors"
       },
       {
+        "section": "colors",
         "name": "The Two-Register Red Rule (Light/Dark)",
-        "body": "Signature red is either the universal hover/focus color (transient, site-wide) or a full-bleed event field (persistent, high-commitment). Never a button fill, a recurring divider, or body copy. Suspended in Neon, where the signature accent is deliberately unrationed.",
-        "section": "colors"
+        "body": "Signature red is either the universal hover/focus color or a full-bleed event field. The two registers are two tokens (--signature, --signature-field) because dark mode provably cannot share one value: red text on the dark canvas needs luminance >= 0.2022, offwhite on a red field needs <= 0.1387."
+      },
+      {
+        "section": "typography",
+        "name": "The One Ramp Rule",
+        "body": "Every size is a step on the declared ramp: --fs-11 \u2026 --fs-152 fixed, --fs-d1 \u2026 --fs-d8 plus --fs-lede and --fs-num fluid. No literal px font-size anywhere. Replaced 47 ad-hoc values and 35 distinct clamp() declarations. Fluid maxima mirror the fixed ramp exactly. Neon keeps its own display sizes as a documented exception."
       },
       {
         "section": "typography",

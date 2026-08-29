@@ -15,6 +15,12 @@
   --rule:      #E4E1DC;
   --paper:     #FAF8F4;
   --signature: #CC0006;
+  /* The two registers of red are separate tokens because in dark mode they
+     provably cannot be the same value: red text on the canvas needs luminance
+     >= 0.2022, while offwhite on a red field needs <= 0.1387. Light mode gets
+     away with one value only because its canvas and its on-field text are both
+     #E7E7E7, so both registers impose the same ceiling. */
+  --signature-field: #CC0006;
   --offwhite:  #E7E7E7;   /* the white-on-color value (red fields, dark text) */
 
   --space-2:  8px;
@@ -33,6 +39,29 @@
   --gutter-x-sm:  20px;
   --gutter-mark:  100px;
 
+  /* ---------- Type scale ----------
+     One declared ramp, replacing 47 ad-hoc values and 35 distinct clamp()
+     declarations. Fixed steps carry the label/body band; the fluid steps carry
+     display type, which is where the sprawl was. Nothing outside this set:
+     if a size isn't here, either use the nearest step or add one deliberately.
+     Neon (.cyber) keeps its own display sizes — a separate art direction. */
+  --fs-11: 11px;  --fs-12: 12px;  --fs-13: 13px;  --fs-14: 14px;
+  --fs-16: 16px;  --fs-18: 18px;  --fs-20: 20px;  --fs-22: 22px;
+  --fs-26: 26px;  --fs-30: 30px;  --fs-34: 34px;  --fs-40: 40px;
+  --fs-48: 48px;  --fs-56: 56px;  --fs-64: 64px;  --fs-80: 80px;
+  --fs-96: 96px;  --fs-120: 120px; --fs-152: 152px;
+
+  --fs-lede: clamp(19px, 2.2vw, 24px);   /* the paragraph under a headline */
+  --fs-d1:   clamp(22px, 2.8vw, 34px);   /* pull-quotes, catalog titles */
+  --fs-d2:   clamp(26px, 3.2vw, 40px);   /* large links, minor section heads */
+  --fs-d3:   clamp(30px, 3.8vw, 48px);   /* section heads */
+  --fs-d4:   clamp(34px, 4.6vw, 56px);   /* titles */
+  --fs-d5:   clamp(40px, 5vw, 64px);     /* stat figures — big, but inside a column */
+  --fs-d6:   clamp(40px, 5.6vw, 80px);   /* secondary page headlines, numerals */
+  --fs-d7:   clamp(48px, 7vw, 96px);     /* page headline */
+  --fs-d8:   clamp(48px, 7.6vw, 120px);  /* display — the largest type on the site */
+  --fs-num:  clamp(64px, 11vw, 152px);   /* the case-study catalog numeral */
+
   --font-sans:  "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono:  "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
@@ -48,28 +77,53 @@
   --t-mode: 200ms;
 }
 
-/* ---------- Tokens: Dark ---------- */
+/* ---------- Tokens: Dark ----------
+   Two selectors have to apply the dark palette — the explicit attribute and the
+   OS preference — and they cannot be merged into one rule across a media query.
+   So the VALUES are declared once here as --dk-*, and each selector below only
+   remaps. Keeping two literal copies in sync by hand had already let the two
+   diverge once (the media copy silently won on source order at equal
+   specificity, reverting a signature-red fix). Add a value here, then add the
+   one-line remap to both blocks. */
+:root {
+  --dk-canvas:     #121212;
+  --dk-ink:        #E7E7E7;
+  --dk-body:       #E8E6E1;
+  --dk-tertiary:   #9A958C;
+  --dk-rule:       #2A2A2A;
+  --dk-paper:      #1A1A1A;
+  /* Interaction red — red text on a dark canvas, so it has to be lighter than
+     the light-mode value. #E5263A measured 4.17 on canvas / 3.87 on paper. */
+  --dk-signature:  #F03C4E;
+  /* Event field — offwhite text on a red fill, so it has to be darker.
+     #E5263A measured 3.64 for offwhite at body size. */
+  --dk-signature-field: #C4001C;
+  --dk-rule-faint: rgba(231, 231, 231, 0.15);
+}
+
 :root[data-theme="dark"] {
-  --canvas:     #121212;
-  --ink:        #E7E7E7;
-  --body:       #E8E6E1;
-  --tertiary:   #9A958C;
-  --rule:       #2A2A2A;
-  --paper:      #1A1A1A;
-  --signature:  #E5263A;
-  --rule-faint: rgba(231, 231, 231, 0.15);
+  --canvas:     var(--dk-canvas);
+  --ink:        var(--dk-ink);
+  --body:       var(--dk-body);
+  --tertiary:   var(--dk-tertiary);
+  --rule:       var(--dk-rule);
+  --paper:      var(--dk-paper);
+  --signature:  var(--dk-signature);
+  --signature-field: var(--dk-signature-field);
+  --rule-faint: var(--dk-rule-faint);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --canvas:     #121212;
-    --ink:        #E7E7E7;
-    --body:       #E8E6E1;
-    --tertiary:   #9A958C;
-    --rule:       #2A2A2A;
-    --paper:      #1A1A1A;
-    --signature:  #E5263A;
-    --rule-faint: rgba(231, 231, 231, 0.15);
+    --canvas:     var(--dk-canvas);
+    --ink:        var(--dk-ink);
+    --body:       var(--dk-body);
+    --tertiary:   var(--dk-tertiary);
+    --rule:       var(--dk-rule);
+    --paper:      var(--dk-paper);
+    --signature:  var(--dk-signature);
+    --signature-field: var(--dk-signature-field);
+    --rule-faint: var(--dk-rule-faint);
   }
 }
 
@@ -119,7 +173,7 @@ html, body {
   background: var(--canvas);
   color: var(--body);
   font-family: var(--font-sans);
-  font-size: 18px;
+  font-size: var(--fs-18);
   line-height: 1.68;
   letter-spacing: 0.005em;
   word-spacing: 0.02em;
@@ -127,7 +181,7 @@ html, body {
   text-rendering: optimizeLegibility;
 }
 
-::selection { background: var(--signature); color: var(--offwhite); }
+::selection { background: var(--signature-field); color: var(--offwhite); }
 
 /* ============================================================
    Links
@@ -174,7 +228,7 @@ ul > li::before {
   background: var(--canvas);
   border: 1px solid var(--ink);
   color: var(--ink);
-  font-size: 12px;
+  font-size: var(--fs-12);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.09em;
@@ -248,7 +302,7 @@ ul > li::before {
 }
 .wm {
   font-family: var(--font-sans);
-  font-size: 25px;
+  font-size: var(--fs-26);
   font-weight: 800;
   letter-spacing: -0.02em;
   color: var(--ink);
@@ -260,12 +314,12 @@ ul > li::before {
 @media (hover: hover) {
   .wm:hover { color: var(--signature); }
 }        /* hover highlights "E. B. Ward" red (Brandon already is) */
-.hdr-controls { display: flex; align-items: center; gap: 20px; }
+.hdr-controls { display: flex; align-items: center; gap: 20px; position: relative; }
 nav.hdr-nav { display: flex; gap: 28px; align-items: baseline; }
 .hdr-nav a {
   font-family: var(--font-sans);
   font-weight: 600;
-  font-size: 13px;
+  font-size: var(--fs-13);
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--ink);
@@ -277,7 +331,7 @@ nav.hdr-nav { display: flex; gap: 28px; align-items: baseline; }
 }
 .toggle {
   font-family: var(--font-sans);
-  font-size: 20px;
+  font-size: var(--fs-20);
   color: var(--ink);
   line-height: 1;
   background: none;
@@ -362,7 +416,7 @@ nav.hdr-nav { display: flex; gap: 28px; align-items: baseline; }
 }
 .menu-close {
   font-family: var(--font-sans);
-  font-size: 28px;
+  font-size: var(--fs-26);
   line-height: 1;
   background: none;
   border: 0;
@@ -380,7 +434,7 @@ nav.hdr-nav { display: flex; gap: 28px; align-items: baseline; }
 }
 .nav-overlay-menu a {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: var(--fs-11);
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--ink);
@@ -402,7 +456,7 @@ nav.hdr-nav { display: flex; gap: 28px; align-items: baseline; }
 
 .nav-overlay-menu .toggle {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: var(--fs-11);
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--ink);
@@ -432,7 +486,7 @@ footer.foot {
   gap: var(--space-8);
   align-items: baseline;
 }
-.foot-row .wm { font-size: 22px; }
+.foot-row .wm { font-size: var(--fs-22); }
 .foot-nav {
   display: flex;
   flex-wrap: wrap;
@@ -441,7 +495,7 @@ footer.foot {
 .foot-nav a, .foot-ext a {
   font-family: var(--font-sans);
   font-weight: 600;
-  font-size: 12px;
+  font-size: var(--fs-12);
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--ink);
@@ -459,14 +513,14 @@ footer.foot {
   align-items: baseline;
   font-family: var(--font-sans);
   font-weight: 600;
-  font-size: 10.5px;
+  font-size: var(--fs-11);
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--tertiary);
 }
 .colophon-line .fleuron {
   font-family: var(--font-sans);
-  font-size: 18px;
+  font-size: var(--fs-18);
   color: var(--tertiary);
   letter-spacing: 0;
 }
@@ -850,7 +904,7 @@ html.cyber-arrive-go::after {
   z-index: 9999;
   pointer-events: none;
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: var(--fs-12);
   font-weight: 500;
   letter-spacing: 0.24em;
   text-transform: uppercase;
@@ -882,3 +936,85 @@ html.cyber-arrive-go::after {
 }
 
 
+
+/* ============================================================
+   Code hint — hold the theme toggle (hover or focus) for 5s and
+   Night City leaks a little: the codes, flickering, in its own
+   palette. Decorative only; the modes are documented on the
+   colophon, so nothing is gated behind a hover.
+   ============================================================ */
+.code-hint {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  z-index: 60;
+  padding: 7px 10px;
+  background: #07060f;
+  border: 1px solid #ff2bd6;
+  color: #19f0ff;
+  font-family: var(--font-mono);
+  font-size: var(--fs-11);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
+  box-shadow: 0 0 14px rgba(255, 43, 214, 0.4);
+  animation: hint-flicker 1.9s steps(1, end) infinite;
+}
+
+@keyframes hint-flicker {
+  0%, 37%, 42%, 69%, 74%, 100% { opacity: 1; transform: translateX(0); }
+  38%, 41% { opacity: 0.28; transform: translateX(1px); }
+  70%, 73% { opacity: 0.5; transform: translateX(-1px); }
+}
+
+/* The footer fleuron is the other tell: it turns hot on hover. */
+.colophon-line .fleuron { transition: color var(--t-fast) ease, text-shadow var(--t-fast) ease; }
+@media (hover: hover) {
+  .colophon-line .fleuron:hover { color: #ff2bd6; text-shadow: 0 0 10px rgba(255, 43, 214, 0.75); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .code-hint { animation: none; }
+}
+
+/* ============================================================
+   Print — a case study or essay should PDF as a typeset page,
+   not a broken screenshot. Tessa forwards; Vivian prints.
+   ============================================================ */
+@media print {
+  :root {
+    --canvas: #FFFFFF; --paper: #FFFFFF; --ink: #000000; --body: #1A1A1A;
+    --tertiary: #555555; --rule: #CCCCCC; --rule-faint: rgba(0,0,0,0.18);
+    --signature: #000000; --signature-field: #FFFFFF; --offwhite: #000000;
+  }
+  html, body { background: #FFFFFF !important; color: #000000; }
+
+  /* Screen furniture that means nothing on paper. */
+  .hdr, .foot, .nav-overlay, .skip-link, .toggle, .menu-toggle,
+  .read-bar, .lightbox, .car-nav, .car-dots, .cyber-fx, .cyber-toast,
+  .hero-bg, .pivot, .more, .prevnext, .all-link { display: none !important; }
+
+  /* The red fields invert to a ruled block — a solid fill wastes toner and
+     turns the page grey on most printers. */
+  .cta, .bleed, body.case .outcomes-bleed {
+    background: #FFFFFF !important; color: #000000 !important;
+    border-top: 2px solid #000000; border-bottom: 2px solid #000000;
+    padding: 24pt 0 !important;
+  }
+  .cta *, .bleed *, body.case .outcomes-bleed * { color: #000000 !important; }
+
+  /* Keep an artifact and its caption together, and never split a heading
+     from what it introduces. */
+  .artifact, .plate, figure, .stat, .choice-row, .reg-row { break-inside: avoid; }
+  h1, h2, h3 { break-after: avoid; }
+  img { max-width: 100% !important; }
+
+  /* Show link destinations, since a printed link is otherwise a dead end. */
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 9pt; color: #555555; word-break: break-all; }
+  a[href^="/"]::after   { content: " (uxward.com" attr(href) ")"; font-size: 9pt; color: #555555; }
+  a[href^="mailto:"]::after, a[href^="#"]::after { content: ""; }
+
+  .container { max-width: 100% !important; padding: 0 !important; }
+  @page { margin: 16mm 14mm; }
+}

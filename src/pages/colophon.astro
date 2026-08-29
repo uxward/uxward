@@ -3,54 +3,52 @@ import Base from '../layouts/Base.astro';
 ---
 <Base title="Colophon · uxward">
   <style>
-    .top { padding-top: var(--space-8); padding-bottom: var(--space-6); }
-    .top a.back { font-weight: 600; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); text-decoration: none; }
-    .top a.back:hover { color: var(--signature); }
+    .build-row .src-quiet { color: var(--tertiary); font-style: italic; }
 
-    .title-block { padding-top: var(--space-7); padding-bottom: var(--space-10); }
-    .title-eyebrow { font-weight: 700; font-size: 13px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); margin-bottom: var(--space-7); }
-    h1.title { font-weight: 900; font-size: clamp(48px, 6.4vw, 96px); line-height: 0.96; letter-spacing: -0.04em; color: var(--ink); margin: 0; }
+    .title-block { padding-top: var(--space-9); padding-bottom: var(--space-10); }
+    .title-eyebrow { font-weight: 700; font-size: var(--fs-13); letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); margin-bottom: var(--space-7); }
+    h1.title { font-weight: 900; font-size: var(--fs-d7); line-height: 0.96; letter-spacing: -0.04em; color: var(--ink); margin: 0; }
     h1.title em { font-style: normal; }
-    .opening { font-weight: 400; font-size: 22px; line-height: 1.5; color: var(--body); max-width: 64ch; margin: var(--space-7) 0 0; }
+    .opening { font-weight: 400; font-size: var(--fs-22); line-height: 1.5; color: var(--body); max-width: 64ch; margin: var(--space-7) 0 0; }
 
     .section { padding: var(--space-10) 0; border-top: 1px solid var(--rule-faint); }
-    .section-eyebrow { font-weight: 700; font-size: 13px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); margin-bottom: var(--space-8); }
-    .section-head { font-weight: 900; font-size: clamp(30px, 3.6vw, 44px); line-height: 1.05; letter-spacing: -0.025em; color: var(--ink); margin: 0 0 var(--space-9) 0; max-width: 20ch; }
+    .section-eyebrow { font-weight: 700; font-size: var(--fs-13); letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); margin-bottom: var(--space-8); }
+    .section-head { font-weight: 900; font-size: var(--fs-d2); line-height: 1.05; letter-spacing: -0.025em; color: var(--ink); margin: 0 0 var(--space-9) 0; max-width: 20ch; }
     .section-head em { font-style: normal; }
 
     .spec { border-top: 1px solid var(--rule-faint); }
     .spec-row { display: grid; grid-template-columns: 220px 1fr 280px; gap: var(--space-7); padding: var(--space-6) 0; border-bottom: 1px solid var(--rule-faint); align-items: baseline; }
-    .spec-row .key { font-weight: 600; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); }
-    .spec-row .name { font-weight: 800; font-size: 26px; line-height: 1.2; color: var(--ink); letter-spacing: -0.02em; }
-    .spec-row .name.mono { font-weight: 700; font-size: 22px; }
-    .spec-row .name .why { display: block; font-weight: 400; font-size: 16.5px; line-height: 1.5; color: var(--body); margin-top: var(--space-3); max-width: 520px; }
-    .spec-row a.src { font-weight: 600; font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink); text-decoration: none; text-align: right; min-width: 0; overflow-wrap: anywhere; }
+    .spec-row .key { font-weight: 600; font-size: var(--fs-11); letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); }
+    .spec-row .name { font-weight: 800; font-size: var(--fs-26); line-height: 1.2; color: var(--ink); letter-spacing: -0.02em; }
+    .spec-row .name.mono { font-weight: 700; font-size: var(--fs-22); }
+    .spec-row .name .why { display: block; font-weight: 400; font-size: var(--fs-16); line-height: 1.5; color: var(--body); margin-top: var(--space-3); max-width: 520px; }
+    .spec-row a.src { font-weight: 600; font-size: var(--fs-13); letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink); text-decoration: none; text-align: right; min-width: 0; overflow-wrap: anywhere; }
     .spec-row a.src:hover { color: var(--signature); }
 
     .color-list { border-top: 1px solid var(--rule-faint); }
     .color-row { display: grid; grid-template-columns: 80px 200px 1fr 120px; gap: var(--space-7); padding: var(--space-5) 0; border-bottom: 1px solid var(--rule-faint); align-items: center; }
     .swatch { width: 56px; height: 56px; border: 1px solid var(--rule-faint); }
-    .color-row .token-name { font-weight: 800; font-size: 22px; line-height: 1.2; color: var(--ink); letter-spacing: -0.015em; }
-    .color-row .role { font-weight: 400; font-size: 16.5px; line-height: 1.5; color: var(--body); max-width: 480px; }
-    .color-row .hex { font-weight: 600; font-size: 12px; letter-spacing: 0.04em; color: var(--tertiary); text-align: right; }
+    .color-row .token-name { font-weight: 800; font-size: var(--fs-22); line-height: 1.2; color: var(--ink); letter-spacing: -0.015em; }
+    .color-row .role { font-weight: 400; font-size: var(--fs-16); line-height: 1.5; color: var(--body); max-width: 480px; }
+    .color-row .hex { font-weight: 600; font-size: var(--fs-12); letter-spacing: 0.04em; color: var(--tertiary); text-align: right; }
 
     .build-list { border-top: 1px solid var(--rule-faint); }
     .build-row { display: grid; grid-template-columns: 220px 1fr 280px; gap: var(--space-7); padding: var(--space-5) 0; border-bottom: 1px solid var(--rule-faint); align-items: baseline; }
-    .build-row .key { font-weight: 600; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); }
-    .build-row .what { font-weight: 500; font-size: 19px; line-height: 1.45; color: var(--ink); }
+    .build-row .key { font-weight: 600; font-size: var(--fs-11); letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); }
+    .build-row .what { font-weight: 500; font-size: var(--fs-18); line-height: 1.45; color: var(--ink); }
     .build-row .what em { font-style: italic; font-weight: 400; color: var(--body); }
-    .build-row a.src { font-weight: 600; font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink); text-decoration: none; text-align: right; min-width: 0; overflow-wrap: anywhere; }
+    .build-row a.src { font-weight: 600; font-size: var(--fs-13); letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink); text-decoration: none; text-align: right; min-width: 0; overflow-wrap: anywhere; }
     .build-row a.src:hover { color: var(--signature); }
 
-    .ack-prose p { font-weight: 400; font-size: 19px; line-height: 1.7; color: var(--body); max-width: 660px; margin: 0 0 var(--space-6); }
+    .ack-prose p { font-weight: 400; font-size: var(--fs-18); line-height: 1.7; color: var(--body); max-width: 660px; margin: 0 0 var(--space-6); }
     .ack-prose p strong { font-weight: 700; color: var(--ink); }
     .ack-prose p em { font-style: italic; }
     .ack-prose a { color: var(--ink); }
     .ack-prose a:hover { color: var(--signature); }
 
     .stamp-row { padding: var(--space-9) 0 var(--space-10); border-top: 1px solid var(--rule-faint); display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-7); flex-wrap: wrap; }
-    .stamp-row .stamp { font-weight: 600; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); }
-    .stamp-row .fleuron { font-size: 22px; color: var(--tertiary); }
+    .stamp-row .stamp { font-weight: 600; font-size: var(--fs-11); letter-spacing: 0.05em; text-transform: uppercase; color: var(--tertiary); }
+    .stamp-row .fleuron { font-size: var(--fs-22); color: var(--tertiary); }
 
     @media (max-width: 900px) {
       .spec-row { grid-template-columns: 1fr; }
@@ -70,16 +68,12 @@ import Base from '../layouts/Base.astro';
       font-family: var(--cf-head);
       font-variation-settings: normal;
       letter-spacing: 0;
-      font-size: clamp(34px, 4.6vw, 64px);
+      font-size: var(--fs-d4);
       line-height: 1.15;
       text-shadow: 0 0 6px #19F0FF, 0 0 16px rgba(255, 43, 214, 0.6);
     }
     :global(.cyber) .title-block h1.title em { font-variation-settings: normal; }
   </style>
-
-  <div class="container top">
-    <div><a class="back" href="/">Back home</a></div>
-  </div>
 
   <div class="container title-block">
     <div class="normal-only">
@@ -237,6 +231,11 @@ import Base from '../layouts/Base.astro';
       <div class="section-eyebrow">Build</div>
       <h2 class="section-head">The stack, <em>told briefly.</em></h2>
       <div class="build-list">
+        <div class="build-row">
+          <span class="key">Night City</span>
+          <span class="what">A second art direction, asleep until you type the word. <em>Five words wake it; one of them is a 1993 cheat code.</em></span>
+          <span class="src src-quiet">undocumented</span>
+        </div>
         <div class="build-row">
           <span class="key">Framework</span>
           <span class="what">Astro: <em>static-first, content-shaped, the right tool for a journal.</em></span>

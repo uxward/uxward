@@ -35,7 +35,7 @@ const schema = {
     }
     body.case .hero-proof .hp .label {
       font-family: var(--font-mono);
-      font-size: 10.5px;
+      font-size: var(--fs-11);
       letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--tertiary);
@@ -45,7 +45,7 @@ const schema = {
       font-family: var(--font-head);
       font-feature-settings: "tnum" 1;
       font-weight: 900;
-      font-size: 64px;
+      font-size: var(--fs-64);
       line-height: 1;
       letter-spacing: -0.04em;
       color: var(--ink);
@@ -54,7 +54,7 @@ const schema = {
     body.case .hero-proof .hp .desc {
       font-family: var(--font-body);
       font-style: italic;
-      font-size: 16px;
+      font-size: var(--fs-16);
       line-height: 1.45;
       color: var(--body);
       max-width: 280px;
@@ -64,8 +64,6 @@ const schema = {
     }
 
     /* — Frames that hold a real image fill the 16:9 plate edge to edge. — */
-    body.case .artifact .frame:has(img) { padding: 0; overflow: hidden; }
-    body.case .artifact .frame img { display: block; width: 100%; height: 100%; object-fit: contain; cursor: zoom-in; }
 
     /* Lightbox — click any artifact image to expand. Mirrors the porte/speakeazy pattern. */
     .lightbox {
@@ -94,7 +92,7 @@ const schema = {
       color: #fff;
       cursor: pointer;
       line-height: 1;
-      font-size: 40px;
+      font-size: var(--fs-40);
       opacity: 0.7;
       transition: opacity 0.2s, color 0.2s;
     }
@@ -314,7 +312,7 @@ const schema = {
               <div class="caption-grid">
                 <span class="num">01</span>
                 <div class="body">
-                  <h4>The ROI-of-UX deck</h4>
+                  <h3>The ROI-of-UX deck</h3>
                   <p class="cap">
                     The deck I carried into pitch after pitch from 2016 to ~2022, arguing why
                     every engagement should lead with UX. It worked until it was obsolete: by
@@ -331,7 +329,7 @@ const schema = {
               <div class="caption-grid">
                 <span class="num">02</span>
                 <div class="body">
-                  <h4>Journey maps &amp; personas</h4>
+                  <h3>Journey maps &amp; personas</h3>
                   <p class="cap">
                     The front of the user-first method: the proof we'd understood the problem,
                     and the people it belonged to, before anyone drew a screen.
@@ -347,7 +345,7 @@ const schema = {
               <div class="caption-grid">
                 <span class="num">03</span>
                 <div class="body">
-                  <h4>Wireframe → tested → high fidelity</h4>
+                  <h3>Wireframe → tested → high fidelity</h3>
                   <p class="cap">
                     The pipeline itself: wireframes tested before high fidelity, high fidelity
                     tested before production. The same shape on engagement after engagement,
