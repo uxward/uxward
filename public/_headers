@@ -1,7 +1,7 @@
 # Security and caching headers for Cloudflare Workers static assets.
 # Source allowances below were derived from what the built site actually
-# loads (verified 2026-09-04): Google Fonts, one Twitter embed, one YouTube
-# embed. Adding a new third-party embed means adding it here too.
+# loads (verified 2026-09-04): Google Fonts and one YouTube embed. Adding a
+# new third-party embed means adding it here too.
 
 /*
   X-Content-Type-Options: nosniff
@@ -10,7 +10,7 @@
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), magnetometer=(), gyroscope=()
   Cross-Origin-Opener-Policy: same-origin
   Strict-Transport-Security: max-age=31536000; includeSubDomains
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://platform.twitter.com https://cdn.syndication.twimg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://platform.twitter.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https:; media-src 'self'; frame-src https://www.youtube.com https://www.youtube-nocookie.com https://platform.twitter.com; child-src https://www.youtube.com https://platform.twitter.com; connect-src 'self' https://cdn.syndication.twimg.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https:; media-src 'self'; frame-src https://www.youtube.com https://www.youtube-nocookie.com; child-src https://www.youtube.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
 
 # Astro emits content-hashed filenames here, so these can never go stale.
 /_astro/*
