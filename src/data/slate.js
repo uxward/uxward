@@ -25,6 +25,8 @@ export const slate = [
     preview: {
       src: '/images/thumbs/precocity.webp',
       alt: 'Four service-design journey maps produced by the Precocity practice.',
+      width: 800,
+      height: 450,
     },
   },
   {
@@ -37,6 +39,8 @@ export const slate = [
     preview: {
       src: '/images/thumbs/speakeazy.webp',
       alt: 'The shipped Speakeazy app — a book open for analysis, dialogue attributed by character.',
+      width: 800,
+      height: 470,
     },
   },
   {
@@ -48,6 +52,8 @@ export const slate = [
     preview: {
       src: '/images/thumbs/autoco.webp',
       alt: 'The usability lab rig: steering wheel, head-unit tablet, and camera arms mid-session.',
+      width: 800,
+      height: 450,
     },
   },
   {
@@ -59,6 +65,8 @@ export const slate = [
     preview: {
       src: '/images/thumbs/porte.webp',
       alt: 'Two screens of the shipped Porte mobile bank: account home and spend tracker.',
+      width: 800,
+      height: 450,
     },
   },
   {
@@ -70,6 +78,8 @@ export const slate = [
     preview: {
       src: '/images/thumbs/insurco.webp',
       alt: 'The future-state service blueprint: data prep, origination, routing, and execution.',
+      width: 800,
+      height: 450,
     },
   },
 ];

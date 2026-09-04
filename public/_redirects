@@ -1,0 +1,47 @@
+# Squarespace → Astro cutover map.
+# Built from the 119 URLs in the live Squarespace sitemap (verified 2026-09-04).
+# Targets carry trailing slashes to match Astro's directory build format —
+# without them Cloudflare adds a second 307 hop on every redirect.
+# Order matters: Cloudflare matches static rules before dynamic ones.
+
+# --- Dated essay permalinks → flat slugs (13) ---
+/writing/2014/10/13/the-ux-ui-design-process               /writing/the-ux-ui-design-process/                301
+/writing/2014/10/16/arrr-know-yer-personae                 /writing/arrr-know-yer-personae/                  301
+/writing/2014/10/28/flight-of-the-buffalo                  /writing/flight-of-the-buffalo/                   301
+/writing/2014/10/30/the-service-design-of-nest             /writing/the-service-design-of-nest/              301
+/writing/2014/11/26/empathy-in-your-interface              /writing/empathy-in-your-interface/               301
+/writing/2014/12/16/dont-die-with-your-music-still-in-you  /writing/dont-die-with-your-music-still-in-you/   301
+/writing/2014/12/18/who-are-you                            /writing/who-are-you/                             301
+/writing/2014/12/29/how-to-succeed-towards-failure         /writing/how-to-succeed-towards-failure/          301
+/writing/2014/12/30/great-power                            /writing/great-power/                             301
+/writing/2016/03/10/the-triforce-of-ux-part-i-empathy      /writing/the-triforce-of-ux-part-i-empathy/       301
+/writing/2016/03/28/the-triforce-of-ux-part-ii-curiosity   /writing/the-triforce-of-ux-part-ii-curiosity/    301
+/writing/2016/03/30/the-triforce-of-ux-part-iii-humility   /writing/the-triforce-of-ux-part-iii-humility/    301
+/writing/2018/05/22/i-failed-but-im-getting-better         /writing/i-failed-but-im-getting-better/          301
+
+# --- Slug changed in the rebuild (1) ---
+/writing/2014/10/21/hey-ui-say-what-you-mean-and-mean-what-you-said  /writing/hey-ui-say-what-you-mean/  301
+
+# --- Essays retired in the rebuild → archive index (6) ---
+/writing/2014/10/13/the-billion-dollar-idea                                 /writing/  301
+/writing/2014/11/03/a-credo                                                 /writing/  301
+/writing/2014/11/14/my-unlimited-signature                                  /writing/  301
+/writing/2014/12/29/when-im-the-ceo                                         /writing/  301
+/writing/2016/05/20/open-letter-to-lego-on-behalf-of-my-12-year-old-daughter /writing/  301
+/writing/2016/06/14/my-impossible-list                                      /writing/  301
+
+# --- Squarespace sections → new equivalents (7) ---
+/home                     /                 301
+/leadership               /about/           301
+/speaking                 /about/           301
+/design                   /work/            301
+/design/auto-uxr          /work/autoco/     301
+/design/mobile-banking    /work/porte/      301
+/design/mobile-vt         /work/            301
+
+# --- Tag and category archives → writing index (84) ---
+/writing/tag/*        /writing/  301
+/writing/category/*   /writing/  301
+
+# --- Catch-all for any dated permalink not listed above ---
+/writing/:year/:month/:day/*   /writing/  301

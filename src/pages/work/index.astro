@@ -264,7 +264,7 @@ const clientCount = new Set(archive.map(a => a.client)).size;
           <p class="hero-deck">{hero.deck}</p>
           <figure class="hero-shot">
             <img src={hero.preview.src} alt={hero.preview.alt}
-                 width="800" height="470" loading="lazy" decoding="async" />
+                 width={hero.preview.width} height={hero.preview.height} loading="lazy" decoding="async" />
           </figure>
           <blockquote class="hero-pullout" set:html={hero.pullout} />
           <div class="hero-meta">
@@ -283,7 +283,7 @@ const clientCount = new Set(archive.map(a => a.client)).size;
           <div class="num">{String(i + 2).padStart(2, '0')}</div>
           <figure class="shot">
             <img src={c.preview.src} alt={c.preview.alt}
-                 width="800" height="450" loading="lazy" decoding="async" />
+                 width={c.preview.width} height={c.preview.height} loading="lazy" decoding="async" />
           </figure>
           <div class="body">
             <h3 class="case-title" set:html={c.title} />

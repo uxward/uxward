@@ -7,8 +7,8 @@ import Base from '../layouts/Base.astro';
 
     .title-block { padding-top: var(--space-9); padding-bottom: var(--space-10); }
     .title-eyebrow { font-weight: 700; font-size: var(--fs-13); letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); margin-bottom: var(--space-7); }
-    h1.title { font-weight: 900; font-size: var(--fs-d7); line-height: 0.96; letter-spacing: -0.04em; color: var(--ink); margin: 0; }
-    h1.title em { font-style: normal; }
+    .title { font-weight: 900; font-size: var(--fs-d7); line-height: 0.96; letter-spacing: -0.04em; color: var(--ink); margin: 0; }
+    .title em { font-style: normal; }
     .opening { font-weight: 400; font-size: var(--fs-22); line-height: 1.5; color: var(--body); max-width: 64ch; margin: var(--space-7) 0 0; }
 
     .section { padding: var(--space-10) 0; border-top: 1px solid var(--rule-faint); }
@@ -64,7 +64,7 @@ import Base from '../layouts/Base.astro';
     .cyber-only { display: none; }
     :global(.cyber) .normal-only { display: none; }
     :global(.cyber) .cyber-only { display: block; }
-    :global(.cyber) .title-block h1.title {
+    :global(.cyber) .title-block .title {
       font-family: var(--cf-head);
       font-variation-settings: normal;
       letter-spacing: 0;
@@ -72,7 +72,7 @@ import Base from '../layouts/Base.astro';
       line-height: 1.15;
       text-shadow: 0 0 6px #19F0FF, 0 0 16px rgba(255, 43, 214, 0.6);
     }
-    :global(.cyber) .title-block h1.title em { font-variation-settings: normal; }
+    :global(.cyber) .title-block .title em { font-variation-settings: normal; }
   </style>
 
   <div class="container title-block">
@@ -87,7 +87,7 @@ import Base from '../layouts/Base.astro';
     </div>
     <div class="cyber-only">
       <div class="title-eyebrow">Colophon · Override engaged</div>
-      <h1 class="title">A note on the <em>breach.</em></h1>
+      <p class="title">A note on the <em>breach.</em></p>
       <p class="opening">
         You found the override. The same working journal, jacked into Night City: wet
         asphalt, fluorescent signage, and a handbrush face pulled off the shelf for the

@@ -167,6 +167,11 @@
    ============================================================ */
 *, *::before, *::after { box-sizing: border-box; }
 
+/* Every <img> carries intrinsic width/height attributes so the browser can
+   reserve the right box before the file lands. This keeps that from also
+   locking the rendered height: anything needing a real height sets its own. */
+img { height: auto; }
+
 html, body {
   margin: 0;
   padding: 0;

@@ -20,7 +20,7 @@ GitHub: https://github.com/uxward
 - /about — Full biography, career timeline, and current status.
 - /contact — Availability, preferred roles, and hiring Q&A.
 - /work — Selected case studies (5 in-depth cases).
-- /writing — Archive of essays on leadership, UX practice, and AI (22 essays, 2014–2026).
+- /writing — Archive of essays on leadership, UX practice, and AI (23 essays, 2014–2026).
 - /colophon — How the site was made; design references and stack.
 
 ## Selected work (case studies)

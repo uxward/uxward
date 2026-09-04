@@ -54,7 +54,7 @@ const building = [
   { name: 'RAD', desc: 'A usability testing dashboard. A concrete designer-tooling artifact.' },
 ];
 ---
-<Base title="uxward — Brandon E. B. Ward" description="Brandon E. B. Ward — executive design leader. 25 years building design practices from scratch. Founder of Speakeazy. CXO at Precocity. Based in Dallas.">
+<Base title="uxward — Brandon E. B. Ward" description="Brandon E. B. Ward — executive design leader. 20+ years building design practices from scratch. Founder of Speakeazy. CXO at Precocity. Based in Dallas.">
 
   <style>
     /* ============================================================
@@ -434,7 +434,7 @@ const building = [
             <a class="item" href={`/work/${f.slug}`}>
               <span class="c-shot">
                 <img src={f.preview.src} alt={f.preview.alt}
-                     width="800" height="450" loading="lazy" decoding="async" />
+                     width={f.preview.width} height={f.preview.height} loading="lazy" decoding="async" />
               </span>
               <h3 class="c-title"><span class="n">{f.name}</span><span class="t">{f.tag}</span></h3>
               <span class="c-when">{f.when}</span>
