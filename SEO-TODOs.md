@@ -124,14 +124,43 @@ WebPage 1, FAQPage 1.*
 
 ### 1.4 Performance / Core Web Vitals
 
-- [ ] **Images are unoptimized: 9.2 MB of raster across 101 files.** Only 16 WebP (557 KB)
-      versus 4.6 MB JPG + 3.7 MB PNG. Worst offenders: `writing/kyre-song-…-unsplash.jpg`
-      **832 KB**, `speakeazy/projects-6.11.26.png` **493 KB**, `writing/paved-path.jpg`
-      **491 KB**, `writing/dumpster-fires.jpg` **385 KB**. Astro's `<Image>` would cut most of it.
-      *Now that the site is live and being measured by Google, this is the highest-value
-      remaining technical item.*
-- [ ] **`loading="lazy"` on 26 of 125 images; `width`/`height` on only 10.** Missing intrinsic
-      dimensions is a direct CLS penalty.
+- [x] **Images optimized — 2026-09-04.** Total raster payload **9.82 MB → 7.37 MB (−25%)**;
+      the 37 files that were actually worth converting went **6.14 MB → 3.69 MB (−40%)**.
+      Nothing on the site exceeds **1 MB** (Brandon's hard ceiling); largest asset is now
+      555 KB. See the `image-optimization-rule` memory for the standing policy.
+
+      **Resizing was the real win, not the format.** 36 of 98 images were 2000–2560px wide
+      for slots that never render past the 680px reading column. Caps applied, derived from
+      the CSS: **1600px** for essay/portrait art, **2000px** for case artifacts (they open in
+      a lightbox at 92vw and need the headroom). Then WebP at q82 / effort 6; the animated
+      GIF converted to animated WebP at q75.
+
+      > **Measured finding worth keeping:** most JPEGs here came off Squarespace already
+      > aggressively compressed. **61 of 98 got _larger_ as WebP at q82**, and dropping to
+      > q72 only made 25 of them smaller — for ~0.1 MB total, at real quality cost. So the
+      > conversion carries a guard: **if the WebP isn't smaller, the original ships.**
+      > Convert PNGs eagerly (they came in at 60–70% savings); measure JPEGs first.
+
+      Superseded originals were deleted (recoverable from git). All 115 image references in
+      the built HTML verified to resolve; zero broken.
+
+- [x] **`width`/`height` on images.** The 08-31 audit said only 10 images carried intrinsic
+      dimensions; the real number is **117**, so CLS was already largely handled. All 38
+      rewritten `<img>` tags had their `width`/`height` updated to the new intrinsic sizes —
+      a resized file behind a stale dimension hint would have *introduced* the CLS problem
+      this item exists to prevent.
+
+- [ ] **`loading="lazy"` on 26 of 125 images.** Untouched by this pass. Lower value now that
+      payload is down 25%, but still worth doing for below-the-fold art.
+
+- [ ] ⚠️ **691 KB of unreferenced images are still being deployed.** Nothing links to them,
+      but `public/` ships wholesale, so visitors' browsers never request them while the
+      Worker still stores and serves them:
+      `BrandonEBWard-006.png` (259 KB), `BrandonEBWard-002.png` (248 KB),
+      `BrandonEBWard-006-full.jpg` (94 KB), `BrandonEBWard-003-full.jpg` (89 KB).
+      Left in place deliberately — deleting unreferenced assets is Brandon's call, not a
+      cleanup to make unasked. Note `-003-full` and `-006-full` already have `.webp` twins
+      that *are* referenced, so the `.jpg` versions look like leftovers from an earlier pass.
 
 ---
 
