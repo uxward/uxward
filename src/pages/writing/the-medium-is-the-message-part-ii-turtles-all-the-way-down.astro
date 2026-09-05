@@ -1,0 +1,352 @@
+---
+import Base from "../../layouts/Base.astro";
+import MoreArticles from "../../components/MoreArticles.astro";
+import { essays, plainTitle, essaySchema, shareImage } from "../../data/essays.js";
+const slug = Astro.url.pathname.replace(/\/$/, '').split('/').at(-1);
+const essay = essays.find(e => e.slug === slug);
+if (!essay) throw new Error(`No essay data found for slug: ${slug}`);
+const site = import.meta.env.SITE;
+const schema = essaySchema(essay, site);
+---
+
+<Base title={`${plainTitle(essay.title)} · uxward`} description={essay.deck} schema={schema} ogType="article" ogImage={shareImage(essay)} bodyClass="essay">
+  <div class="read-bar" id="read-bar" aria-hidden="true"></div>
+
+  <div class="reading-column essay-top">
+    <div class="row">
+      <a class="back" href="/writing">Back to writing</a>
+      <div class="meta">
+        <span>{essay.quarter}</span>
+        <span class="sep">·</span>
+        <span>Essay</span>
+        <span class="sep">·</span>
+        <span>9 min read</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="reading-column essay-title-block">
+    <h1 class="essay-title" set:html={essay.title} />
+    <p class="essay-deck">{essay.deck}</p>
+    <div class="essay-byline">By Brandon E. B. Ward</div>
+  </div>
+
+  <article class="reading-column essay-body">
+    <figure>
+      <img
+        src="/images/writing/turtles.webp" width="1456" height="820"
+        alt="A stack of turtles standing on one another’s shells, disappearing downward."
+      />
+    </figure>
+
+    <div class="series-nav series-nav-top">
+      <a href="/writing/the-medium-is-the-message-part-i-we-never-had-a-medium"
+        >Part I</a
+      > · Part II · <a
+        href="/writing/the-medium-is-the-message-part-iii-the-medium-doesnt-strike-back"
+        >Part III</a
+      > · <a
+        href="/writing/the-medium-is-the-message-part-iv-rebuilding-the-delivery-team"
+        >Part IV</a
+      >
+    </div>
+
+    <p>
+      There's an old story, told about half a dozen different famous scientists,
+      that ends the same way every time. A lecturer finishes explaining how the
+      earth orbits the sun, and someone in the audience objects: nonsense, the
+      world sits on the back of a giant turtle. Ah, says the lecturer, and what
+      does the turtle stand on? The reply comes without hesitation. Another
+      turtle. And that one? You're very clever, young man, but it's turtles all
+      the way down.
+    </p>
+    <p>
+      <em
+        >Aside: The audience member never specified whether the turtles were or
+        were not ninjas.</em
+      >
+    </p>
+    <p>
+      I ended the last piece with a promise to come back to the turtles, because
+      computing really is built this way. Underneath every layer is another
+      layer, and underneath that another, with no solid ground at the bottom.
+      What I didn't say is that the stack has been <em>growing</em> for seventy years,
+      one turtle at a time, and that each new turtle lifted us a little further from
+      the raw machine and a little closer to simply saying what we want. Every generation
+      of makers climbed onto the newest turtle, looked down, and announced that it
+      had finally reached the ground.
+    </p>
+    <p>
+      They were always standing on another turtle. Here's the climb.
+    </p>
+
+    <h2>The last thing you could hold</h2>
+
+    <figure>
+      <img
+        src="/images/writing/bernd-dittrich-pmav25ETLiM-unsplash.jpg" width="1456" height="970"
+        alt="Rows of vintage punched cards filled with rectangular data holes."
+      />
+      <figcaption>
+        Photo by <a target="_blank" rel="noopener"
+          href="https://unsplash.com/@hdbernd?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+          >Bernd Dittrich</a
+        > on <a target="_blank" rel="noopener"
+          href="https://unsplash.com/photos/rows-of-vintage-punched-cards-with-data-pmav25ETLiM?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+          >Unsplash</a
+        >
+      </figcaption>
+    </figure>
+
+    <p>
+      Start near the bottom, with the punch card, because it's the last rung
+      where the medium had a body.
+    </p>
+    <p>
+      A program was a deck of stiff paper cards, each one a grid of little
+      rectangular holes. You could hold your logic in two hands. You could fan
+      through it. You could set it down in the wrong order, and you could, in the
+      moment every old programmer still winces about, drop the deck and watch
+      your program scatter across the floor, to be rebuilt card by card. It was
+      tedious and unforgiving and completely, physically real. The holes <em
+        >were</em
+      > the program. You touched the thing itself.
+    </p>
+    <p>That was the last time.</p>
+
+    <h2>Into the machine</h2>
+    <p>
+      After the card, the medium went inside, and it never came back out.
+    </p>
+    <p>
+      First it became pure pattern: charge or no charge, on or off, invisible
+      switches flipped somewhere in the machine. You "wrote" a program by setting
+      numbers, and the numbers were the naked instructions the processor obeyed.
+      Nothing to hold anymore. Only state.
+    </p>
+    <p>Then we started stacking turtles.</p>
+    <p>
+      <em>Assembly language</em> gave the raw numbers names. Instead of a numeric
+      code you wrote ADD, or MOVE, mnemonics an assembler would translate back into
+      the machine's real tongue. A small mercy, and the first layer between us and
+      the bit.
+    </p>
+    <p>
+      <em>High-level languages</em> stacked another turtle on top. FORTRAN in 1957,
+      then COBOL, then C, then the whole family. A compiler now did the translating,
+      which meant you could stop tracking exactly which sliver of memory held which
+      value and start describing what you wanted done. BASIC arrived in 1964 wearing
+      the same banner every rung would carry: <em>now anyone can program.</em>
+    </p>
+    <p>
+      <em>Objects</em> stacked another. You stopped modeling the machine and started
+      modeling the world the software was actually about, in nouns and verbs a person
+      could reason with.
+    </p>
+
+    <figure>
+      <img
+        src="/images/writing/basic.webp" width="1456" height="820"
+        alt="A Commodore CBM 8032 terminal running a short BASIC program that prints “Hello World, and Turtles.”"
+      />
+    </figure>
+
+    <p>
+      Each of these was an extension, in exactly the sense Marshall McLuhan meant
+      it: a technology that reaches out and does more of our work for us. And
+      every extension removed us from the layer beneath it. Assembly severed us
+      from the bare number. The compiler severed us from the register. We gained
+      enormous reach, and we paid for it in contact. We stopped touching what we
+      used to touch, and mostly we were glad to.
+    </p>
+
+    <h2>The leap most people actually felt</h2>
+    <p>
+      For most people the climb was invisible until one enormous turtle: the
+      graphical interface.
+    </p>
+
+    <figure>
+      <img
+        src="/images/writing/mother-of-all-demos.webp" width="1456" height="930"
+        alt="A researcher at a 1960s workstation with a CRT display, chord keyset, and the first computer mouse."
+      />
+      <figcaption>
+        Photo via <a target="_blank" rel="noopener"
+          href="https://hackaday.com/2019/01/03/retrotechtacular-the-mother-of-all-demos-50-years-on/"
+          >Hackaday</a
+        >
+      </figcaption>
+    </figure>
+
+    <p>
+      In December of 1968, a researcher named <a target="_blank" rel="noopener"
+        href="https://en.wikipedia.org/wiki/Douglas_Engelbart">Douglas Engelbart</a
+      > sat on a San Francisco stage and, in ninety minutes now remembered as "<a target="_blank" rel="noopener"
+        href="https://en.wikipedia.org/wiki/The_Mother_of_All_Demos"
+        >the Mother of All Demos</a
+      >," showed a room of engineers a mouse, windows, and text you could link
+      and edit live. It took years and a trip through Xerox and Apple to reach
+      the rest of us, but when it did, it changed what a computer <em>was</em> for
+      anyone who wasn't a programmer. You no longer typed commands into a black void.
+      You pointed at pictures of things: a desktop, a folder, a trash can. Direct
+      manipulation, the researchers called it. The command line, which everyone before
+      you had been required to understand, became a turtle you never had to see again.
+    </p>
+    <p>
+      As an aside, given that my current modality of choice is Claude Code in a
+      terminal, I can only think that Engelbart is somewhere rolling his eyes and
+      mocking me. Or celebrating me. Again, that's the point of this series.
+    </p>
+    <p>Pause on this rung, because it rhymes with the one we're on now.</p>
+
+    <h2>The machine was always supposed to help</h2>
+    <p>
+      We tend to talk about AI as a sudden arrival, a thing that showed up out of
+      nowhere and changed everything. It isn't, and the people who built
+      computing knew it wouldn't be.
+    </p>
+    <p>
+      In 1960, <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/J._C._R._Licklider"
+        >J.C.R. Licklider</a
+      > wrote a short paper called "<a target="_blank" rel="noopener"
+        href="https://groups.csail.mit.edu/medg/people/psz/Licklider.html"
+        >Man-Computer Symbiosis</a
+      >," imagining people and machines as partners thinking together, each doing
+      what it does best. Two years later Engelbart, the same man who would run the
+      great demo, laid out a research program with a plain title: <em
+        >augmenting</em
+      > human intellect. Not replacing it. Augmenting. His word is McLuhan's word,
+      extend, in an engineer's mouth. The founding dream of the field was never a
+      tool that waited for orders, it was a collaborator.
+    </p>
+    <p>
+      McLuhan saw the shape of it too. Watching the first wave of automation in
+      1964, he argued that the machine had stopped being merely mechanical.
+      Electricity's instantaneous, connect-everything character had invaded it,
+      turning the machine into something that processed information and, in his
+      phrase, seemed to think. He was describing, sixty years ahead of schedule,
+      the rung we are standing on now.
+    </p>
+    <p>
+      So the difference this time is real, but it isn't a break in the story. For
+      its entire history the machine could only <em>interpret</em> us. It took our
+      gestures, our clicks and keystrokes, and did exactly and literally what they
+      encoded. Click meant click. The graphical interface made that interpretation
+      feel like handling real objects, but underneath it was still interpretation.
+      The new turtle is different in kind: the machine has begun to <em
+        >collaborate</em
+      >. It guesses at intent, fills gaps, proposes things you never specified.
+    </p>
+    <p>
+      The strange part is that we were rehearsed for this. In the 1990s, two
+      Stanford researchers, <a target="_blank" rel="noopener"
+        href="https://comm.stanford.edu/people/byron-reeves">Byron Reeves</a
+      > and <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Clifford_Nass">Clifford Nass</a
+      >, ran experiment after experiment showing that people treat computers like
+      real people: extending politeness to them, ascribing personalities to them,
+      reacting socially to machines they knew perfectly well were only machines.
+      They called it the <a target="_blank" rel="noopener"
+        href="https://www.amazon.com/Media-Equation-Computers-Television-Lecture/dp/1575860538"
+        >Media Equation</a
+      >. We were talking to our tools as though something were listening long
+      before anything was. Which is why the fantasy is so old and so calm. Nobody
+      in Star Trek resents the ship's computer. You ask, it answers, it hands you
+      the near-infinite, and no one finds it uncanny. AI is that ancient fantasy
+      meeting a social reflex we were already carrying.
+    </p>
+
+    <h2>Everyone's final answer</h2>
+    <p>
+      There's a pattern in all this that should keep us honest, me most of all.
+    </p>
+    <p>
+      Every rung came with the same announcement. BASIC would make everyone a
+      programmer. The spreadsheet would make everyone an analyst. Hypertext and
+      the web would dissolve the distance between having an idea and publishing
+      it to the world. Then Flash, then HTML canvas, then responsive design, then
+      design systems and tokens, each one sold as the thing that would finally
+      end translation and unite what we imagine with what ships. The
+      industry-standard design tool we skipped in the last piece was itself
+      hailed, not long ago, as the bridge that would at last join design and
+      development.
+    </p>
+    <p>Every one of them was a turtle. So is this one.</p>
+    <p>
+      That's not a reason to doubt that AI changes the work. It plainly does, and
+      the rest of this series is about how. It is a reason to distrust anyone,
+      including me, who tells you this is the change that ends all the others.
+      The history is the humility. We have stood on a "final" turtle many times
+      before.
+    </p>
+
+    <h2>The shape of the whole climb</h2>
+    <p>
+      Step back and take the seventy years in at once, and one shape stands out.
+    </p>
+    <p>
+      Every turtle put the medium more within reach and, at the very same moment,
+      further out of sight. The punch card you could hold in your hands; the
+      charge in the silicon you cannot. The command line you had to understand;
+      the desktop let you forget it existed. Each rung bought reach by spending
+      contact, and then by spending visibility. We got closer and closer to just
+      saying what we mean, and we could see less and less of what was actually
+      happening beneath us.
+    </p>
+    <p>Which raises a question the cheerleaders tend to skip.</p>
+    <p>
+      We are standing now on a rung where the medium has very nearly stopped
+      resisting us at all. You say what you want, and it appears. That's supposed
+      to be the happy ending.
+    </p>
+    <p>It might be the dangerous one.</p>
+
+    <div class="series-nav series-nav-end">
+      <div class="series-next">
+        <a
+          href="/writing/the-medium-is-the-message-part-iii-the-medium-doesnt-strike-back"
+          >Read Part III: The Medium <em>Doesn't</em> Strike Back</a
+        >
+      </div>
+      <div class="series-parts">
+        <a href="/writing/the-medium-is-the-message-part-i-we-never-had-a-medium"
+          >Part I</a
+        > · Part II · <a
+          href="/writing/the-medium-is-the-message-part-iii-the-medium-doesnt-strike-back"
+          >Part III</a
+        > · <a
+          href="/writing/the-medium-is-the-message-part-iv-rebuilding-the-delivery-team"
+          >Part IV</a
+        >
+      </div>
+    </div>
+
+    <div class="essay-end">
+      <div class="author">Brandon E. B. Ward · Dallas, TX</div>
+    </div>
+  </article>
+
+  <MoreArticles />
+
+  <script>
+    (function () {
+      var bar = document.getElementById("read-bar");
+      if (!bar) return;
+      function update() {
+        var doc = document.documentElement;
+        var max = doc.scrollHeight - doc.clientHeight;
+        var pct =
+          max > 0
+            ? Math.min(
+                100,
+                Math.max(0, ((doc.scrollTop || window.scrollY) / max) * 100),
+              )
+            : 0;
+        bar.style.width = pct + "%";
+      }
+      update();
+      window.addEventListener("scroll", update, { passive: true });
+      window.addEventListener("resize", update);
+    })();
+  </script>
+</Base>

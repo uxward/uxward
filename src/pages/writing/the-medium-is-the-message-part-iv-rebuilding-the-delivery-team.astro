@@ -1,0 +1,390 @@
+---
+import Base from "../../layouts/Base.astro";
+import MoreArticles from "../../components/MoreArticles.astro";
+import { essays, plainTitle, essaySchema, shareImage } from "../../data/essays.js";
+const slug = Astro.url.pathname.replace(/\/$/, '').split('/').at(-1);
+const essay = essays.find(e => e.slug === slug);
+if (!essay) throw new Error(`No essay data found for slug: ${slug}`);
+const site = import.meta.env.SITE;
+const schema = essaySchema(essay, site);
+---
+
+<Base title={`${plainTitle(essay.title)} · uxward`} description={essay.deck} schema={schema} ogType="article" ogImage={shareImage(essay)} bodyClass="essay">
+  <div class="read-bar" id="read-bar" aria-hidden="true"></div>
+
+  <div class="reading-column essay-top">
+    <div class="row">
+      <a class="back" href="/writing">Back to writing</a>
+      <div class="meta">
+        <span>{essay.quarter}</span>
+        <span class="sep">·</span>
+        <span>Essay</span>
+        <span class="sep">·</span>
+        <span>9 min read</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="reading-column essay-title-block">
+    <h1 class="essay-title" set:html={essay.title} />
+    <p class="essay-deck">{essay.deck}</p>
+    <div class="essay-byline">By Brandon E. B. Ward</div>
+  </div>
+
+  <article class="reading-column essay-body">
+    <figure>
+      <img
+        src="/images/writing/six-million-dollar-man.webp" width="1456" height="819"
+        alt="Lee Majors as Steve Austin, the Six Million Dollar Man."
+      />
+      <figcaption>
+        We can rebuild the team. We have the technology. Ref: <a target="_blank" rel="noopener"
+          href="https://www.imdb.com/title/tt0071054/">The Six Million Dollar Man</a
+        >
+      </figcaption>
+    </figure>
+
+    <div class="series-nav series-nav-top">
+      <a href="/writing/the-medium-is-the-message-part-i-we-never-had-a-medium"
+        >Part I</a
+      > · <a
+        href="/writing/the-medium-is-the-message-part-ii-turtles-all-the-way-down"
+        >Part II</a
+      > · <a
+        href="/writing/the-medium-is-the-message-part-iii-the-medium-doesnt-strike-back"
+        >Part III</a
+      > · Part IV
+    </div>
+
+    <p>
+      Let me go back to the project I opened this series with, and this time tell
+      the part I skipped.
+    </p>
+    <p>
+      We built the website without Figma. We designed by making the real, running
+      thing. And then, as I mentioned almost in passing at the start, we handed
+      that working site to a CMS developer, who took it apart and rebuilt it
+      inside the content system the client would actually use, so they could own
+      and maintain it themselves.
+    </p>
+    <p>
+      So yeah, it's a handoff. A translation from one medium into another.
+      Another turtle. After four parts arguing that we should collapse the
+      distance between designing a thing and building it, we designed the thing,
+      built it, and then passed it to someone who rebuilt it somewhere else.
+    </p>
+    <p>
+      That looks like a contradiction of everything I've said. It's actually the
+      whole point, and I'll earn that claim by the end. First, why the team was
+      ever shaped this way.
+    </p>
+
+    <h2>The roles were never natural</h2>
+    <p>
+      UX designer. UI designer. Front-end developer. We treat these the way we
+      treat elements on the periodic table, as if software had always required
+      exactly these divisions, as if they'd been discovered rather than invented.
+    </p>
+
+    <figure>
+      <img
+        src="/images/writing/periodic-table-of-software-development.jpg" width="1456" height="898"
+        alt="A periodic-table-style chart of software development roles, disciplines, and practices."
+      />
+      <figcaption>
+        View an interactive version here: <a target="_blank" rel="noopener"
+          href="https://precocity.github.io/periodic-table"
+          >Periodic Table of Software Development</a
+        >
+      </figcaption>
+    </figure>
+
+    <p>They were inherited.</p>
+    <p>
+      McLuhan's argument about the printing press is that the mechanical age took
+      whole activities and shattered them into fragments: specialists, linear
+      steps, separated functions. The assembly line is that same logic pointed at
+      making things, each worker doing one small piece and passing it down.
+      Fragmentation and specialism were the <em>message</em> of the mechanical age,
+      no matter what it happened to be producing. Our discipline was born inside that
+      logic and never thought to question it. Research over here, wireframes over
+      there, visual design next, a handoff to engineering at the end. A relay of
+      specialists, each polishing one fragment and sliding it to the next station.
+    </p>
+
+    <h2>Software comes out shaped like the org chart</h2>
+    <p>
+      In 1968, a programmer named <a target="_blank" rel="noopener"
+        href="https://en.wikipedia.org/wiki/Melvin_Conway">Melvin Conway</a
+      > noticed something that has haunted software ever since. Organizations, he
+      argued, are constrained to build systems that mirror their own communication
+      structure. The classic illustration: put four teams on a compiler and you'll
+      get a four-pass compiler. The shape of the group becomes the shape of the thing.
+      We call it <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Conway%27s_law"
+        >Conway's Law</a
+      >.
+    </p>
+
+    <figure>
+      <img
+        src="/images/writing/conways-law.webp" width="1456" height="971"
+        alt="A diagram showing a four-team org chart on the left mirrored by a four-module system architecture on the right."
+      />
+    </figure>
+
+    <p>
+      Point it at design and it stings. A team split into separate specialists,
+      each in a separate tool, joined only by handoffs, produces work with the
+      seams of those handoffs showing. The gap between the research and the
+      interface, between the interface and the build, between the designed intent
+      and the shipped reality: those gaps are the org chart, made visible in the
+      product. You've felt them as a user. That slightly-off place where a
+      beautiful screen meets a clunky flow is very often the spot where one
+      specialist handed off to another.
+    </p>
+
+    <h2>Why the relay existed, and why it's dissolving</h2>
+    <p>
+      The relay wasn't only habit. It had a hard structural reason underneath it,
+      the one this entire series has been circling. The designer <em
+        >could not build the thing</em
+      >. They worked in a tool that made pictures of software, so someone else
+      had to translate the pictures into the real material. The handoff wasn't a
+      preference or a sign of maturity. It was forced, because design and build
+      happened in two different media.
+    </p>
+    <p>
+      Take that constraint away and the justification goes with it. When you can
+      shape the running product directly, the wall between the person who designs
+      it and the person who makes it real stops being a law of physics and
+      becomes a choice. Usually a choice made out of habit, because the old shape
+      is still sitting there.
+    </p>
+    <p>
+      McLuhan saw this reversal coming. Automation, he argued, runs the opposite
+      direction from the assembly line. Where the mechanical age fragmented and
+      separated, the automated, information-saturated age is integral and
+      decentralized: it dissolves the narrow "job," the single repeated task on
+      the line, and asks instead for a "role," which pulls a person into the
+      whole. And that's exactly what happens when you make in the medium. You
+      cannot cleanly separate the UX from the UI from the front-end from the
+      back-end and all their connective tissues when all are the same living
+      thing moving under your hands. Those separations were artifacts of a world
+      where they were literally different files, in different tools, owned by
+      different people. Collapse the tools into one medium and the roles want to
+      collapse too.
+    </p>
+
+    <h2>The catch that the tool vendors won't mention</h2>
+    <p>
+      Conway's Law cuts both ways, and this is the sentence to tape to your
+      monitor: if you adopt the new medium and keep the old org, the org wins.
+    </p>
+    <p>
+      You'll use AI to generate nicer representations faster, and then throw them
+      over the very same walls, to the very same specialists, through the very
+      same handoffs. The seams will still show, because the communication
+      structure that produces the seams is still there. New medium, old org, same
+      seams. The tool does not reshape the team. Only you can do that, and only
+      on purpose.
+    </p>
+    <p>
+      Which is the answer to the question the last piece left hanging. Staying
+      engaged and aware in a frictionless medium can't be a heroic act by one
+      designer surrounded by people on autopilot. It has to be built into the
+      shape of the team: fewer people, each involved in more of the whole, each
+      able to see and touch the living thing, each responsible for keeping it
+      honest rather than for buffing one fragment and passing it along. Awareness
+      isn't a task you assign. It's a structure you build.
+    </p>
+
+    <h2>Back to the turtle in my own project</h2>
+    <p>
+      So, the Craft CMS developer. The handoff made after all my talk about
+      killing handoffs.
+    </p>
+    <p>
+      Here's the honest version. We did collapse most of the relay. There was no
+      research-to-wireframe-to-visual-to-prototype-to-spec-to-engineering chain,
+      because we designed by building the real thing. But at the very end, we
+      handed the working site to a developer to rebuild inside a content system,
+      because the client has to live with this site long after we're gone, and
+      they need it in a medium they can operate without us. That last translation
+      wasn't a failure to honor the thesis. It <em>was</em> the thesis, applied with
+      judgment.
+    </p>
+    <p>
+      Because the goal was never zero handoffs. That's a fantasy, and this series
+      began by refusing fantasies of arrival. Software is never done (until it's
+      deleted). Software gets built, owned, and maintained by different people,
+      in different media, across the years. Pretending otherwise is just going
+      numb. The goal is fewer translation steps, and honesty about those that
+      remain: which medium each person works in, which medium each person will
+      maintain, and why. We didn't reach the bottom of the stack. Nobody does. We
+      chose a better altitude than the old process would ever have allowed, kept
+      one deliberate handoff because the client truly needed it, and said so out
+      loud instead of pretending it wasn't there.
+    </p>
+    <p>
+      Fewer turtles. Or more turtles depending on how you think of it. And those
+      that remain, chosen on purpose.
+    </p>
+    <p>
+      There's a quieter reward in this. The fragmented job, one specialist
+      buffing one fragment, was never where the work felt most alive. The
+      involved role, one person shaping the whole living thing, sits much closer
+      to the deep engagement, the flow Csikszentmihalyi called our best state.
+      Re-fusing the team does more than speed things up. It's more awake, and
+      more human, for the people doing it. Which matters more than it sounds,
+      because the people delivering the work are those who have to believe in it.
+    </p>
+
+    <h2>Make the message in its medium</h2>
+    <p>AI didn't upgrade our tools. It handed us our medium.</p>
+    <p>
+      We are no longer drawing the future and praying it survives the trip to
+      code. We can build it in the material it's actually made of. And when the
+      medium is the message, we owe it to both to make our message <em>in</em> its
+      medium. A delivery team that does <em>that</em> is a different thing, not a
+      faster version of the old one, and we are the ones who get to design it.
+    </p>
+    <p>One last honesty, the one I promised in the very first piece.</p>
+    <p>
+      When the next medium arrives, the one after this, someone will notice that
+      what we're calling the real thing was itself just another layer, and
+      they'll write this essay again about a rung none of us can see from here.
+      They'll be right. It was true of the punch card and the compiler and the
+      graphical interface, and it's true of this. That isn't a caveat, and it
+      isn't a hedge. It's the job. We were never going to reach the bottom.
+    </p>
+    <p>
+      We just get to choose, for our moment, how honestly we stand on the turtle
+      we've got.
+    </p>
+    <p>The end (for now).</p>
+
+
+    <h2>Works referenced</h2>
+    <p>
+      Given the density of the material and the rich works of giants upon which
+      it stands, I felt compelled to include a bibliography here with all of the
+      works I referenced while writing this. Blame my grad-school professors <a target="_blank" rel="noopener"
+        href="https://www.linkedin.com/in/thomgillespie/">Thom Gillespie</a
+      > and <a target="_blank" rel="noopener" href="https://mediaschool.indiana.edu/people/profile.html?p=jurfox"
+        >Dr. Julia Fox</a
+      > if you need to.
+    </p>
+    <ul>
+      <li>
+        McLuhan, Marshall. <em>Understanding Media: The Extensions of Man.</em> McGraw-Hill,
+        1964.
+      </li>
+      <li>
+        McLuhan, Marshall, and Quentin Fiore. <em
+          >The Medium is the Massage: An Inventory of Effects.</em
+        > Bantam Books, 1967.
+      </li>
+      <li>
+        Conway, Melvin E. "How Do Committees Invent?" <em>Datamation</em>, vol. 14,
+        no. 4, 1968, pp. 28–31.
+      </li>
+      <li>
+        Csikszentmihalyi, Mihaly. <em
+          >Flow: The Psychology of Optimal Experience.</em
+        > Harper &amp; Row, 1990.
+      </li>
+      <li>
+        Engelbart, Douglas C. <em
+          >Augmenting Human Intellect: A Conceptual Framework.</em
+        > Summary Report, Stanford Research Institute, 1962.
+      </li>
+      <li>
+        Engelbart, Douglas C., and William K. English. "A Research Center for
+        Augmenting Human Intellect." Fall Joint Computer Conference, San
+        Francisco, 9 December 1968 — the demonstration later known as "The Mother
+        of All Demos."
+      </li>
+      <li>
+        Heidegger, Martin. <em>Being and Time.</em> 1927. (Ready-to-hand / present-at-hand.)
+      </li>
+      <li>
+        Licklider, J. C. R. "Man-Computer Symbiosis." <em
+          >IRE Transactions on Human Factors in Electronics</em
+        >, vol. HFE-1, 1960, pp. 4–11.
+      </li>
+      <li>
+        Manovich, Lev. <em>The Language of New Media.</em> MIT Press, 2001. (The principle
+        of "variability.")
+      </li>
+      <li>
+        Norman, Don. <em>The Design of Everyday Things.</em> Basic Books, 1988; revised
+        2013. (The gulfs of execution and evaluation.)
+      </li>
+      <li>
+        Reeves, Byron, and Clifford Nass. <em
+          >The Media Equation: How People Treat Computers, Television, and New
+          Media Like Real People and Places.</em
+        > CSLI Publications / Cambridge University Press, 1996.
+      </li>
+      <li>
+        Churchill, Winston. Remarks in the House of Commons, 28 October 1943: "We
+        shape our buildings; thereafter they shape us."
+      </li>
+      <li>
+        Smothers, John. Post on X, July 8, 2026. <a target="_blank" rel="noopener"
+          href="https://x.com/smothers_john/status/2074899740685447403"
+          >x.com/smothers_john/status/2074899740685447403</a
+        >
+      </li>
+      <li>
+        Ovid. <em>Metamorphoses</em>, Book III, c. 8 CE. (The Narcissus myth.)
+      </li>
+      <li>
+        "Turtles all the way down." Origin uncertain; the anecdote is commonly
+        attributed to exchanges involving Bertrand Russell and William James.
+      </li>
+    </ul>
+
+    <div class="series-nav series-nav-end">
+      <div class="series-parts">
+        <a href="/writing/the-medium-is-the-message-part-i-we-never-had-a-medium"
+          >Part I</a
+        > · <a
+          href="/writing/the-medium-is-the-message-part-ii-turtles-all-the-way-down"
+          >Part II</a
+        > · <a
+          href="/writing/the-medium-is-the-message-part-iii-the-medium-doesnt-strike-back"
+          >Part III</a
+        > · Part IV
+      </div>
+    </div>
+
+    <div class="essay-end">
+      <div class="author">Brandon E. B. Ward · Dallas, TX</div>
+    </div>
+  </article>
+
+  <MoreArticles />
+
+  <script>
+    (function () {
+      var bar = document.getElementById("read-bar");
+      if (!bar) return;
+      function update() {
+        var doc = document.documentElement;
+        var max = doc.scrollHeight - doc.clientHeight;
+        var pct =
+          max > 0
+            ? Math.min(
+                100,
+                Math.max(0, ((doc.scrollTop || window.scrollY) / max) * 100),
+              )
+            : 0;
+        bar.style.width = pct + "%";
+      }
+      update();
+      window.addEventListener("scroll", update, { passive: true });
+      window.addEventListener("resize", update);
+    })();
+  </script>
+</Base>

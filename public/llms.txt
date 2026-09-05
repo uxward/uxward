@@ -20,7 +20,7 @@ GitHub: https://github.com/uxward
 - /about — Full biography, career timeline, and current status.
 - /contact — Availability, preferred roles, and hiring Q&A.
 - /work — Selected case studies (5 in-depth cases).
-- /writing — Archive of essays on leadership, UX practice, and AI (23 essays, 2014–2026).
+- /writing — Archive of essays on leadership, UX practice, and AI (29 essays, 2014–2026).
 - /colophon — How the site was made; design references and stack.
 
 ## Selected work (case studies)
@@ -56,6 +56,9 @@ Open to executive design leadership roles: Head of Design, VP Design, Chief Desi
 
 Essays are grouped in three sections: On Leadership, On Experience Design, and On AI. Range: 2014–2026. Selected titles:
 
+- "The Medium Is the Message" (4-part series, 2026) — why digital designers never had a medium, the seventy-year stack of abstractions that finally handed us one, what is lost when the medium stops resisting, and how the delivery team has to be rebuilt in response
+- "Designing for Ambiguity: The 'New Rules' for AI Are the Old Rules" — the AI-UX consensus mapped one-to-one onto Nielsen's 1994 heuristics
+- "Building Software That Actually Works Well" — the Craft Matrix: Tim Doll's four pillars crossed with Stephen Anderson's UX Hierarchy of Needs
 - "Only You Can Prevent Dumpster Fires" — design ethics manifesto
 - "Can Great UX Be Novel and Risky Too?" — on the web's loss of experiential pleasure
 - "Human-Centered, Robot-Driven: Ethical Considerations for ML in Design" — AI ethics in design practice

@@ -1,7 +1,7 @@
 ---
 import Base from "../../layouts/Base.astro";
 import MoreArticles from "../../components/MoreArticles.astro";
-import { essays, plainTitle, essaySchema } from "../../data/essays.js";
+import { essays, plainTitle, essaySchema, shareImage } from "../../data/essays.js";
 const slug = Astro.url.pathname.replace(/\/$/, '').split('/').at(-1);
 const essay = essays.find(e => e.slug === slug);
 if (!essay) throw new Error(`No essay data found for slug: ${slug}`);
@@ -9,7 +9,7 @@ const site = import.meta.env.SITE;
 const schema = essaySchema(essay, site);
 ---
 
-<Base title={`${plainTitle(essay.title)} · uxward`} description={essay.deck} schema={schema} ogType="article" bodyClass="essay">
+<Base title={`${plainTitle(essay.title)} · uxward`} description={essay.deck} schema={schema} ogType="article" ogImage={shareImage(essay)} bodyClass="essay">
   <div class="read-bar" id="read-bar" aria-hidden="true"></div>
 
   <div class="reading-column essay-top">
@@ -51,7 +51,7 @@ const schema = essaySchema(essay, site);
 
     <h2>Simplicity is dead</h2>
     <p>
-      As Jason Fried said in 2004, <a
+      As Jason Fried said in 2004, <a target="_blank" rel="noopener"
         href="https://signalvnoise.com/archives/000970.php"
         ><span style="text-decoration:underline">simplicity is dead</span></a
       >. The truth is, simplicity doesn't exist in design. Not the way we tend
@@ -59,7 +59,7 @@ const schema = essaySchema(essay, site);
       complex. What matters is how people experience it. And the only experience
       that matters is <em>clarity</em>. This sounds like a tomato/potato
       semantic argument, but the core of the difference between simplicity and
-      clarity is critical: <a
+      clarity is critical: <a target="_blank" rel="noopener"
         href="https://www.youtube.com/watch?v=qV6yPErbjCg&ab_channel=NNgroup"
         ><span style="text-decoration:underline">Context</span></a
       >.
@@ -74,7 +74,7 @@ const schema = essaySchema(essay, site);
       Clarity means creating flows, layouts, and micro-interactions that feel
       effortless, natural, and intuitive for the people who matter most: our
       users. Simplicity may emerge as a side effect, but it is not the goal. The
-      goal is to <a
+      goal is to <a target="_blank" rel="noopener"
         href="https://uxdesign.cc/over-complicated-over-simplified-the-ux-efficient-frontier-561d7773bc6b"
         ><span style="text-decoration:underline"
           >craft experiences that “just work” in the moment of need</span
@@ -104,13 +104,13 @@ const schema = essaySchema(essay, site);
       reducing the ingredient list. You can't. Make it simpler by just dumping
       everything into the pot at once. You can't. Clear design considers the
       ingredients, the process, the end product, and the cook as well as the
-      consumer, then proposes a flow to get from box to delicious <a
+      consumer, then proposes a flow to get from box to delicious <a target="_blank" rel="noopener"
         href="https://www.youtube.com/watch?v=Hz1JWzyvv8A&ab_channel=AndrewBoynton"
         ><span style="text-decoration:underline">cheesy comestible</span></a
       > as efficiently as possible. Reduction fails. Clarity beats simplicity <em
         >every time</em
       >. Trying to measure all UIs against the same kind of “simple” is the same
-      as <a href="https://quotecatalog.com/quote/b1r8D6p/"
+      as <a target="_blank" rel="noopener" href="https://quotecatalog.com/quote/b1r8D6p/"
         ><span style="text-decoration:underline"
           >measuring a fish’s worth by its ability to climb a tree</span
         ></a
@@ -129,7 +129,7 @@ const schema = essaySchema(essay, site);
       We must know the user and context in depth. Short of that, simplicity is
       an arbitrary exercise that can do more harm than good. Through research,
       testing, empathy, and candor, we can design experiences that cut through
-      complexity to deliver on the <a
+      complexity to deliver on the <a target="_blank" rel="noopener"
         href="https://www.researchgate.net/figure/UX-Hierarchy-of-Needs-Anderson-2011_fig11_361450592"
         ><span style="text-decoration:underline">UX hierarchy of needs</span></a
       >: functional, reliable, usable, convenient, pleasurable, and meaningful.
@@ -149,7 +149,7 @@ const schema = essaySchema(essay, site);
       are and give them paths to where they want to go.
     </p>
     <blockquote>
-      <p><a
+      <p><a target="_blank" rel="noopener"
           href="https://www.youtube.com/watch?v=6AvZmtSXwZ8&ab_channel=NNgroup"
           >Simplicity is relative</a
         >. What is simple for [one] device may be dumb or intricate for

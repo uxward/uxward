@@ -1,0 +1,366 @@
+---
+import Base from "../../layouts/Base.astro";
+import MoreArticles from "../../components/MoreArticles.astro";
+import { essays, plainTitle, essaySchema, shareImage } from "../../data/essays.js";
+const slug = Astro.url.pathname.replace(/\/$/, '').split('/').at(-1);
+const essay = essays.find(e => e.slug === slug);
+if (!essay) throw new Error(`No essay data found for slug: ${slug}`);
+const site = import.meta.env.SITE;
+const schema = essaySchema(essay, site);
+---
+
+<Base title={`${plainTitle(essay.title)} · uxward`} description={essay.deck} schema={schema} ogType="article" ogImage={shareImage(essay)} bodyClass="essay">
+  <div class="read-bar" id="read-bar" aria-hidden="true"></div>
+
+  <div class="reading-column essay-top">
+    <div class="row">
+      <a class="back" href="/writing">Back to writing</a>
+      <div class="meta">
+        <span>{essay.quarter}</span>
+        <span class="sep">·</span>
+        <span>Essay</span>
+        <span class="sep">·</span>
+        <span>9 min read</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="reading-column essay-title-block">
+    <h1 class="essay-title" set:html={essay.title} />
+    <p class="essay-deck">{essay.deck}</p>
+    <div class="essay-byline">By Brandon E. B. Ward</div>
+  </div>
+
+  <article class="reading-column essay-body">
+    <figure>
+      <img
+        src="/images/writing/old-is-new.webp" width="1456" height="820"
+        alt="Three panels of the same office worker at a desk — a 1930s typewriter, a 1980s desktop computer, and a 2026 screen showing an AI assistant."
+      />
+    </figure>
+
+    <p>
+      Every week I read another framework for designing AI into products.
+      Transparency. Explainability. Confidence indicators. Graceful failure.
+      Human-in-the-loop. They're all correct, and if you've been shipping AI
+      features you already know the anxiety underneath them: the surface used to
+      be <em>static and predictable</em>, <em>full of signifiers</em> of
+      invisible affordances, and now it <em>talks back, guesses,</em> <em
+        >lacks signifiers</em
+      > leaving affordances invisible, and <em
+        >sometimes gets it wrong.</em
+      >
+    </p>
+    <p>
+      So here's the short version of everything the best teams are publishing
+      right now and then the part nobody says out loud, <strong
+        >which is that you probably already know how to do all of this</strong
+      >.
+    </p>
+
+    <h2>The "new rules" for designing AI into your systems</h2>
+    <p>
+      <strong>Tell people it's AI, and tell them what it can't do.</strong> Set expectations
+      before the first prompt, not after the first failure.
+    </p>
+    <p>
+      <strong>Show your work.</strong> Surface reasoning, sources, and a confidence
+      signal so output can be trusted or challenged.
+    </p>
+    <p>
+      <strong>Keep the human in control.</strong> Every AI action needs an obvious
+      override, edit, and undo. Suggestion, not seizure.
+    </p>
+    <p>
+      <strong>Design for being wrong.</strong> The AI <em>will</em> be wrong. Recovery
+      is a primary flow, not an edge case.
+    </p>
+    <p>
+      <strong>Fit the existing workflow.</strong> Bolt AI onto what people already
+      do; don't make them learn a new religion.
+    </p>
+    <p>
+      <strong>Make the wait legible.</strong> Streaming, progress, and "still thinking"
+      states, because AI is slow and non-deterministic.
+    </p>
+    <p>
+      <strong>Close the loop.</strong> Let people rate, correct, and steer, and show
+      that their feedback changed something.
+    </p>
+    <p>
+      <strong>Protect data and dignity.</strong> Be explicit about what's collected,
+      used for training, and how to opt out.
+    </p>
+    <p>
+      That's the consensus, distilled from Google's PAIR team, Microsoft
+      Research, Apple, Anthropic, OpenAI, IBM, and a dozen sharp practitioners.
+      Print it, tape it to your monitor.
+    </p>
+    <p>But hold up now…</p>
+
+    <figure>
+      <img
+        src="/images/writing/bsg.jpg" width="1456" height="819"
+        alt="Battlestar Galactica: all of this has happened before, and all of it will happen again."
+      />
+    </figure>
+
+    <h2>We wrote these rules in 1994</h2>
+    <p>
+      Read that list again. Then read Jakob Nielsen's <strong
+        >10 Usability Heuristics for User Interface Design</strong
+      > — published in 1994, refined over thirty years, and still one of the first
+      things most of us learned. It's almost a one-to-one match. The "new rules" for
+      AI aren't new. They're Nielsen's heuristics wearing a black hoodie.
+    </p>
+    <p>Here's the mapping I keep coming back to:</p>
+    <p>
+      <strong
+        >1. Visibility of system status → Show what the AI is doing.</strong
+      > Nielsen said keep users informed through timely feedback. That's your typing
+      indicator, your streaming response, your "searching 4 sources," your confidence
+      score. Latency and uncertainty just raised the stakes on a heuristic we've always
+      had.
+    </p>
+    <p>
+      <strong
+        >2. Match between system and the real world → Speak the user's
+        language.</strong
+      > Conversational AI is the <em>most</em> literal expression of this heuristic
+      ever built. The whole promise of natural-language interfaces is that the system
+      finally speaks <em>human</em> instead of forcing humans to speak <em
+        >system</em
+      >.
+    </p>
+    <p>
+      <strong>3. User control and freedom → Override, edit, undo.</strong> Nielsen
+      called it the "emergency exit." Every AI-agency framework, Google's autonomy
+      principle, Microsoft's "support efficient correction," Anthropic's human checkpoints,
+      is this heuristic restated. Don't automate away the exit.
+    </p>
+    <p>
+      <strong>4. Consistency and standards → Predictable AI behavior.</strong> Users
+      build a mental model of your AI even if they don't begin with one. If the same
+      prompt yields wildly different shapes of answer, or the "AI" badge means three
+      different things across your product, you've violated a 30-year-old rule. Standardize
+      your AI patterns like you'd standardize a button.
+    </p>
+    <p>
+      <strong>5. Error prevention → Guardrails and good prompts.</strong> Better
+      than a good error message is a design that prevents the error. That's input
+      validation, example prompts, scoped capabilities, and Apple's built-in safety
+      guardrails. Stop the bad generation before it happens.
+    </p>
+    <p>
+      <strong>6. Recognition rather than recall → Suggest, don't interrogate.</strong
+      > Blank-prompt anxiety is a recognition failure. Give people conversation starters,
+      templates, and visible options so they don't have to conjure the magic words
+      from memory. The empty chat box is the new blank canvas problem.
+    </p>
+    <p>
+      <strong>7. Flexibility and efficiency of use → Serve novices and experts.</strong
+      > Progressive disclosure of AI: gentle defaults for newcomers, parameter controls
+      and shortcuts for power users. IBM's tiered explanations ("recommended because…"
+      → full reasoning) are pure Nielsen: accelerators for the experienced, safety
+      rails for the rest.
+    </p>
+    <p>
+      <strong>8. Aesthetic and minimalist design → Don't drown people in AI.</strong
+      > Not every feature needs a sparkle icon and a disclosure panel. The best AIs,
+      heck, the best UIs in general, often recede. Surface only what advances the
+      task, which is exactly what OpenAI tells its own app builders.
+    </p>
+    <p>
+      <strong
+        >9. Help users recognize, diagnose, and recover from errors → Graceful
+        failure.</strong
+      > This is the heuristic everyone's rediscovering as "design for hallucination."
+      Say what went wrong in plain language, explain why if you can, and offer a next
+      step or a fallback. Blame the situation, not the user, and never a raw stack
+      trace.
+    </p>
+    <p>
+      <strong>10. Help and documentation → Onboard people into the AI.</strong> Just-in-time
+      guidance, example use cases, and clear capability descriptions. People need
+      to learn what your AI is good at and Nielsen told us how to teach them decades
+      ago.
+    </p>
+    <p>
+      Ten for ten. Hopefully by now you're going: <em
+        >"Oh, THAT's all this is. Yeah, I know how to do that."</em
+      >
+    </p>
+
+    <figure>
+      <img
+        src="/images/writing/travolta-crop.webp" width="595" height="252"
+        alt="John Travolta looking around, confused, in the Pulp Fiction reaction GIF."
+      />
+    </figure>
+
+    <h2>So…did anything actually change?</h2>
+    <p>
+      If the heuristics still hold, why does AI <em>feel</em> so different to design
+      for? One word: <strong>ambiguity.</strong>
+    </p>
+    <p>
+      Classic interfaces are <strong>deterministic</strong>. Click the button,
+      get the result, every time. From the abacus in 3000 BC all the way through
+      to tomorrow's hot new app, UX assumed a predictable machine you were
+      helping people operate. AI breaks that assumption. It's <strong
+        >probabilistic</strong
+      >. The same input can produce different outputs. It's confidently wrong. It
+      operates on <em>intent</em>. Nielsen's own term for the shift is
+      "intent-based outcome specification," where users say <em>what</em> they want,
+      not <em>how</em> to get it, and the system figures out the path.
+    </p>
+    <p>
+      That's the real design problem, and it's why "designing for ambiguity" is
+      the honest name for this whole discipline. We're no longer designing a set
+      of predictable states. We're designing the <em
+        >scaffolding around an unpredictable partner</em
+      >. The trust signals, the correction paths, the graceful exits that let a
+      probabilistic system be useful without being reckless.
+    </p>
+    <p>
+      But notice: the scaffolding is still made of the old lumber. <strong
+        >Managing uncertainty is just harder-mode error prevention and
+        system-status visibility</strong
+      >. Keeping users oriented around a system that improvises is user control
+      and recognition-over-recall, turned up to eleven. The problem got harder.
+      The principles didn't change.
+    </p>
+
+    <h2>The practical takeaway</h2>
+    <p>
+      You don't need to throw out your craft and relearn design from an AI
+      influencer's carousel. You need to <em
+        >apply the fundamentals to a probabilistic medium.</em
+      > Next time a stakeholder asks how you'll "design the AI experience," walk them
+      through ten heuristics that predate the smartphone and show how each one answers
+      a live problem in your product.
+    </p>
+    <p>
+      The frameworks flooding your feed are valuable, you should probably read
+      them. But they're a modern gloss on a durable foundation. Master the
+      foundation, design for the ambiguity, and the "new rules" stop being
+      intimidating. They become a checklist you've been running your whole
+      career.
+    </p>
+
+    <h2>Further reading</h2>
+    <p>
+      Some of the best current thinking on AI UX, if you want to go deeper:
+    </p>
+    <ul>
+      <li>
+        <strong>Jakob Nielsen — </strong><a target="_blank" rel="noopener"
+          href="https://www.nngroup.com/articles/ten-usability-heuristics/"
+          ><strong>10 Usability Heuristics for UI Design</strong></a
+        > and <a target="_blank" rel="noopener"
+          href="https://jakobnielsenphd.substack.com/p/ai-is-first-new-ui-paradigm-in-60"
+          ><strong>AI: First New UI Paradigm in 60 Years</strong></a
+        > (Nielsen Norman Group). The source material — and Nielsen's own take on
+        intent-based interaction.
+      </li>
+      <li>
+        <strong>Google PAIR — </strong><a target="_blank" rel="noopener"
+          href="https://pair.withgoogle.com/guidebook/"
+          ><strong>People + AI Guidebook</strong></a
+        >. The most complete human-centered AI design toolkit, from Google's
+        People + AI Research team.
+      </li>
+      <li>
+        <strong>Microsoft Research — </strong><a target="_blank" rel="noopener"
+          href="https://www.microsoft.com/en-us/research/blog/guidelines-for-human-ai-interaction-design/"
+          ><strong>Guidelines for Human-AI Interaction</strong></a
+        > (Amershi et al., CHI 2019). 18 validated, still-canonical guidelines.
+      </li>
+      <li>
+        <strong>Apple — </strong><a target="_blank" rel="noopener"
+          href="https://developer.apple.com/design/human-interface-guidelines/generative-ai"
+          ><strong>Human Interface Guidelines: Generative AI</strong></a
+        > and <a target="_blank" rel="noopener"
+          href="https://developer.apple.com/design/human-interface-guidelines/machine-learning"
+          ><strong>Machine Learning</strong></a
+        >. Practical patterns for attribution, control, and safety.
+      </li>
+      <li>
+        <strong>Anthropic — </strong><a target="_blank" rel="noopener"
+          href="https://www.anthropic.com/engineering/building-effective-agents"
+          ><strong>Building Effective AI Agents</strong></a
+        >. Transparency over cleverness, simplicity, and human checkpoints —
+        from the makers of Claude.
+      </li>
+      <li>
+        <strong>OpenAI — </strong><a target="_blank" rel="noopener"
+          href="https://developers.openai.com/apps-sdk/concepts/ux-principles"
+          ><strong>Apps SDK UX Principles</strong></a
+        >. How OpenAI tells builders to design <em>inside</em> ChatGPT: clarity, native
+        fit, no ornamental UI.
+      </li>
+      <li>
+        <strong>IBM — </strong><a target="_blank" rel="noopener"
+          href="https://www.ibm.com/design/ai/ethics/everyday-ethics"
+          ><strong>Everyday Ethics for Artificial Intelligence</strong></a
+        > (Pribić &amp; Rossi). Accountability, explainability, data rights, and fairness,
+        made actionable.
+      </li>
+      <li>
+        <strong>Emily Campbell — </strong><a target="_blank" rel="noopener" href="https://www.shapeof.ai/"
+          ><strong>The Shape of AI</strong></a
+        >. The best living pattern library for AI UX.
+      </li>
+      <li>
+        <strong>Microsoft — </strong><a target="_blank" rel="noopener"
+          href="https://learn.microsoft.com/en-us/microsoft-cloud/dev/copilot/isv/ux-guidance"
+          ><strong>Guidance for Generative AI Application UX</strong></a
+        >. Concrete patterns for dynamic, Copilot-style experiences.
+      </li>
+      <li>
+        <strong>Weisz et al. — </strong><a target="_blank" rel="noopener"
+          href="https://dl.acm.org/doi/fullHtml/10.1145/3613904.3642466"
+          ><strong>Design Principles for Generative AI Applications</strong></a
+        > (IBM Research, CHI 2024). The academic backbone for designing around generative
+        variability.
+      </li>
+      <li>
+        <strong>LogRocket — </strong><a target="_blank" rel="noopener"
+          href="https://blog.logrocket.com/ux-design/ai-driven-ux-design-patterns/"
+          ><strong>AI-driven UX design patterns</strong></a
+        > and <strong>UXmatters — </strong><a target="_blank" rel="noopener"
+          href="https://www.uxmatters.com/mt/archives/2025/03/beyond-the-algorithm-why-genai-demands-a-ux-revolution.php"
+          ><strong>Why GenAI Demands a UX Revolution</strong></a
+        >. Practitioner syntheses of where the field is heading.
+      </li>
+    </ul>
+
+    <div class="essay-end">
+      <div class="author">Brandon E. B. Ward · Dallas, TX</div>
+    </div>
+  </article>
+
+  <MoreArticles />
+
+  <script>
+    (function () {
+      var bar = document.getElementById("read-bar");
+      if (!bar) return;
+      function update() {
+        var doc = document.documentElement;
+        var max = doc.scrollHeight - doc.clientHeight;
+        var pct =
+          max > 0
+            ? Math.min(
+                100,
+                Math.max(0, ((doc.scrollTop || window.scrollY) / max) * 100),
+              )
+            : 0;
+        bar.style.width = pct + "%";
+      }
+      update();
+      window.addEventListener("scroll", update, { passive: true });
+      window.addEventListener("resize", update);
+    })();
+  </script>
+</Base>

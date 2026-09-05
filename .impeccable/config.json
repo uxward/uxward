@@ -35,6 +35,24 @@
         "value": "jetbrains mono",
         "createdAt": "2026-08-29T15:29:25.864Z",
         "reason": "DESIGN.md Typography declares JetBrains Mono as the site's Supporting Face (mobile nav overlay, system toast)."
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "src/styles/essay.css"
+        ],
+        "createdAt": "2026-09-05T20:47:34.662Z",
+        "reason": "user confirmed: red vertical rules to the left of pull-quotes are intentional house style"
+      },
+      {
+        "rule": "layout-transition",
+        "value": "*",
+        "files": [
+          "src/styles/essay.css"
+        ],
+        "createdAt": "2026-09-05T20:47:34.746Z",
+        "reason": "user confirmed: the thin red scroll progress bar is intentional"
       }
     ]
   }

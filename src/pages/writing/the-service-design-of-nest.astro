@@ -1,7 +1,7 @@
 ---
 import Base from "../../layouts/Base.astro";
 import MoreArticles from "../../components/MoreArticles.astro";
-import { essays, plainTitle, essaySchema } from "../../data/essays.js";
+import { essays, plainTitle, essaySchema, shareImage } from "../../data/essays.js";
 const slug = Astro.url.pathname.replace(/\/$/, '').split('/').at(-1);
 const essay = essays.find(e => e.slug === slug);
 if (!essay) throw new Error(`No essay data found for slug: ${slug}`);
@@ -9,7 +9,7 @@ const site = import.meta.env.SITE;
 const schema = essaySchema(essay, site);
 ---
 
-<Base title={`${plainTitle(essay.title)} · uxward`} description={essay.deck} schema={schema} ogType="article" bodyClass="essay">
+<Base title={`${plainTitle(essay.title)} · uxward`} description={essay.deck} schema={schema} ogType="article" ogImage={shareImage(essay)} bodyClass="essay">
   <div class="read-bar" id="read-bar" aria-hidden="true"></div>
 
   <div class="reading-column essay-top">
@@ -287,7 +287,7 @@ const schema = essaySchema(essay, site);
         ></strong>
     </p>
     <h2>
-      But they can reach me <a
+      But they can reach me <a target="_blank" rel="noopener"
         href="mailto:brandon@uxward.com?subject=Your%20Nest%20Article%20Resonated%20With%20Us"
         >here</a
       >!
