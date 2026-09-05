@@ -153,14 +153,19 @@ WebPage 1, FAQPage 1.*
 - [ ] **`loading="lazy"` on 26 of 125 images.** Untouched by this pass. Lower value now that
       payload is down 25%, but still worth doing for below-the-fold art.
 
-- [ ] ⚠️ **691 KB of unreferenced images are still being deployed.** Nothing links to them,
-      but `public/` ships wholesale, so visitors' browsers never request them while the
-      Worker still stores and serves them:
-      `BrandonEBWard-006.png` (259 KB), `BrandonEBWard-002.png` (248 KB),
-      `BrandonEBWard-006-full.jpg` (94 KB), `BrandonEBWard-003-full.jpg` (89 KB).
-      Left in place deliberately — deleting unreferenced assets is Brandon's call, not a
-      cleanup to make unasked. Note `-003-full` and `-006-full` already have `.webp` twins
-      that *are* referenced, so the `.jpg` versions look like leftovers from an earlier pass.
+- [x] **Unreferenced images deleted — 2026-09-04.** Brandon's call. `public/` ships
+      wholesale, so four files nothing linked to were still being stored and served by the
+      Worker: `BrandonEBWard-006.png` (259 KB), `BrandonEBWard-002.png` (248 KB),
+      `BrandonEBWard-006-full.jpg` (94 KB), `BrandonEBWard-003-full.jpg` (89 KB). The two
+      `-full.jpg` files were leftovers — `.webp` twins of both are referenced and stay.
+
+      **691 KB removed. Image payload is now 6.69 MB across 114 files, down from 9.82 MB
+      across 118 — a 32% reduction overall.**
+
+      Verified both directions after deleting: nothing referenced is missing, and nothing
+      present is unreferenced. Worth re-running that check after any bulk image change —
+      a first, narrower scan wrongly flagged `make+the+logo+bigger.webp` as dead when it is
+      in fact referenced. Grep the filename directly before deleting anything.
 
 ---
 
