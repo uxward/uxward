@@ -1,4 +1,5 @@
 ---
+import { PERSON_NAME, PERSON_JOB_TITLE, PERSON_DESCRIPTION, PERSON_SAME_AS } from '../data/person.js';
 import '../styles/global.css';
 import '../styles/essay.css';
 import '../styles/case.css';
@@ -20,11 +21,11 @@ const siteSchema = JSON.stringify({
   "@graph": [
     {
       "@type": "Person",
-      "name": "Brandon E. B. Ward",
+      "name": PERSON_NAME,
       "url": site,
-      "jobTitle": "Chief Experience Officer",
-      "description": "Executive design leader. 20+ years building design practices from scratch. CXO at Precocity. Founder of Speakeazy. Based in Dallas, Texas.",
-      "sameAs": ["https://linkedin.com/in/brandonebward", "https://github.com/uxward"]
+      "jobTitle": PERSON_JOB_TITLE,
+      "description": PERSON_DESCRIPTION,
+      "sameAs": PERSON_SAME_AS
     },
     {
       "@type": "WebSite",

@@ -204,14 +204,50 @@ effort on `image` + `wordCount` + `inLanguage` instead. **`image` and `inLanguag
 2026-09-04** (see 1.3). `wordCount` was skipped on purpose: it would have to be hardcoded and
 would silently go stale on the first edit. Say so if you want `articleBody` or `wordCount` anyway.
 
-### 2.4 `sameAs` expansion — blocked on Brandon
+### 2.4 `sameAs` expansion — ✅ RESOLVED 2026-09-04
 
-Currently LinkedIn + GitHub only, and profiles can't be invented. Send any of: X/Twitter,
-Speaker Deck, Medium, Substack, Dribbble, Behance, ADPList, Bluesky, Crunchbase, a speaker-bio
-page — plus `speakeazy.pro` if the product should be linked to the person entity.
+Went from 2 entries (LinkedIn, GitHub) to **15**. Brandon supplied the URLs; each was checked
+to resolve and to belong to him before being added. URLs stored as the **canonical
+destination**, not as pasted — IMDb's `?ref_=` tracking param stripped, and
+`www.brandonebward.com` followed through its 301 to the apex.
 
-*This one matters more now than it did pre-cutover: `sameAs` is a primary entity-resolution
-signal, and the site is finally being crawled.*
+Independently confirmed by page title or profile content: X, Bluesky, Mastodon (c.im),
+LinkedIn, YouTube, Behance, Dribbble, GitHub, Substack, IMDb, brandonebward.com.
+Exist and return 200 but are login-walled or bot-blocked, so taken on Brandon's word:
+Threads, Instagram, SlideShare, Medium (profile is live but has no posts).
+
+**Deliberately excluded: `speakeazy.pro`.** `sameAs` asserts *identity*. Speakeazy is a
+product Brandon built, not Brandon — listing it would claim he is the application. It can be
+modelled separately if wanted.
+
+**Structural change:** `sameAs`, the Person name, job title, and description were duplicated
+across `Base.astro` and the `/about` ProfilePage. They now live in **`src/data/person.js`**
+and both schemas import them, so the two cannot drift. Verified in the built output: all 36
+pages carry the same 15 entries, and the global Person and ProfilePage Person match exactly.
+
+**Bonus find — X corroborates the site's claims.** The @uxward bio reads "CXO @precocityllc,
+Speaker, Co-Founder @sdnetwork Dallas, Teacher @smu_pro, Actor, Singer…" and links back to
+uxward.com. That is live, public, third-party-hosted corroboration of both the Precocity role
+and the SDN Dallas co-founding — the two claims Tier 3 could not otherwise source. It also
+surfaces a credential the site does not mention: **teaching at SMU professional education.**
+
+### 2.4a Two personal sites, not yet connected — open
+
+`brandonebward.com` is Brandon's performing-arts site (actor, voice talent, audiobook
+narrator). It carries its own Person + Audiobook + WebSite schema, with `sameAs` to IMDb,
+Voices.com, Audible, ACX, Actors Access, and Casting Networks.
+
+- [x] **uxward.com → brandonebward.com** — done, via `sameAs`. **IMDb is the bridge**: it now
+      appears in *both* sites' `sameAs` lists, which is what lets an entity resolver merge the
+      two identities instead of reading them as two different men named Brandon E.B. Ward.
+- [ ] **brandonebward.com → uxward.com** — **not done; that site is outside this repo.** It
+      currently has no link back. Adding `https://uxward.com` to its Person `sameAs` closes
+      the loop and roughly doubles the strength of the association.
+- [ ] ⚠️ **The two sites contradict each other on experience.** brandonebward.com says
+      **"24+ years"**; uxward.com now says **"20+ years"** (§1.2). Same person, same class of
+      problem that §1.2 just fixed — only across two domains, where it is harder to spot and
+      more damaging, because a resolver comparing them sees conflicting facts about one
+      entity. Pick one number and make both sites agree.
 
 ### 2.5 Six essays exist on the old live site but not in the rebuild
 
@@ -256,9 +292,43 @@ than backlinks do.
       served from `public/`. 62 URLs submitted: the 34 live pages plus the 27 old Squarespace
       URLs, so the 301s get discovered rather than waiting on a recrawl. Covers Bing, Yandex,
       Seznam. Re-ping after publishing anything new.
-- [ ] **Create a Wikidata entry** for Brandon E. B. Ward — the single highest-leverage
-      entity-recognition signal; ~15 min at wikidata.org. The FTC expert-witness role and the
-      SDN Dallas founding are exactly the kind of verifiable facts Wikidata wants.
+- [ ] **Wikidata entry — deferred 2026-09-04, Brandon's call. Blocked on sources, not effort.**
+      Researched before filing. Wikidata keeps items on living people only when they can be
+      "described using serious and publicly available references," and right now they cannot be:
+
+      | Intended source | Status |
+      |---|---|
+      | SDN Dallas chapter page | **dead** — redirects to a generic chapter listing |
+      | SDN member page (`brandon-ward-15870`) | **dead** — same redirect |
+      | Precocity "Spotlight: Brandon E.B. Ward" | **404** |
+      | SDGC volunteers page | live, but **does not name Brandon** (it lists the SDGC26 team) |
+      | FTC v. Match.com expert-witness role | **no public source found** |
+      | uxward.com, LinkedIn | live, but **self-published** |
+      | ZoomInfo / RocketReach / The Org / SignalHire | live, but **data brokers — not admissible** |
+
+      Two structural problems beyond sourcing: **neither Service Design Network nor Precocity
+      has a Wikidata item**, so `employer` and `member of` would be bare strings rather than
+      linked entities; and there is no Wikipedia sitelink. An item with no sitelink, no live
+      independent references, and self-published sourcing is the most-deleted category on
+      Wikidata — and deletion discussions are public, permanent, and attached to the name.
+      Filing now risks a worse outcome than not filing.
+
+      Also worth knowing: **SDN's site rebuild (Bubble) broke deep links that existed as
+      recently as the last search-engine crawl.** The sources didn't cease to be true; the
+      URLs died.
+
+- [ ] **Three fixes that would unblock Wikidata — all within Brandon's reach.** Any two make
+      the item defensible:
+      1. **Ask Precocity to restore the spotlight post.** An employer bio is a legitimate
+         citable source and it already existed; someone broke the URL.
+      2. **Ask SDN to fix the Dallas chapter and member pages.** A working page naming
+         Brandon as chapter co-founder is exactly the independent reference the item needs.
+      3. **Get the SDGC25 hosting role documented somewhere durable.** Hosting the 2025
+         global conference is genuinely notable and is currently invisible on the open web.
+
+      *These are worth doing on their own merits — they are citable third-party corroboration
+      for claims the site already makes, whether or not a Wikidata item ever gets filed.*
+
 - [ ] **Get cited on third-party sites** — the FTC v. Match.com role is a genuinely citable
       credential most people don't have. Industry write-ups, podcasts, conference bios.
 - [ ] **Cross-post essays** to LinkedIn Articles, Medium, or Substack.
