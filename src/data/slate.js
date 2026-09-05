@@ -18,7 +18,7 @@ export const slate = [
     slug: 'precocity',
     client: 'Precocity',
     title: 'Precocity — the <em>ten\u2011year</em> build.',
-    deck: "Joining as Precocity's first-ever UX hire, I built the practice, made it the tip of the spear on every engagement, a multimillion-dollar book of business, and a path from Director of UX to Chief Experience Officer.",
+    deck: "I joined Precocity as its first UX hire. Ten years later the practice leads every engagement, carries a multimillion-dollar book of business, and got me from Director of UX to Chief Experience Officer.",
     eyebrow: '2016 — Present · Director of UX → CXO · Built the practice',
     pullout: "Precocity could build almost anything. What it couldn't yet do was prove it was <em>building the right thing.</em>",
     stamps: ['CXO', '2016 — Present'],
@@ -47,7 +47,7 @@ export const slate = [
     slug: 'autoco',
     client: 'Global automaker',
     title: 'A global automaker — testing like an <em>outsider.</em>',
-    deck: 'Celebrated for their quality and standards, a global automaker realized it was losing to the tech industry on both fronts. Across 17 studies and 3,500 hours of testing, I built and led the independent, bias-free usability practice that turned guesswork into a closed-loop design process they found so valuable they brought it all in-house.',
+    deck: 'A global automaker famous for quality realized the tech industry was beating it on exactly that. Over 17 studies and 3,500 hours of testing, I built and ran an independent usability practice for them, one they eventually liked enough to bring in-house.',
     stamps: ['Dir. of UX', '2017 — 2022'],
     preview: {
       src: '/images/thumbs/autoco.webp',

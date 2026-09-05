@@ -20,15 +20,6 @@ const schema = {
   ]
 };
 ---
-<!--
-  ============================================================================
-  Artifacts: 3 real images (porte-1/2/3.jpg), captions written to match.
-  Resolved: Client = Porte (Populous, named once, neutrally — no ACE reference) ·
-            Role = Director of UX · 2019 · Capacity = lead of 3-person UX team ·
-            reflection x3 + feature set + cupcake principle from your notes ·
-            no support-call number, so outcomes lead with ratings + SUS.
-  ============================================================================
--->
 <Base title="Porte — research-first mobile banking · uxward" description={self.deck} schema={schema} bodyClass="case">
   <style>
     /* porte-only: real hero image + lightbox. Shared case-study chrome lives in src/styles/case.css. */
@@ -131,9 +122,9 @@ const schema = {
             </p>
             <p>
               Porte was the answer: a mobile-only bank built for the underbanked and aimed squarely at
-              college students. Copying the old bank wasn't the ambition. The ambition was the account
-              those students wished existed, one that helped them understand and grow their money
-              instead of just storing it.
+              college students. Nobody wanted a copy of the old bank. The goal was the account those students
+              wished existed: one that helped them understand and grow their money, instead of
+              just holding it.
             </p>
             <p>
               The brief was a hard one. Launch a brand-new mobile bank into a market already full of
@@ -150,13 +141,13 @@ const schema = {
     <div class="container">
       <div class="grid">
         <div>
-          <div class="cs-eyebrow"><span class="num">02</span>The problem, named clearly</div>
+          <div class="cs-eyebrow"><span class="num">02</span>The problem</div>
           <h2 class="cs-head">In a saturated market, "another banking app" is <em>dead on arrival.</em></h2>
           <div class="cs-prose">
             <p>
               Every neobank and legacy player already had a mobile app, most of them competent. A
-              merely-adequate Porte would be invisible: it had to be a reason to switch, not a box
-              ticked.
+              merely adequate Porte would have been invisible. It had to give people a reason to
+              switch.
             </p>
             <p>
               And it was being built by a company with deep banking experience but no track record
@@ -167,9 +158,9 @@ const schema = {
               We didn't need another banking app. We needed the bank we all wished we'd had.
             </blockquote>
             <p>
-              <strong>The problem: launch a fifty-year-old institution's first mobile-only bank into a
-              saturated market, and give a generation it had never served a reason to choose it over
-              the apps they already trusted.</strong>
+              <strong>So the job was to launch a fifty-year-old institution's first mobile-only bank
+              into a crowded market, and give a generation it had never served a reason to pick it
+              over apps they already trusted.</strong>
             </p>
           </div>
         </div>
@@ -225,11 +216,11 @@ const schema = {
             </div>
             <div class="choice-row">
               <div class="key">Chose <strong>not</strong> to</div>
-              <div class="val">Let the team's taste decide. When we argued over colors, fonts, or features, the user's needs settled it, not egos.</div>
+              <div class="val">Let our own taste decide. When we argued about colors, fonts, or features, we went back to the research and let the users settle it.</div>
             </div>
             <div class="choice-row">
               <div class="key">Chose <strong>not</strong> to</div>
-              <div class="val">Imitate the category leaders. The competitive teardown was to learn where they'd gone wrong, not what to copy.</div>
+              <div class="val">Copy the category leaders. We tore their apps apart to learn from their mistakes.</div>
             </div>
           </div>
         </div>
@@ -241,12 +232,12 @@ const schema = {
     <div class="container">
       <div class="grid">
         <div>
-          <div class="cs-eyebrow"><span class="num">04</span>The work itself</div>
-          <h2 class="cs-head">A whole experience, not a <em>single screen.</em></h2>
+          <div class="cs-eyebrow"><span class="num">04</span>The work</div>
+          <h2 class="cs-head">The whole thing, <em>end to end.</em></h2>
           <div class="cs-prose" style="margin-bottom: var(--space-9);">
             <p>
-              The work was the entire Porte experience, researched and designed end to end. Three pieces
-              of it stand in for the rest.
+              We researched and designed the entire Porte experience, end to end. Here are three
+              pieces of it.
             </p>
           </div>
 
@@ -276,7 +267,7 @@ const schema = {
               <div class="caption-grid">
                 <span class="num">02</span>
                 <div class="body">
-                  <h3>Tools that grow money, not just hold it</h3>
+                  <h3>Tools for growing money</h3>
                   <p class="cap">
                     Up close, the depth behind the dashboard: debt-payoff projections that count the years
                     and interest you'd save, spending broken down by category, linked outside accounts, a
@@ -352,10 +343,10 @@ const schema = {
       <div class="grid">
         <div>
           <div class="cs-eyebrow"><span class="num">06</span>Reflection</div>
-          <h2 class="cs-head">What I'd reverse. What I <em>carried forward.</em></h2>
+          <h2 class="cs-head">What I'd do differently, and what <em>stuck with me.</em></h2>
           <div class="cs-prose">
             <p>
-              <strong>The decision I'd reverse:</strong> we trusted third-party vendors who swore their
+              <strong>What I'd do differently:</strong> we trusted third-party vendors who swore their
               micro-apps and APIs would be ready by ship date. They weren't. When the devs went to build
               what we'd designed, the tools couldn't support it and offered no APIs to hook into, so 1.0
               shipped with their clunky embedded micro-apps bolted in, unstyleable, unable to match
@@ -365,20 +356,20 @@ const schema = {
               have later.
             </p>
             <p>
-              <strong>The surprise:</strong> how low the bar actually is. It is not hard to build a
+              <strong>What surprised me:</strong> how low the bar actually is. It is not hard to build a
               banking app that looks and feels the way people want, and yet so many feel two decades
               old. The reason, I learned, is rarely the design team; it's the archaic internal systems
               and third-party micro-apps banks are forced to build on. Even in 2019, making something
-              modern out of that legacy plumbing was like pulling teeth. The constraint was never the
-              design. It was the foundation.
+              modern out of that legacy plumbing was like pulling teeth. The design was the easy part.
+              The plumbing underneath was the fight.
             </p>
             <p>
-              <strong>What I carried forward:</strong> this was the project where we stopped saying
+              <strong>What I took with me:</strong> this was the project where we stopped saying
               "MVP." Minimum viability doesn't make a good product. We shipped a <em>minimum lovable
               product</em> instead, a "cupcake": small in scope but complete across every layer, with
               enough great UX, reliability, and polish to be genuinely loved at 1.0. We've run on the
-              cupcake, birthday-cake, wedding-cake model ever since. Ship something whole and lovable,
-              never something barely viable.
+              cupcake, birthday-cake, wedding-cake model ever since. Ship something small, whole, and
+              lovable.
             </p>
           </div>
         </div>

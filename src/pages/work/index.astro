@@ -66,7 +66,7 @@ const archive = [
   { disc: "growth",    tag: "Strategy / UX",       client: "CollateralEdge",           hook: "research when they asked for a website",  out: "Insights and a journey map became the brand and site that pre-empted buyers' questions and doubts.", link: "view project", url: "https://collateraledge.com/"},
   { disc: "growth",    tag: "Web & UX",            client: "CDC Small Business Finance", hook: "a mission lender's site that converts", out: "A research-led, CTA-driven redesign lifted traffic, engagement, and conversions for an SMB lender.", link: "view project", url: "https://cdcloans.com/" },
   { disc: "immersive", featured: true,  tag: "Creative / games",    client: "American Heart Association", hook: "gamifying stroke awareness",            out: "Nog, an animated-brain game suite for F.A.S.T. — built in ~8 months, then extended to a Spanish R.A.P.I.D.O. edition.", link: "view project", url: "https://www.stroke.org/en/be-fast-experience" },
-  { disc: "research",  featured: true,  tag: "UX legal expert witness", client: "Match",                 hook: "FTC vs. Match RE: Subscription cancelation",out: "Seven-hundred hours. Two-hundred usability studies. Over three-hundred pages in reports. A case fit for trial." },
+  { disc: "research",  featured: true,  tag: "UX legal expert witness", client: "Match",                 hook: "FTC vs. Match RE: Subscription cancelation",out: "700 hours of work, 200 usability studies, and 300-plus pages of reports, all of it built to hold up at trial." },
   { disc: "systems",   featured: true,  tag: "Data & viz",          client: "Neiman Marcus",            hook: "Flashboard, real-time sales analytics",   out: "Consolidated siloed enterprise data into a responsive tool — drill-down to a single SKU at a single store." },
   { disc: "systems",   featured: true,  tag: "Product redesign",    client: "Crash Champions",          hook: "halving CSR call time",                   out: "The Hyperdrive redesign cut call time 50% — doubling call-center capacity — and ended mis-assigned vehicles." },
   { disc: "systems",   featured: true,  tag: "Design system",       client: "Deloitte",                 hook: "a dashboard platform in two weeks",       out: "Hi-fi prototype and a reusable style guide in 14 days — then the baseline for other Deloitte platforms." },
@@ -272,12 +272,12 @@ const clientCount = new Set(archive.map(a => a.client)).size;
   <div class="container page-title">
     <div class="grid">
       <div>
-        <div class="page-eyebrow">Work · The selected slate</div>
-        <h1 class="page-h">The work, <em>arranged by what it proves.</em></h1>
+        <div class="page-eyebrow">Work · Case studies</div>
+        <h1 class="page-h">The <em>work.</em></h1>
         <p class="page-intro">
-          The curated set up top: the ones I most stand behind, arranged by what they
-          prove, not when they shipped. The Precocity build is the load-bearing one.
-          Below it, the wider archive: the fuller body of work, in brief.
+          Up top: the five case studies I'd put in front of anyone, in the order I'd want
+          them read. Precocity is the big one. Below that, the rest of the archive, a
+          paragraph each.
         </p>
       </div>
     </div>
@@ -290,7 +290,7 @@ const clientCount = new Set(archive.map(a => a.client)).size;
       <div class="hero-head">
         <div class="num">
           01
-          <small>Hero of the slate</small>
+          <small>Start here</small>
         </div>
         <div class="hero-body">
           <div class="hero-eyebrow">{hero.eyebrow}</div>
@@ -341,7 +341,7 @@ const clientCount = new Set(archive.map(a => a.client)).size;
     <div class="grid">
       <div>
         <div class="arch-eyebrow">The wider archive</div>
-        <h2 class="arch-h">The years, <em>in brief.</em></h2>
+        <h2 class="arch-h">Everything <em>else.</em></h2>
 
         {/* The numbers plainly, in the masthead's own spec-bar form. "29 shown
             of more than 100" is the restraint argument made in figures rather
@@ -397,13 +397,13 @@ const clientCount = new Set(archive.map(a => a.client)).size;
           <div class="pivot-grid">
             <a class="pivot-card" href="/writing">
               <div class="key">Writing</div>
-              <div class="label">Quarterly essays, <em>no newsletter.</em></div>
-              <div class="why">Long-form notes on design leadership, restraint, and the AI-era discipline. {essays.length} pieces and counting.</div>
+              <div class="label">Essays, <em>no newsletter.</em></div>
+              <div class="why">On leading design teams, doing the work, and what AI is doing to both. {essays.length} so far.</div>
             </a>
             <a class="pivot-card" href="/about">
               <div class="key">About</div>
-              <div class="label">The longer <em>version, told plainly.</em></div>
-              <div class="why">Over twenty years told plainly. The bio, the timeline, and what I am building right now.</div>
+              <div class="label">The long <em>version.</em></div>
+              <div class="why">Twenty-some years, a timeline, and what I'm building right now.</div>
             </a>
           </div>
         </div>

@@ -11,7 +11,7 @@ export interface Props {
   ogImage?: string;
   schema?: Record<string, unknown>;
 }
-const { title, description = "Brandon E. B. Ward — senior design leadership. 20+ years building design practice from scratch.", bodyClass, ogType = "website", ogImage, schema } = Astro.props;
+const { title, description = "Brandon E. B. Ward, design executive. 20+ years building design practices from scratch.", bodyClass, ogType = "website", ogImage, schema } = Astro.props;
 const site = import.meta.env.SITE;
 // Every share needs a card. Pages pass their own (a case study's hero shot);
 // everything else falls back to the system plate.

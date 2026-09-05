@@ -20,17 +20,6 @@ const schema = {
   ]
 };
 ---
-<!--
-  ============================================================================
-  Note: this file adds .cs-pullquote .attribution beyond the precocity baseline —
-        carry it along if shared case styles ever move into Base.astro.
-  Resolved: Client = a major insurance broker (anonymized) · Role = Chief Experience Officer · 2024 ·
-            Capacity = engagement lead, cross-functional team ·
-            names used (Leigh Parker; data team Tim Starling / David Gillen /
-            David Schoel) · 46% framed as validated-not-caused ·
-            CSO endorsement kept (attributed by title only) · reflection x3 from your notes.
-  ============================================================================
--->
 <Base title="A major insurance broker — service design at scale · uxward" description={self.deck} schema={schema} bodyClass="case">
   <style>
     .cs-pullquote .attribution { display: block; font-style: normal; font-family: var(--font-mono); font-size: var(--fs-11); letter-spacing: 0.18em; text-transform: uppercase; color: var(--tertiary); margin-top: var(--space-5); font-variation-settings: normal; }
@@ -132,7 +121,7 @@ const schema = {
             <p>
               A major insurance broker built its name on white-glove service: connecting clients with the
               best coverage at the best price across more than 250 carriers. That high-touch experience
-              wasn't a feature; it was the brand.
+              was the whole brand.
             </p>
             <p>
               Then the company grew, fast. As the client base expanded, the cracks in the service model
@@ -154,8 +143,8 @@ const schema = {
     <div class="container">
       <div class="grid">
         <div>
-          <div class="cs-eyebrow"><span class="num">02</span>The problem, named clearly</div>
-          <h2 class="cs-head">A good problem turned dangerous: <em>success.</em></h2>
+          <div class="cs-eyebrow"><span class="num">02</span>The problem</div>
+          <h2 class="cs-head">A good problem to have, <em>right up until it wasn't.</em></h2>
           <div class="cs-prose">
             <p>
               Exponential growth was outrunning the service model. A high-touch experience that worked
@@ -172,9 +161,9 @@ const schema = {
               <span class="attribution">— A company executive, on our first findings readout</span>
             </blockquote>
             <p>
-              <strong>The problem: the white-glove service that was the company's entire brand couldn't
-              scale with the company's growth, and the data that could prove why was locked away,
-              leaving leadership to manage on instinct.</strong>
+              <strong>The white-glove service that was the company's entire brand couldn't keep up
+              with the company's growth, and the data that could prove why was locked away, so
+              leadership was running on instinct.</strong>
             </p>
           </div>
         </div>
@@ -187,7 +176,7 @@ const schema = {
       <div class="grid">
         <div>
           <div class="cs-eyebrow"><span class="num">03</span>The approach</div>
-          <h2 class="cs-head">Diagnose with people. Prove with <em>data.</em></h2>
+          <h2 class="cs-head">Talk to people first. Then <em>prove it with data.</em></h2>
           <div class="cs-prose">
             <p>
               The instinct in a situation like this is to reach for technology: buy a tool, automate a
@@ -202,7 +191,7 @@ const schema = {
               redesign and deeper integration.
             </p>
             <p>
-              Then we made the data speak. The company had an abundance of Service data, most of it
+              Then we went after the data. The company had an abundance of Service data, most of it
               trapped in Salesforce. Our data team of T.S., D.G., and D.S.
               pushed it into Snowflake, giving everyone fast access to numbers and reporting that had
               been impossible weeks before. We used it to answer business questions with evidence,
@@ -231,7 +220,7 @@ const schema = {
             </div>
             <div class="choice-row">
               <div class="key">Chose <strong>not</strong> to</div>
-              <div class="val">Manage by anecdote. The loudest complaint isn't the biggest problem. We let the data, not volume, point to what mattered.</div>
+              <div class="val">Manage by anecdote. The loudest complaint is rarely the biggest problem, so we let the numbers decide what mattered.</div>
             </div>
             <div class="choice-row">
               <div class="key">Chose <strong>not</strong> to</div>
@@ -247,11 +236,11 @@ const schema = {
     <div class="container">
       <div class="grid">
         <div>
-          <div class="cs-eyebrow"><span class="num">04</span>The work itself</div>
+          <div class="cs-eyebrow"><span class="num">04</span>The work</div>
           <h2 class="cs-head">Three deliverables that did the <em>heavy lifting.</em></h2>
           <div class="cs-prose" style="margin-bottom: var(--space-9);">
             <p>
-              The engagement produced a lot of artifacts. Three of them carried the weight.
+              The engagement produced a pile of artifacts. These three mattered most.
             </p>
           </div>
 
@@ -355,31 +344,28 @@ const schema = {
       <div class="grid">
         <div>
           <div class="cs-eyebrow"><span class="num">06</span>Reflection</div>
-          <h2 class="cs-head">What I'd reverse. What I <em>carried forward.</em></h2>
+          <h2 class="cs-head">What I'd do differently, and what <em>stuck with me.</em></h2>
           <div class="cs-prose">
             <p>
-              <strong>The decision I'd reverse:</strong> we should have gotten into the data far sooner.
-              We explored — qualitatively, thoroughly — for most of the engagement, when we should have
-              closed our exploration earlier and gone deep on surfacing the quantitative answers to the
-              business's human-centered questions. The qualitative work was right; we just let it run too
-              long before letting the numbers do the persuading, and our most convincing findings arrived
-              later than they needed to.
+              <strong>What I'd do differently:</strong> we should have gotten into the data far sooner.
+              We spent most of the engagement on qualitative work, and it was good work, but we should
+              have wrapped it sooner and gone after the numbers. Our most convincing findings came from
+              the data, and they arrived later than they needed to.
             </p>
             <p>
-              <strong>The surprise:</strong> how much technical and process debt a company can pile up
+              <strong>What surprised me:</strong> how much technical and process debt a company can pile up
               simply because the money keeps rolling in. With no external pressure forcing better internal
               decisions, an organization can skip best practices during the good times and scale itself
               straight into pain. That pain, when the lean times come, can grow bad enough to threaten the
-              whole org. Success hides the rot.
+              whole org. When the money keeps coming in, nobody looks under the floorboards.
             </p>
             <p>
-              <strong>What I carried forward:</strong> listen to the client's own people about their own
+              <strong>What I took with me:</strong> listen to the client's own people about their own
               leaders. The company's team warned me that my usual presentation style was anathema to their
               CEO, and coached me on how to scope and deliver, the modality as much as the decks, to
               earn his trust fast. I took the advice and won over a tough executive, instead of getting our
-              recommendations dismissed over a personality mismatch. The work is only as valuable as the
-              room's willingness to hear it, the same relationship lesson <em>a global automaker</em> taught me the
-              hard way.
+              recommendations dismissed over a personality mismatch. Good work nobody's willing to hear is
+              worth nothing, which is the same lesson <em>a global automaker</em> taught me the hard way.
             </p>
           </div>
         </div>

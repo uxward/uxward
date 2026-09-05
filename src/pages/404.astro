@@ -1,7 +1,5 @@
 ---
 import Base from '../layouts/Base.astro';
-import { slate } from '../data/slate.js';
-import { essays } from '../data/essays.js';
 ---
 <Base title="Not found · uxward">
   <style>
@@ -37,7 +35,7 @@ import { essays } from '../data/essays.js';
   <div class="middle">
     <div class="container">
       <div class="stage">
-        <div class="eyebrow">A small administrative note</div>
+        <div class="eyebrow">Well. This is awkward.</div>
         <h1 class="title">This page doesn't exist.</h1>
         <p class="subhead"><span class="red">Most things</span> don't.</p>
 
@@ -46,27 +44,27 @@ import { essays } from '../data/essays.js';
           <div class="meant-list">
             <div class="meant-row">
               <span class="num">01</span>
-              <a class="where" href="/">Home — <em>the front page, lately revised.</em></a>
+              <a class="where" href="/">Home — <em>start over.</em></a>
               <a class="go" href="/">→</a>
             </div>
             <div class="meant-row">
               <span class="num">02</span>
-              <a class="where" href="/work">Work — <em>{slate.length} selected pieces, ten years apiece.</em></a>
+              <a class="where" href="/work">Work — <em>the case studies.</em></a>
               <a class="go" href="/work">→</a>
             </div>
             <div class="meant-row">
               <span class="num">03</span>
-              <a class="where" href="/writing">Writing — <em>{essays.length} essays, no newsletter.</em></a>
+              <a class="where" href="/writing">Writing — <em>the essays.</em></a>
               <a class="go" href="/writing">→</a>
             </div>
             <div class="meant-row">
               <span class="num">04</span>
-              <a class="where" href="/about">About — <em>the longer version, told plainly.</em></a>
+              <a class="where" href="/about">About — <em>the long version.</em></a>
               <a class="go" href="/about">→</a>
             </div>
             <div class="meant-row">
               <span class="num">05</span>
-              <a class="where" href="/contact">Contact — <em>email, read daily, replied to in two days.</em></a>
+              <a class="where" href="/contact">Contact — <em>email me.</em></a>
               <a class="go" href="/contact">→</a>
             </div>
           </div>

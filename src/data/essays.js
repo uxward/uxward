@@ -59,7 +59,7 @@ export const essays = [
   // ---- On Experience Design ----
   { slug: 'building-software-that-actually-works-well', section: 'craft', quarter: 'Q2 2026', published: '2026-06-01',
     title: 'Building Software <em>That Actually Works Well.</em>',
-    deck: 'Version 1.0 was never the hard part. The Craft Matrix, and why AI killed the cost excuse but not the craft requirement.',
+    deck: 'Shipping 1.0 was never the hard part. Introducing the Craft Matrix, and why AI took away the cost excuse for bad software.',
     image: '/images/writing/craft-matrix.jpg' },
   { slug: 'the-truth-about-simplicity-why-clarity-beats-the-buzzword', section: 'craft', quarter: 'Q1 2026',
     title: 'The Truth About Simplicity: <em>Why Clarity Beats the Buzzword.</em>',
@@ -112,7 +112,7 @@ export const essays = [
   // backwards is worse than a series a day out of order.
   { slug: 'the-medium-is-the-message-part-i-we-never-had-a-medium', section: 'ai', quarter: 'Q3 2026', published: '2026-08-01',
     title: 'The Medium Is the Message: Part I — <em>We Never Had a Medium.</em>',
-    deck: "Part one of a series on what AI actually changes about design, and what it doesn't. Digital designers have never touched their material.",
+    deck: "Part one of four on what AI actually changes about design. It starts with an uncomfortable claim: digital designers have never touched their material.",
     image: '/images/writing/not-a-ui.webp' },
   { slug: 'the-medium-is-the-message-part-ii-turtles-all-the-way-down', section: 'ai', quarter: 'Q3 2026', published: '2026-08-01',
     title: 'The Medium Is the Message: Part II — <em>Turtles All the Way Down.</em>',
@@ -132,19 +132,19 @@ export const essays = [
     image: '/images/writing/old-is-new.webp' },
   { slug: 'human-centered-robot-driven-ethical-considerations-for-ai-in-design', section: 'ai', quarter: 'Q1 2023',
     title: 'Human-Centered, Robot-Driven: <em>Ethical Considerations for ML in Design.</em>',
-    deck: "Bias, transparency, accountability — and why ethical AI in design is your problem, not someone else's.",
+    deck: "Bias, transparency, accountability, and why ethical AI in design is your job too.",
     image: '/images/writing/ai-ethics-header.webp' },
   { slug: 'the-designers-secret-weapon-how-ai-is-revolutionizing-web-design', section: 'ai', quarter: 'Q1 2023',
     title: "The Designer's Secret Weapon: <em>How AI is Revolutionizing Web Design.</em>",
-    deck: 'How AI tools are reshaping design workflows — and what the shift actually means for designers.',
+    deck: 'What AI tools were doing to design work in early 2023, and what I thought it meant for designers.',
     image: '/images/writing/ai-design-abstract.webp' },
 ];
 
 // Section labels + display order, for the writing index.
 export const essaySections = [
-  { key: 'leadership', title: 'On Leadership', descriptor: '— Hiring, scaling, holding the bar, telling the truth.' },
-  { key: 'craft', title: 'On Experience Design', descriptor: '— The craft itself — IA, interaction, visual, systems.' },
-  { key: 'ai', title: 'On AI', descriptor: '— Notes from working at the frontier.' },
+  { key: 'leadership', title: 'On Leadership', descriptor: '— Hiring, growing teams, and owning your mistakes.' },
+  { key: 'craft', title: 'On Experience Design', descriptor: '— How the work actually gets done: IA, interaction, visual, systems.' },
+  { key: 'ai', title: 'On AI', descriptor: '— What I\'m learning while building with it.' },
 ];
 
 // "Q1 2026" -> sortable integer (year*4 + quarter). Higher = newer.

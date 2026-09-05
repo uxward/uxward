@@ -4,11 +4,11 @@
 
 Brandon E. B. Ward is an executive design leader with 20+ years of experience building UX and design practices from scratch. He is currently Chief Experience Officer at Precocity (Dallas, TX), founder of Speakeazy (a live AI-native product), and co-founder of the Service Design Network Dallas chapter (~5,000 members).
 
-He served as UX expert witness in FTC v. Match.com — one of the most significant UX-related federal regulatory cases in recent history. He co-founded the Service Design Network Dallas chapter and hosted the organization's 2025 global conference.
+He served as the UX and user-research expert witness in FTC v. Match.com. He co-founded the Service Design Network Dallas chapter and hosted the organization's 2025 global conference.
 
 ## This site
 
-uxward.com is Brandon's professional portfolio and writing archive. It is a statically-generated site built with Astro. It is not a marketing site — it is a direct record of the work.
+uxward.com is Brandon's professional portfolio and writing archive. It is a statically-generated site built with Astro. It documents his work and writing.
 
 Contact: brandon@uxward.com
 LinkedIn: https://linkedin.com/in/brandonebward
@@ -26,7 +26,7 @@ GitHub: https://github.com/uxward
 ## Selected work (case studies)
 
 - Speakeazy (/work/speakeazy) — AI-native dialogue attribution and character analysis tool for audiobook narrators. Self-initiated; launched January 2026. Built solo through three prototypes and a ground-up rewrite. Live at speakeazy.pro.
-- Precocity (/work/precocity) — 10-year design practice build. Joined as first UX hire; grew to CXO over a decade. The load-bearing case on this site.
+- Precocity (/work/precocity) — 10-year design practice build. Joined as first UX hire; grew to CXO over a decade. The most important case study on the site.
 - Global automaker (/work/autoco) — Director of UX for an independent, bias-free in-house usability practice. 17 studies, 3,500 hours of testing.
 - Porte (/work/porte) — Research-first design for Populous's mobile-only bank. Every layer tested before a line of code was written; shipped at 4.8 stars.
 - Major insurance broker (/work/insurco) — Service-design engagement diagnosing growth failures and surfacing KPI-tied roadmap from Salesforce data.
