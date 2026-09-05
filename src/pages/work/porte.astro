@@ -409,8 +409,9 @@ const schema = {
     const lb = document.querySelector('.lightbox');
     const lbImg = lb.querySelector('img');
 
-    function openLb(src) {
+    function openLb(src, alt) {
       lbImg.setAttribute('src', src);
+      lbImg.setAttribute('alt', alt || '');
       lb.classList.add('open');
       lb.setAttribute('aria-hidden', 'false');
     }
@@ -426,7 +427,7 @@ const schema = {
     });
 
     document.querySelectorAll('.artifact .frame img').forEach((img) => {
-      img.addEventListener('click', () => openLb(img.getAttribute('src')));
+      img.addEventListener('click', () => openLb(img.getAttribute('src'), img.getAttribute('alt')));
     });
   </script>
 </Base>

@@ -53,8 +53,29 @@ const building = [
   { name: 'Verity', desc: 'Foundations of an enterprise UX research and reporting platform.' },
   { name: 'RAD', desc: 'A usability testing dashboard. A concrete designer-tooling artifact.' },
 ];
+
+const site = import.meta.env.SITE;
+
+// `speakable` points voice and AI surfaces at the two blocks that actually
+// state what this site is — the hero headline and its lede — rather than
+// letting them pick from the masthead's derived data cells.
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "url": site,
+      "name": "uxward — Brandon E. B. Ward",
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": [".hero h1", ".hero .lede"]
+      },
+      "about": { "@type": "Person", "name": "Brandon E. B. Ward", "url": `${site}/about` }
+    }
+  ]
+};
 ---
-<Base title="uxward — Brandon E. B. Ward" description="Brandon E. B. Ward — executive design leader. 20+ years building design practices from scratch. Founder of Speakeazy. CXO at Precocity. Based in Dallas.">
+<Base title="uxward — Brandon E. B. Ward" description="Brandon E. B. Ward — executive design leader. 20+ years building design practices from scratch. Founder of Speakeazy. CXO at Precocity. Based in Dallas." schema={schema}>
 
   <style>
     /* ============================================================

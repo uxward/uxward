@@ -575,7 +575,8 @@ const schema = {
     let cur = 0;
 
     function renderLb() {
-      lbImg.src = group[cur];
+      lbImg.src = group[cur].src;
+      lbImg.alt = group[cur].alt || '';
       lb.setAttribute('data-count', String(group.length));
       lbDots.innerHTML = '';
       group.forEach((_, i) => {
@@ -615,7 +616,7 @@ const schema = {
 
     // Single-image artifacts → lightbox with one image.
     document.querySelectorAll('.artifact .frame:not(.carousel) img').forEach((img) => {
-      img.addEventListener('click', () => openLb([img.getAttribute('src')], 0));
+      img.addEventListener('click', () => openLb([{ src: img.getAttribute('src'), alt: img.getAttribute('alt') }], 0));
     });
 
     // Carousel(s): inline click-through + click image to open lightbox.
@@ -623,7 +624,7 @@ const schema = {
       const track = car.querySelector('.track');
       const imgs = [...car.querySelectorAll('.track img')];
       const dotsWrap = car.querySelector('.car-dots');
-      const srcs = imgs.map((i) => i.getAttribute('src'));
+      const srcs = imgs.map((i) => ({ src: i.getAttribute('src'), alt: i.getAttribute('alt') }));
       let idx = 0;
 
       imgs.forEach((_, i) => {

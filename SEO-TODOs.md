@@ -1,155 +1,154 @@
 # SEO / GEO — TODOs
 
-**Last audited:** 2026-08-31 (against `main` @ b269172, built output, and the live domain)
-**Previous audit:** 2026-06-27 (`GEO-AUDIT-REPORT.md`, baseline 40/100)
+**Last audited:** 2026-09-04 (against `main` @ 2cbc199, built output, and the live domain)
+**Previous audits:** 2026-08-31 (pre-cutover), 2026-06-27 (`GEO-AUDIT-REPORT.md`, baseline 40/100)
 
-> **The headline finding, up front:** `uxward.com` still serves the **old Squarespace site**.
-> The Astro site in this repo has never been deployed to the domain. Every schema, meta,
-> sitemap, and `llms.txt` improvement below is currently invisible to search engines and
-> AI crawlers. See [Tier 0](#tier-0--the-blocker).
+> **The headline finding is gone.** As of 2026-09-04, `uxward.com` serves the Astro site in
+> this repo from the Cloudflare Worker `uxward`. Squarespace is no longer authoritative.
+> Every schema, meta, sitemap, and `llms.txt` improvement in this repo is now live and
+> visible to search engines and AI crawlers.
 >
-> Repo score (what deploys): **~72/100**. Live score (what AI sees today): **~38/100**.
+> Repo score and live score have converged for the first time. The gap now is the work
+> below, not the deployment.
 
 ---
 
-## Tier 0 — The blocker
+## Tier 0 — The blocker — ✅ RESOLVED 2026-09-04
 
-Nothing else on this list changes a single AI answer until this is resolved.
+- [x] **Deploy the Astro site to `uxward.com`.** Nameservers moved IONOS → Cloudflare
+      (`anahi`/`sam.ns.cloudflare.com`); apex bound to the `uxward` Worker as a custom domain.
+      Universal SSL issued in under two minutes (Google Trust Services, apex + wildcard).
+      Registration and billing stay at IONOS — only the nameservers moved.
+- [x] **Canonical host decided: the apex.** `www` is a proxied `AAAA 100::` placeholder whose
+      only job is to let a Cloudflare Redirect Rule 301 it to the apex, query string preserved.
+      `astro.config.mjs`, canonical tags, and `llms.txt` all already agreed on the apex, so
+      nothing in the repo had to change.
+- [x] **Redirect map written and verified.** `public/_redirects` measured against all 119 live
+      Squarespace URLs: **118 covered, 1 uncovered** (`/404`, correctly). Every destination
+      resolves to a real page in the build. All 27 explicit rules re-tested over the live
+      domain post-cutover: **27/27 pass**, single-hop 301, zero mismatches. Wildcards for
+      tag/category/dated permalinks confirmed working.
 
-- [ ] **Deploy the Astro site to `uxward.com`.** Verified 2026-08-31:
-  - `https://uxward.com` → `301` → `https://www.uxward.com`, `server: Squarespace`
-  - `/about` → **404**, `/work` → **404** (they don't exist on the live site)
-  - `/llms.txt` → **404**, `/sitemap-index.xml` → **404**
-  - Live page title is `Brandon E.B. Ward`; live sitemap has 119 Squarespace URLs
-  - `wrangler.json` is configured for Cloudflare but the domain isn't pointed at it
+**Mail survived the move.** IONOS still runs email; its records now live in Cloudflare —
+MX `mx00`/`mx01.ionos.com`, SPF, `_dmarc` CNAME, `autodiscover` CNAME. No DKIM selector exists.
+These were rebuilt by hand and diffed against IONOS *before* the nameserver change.
+**Deleting any of them breaks mail.**
 
-- [ ] **Decide the canonical host: apex or `www`.** `Base.astro` sets
-  `site: 'https://uxward.com'` (apex) and emits apex canonicals. The live site redirects
-  apex → `www`. If that redirect survives the cutover, **every canonical URL will 301**,
-  which leaks authority and confuses AI crawlers. Pick one and make `astro.config.mjs`,
-  the canonical tags, `llms.txt`, and the DNS/redirect agree.
-
-- [ ] **Write the redirect map before cutover.** There is no `public/_redirects` file.
-  Measured against the live sitemap — 119 live URLs:
-
-  | Bucket | Count | Action |
-  |---|---|---|
-  | Direct match (same path) | 11 | nothing needed |
-  | Dated → flat slug | 13 | **301 required** |
-  | Content dropped in rebuild | 6 essays | 301 to `/writing` or restore |
-  | Squarespace sections | 8 | map `/design*`, `/leadership`, `/speaking`, `/home` |
-  | Tag/category archives | 80 | 301 to `/writing` (or 410) |
-
-  The 13 dated → flat redirects:
-
-  ```
-  /writing/2014/10/13/the-ux-ui-design-process              /writing/the-ux-ui-design-process/            301
-  /writing/2014/10/16/arrr-know-yer-personae                /writing/arrr-know-yer-personae/              301
-  /writing/2014/10/28/flight-of-the-buffalo                 /writing/flight-of-the-buffalo/               301
-  /writing/2014/10/30/the-service-design-of-nest            /writing/the-service-design-of-nest/          301
-  /writing/2014/11/26/empathy-in-your-interface             /writing/empathy-in-your-interface/           301
-  /writing/2014/12/16/dont-die-with-your-music-still-in-you /writing/dont-die-with-your-music-still-in-you/ 301
-  /writing/2014/12/18/who-are-you                           /writing/who-are-you/                         301
-  /writing/2014/12/29/how-to-succeed-towards-failure        /writing/how-to-succeed-towards-failure/       301
-  /writing/2014/12/30/great-power                           /writing/great-power/                         301
-  /writing/2016/03/10/the-triforce-of-ux-part-i-empathy     /writing/the-triforce-of-ux-part-i-empathy/    301
-  /writing/2016/03/28/the-triforce-of-ux-part-ii-curiosity  /writing/the-triforce-of-ux-part-ii-curiosity/ 301
-  /writing/2016/03/30/the-triforce-of-ux-part-iii-humility  /writing/the-triforce-of-ux-part-iii-humility/ 301
-  /writing/2018/05/22/i-failed-but-im-getting-better        /writing/i-failed-but-im-getting-better/       301
-  ```
-
-  **One slug changed and needs a bespoke redirect** — the live essay is
-  `hey-ui-say-what-you-mean-and-mean-what-you-said`, the repo slug is
-  `hey-ui-say-what-you-mean`.
+> ⚠️ **One check never completed:** port 25 is blocked from the dev machine, so mail was
+> verified by DNS only — never by an actual delivered message. Send a test to `@uxward.com`
+> and tick this off.
 
 ---
 
-## Tier 1 — Technical, in the repo (I can do these now)
+## Tier 1 — Technical, in the repo
 
-Ordered by GEO impact per unit of effort. None require a decision from you.
+### 1.1 Correctness bugs — ✅ ALL RESOLVED
 
-### 1.1 Correctness bugs found in this audit
+- [x] **`/colophon` two `<h1>` elements.** Was already fixed before this pass — `:90` is now
+      `<p class="title">`, not a second `<h1>`. Page ships exactly one `<h1>`.
+- [x] **Work-index headings concatenated their count.** The count `<span>` moved out of the
+      `<h3>` into the flex wrapper (`.reg-head` is now a `div`, `.reg-title` is the `h3`).
+      Verified in built output: headings extract as `'Research & testing'`, `'Product &
+      platform'`, `'Immersive'`, `'Systems & interface'`, `'Growth & brand'` — no trailing digit.
+- [x] **Lightbox `<img>` never got an `alt`.** All 5 case pages now carry the source image's
+      alt across on open. Four share one implementation; `speakeazy` needed a different fix
+      because its carousel passes an array — `group` now holds `{src, alt}` objects.
+- [x] **Empty alt on `cave.jpeg`** (`i-failed-but-im-getting-better.astro:252`) — described.
+- [x] **`/ink` indexable with no description.** Excluded from the sitemap alongside `/404`,
+      and given its own meta description instead of inheriting the site default.
+      **Sitemap is now 34 URLs, not 35.**
 
-- [ ] **`/colophon` ships two `<h1>` elements.** `colophon.astro:81` (`A note on the
-  making.`) and `:90` (`A note on the breach.`). Only one is *visible* — the cyber-mode
-  block is hidden with CSS — but **both are in the DOM**, so crawlers and AI extractors
-  read the Night City copy as page content. Fix: demote one, or render conditionally.
-- [ ] **Work-index headings concatenate their count.** `<h3><span>Research &amp;
-  testing</span><span>4</span></h3>` extracts as `"Research & testing4"` — same for
-  `Product & platform7`, `Immersive2`, `Systems & interface3`, `Growth & brand5`. Move
-  the count out of the heading, or give it `aria-hidden` plus a visually-hidden label.
-- [ ] **Lightbox `<img>` never gets an `alt`.** All 5 case pages ship
-  `<img alt="" />` and the JS sets only `src` on open. Carry the source image's alt across.
-- [ ] **One content image has an empty alt** —
-  `writing/i-failed-but-im-getting-better.astro:252`, `cave.jpeg`. The other 119 `<img>`
-  tags are correctly described; this is the only real gap.
-- [ ] **`/ink` is indexable and has no description of its own.** It inherits the
-  site-default meta description and sits in the sitemap. It's an easter-egg page —
-  exclude it from the sitemap the way `/404` is, or give it real metadata.
+*The only `alt=""` left in the built output are the 5 lightbox placeholders, which are
+correct — they are empty until JS populates them on open.*
 
-### 1.2 Entity consistency (cheap, and AI systems are unusually sensitive to it)
+### 1.2 Entity consistency
 
-- [ ] **Years of experience contradicts itself in three places.** Schema and homepage say
-  **25 years**; `llms.txt` says **20+ years**; `/about` says **"Many years"**. Conflicting
-  claims about the same entity make AI systems hedge or omit. Pick one number, use it
-  everywhere.
-- [ ] **`llms.txt` says 22 essays; there are 23.** Also still describes the archive as
-  "2014–2026" — verify that's the real range against `essays.js`.
+- [x] **Years of experience — resolved 2026-09-04. Standardised on "20+ / over twenty".**
+      Brandon's call. Two registers, deliberately:
 
-### 1.3 Schema gaps
+      | Form | Used in | Where |
+      |---|---|---|
+      | `20+ years` | meta descriptions, Person schema | `Base.astro:13`, `Base.astro:26`, `index.astro:57`, `llms.txt:5` |
+      | `Over 20 years` | body prose | `about.astro:82` |
+      | `Over twenty years` | body prose (number spelled out to match voice) | `work/index.astro:372`, `writing/index.astro:287` |
 
-- [ ] **`/about` has no page-level schema at all** — only the global Person + WebSite
-  graph. This is the page most likely to be the source of an AI answer about you.
-  Add `ProfilePage` with `mainEntity` → Person, plus `hasOccupation`, `worksFor`,
-  `knowsAbout`, and `award` for the FTC expert-witness and SDN roles. The career
-  timeline already on the page supplies every value; nothing needs inventing.
-  *(This supersedes the old "FAQ schema on about" item — see Tier 2.1 for why.)*
-- [ ] **`/work` and `/writing` have no collection schema.** Add `CollectionPage` +
-  `ItemList` so AI systems can enumerate the 5 cases and 23 essays as sets rather than
-  discovering them one page at a time.
-- [ ] **`Article` schema has no `image`.** All 23 essays carry `headline`,
-  `description`, `datePublished`, `author`, `publisher`, `url` — but no image, which
-  weakens rich-result eligibility.
-- [ ] **`dateModified` on `Article`.** Needs a new field in `essays.js`; currently only
-  `datePublished` exists (derived from `quarter`, so it resolves to the first day of the
-  quarter — an approximation worth knowing about).
-- [ ] **`speakable` on homepage + `/about`.** Points AI/voice surfaces at the most
-  quotable blocks.
+      The two `Twenty-five years` outliers are gone. Swept the whole shipped tree for
+      `twenty-five` / `25 years` / `quarter century` / `N years of experience` — no variants
+      remain. (`porte.astro:369` says "two decades" but is describing banking apps, not a
+      career, and was left alone. `src/stuff/` still says 25 years; it is gitignored and
+      does not ship.)
+
+      **If this number is ever revised, all seven locations must move together** — the
+      inconsistency this item fixed arose from updating some and not others.
+
+- [x] **`llms.txt` essay count.** Verified accurate against `essays.js`: **23 essays,
+      2014–2026**, three sections (leadership 10, craft 11, ai 2). The "22" in the old audit
+      is stale. Note that this file is hand-maintained: update the count and range whenever
+      `writing/` or `slate.js` gains an entry.
+
+### 1.3 Schema gaps — ✅ ALL RESOLVED 2026-09-04
+
+- [x] **`ProfilePage` on `/about`.** Shipped with `mainEntity` → Person, plus `jobTitle`,
+      `homeLocation`, `worksFor` (Precocity, `precocityllc.com`), `memberOf` (Service Design
+      Network, `service-design-network.org`), two `hasOccupation` entries, and a 10-item
+      `knowsAbout`. Every value comes from the timeline already rendered on the page.
+      Both organisation URLs were supplied by Brandon and verified to return 200 — not guessed.
+
+      > **Deliberate deviation from the 08-31 audit:** it called for `award` covering the FTC
+      > expert-witness and SDN roles. That is the wrong type — those are roles held, not
+      > prizes won. Modelled as `hasOccupation` and `memberOf` instead. Don't "fix" this back.
+
+- [x] **`CollectionPage` + `ItemList` on `/work` and `/writing`.** `/work` enumerates the 5
+      cases in slate order; `/writing` enumerates all 23 essays newest-first, matching the
+      Date view. Verified: every URL in both lists resolves to a real built page.
+- [x] **`Article` now carries `image`** — 22 essays use their own hero art; the one essay with
+      no inline art (`the-ux-ui-design-process`) falls back to `og-default.png`. `inLanguage`
+      added at the same time.
+- [x] **`dateModified` mechanism added — deliberately not backfilled.** An essay entry may
+      carry `updated: 'YYYY-MM-DD'` and `dateModified` is then emitted. **No values were set:**
+      there is no reliable record of which essays were revised when, and a fabricated
+      `dateModified` is worse than an absent one. Set it going forward when an essay is
+      genuinely revised.
+- [x] **`speakable` on homepage + `/about`.** Homepage points at `.hero h1` / `.hero .lede`;
+      `/about` at `.name` / `.name-deck`. All four selectors verified to match real elements
+      in the built HTML — a `speakable` selector that matches nothing is silently useless.
+
+**Structural change made while doing this:** all 23 essay pages were carrying a byte-identical
+copy of their JSON-LD block, so any schema change had to be made 23 times or not at all. That
+now lives in one place — `essaySchema(essay, site)` in `src/data/essays.js` — and the pages
+call it. `essays.js` also gained an `image` field per entry. **Add both to any new essay.**
+
+*Validation after the change: all JSON-LD across all 36 pages parses; node types now
+Person 36, WebSite 36, BreadcrumbList 31, Article 23, CollectionPage 2, ProfilePage 1,
+WebPage 1, FAQPage 1.*
 
 ### 1.4 Performance / Core Web Vitals
 
-- [ ] **Images are unoptimized: 9.2 MB of raster across 101 files.** Only 16 WebP
-  (557 KB) versus 4.6 MB JPG + 3.7 MB PNG. Worst offenders:
-  `writing/kyre-song-…-unsplash.jpg` **832 KB**, `speakeazy/projects-6.11.26.png` **493 KB**,
-  `writing/paved-path.jpg` **491 KB**, `writing/dumpster-fires.jpg` **385 KB**.
-  Converting to WebP/AVIF via Astro's `<Image>` would cut most of this.
-- [ ] **`loading="lazy"` on 26 of 125 images; `width`/`height` on only 10.** Missing
-  intrinsic dimensions is a direct CLS penalty.
+- [ ] **Images are unoptimized: 9.2 MB of raster across 101 files.** Only 16 WebP (557 KB)
+      versus 4.6 MB JPG + 3.7 MB PNG. Worst offenders: `writing/kyre-song-…-unsplash.jpg`
+      **832 KB**, `speakeazy/projects-6.11.26.png` **493 KB**, `writing/paved-path.jpg`
+      **491 KB**, `writing/dumpster-fires.jpg` **385 KB**. Astro's `<Image>` would cut most of it.
+      *Now that the site is live and being measured by Google, this is the highest-value
+      remaining technical item.*
+- [ ] **`loading="lazy"` on 26 of 125 images; `width`/`height` on only 10.** Missing intrinsic
+      dimensions is a direct CLS penalty.
 
 ---
 
-## Tier 2 — Needs a decision from you before I build it
+## Tier 2 — Needs a decision
 
-### 2.1 FAQ schema on `/about` — I'd recommend *against* it as written
+### 2.1 FAQ schema on `/about` — recommendation stands: *don't*
 
-The old TODO called for 4–5 Q&As in `FAQPage` schema on `/about`. Two problems:
+Google requires FAQ markup to match visible on-page content, and `/about` has no FAQ section —
+so schema alone would be a structured-data violation, not just a wasted tag. FAQ rich results
+were also restricted in Aug 2023 to government and health sites, so the SERP payoff is gone.
 
-1. **Google requires FAQ markup to match visible on-page content.** `/about` has no FAQ
-   section, so adding the schema alone would be invisible-content markup — a structured-data
-   violation, not just a wasted tag.
-2. **FAQ rich results were restricted in Aug 2023** to authoritative government and health
-   sites. The SERP payoff is gone; only the AI-extraction benefit remains.
-
-**Three ways forward — your call:**
-- **(a)** Add a real, visible FAQ section to `/about`, then mark it up. Most work, fully legitimate.
-- **(b)** Skip FAQ on `/about`; ship `ProfilePage` instead (Tier 1.3). **My recommendation** —
-  it's the correct type for the page and is what AI systems actually consume for entity facts.
-- **(c)** Both: `ProfilePage` now, visible FAQ later if you want the section anyway.
+**Recommended: (b) skip FAQ, ship `ProfilePage` instead** (1.3). Alternatives: (a) add a real
+visible FAQ section then mark it up; (c) both, `ProfilePage` now and FAQ later.
 
 ### 2.2 Work-page meta descriptions run 214–339 characters
 
-They reuse `slate.deck`, which is written as editorial copy, not meta copy. Google truncates
-around 155–160.
+They reuse `slate.deck`, written as editorial copy, not meta copy. Google truncates ~155–160.
 
 | Page | Length |
 |---|---|
@@ -159,90 +158,131 @@ around 155–160.
 | `/work/porte` | 259 |
 | `/work/precocity` | 214 |
 
-Genuine tension: **long is good for AI extraction, bad for SERP display.** Options —
-add a separate short `metaDescription` field to `slate.js` (best of both), or accept
-truncation as a deliberate GEO-first trade. Same question applies to three essay titles
-running 79–80 chars (`how-to-curate-arte…`, `human-centered-robot-driven…`,
-`the-designers-secret-weapon…`).
+Genuine tension: **long is good for AI extraction, bad for SERP display.** Either add a
+separate short `metaDescription` field to `slate.js` (best of both), or accept truncation as a
+deliberate GEO-first trade. Same question applies to three essay titles running 79–80 chars.
 
 ### 2.3 `articleBody` on Article schema
 
-The old TODO suggested a 50–100 word summary. But `description` already holds the deck —
-putting a near-duplicate in `articleBody` adds little, and a *real* `articleBody` means
-shipping full essay text in JSON-LD (doubling page weight). I'd rather spend the effort on
-`image` + `wordCount` + `inLanguage`. Tell me if you want `articleBody` anyway.
+`description` already holds the deck; a near-duplicate `articleBody` adds little, and a *real*
+one means shipping full essay text in JSON-LD (doubling page weight). Recommend spending the
+effort on `image` + `wordCount` + `inLanguage` instead. **`image` and `inLanguage` shipped
+2026-09-04** (see 1.3). `wordCount` was skipped on purpose: it would have to be hardcoded and
+would silently go stale on the first edit. Say so if you want `articleBody` or `wordCount` anyway.
 
-### 2.4 `sameAs` expansion
+### 2.4 `sameAs` expansion — blocked on Brandon
 
-Currently LinkedIn + GitHub only. I can't invent profiles. Send me any of: X/Twitter,
-Speaker Deck, Medium, Substack, Dribbble, Behance, ADPList, Bluesky, a Crunchbase or
-speaker-bio page — plus `speakeazy.pro` if you want the product linked to your entity.
+Currently LinkedIn + GitHub only, and profiles can't be invented. Send any of: X/Twitter,
+Speaker Deck, Medium, Substack, Dribbble, Behance, ADPList, Bluesky, Crunchbase, a speaker-bio
+page — plus `speakeazy.pro` if the product should be linked to the person entity.
 
-### 2.5 Six essays exist on the live site but not in the rebuild
+*This one matters more now than it did pre-cutover: `sameAs` is a primary entity-resolution
+signal, and the site is finally being crawled.*
+
+### 2.5 Six essays exist on the old live site but not in the rebuild
 
 `the-billion-dollar-idea`, `a-credo`, `my-unlimited-signature`, `when-im-the-ceo`,
-`open-letter-to-lego…`, `my-impossible-list`. Restore them, or 301 them to `/writing`?
-They currently have indexed history and inbound authority.
+`open-letter-to-lego…`, `my-impossible-list`.
 
-### 2.6 No security headers
+**Currently 301'd to `/writing`** — that shipped in the redirect map, so nothing is broken and
+their inbound authority flows to the archive index. But that was the reversible default, not a
+decision. Restoring them as real pages is still on the table and would recover the specific
+authority each one holds.
 
-No `public/_headers`. Cloudflare will serve without CSP, HSTS, `X-Frame-Options`, or
-`Referrer-Policy`. You have a `SECURITY.md` but no enforcement. Worth adding at cutover —
-minor SEO trust signal, real security value.
+### 2.6 Security headers — ✅ RESOLVED
+
+`public/_headers` ships and is live: CSP, HSTS (`max-age=31536000; includeSubDomains`),
+`X-Frame-Options: DENY`, `nosniff`, `Referrer-Policy`, `Permissions-Policy`, COOP, plus
+cache policy for `/_astro/*`, images, video, and the machine-readable surfaces. Verified on
+the live domain post-cutover.
+
+> **Deliberately not done:** `preload` is *not* on the HSTS header. Don't add it until the
+> TLS setup has been stable for a while — HSTS preload is genuinely hard to unwind.
 
 ### 2.7 `/about` reads as one 527-word block
 
-Citability scored it **C (63/100)** — one `<h1>`, one `<h2>`, and 527 words underneath.
-AI systems cite discrete passages under specific headings. Breaking the bio into 3–4
-subheaded passages ("Early startups", "The agency years", "Precocity", "FTC v. Match.com")
-would raise extractability substantially. This is a content-structure change to your
-writing, so I won't touch it unasked.
+Citability scored it **C (63/100)** — one `<h1>`, one `<h2>`, 527 words underneath. AI systems
+cite discrete passages under specific headings. Breaking the bio into 3–4 subheaded passages
+("Early startups", "The agency years", "Precocity", "FTC v. Match.com") would raise
+extractability substantially. This is a change to Brandon's own writing, so it stays untouched
+unless asked.
 
 ---
 
-## Tier 3 — Off-site, only you can do these
+## Tier 3 — Off-site
 
-Still the biggest remaining lever, and unchanged from the last audit. Brand mentions
-correlate ~3x more strongly with AI citation than backlinks do.
+Still the biggest remaining lever. Brand mentions correlate ~3x more strongly with AI citation
+than backlinks do.
 
-- [ ] **Submit sitemap to Google Search Console** — *after* deploy, `https://uxward.com/sitemap-index.xml`
-- [ ] **Submit sitemap to Bing Webmaster Tools** — same URL, and Bing feeds ChatGPT search
+- [x] **Submit sitemap to Google Search Console** — done 2026-09-04. Domain property
+      (`sc-domain:uxward.com`), verified by DNS TXT.
+- [x] **Submit sitemap to Bing Webmaster Tools** — done 2026-09-04, via GSC import.
+      *The import did not carry the sitemap across; it had to be submitted separately.*
+- [x] **IndexNow** *(new — wasn't on the old list)*. Key `f8bc191fff1b4a06656f367a6ec80188`
+      served from `public/`. 62 URLs submitted: the 34 live pages plus the 27 old Squarespace
+      URLs, so the 301s get discovered rather than waiting on a recrawl. Covers Bing, Yandex,
+      Seznam. Re-ping after publishing anything new.
 - [ ] **Create a Wikidata entry** for Brandon E. B. Ward — the single highest-leverage
-  entity-recognition signal; ~15 min at wikidata.org. The FTC expert-witness role and the
-  SDN Dallas founding are exactly the kind of verifiable facts Wikidata wants.
-- [ ] **Get cited on third-party sites** — the FTC v. Match.com role is a genuinely
-  citable credential most people don't have. Industry write-ups, podcasts, conference bios.
-- [ ] **Cross-post essays** to LinkedIn Articles, Medium, or Substack
-- [ ] **Claim/verify the Service Design Network Dallas association publicly** where it can
-  be crawled — it corroborates the ~5,000-member claim in `llms.txt`
+      entity-recognition signal; ~15 min at wikidata.org. The FTC expert-witness role and the
+      SDN Dallas founding are exactly the kind of verifiable facts Wikidata wants.
+- [ ] **Get cited on third-party sites** — the FTC v. Match.com role is a genuinely citable
+      credential most people don't have. Industry write-ups, podcasts, conference bios.
+- [ ] **Cross-post essays** to LinkedIn Articles, Medium, or Substack.
+- [ ] **Claim/verify the Service Design Network Dallas association publicly** where it can be
+      crawled — it corroborates the ~5,000-member claim in `llms.txt`.
 
 ---
 
-## Validation (after deploy, not before)
+## Watch list — cutover artifacts that resolve on their own
 
-- [ ] **Google Rich Results Test** — 3–4 URLs, confirm JSON-LD renders
-- [ ] **Schema.org validator** — `validator.schema.org`
-- [ ] **Confirm `llms.txt` and `sitemap-index.xml` return 200** on the live domain
-- [ ] **Re-run `/geo audit https://uxward.com`** — the June baseline audited Squarespace,
-  so it is not a valid baseline for the new site
+Not bugs. Recheck in a few days; escalate only if they persist.
+
+- [ ] **Google still holds the old canonical.** URL inspection on 2026-09-04 showed Google's
+      last crawl was **Aug 11, 2026**, when Squarespace redirected apex → `www`. It therefore
+      still records `https://www.uxward.com/` as canonical — **the opposite of the current
+      setup**. A recrawl was requested for the homepage. Expect several days of lag.
+- [ ] **GSC sitemap row reads "Couldn't fetch."** Confirmed cosmetic: the sitemap returns
+      200 as Googlebot, correct `application/xml`, valid XML, 34 URLs. This is GSC's
+      placeholder before its first real fetch.
+- [ ] **Squarespace is still running.** Don't cancel until well clear of propagation.
+      Nothing depends on it, but there's no upside to pulling it early.
+
+---
+
+## Validation
+
+- [x] **Confirm `llms.txt` and `sitemap-index.xml` return 200** on the live domain — both 200,
+      along with `robots.txt`, `sitemap-0.xml`, and the IndexNow key file.
+- [ ] **Google Rich Results Test** — 3–4 URLs, confirm JSON-LD renders. *Do this after 1.3.*
+- [ ] **Schema.org validator** — `validator.schema.org`. *Also after 1.3.*
+- [ ] **Re-run `/geo audit https://uxward.com`** — this is now finally a valid thing to do.
+      Both prior audits scored a site that no longer exists at this domain; this will be the
+      first real baseline for the Astro site.
 - [ ] **Perplexity / ChatGPT search** — "Brandon Ward UX designer", "Brandon Ward CXO",
-  "FTC v Match.com UX expert witness"
+      "FTC v Match.com UX expert witness". *Give crawlers a couple of weeks first.*
 
 ---
 
 ## Verified complete
 
-Confirmed against built output on 2026-08-31, not just assumed:
+Confirmed against built output and the live domain, not assumed:
 
-- [x] **Default OG image** (2026-08-29) — `og-default.png` resolves to an absolute URL on
-      every page; `twitter:card` is `summary_large_image`; `apple-touch-icon.png` present.
-      *Note: no page overrides it yet — case studies still fall back to the default plate.*
-- [x] **`self.deck` populated on all 5 work pages** — all five bind `description={self.deck}`
-      and **zero occurrences of `undefined` appear anywhere in the built HTML**.
-- [x] **All 120 `<img>` tags carry an `alt` attribute** — 5 empty ones are lightbox
-      placeholders (see 1.1), 1 is a real gap.
-- [x] **All JSON-LD parses cleanly** — every block across all 36 pages is valid JSON.
-- [x] **Sitemap correct** — 35 URLs, `/404` properly excluded.
+- [x] **Live on the apex** — HTTP 200, valid TLS, ~60ms, correct `<title>`, canonical
+      `https://uxward.com/`.
+- [x] **`www` → apex 301** with query strings preserved.
+- [x] **27/27 explicit redirects pass** on the live domain; wildcards confirmed.
+- [x] **Security headers live** (see 2.6).
+- [x] **Sitemap correct** — 34 URLs, `/404` and `/ink` both excluded.
+- [x] **`robots.txt` names ~20 crawlers explicitly** — Googlebot, Bingbot, GPTBot,
+      OAI-SearchBot, ClaudeBot, PerplexityBot, Google-Extended, Applebot-Extended,
+      meta-externalagent and others. Explicit groups are load-bearing: **a crawler that
+      matches its own `User-agent` ignores the `*` group entirely**, so a general "allow all"
+      can accidentally mean "not you."
+- [x] **Default OG image** — `og-default.png` resolves absolute on every page;
+      `twitter:card` is `summary_large_image`; `apple-touch-icon.png` present.
+      *No page overrides it yet — case studies still fall back to the default plate.*
+- [x] **`self.deck` populated on all 5 work pages** — zero `undefined` in built HTML.
+- [x] **All JSON-LD parses cleanly** across all pages.
 - [x] **Build is clean** — 36 pages, no errors.
 - [x] PR #2 foundation: robots.txt, llms.txt, sitemap, global Person + WebSite JSON-LD,
       OG/Twitter meta, Article + BreadcrumbList on all 23 essays, BreadcrumbList on all
@@ -252,6 +292,7 @@ Confirmed against built output on 2026-08-31, not just assumed:
 
 ## Reference
 
-- June baseline report: `GEO-AUDIT-REPORT.md` — **note: this audited the Squarespace site.**
-- Full findings from this pass: `GEO-AUDIT-2026-08-31.md`
-- Repo-vs-live comparison is the key artifact; re-run after cutover.
+- June baseline: `GEO-AUDIT-REPORT.md` — **audited the Squarespace site; not a valid baseline.**
+- August findings: `GEO-AUDIT-2026-08-31.md` — **pre-cutover; Tier 0 is now historical.**
+- Infrastructure facts (zone IDs, mail records, deploy flow) are in agent memory under
+  `uxward-dns-and-hosting` and `uxward-search-submission`.

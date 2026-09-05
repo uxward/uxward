@@ -1,7 +1,41 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { slate } from '../../data/slate.js';
-import { essays } from '../../data/essays.js';
+import { essays, plainTitle } from '../../data/essays.js';
+const site = import.meta.env.SITE;
+
+// CollectionPage + ItemList so AI systems can read the slate as an enumerable
+// set rather than discovering five case pages one at a time. Order mirrors
+// slate.js, which is the single source of truth for order everywhere else.
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "url": `${site}/work`,
+      "name": "Work",
+      "description": "Selected case studies by Brandon E. B. Ward.",
+      "mainEntity": {
+        "@type": "ItemList",
+        "numberOfItems": slate.length,
+        "itemListOrder": "https://schema.org/ItemListOrderAscending",
+        "itemListElement": slate.map((c, i) => ({
+          "@type": "ListItem",
+          "position": i + 1,
+          "name": plainTitle(c.title),
+          "url": `${site}/work/${c.slug}`
+        }))
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": site },
+        { "@type": "ListItem", "position": 2, "name": "Work", "item": `${site}/work` }
+      ]
+    }
+  ]
+};
 
 // — The selected slate — rendered from src/data/slate.js (single source of
 // truth for order, numbering, and counts across the site).
@@ -62,7 +96,7 @@ const register = DISCIPLINES
   .filter(g => g.items.length);
 const clientCount = new Set(archive.map(a => a.client)).size;
 ---
-<Base title="Work · uxward" description="Selected case studies by Brandon E. B. Ward, including Speakeazy, Precocity, a global automaker usability practice, Porte, and a major insurance broker.">
+<Base title="Work · uxward" description="Selected case studies by Brandon E. B. Ward, including Speakeazy, Precocity, a global automaker usability practice, Porte, and a major insurance broker." schema={schema}>
   <style>
 
     .page-title { padding-top: var(--space-9); padding-bottom: var(--space-9); }
@@ -149,7 +183,7 @@ const clientCount = new Set(archive.map(a => a.client)).size;
     .reg-group { margin-top: var(--space-9); }
     .reg-group:first-child { margin-top: 0; }
     .reg-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-6); margin: 0 0 var(--space-5); padding-bottom: var(--space-4); border-bottom: 1px solid var(--ink); }
-    .reg-head .reg-title { font-weight: 700; font-size: var(--fs-12); letter-spacing: 0.09em; text-transform: uppercase; color: var(--ink); }
+    .reg-head .reg-title { margin: 0; font-weight: 700; font-size: var(--fs-12); letter-spacing: 0.09em; text-transform: uppercase; color: var(--ink); }
     .reg-head .reg-count { font-weight: 700; font-size: var(--fs-12); letter-spacing: 0.05em; color: var(--tertiary); font-feature-settings: 'tnum' 1; }
     .reg-row { display: grid; grid-template-columns: minmax(0, 20rem) minmax(0, 1fr) 4.5rem; gap: var(--space-6); align-items: baseline; padding: var(--space-5) 0; border-bottom: 1px solid var(--rule-faint); }
     .reg-row .reg-what { font-size: var(--fs-16); line-height: 1.35; color: var(--body); }
@@ -337,7 +371,7 @@ const clientCount = new Set(archive.map(a => a.client)).size;
         <div class="reg">
           {register.map((g) => (
             <section class="reg-group">
-              <h3 class="reg-head"><span class="reg-title">{g.title}</span><span class="reg-count">{g.items.length}</span></h3>
+              <div class="reg-head"><h3 class="reg-title">{g.title}</h3><span class="reg-count">{g.items.length}</span></div>
               {g.items.map((c) => (
                 <div class="reg-row">
                   <div class="reg-what"><span class="reg-client">{c.client}</span> — <em>{c.hook}</em></div>
@@ -369,7 +403,7 @@ const clientCount = new Set(archive.map(a => a.client)).size;
             <a class="pivot-card" href="/about">
               <div class="key">About</div>
               <div class="label">The longer <em>version, told plainly.</em></div>
-              <div class="why">Twenty-five years told plainly. The bio, the timeline, and what I am building right now.</div>
+              <div class="why">Over twenty years told plainly. The bio, the timeline, and what I am building right now.</div>
             </a>
           </div>
         </div>
