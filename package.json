@@ -14,7 +14,7 @@
     "wireframes:png": "for f in D-UX-Design/wireframes/*.excalidraw; do excalidraw-brute-export-cli -i \"$f\" -o \"${f%.excalidraw}.png\" -f png -b true -s 2; done"
   },
   "dependencies": {
-    "astro": "^7.1.2",
+    "astro": "^7.2.8",
     "three": "^0.160.1"
   },
   "devDependencies": {
