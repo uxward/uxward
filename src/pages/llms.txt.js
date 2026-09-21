@@ -1,4 +1,14 @@
-# Brandon E. B. Ward — uxward.com
+// /llms.txt — a prose summary of the site for language models. Hand-written,
+// except the "Other tools built" list, which comes from src/data/building.js.
+import { building } from '../data/building.js';
+
+const tools = building
+  .filter((b) => !b.caseStudy)
+  .map((b) => `- ${b.name} — ${b.short}. ${b.href ? 'Live.' : 'Private.'}`)
+  .join('\n');
+
+export function GET() {
+  return new Response(`# Brandon E. B. Ward — uxward.com
 
 ## Who this is
 
@@ -33,11 +43,7 @@ GitHub: https://github.com/uxward
 
 ## Other tools built
 
-- FORGE — AI-powered content-to-site-build tool. Private alpha.
-- Verity — Comprehensive UX research and reporting platform. Private alpha.
-- RAD — Usability testing dashboard. Private.
-- Marksman — macOS Markdown converter built for Precocity's AI workflows. Private.
-- Design Library Showcase Generator — Public Figma plugin for component library documentation.
+${tools}
 
 ## Notable credentials
 
@@ -65,3 +71,7 @@ Essays are grouped in three sections: On Leadership, On Experience Design, and O
 - "How to Curate ARTE: 5 Steps to Agile Repeated Testing for Enhancement" — lightweight usability testing framework
 - "Define Success to Achieve It" — on the discipline of defining success criteria before building
 - "The Triforce of UX" (3-part series) — empathy, curiosity, humility as the core designer virtues
+`, {
+    headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+  });
+}

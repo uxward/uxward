@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import { slate } from '../data/slate.js';
+import { building } from '../data/building.js';
 import { essaysNewestFirst, plainTitle } from '../data/essays.js';
 import { build, shortDate, REPO } from '../data/build-info.js';
 
@@ -37,22 +38,6 @@ const featured = [
     desc: 'Built and led the independent, bias-free usability practice that the automaker brought in-house: 17 studies, 3,500 hours of testing.',
   },
 ].map((f) => ({ ...f, preview: bySlug[f.slug].preview }));
-
-const building = [
-  {
-    name: 'Speakeazy',
-    desc: 'Character prep for audiobook narrators, done by AI. Live, with working narrators using it.',
-    href: 'https://speakeazy.pro',
-  },
-  {
-    name: 'Design Library Showcase Generator',
-    desc: 'A Figma plugin to instantly create a showcase of all library components and their variants.',
-    href: 'https://www.figma.com/community/plugin/1355255111922370746/design-library-showcase-generator-by-precocity',
-  },
-  { name: 'FORGE', desc: 'Feed it content and context, get a built, functioning website: IA, Design System, and code.' },
-  { name: 'Verity', desc: "The beginnings of a complete UX research and reporting platform for agencies and enterprises. The most ambitious thing I'm working on." },
-  { name: 'RAD', desc: 'A dashboard for running and reporting moderated usability studies.' },
-];
 
 const site = import.meta.env.SITE;
 
@@ -476,20 +461,15 @@ const schema = {
             b.href
               ? <a class="item is-live" href={b.href} target="_blank" rel="noopener">
                   <span class="b-name">{b.name} <span class="b-ext" aria-hidden="true">↗</span></span>
-                  <span class="b-desc">{b.desc}</span>
+                  <span class="b-desc" set:html={b.desc} />
                   <span class="b-status">Live</span>
                 </a>
               : <div class="item is-private">
                   <span class="b-name">{b.name}</span>
-                  <span class="b-desc">{b.desc}</span>
+                  <span class="b-desc" set:html={b.desc} />
                   <span class="b-status">Private</span>
                 </div>
           ))}
-          <div class="item is-private">
-            <span class="b-name">Marksman</span>
-            <span class="b-desc">An in-house macOS markdown converter, built with <a href="https://github.com/microsoft/markitdown" target="_blank" rel="noopener">Markitdown</a> at Precocity.</span>
-            <span class="b-status">Private</span>
-          </div>
         </div>
       </div>
     </section>

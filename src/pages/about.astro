@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import { PERSON_NAME, PERSON_JOB_TITLE, PERSON_DESCRIPTION, PERSON_SAME_AS } from '../data/person.js';
+import { building } from '../data/building.js';
 const site = import.meta.env.SITE;
 
 // ProfilePage — this is the page AI systems are most likely to answer *about
@@ -217,12 +218,10 @@ const schema = {
               tools:
             </p>
             <ul>
-              <li><a href="../work/speakeazy">Speakeazy</a> (live, real users)</li>
-              <li>FORGE (a content-driven, AI-powered IA, UX, UI, and Build tool)</li>
-              <li>Verity (a comprehensive UX Research platform)</li>
-              <li>RAD (a visualization and reporting tool for moderated usability studies)</li>
-              <li>Marksman (a macOS Markdown converter mini-app Precocity uses internally for AI projects)</li>
-              <li><a href="https://www.figma.com/community/plugin/1355255111922370746/design-library-showcase-generator-by-precocity">Design Library Showcase Generator</a> (a Figma plugin to help you instantly create a showcase of all library components and their variants)</li>
+              {building.map((b) => {
+                const link = b.caseStudy ? `../work/${b.caseStudy}` : b.href;
+                return <li>{link ? <a href={link}>{b.name}</a> : b.name} ({b.short})</li>;
+              })}
             </ul>
             <p>
               Honestly, the tools matter to me more as proof than as products. I have a hard time trusting
@@ -319,8 +318,11 @@ const schema = {
               <span class="key">Building</span>
               <div class="vals">
                 <span class="val"><a href="../work/speakeazy">Speakeazy</a> — <em>Public, launched Jan. 1, 2026.</em></span>
-                <span class="val">FORGE — Content > IA > Design > Code in minutes. <em>Private alpha, internal.</em></span>
-                <span class="val">Verity — Comprehensive UXR platform that doesn't suck. <em>Private alpha, internal.</em></span>
+                <span class="val">FORGE — Content > IA > Design > Code in minutes. <em>Private, internal.</em></span>
+                <span class="val">Verity — Comprehensive UXR platform that doesn't suck. <em>Private, internal.</em></span>
+                <span class="val">RADAR — a client research tool to perform deep research on a company and its customers. <em>Private, internal.</em></span>
+                <span class="val">Motion-Lab — a sandbox of illustrations, animations, and other motion assets for use in web projects. <em>Private, internal.</em></span>
+                <span class="val">Isocraft — Isometric vector icon generator and editor. <em>Private, internal.</em></span>
               </div>
             </div>
             <div class="currently-row">
